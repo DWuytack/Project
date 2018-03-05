@@ -7,11 +7,11 @@ package model;
 
 /**
  *
- * @author CURSIST
+ * @author Keanu
  */
-public class ScoresDAO {
+public class ScoreDAO {
     private void scoreAanmaken(Gebruiker gebruiker){
-        
+    
     }
     private void scoreAanpassen(Gebruiker gebruiker){
         
