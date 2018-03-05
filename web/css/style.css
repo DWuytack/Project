@@ -20,7 +20,7 @@ and open the template in the editor.
     font-family: 'Raleway';
     font-style: normal;
     font-weight: 400;
-    src: url(raleway_thin-webfont.woff) format('woff');
+    src: url(../fonts/raleway_thin-webfont.woff) format('woff');
 }
 
 .material-icons {
