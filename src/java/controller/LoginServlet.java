@@ -28,7 +28,8 @@ public class LoginServlet extends HttpServlet {
             gebruiker.setLogin(request.getParameter("un"));
             gebruiker.setPaswoord(request.getParameter("pw"));
             
-            gebruiker = GebruikerDAO.login(gebruiker);
+            GebruikerDAO gebruikerDAO=new GebruikerDAO();
+            gebruiker = gebruikerDAO.login(gebruiker);
 
             if (gebruiker.isGeldig()) {
                 HttpSession session = request.getSession(true);
