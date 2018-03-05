@@ -8,6 +8,7 @@ package model;
 /**
  *
  * @author Keanu
+ * hier komen sql query's
  */
 public class ScoreDAO {
     private void scoreAanmaken(Gebruiker gebruiker){
