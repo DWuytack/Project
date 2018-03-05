@@ -1,7 +1,7 @@
 <%-- 
     Document   : userLogged
     Created on : 16-feb-2018, 14:06:33
-    Author     : Dirk
+    Author     : Dirk Wuytack
 --%>
 
 <%@ page language="java" 
