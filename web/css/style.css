@@ -1,0 +1,304 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5-mrt-2018, 9:57:00
+    Author     : CURSIST
+*/
+
+/* IMPORTS */
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/google_material_icons.woff2) format('woff2');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: url(raleway_thin-webfont.woff) format('woff');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+/* SPECIAL STYLING */
+::-webkit-scrollbar { background-color: #e04006; }
+
+/* PAGE STYLING */
+* {}
+
+body {
+    background-color: rgb(252, 254, 255);
+    color: #575759;
+    font-family: sans-serif;
+
+    /* Experimental */
+    background-image: url(bg-chef3.png);
+    background-size: 250px;
+    background-blend-mode: difference;
+}
+
+/* CONTENT STYLING */
+main {
+    margin-top: 54px; /* 52px (+2px border is the header height */
+    padding: 2px;
+}
+
+nav {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 70px;
+    min-height: 50px;
+
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    font-family: Raleway;
+    /* font-family: Verdana,sans-serif; */
+    font-size: 26px;
+    text-align: right;
+    list-style-type: none;
+
+    color: #ec6e24;
+}
+
+#bg-menu {
+    position: relative;
+    width: 100%;
+    max-height: 52px;
+
+    display: flex;
+    justify-content: flex-end;
+
+    background-color: #e04006;
+    border-bottom: 2px solid #f08012;
+
+    transition: width 0.7s ease-in-out;
+    -webkit-transition: width 0.7s ease-in-out;
+}
+nav.active {
+    background-color: rgba(0,0,0,.3);
+}
+
+nav.active > #bg-menu {
+    width: 70px;
+}
+
+nav.active #bt-profile {
+    visibility: hidden;
+    opacity: 0;
+}
+
+#navigation-menu {
+    display: flex;
+    flex-direction: row;
+}
+
+#bt-menu {
+    width: 70px;
+}
+
+#bt-menu:before {
+    content: '☰'; /*'☰×'*/
+
+    position: relative;
+    width: 50px;
+
+    padding: 12px 16px 12px 16px;
+    line-height: 50px;
+    font-size: 42px;
+}
+
+#menu-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+#bt-profile {
+    position: relative;
+
+    display: flex;
+    font-size: 20px;
+    line-height: 50px;
+    white-space:nowrap;
+
+    visibility: visible;
+    opacity: 1;
+
+    transition: visibility 0s .1s, opacity 0.1s linear;
+    -webkit-transition: visibility 0s .1s, opacity 0.1s linear;
+}
+
+#bt-profile:after {
+    content: '\2023';
+    transform: scaleX(1.2) rotate(90deg);
+
+    font-size: 30px;
+
+    transition: transform 300ms ease-in-out;
+    -webkit-transition: transform 300ms ease-in-out;
+}
+
+#bt-profile.active:after {
+    transform: scaleY(1.3) rotate(0deg);
+}
+
+#bt-profile > span {
+    padding-left: 5px;
+    padding-right: 5px;
+    font-weight: bold;
+}
+
+#bt-profile > i {
+    font-size: 30px;
+    line-height: 50px;
+}
+
+#bt-logo {
+    display: none;
+}
+
+#menu {
+    height: 100%;
+    width: 0;
+
+    overflow-y: scroll;
+
+    background: #e04006;
+
+    transition: all 0.7s ease-in-out;
+    -webkit-transition: all 0.7s ease-in-out;
+}
+
+nav.active #menu {
+    width: 100%;
+
+}
+
+#main-menu {
+    position: relative;
+    width: 100%;
+
+    visibility: hidden;
+    opacity: 0;
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-direction: row;
+    padding: 0;
+    text-align: left;
+    text-decoration: none;
+    list-style: none;
+
+    transition: opacity 0s ease-out 0.7s;
+    -webkit-transition: opacity 0s ease-out 0.7s;
+}
+
+#main-menu > li {
+    opacity: 0;
+
+    position: relative;
+    display: flex;
+    min-width: 200px;
+    max-width: 600px;
+    width: 600px;
+    height: 200px;
+
+    flex-wrap: wrap;
+    margin: 10px;
+    text-align: center;
+
+    background-color: #ec6e24;
+
+    /* Experimental */
+    background-image: url(bg-chef3.png);
+    background-size: 250px;
+    background-blend-mode: soft-light;
+
+    transition: opacity .7s ease-out 0.7s;
+    -webkit-transition: opacity .7s ease-out 0.7s;
+}
+
+#main-menu > li > a {
+    width: 100%;
+
+    display: block;
+    margin: auto;
+
+    line-height: 50px;
+    font-size: 50px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 150px #000;
+}
+#main-menu > li:nth-last-child(-n+2) {
+    filter: brightness(75%);
+}
+
+nav.active #main-menu {
+    visibility: visible;
+    opacity: 1;
+}
+
+nav.active #main-menu > li {
+    opacity: 1;
+}
+
+
+@media screen and (max-width: 800px) {
+    #main-menu > li {
+            height: auto;
+    }
+    #main-menu > li > a {
+            font-size: 36px;
+    }
+}
+@media screen and (min-width: 500px) {
+    #main-menu > li:before {
+        content: '?';
+
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        margin: 10px;
+        padding: 5px;
+
+        line-height: 24px;
+        font-size: 24px;
+        border: 1px solid #fff;
+        border-radius: 50px;
+
+        color: #fff;
+    }
+}
