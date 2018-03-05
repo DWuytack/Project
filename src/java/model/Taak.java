@@ -17,14 +17,5 @@ public class Taak {
     private String beschrijving;
     
     // Toevoegen
-    String sql = "INSERT INTO Taken(taakID, naam, beschrijving) VALUES(?,?,?)";
-    //taakID, naam, beschrijving kunnen invoeren
-    
-    //verwijderen
-    String sql2 = "DELETE FROM Taken where taakID='?'";     
-    //de ID van de taak die men wil verwijderen
-
-    //Taak aanpassen:
-    String sql3 = "UPDATE Taken SET naam ='?' where taakID ='?'";
-    //de naam aanpassen door de ID in te vullen
+   
 }
