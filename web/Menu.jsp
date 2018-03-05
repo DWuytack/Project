@@ -6,7 +6,7 @@
 
 <%@ page language="java" 
          contentType="text/html; charset=utf-8"
-         pageEncoding="windows-1256"
+         pageEncoding="utf-8"
          import="model.Gebruiker"
          %>
 
@@ -52,7 +52,7 @@
             <p>
                 Welkom bij het evaluatie programma.
 
-                Klik op ? om verder te gaan.
+                Klik op ☰ om verder te gaan.
             </p>
         </main>
         <footer></footer>
