@@ -2,7 +2,7 @@
     Document   : userLogged
     Created on : 16-feb-2018, 14:06:33
     Author     : Niemand
-Test Ewout
+    Ewout Was Hier
 --%>
 
 <%@ page language="java" 
