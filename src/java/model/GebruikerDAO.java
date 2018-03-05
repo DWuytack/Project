@@ -95,4 +95,7 @@ public class GebruikerDAO {
         return gebruiker;
 
     }
+    public void gebruikerAanmaken() {
+        
+    }
 }
