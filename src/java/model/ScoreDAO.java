@@ -7,11 +7,12 @@ package model;
 
 /**
  *
- * @author CURSIST
+ * @author Keanu
+ * hier komen sql query's
  */
-public class ScoresDAO {
+public class ScoreDAO {
     private void scoreAanmaken(Gebruiker gebruiker){
-        
+    
     }
     private void scoreAanpassen(Gebruiker gebruiker){
         

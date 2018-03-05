@@ -16,10 +16,10 @@ import java.sql.Statement;
  */
 public class GebruikerDAO {
 
-    static Connection currentCon = null;
-    static ResultSet rs = null;
+    public Gebruiker login(Gebruiker gebruiker) {
 
-    public static Gebruiker login(Gebruiker gebruiker) {
+        Connection currentCon = null;
+        ResultSet rs = null;
 
         //preparing some objects for connection 
         Statement stmt = null;
@@ -95,7 +95,8 @@ public class GebruikerDAO {
         return gebruiker;
 
     }
+
     public void gebruikerAanmaken() {
-        
+
     }
 }
