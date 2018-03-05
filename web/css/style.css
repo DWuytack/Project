@@ -40,7 +40,7 @@ and open the template in the editor.
 }
 
 /* SPECIAL STYLING */
-::-webkit-scrollbar { background-color: #e04006; }
+::-webkit-scrollbar { visibility: hidden; }
 
 /* PAGE STYLING */
 * {}
@@ -58,17 +58,6 @@ body {
     -moz-background-size: 100% 30px;
     -ms-background-size: 100% 30px;
     background-size: 100% 30px;
-}
-
-body::before {   
-    content:'';
-    position:absolute;
-    width:0px;
-    top:0;
-    left:39px;
-    bottom:0;
-    border-left:1px solid #F8D3D3;
-    z-index: -1;
 }
 
 body::after {
@@ -109,6 +98,12 @@ nav {
     color: #ec6e24;
 }
 
+/*
+nav:hover {
+	-webkit-filter: hue-rotate(0deg) saturate(1.2);
+}
+*/
+
 #bg-menu {
     position: relative;
     width: 100%;
@@ -117,7 +112,8 @@ nav {
     display: flex;
     justify-content: flex-end;
 
-    background-color: #e04006;
+    background-color: rgba(224,64,6,.99);
+	background-image: url('../images/noise.png');
     border-bottom: 2px solid #f08012;
 
     transition: width 0.7s ease-in-out;
@@ -166,7 +162,7 @@ nav.active #bt-profile {
 
     display: flex;
     font-size: 20px;
-    line-height: 50px;
+    line-height: 52px;
     white-space:nowrap;
 
     visibility: visible;
@@ -211,8 +207,9 @@ nav.active #bt-profile {
 
     overflow-y: scroll;
 
-    background: #e04006;
-
+    background: rgba(224,64,6,.99);
+	background-image: url('../images/noise.png');
+	
     transition: all 0.7s ease-in-out;
     -webkit-transition: all 0.7s ease-in-out;
 }
