@@ -11,5 +11,5 @@ package model;
  * @author Aaron
  */
 public class Taak {
-    
+    // en werkt het nu ook bij deze pc?
 }
