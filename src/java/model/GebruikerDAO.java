@@ -102,6 +102,7 @@ public class GebruikerDAO {
     }
 
     public void gebruikerAanmaken(Gebruiker gebruiker) {
+
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -119,7 +120,7 @@ public class GebruikerDAO {
             ps.setString(5, "login");
             ps.setString(6, "paswoord");
             rs = ps.executeQuery(sql);
-            
+
             while (rs.next()) {
                 String voornaam = rs.getString("voornaam");
                 String achternaam = rs.getString("achternaam");
@@ -128,13 +129,40 @@ public class GebruikerDAO {
                 String login = rs.getString("login");
                 String paswoord = rs.getString("paswoord");
             }
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (Exception e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+
+                currentCon = null;
+            }
         }
     }
-    
+
     public Gebruiker cursistVerwijderen(Gebruiker gebruiker) {
         Connection currentCon = null;
         ResultSet rs = null;
@@ -146,75 +174,147 @@ public class GebruikerDAO {
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
-  
+
             ps.setString(1, "voornaam");
             ps.setString(2, "achternaam");
             rs = ps.executeQuery(sql);
-            
+
             while (rs.next()) {
                 String voornaam = rs.getString("voornaam");
                 String achternaam = rs.getString("achternaam");
             }
-            
-            } catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+
+                currentCon = null;
+            }
         }
         return gebruiker;
     }
-    
+
     public Gebruiker cursistAanpassen(Gebruiker gebruiker) {
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-       String sql = "UPDATE gebruiker(rolID, voornaam, achternaam, geboortedatum, email) VALUES(3,?,?,?,?)";
+        String sql = "UPDATE gebruiker(rolID, voornaam, achternaam, geboortedatum, email) VALUES(3,?,?,?,?)";
 
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
-            
+
             ps.setString(1, "voornaam");
             ps.setString(2, "achternaam");
             ps.setString(3, "geboorteDatum");
             ps.setString(4, "email");
             rs = ps.executeQuery(sql);
-            
+
             while (rs.next()) {
                 String voornaam = rs.getString("voornaam");
                 String achternaam = rs.getString("achternaam");
                 String geboortedatum = rs.getString("geboortedatum");
                 String email = rs.getString("email");
             }
-            
-         } catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+
+                currentCon = null;
+            }
         }
         return gebruiker;
     }
-    
+
     public ArrayList<Gebruiker> getAllCursisten() {
-        
-    ArrayList<Gebruiker> gebruiker = new ArrayList<>();
-    Connection c = null;
-    Statement statement = null;
-    ResultSet rs        = null;
 
-    try {
-        
-        String s    = "SELECT * FROM gebruiker";
+        ArrayList<Gebruiker> gebruiker = new ArrayList<>();
+        Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
 
-        rs          = statement.executeQuery(s);
-        
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String s = "SELECT * FROM gebruiker";
 
-        while (rs.next()) {
-            rs.getString(3);
-            rs.getArray(4);
+            rs = statement.executeQuery(s);
+
+            while (rs.next()) {
+                rs.getString(3);
+                rs.getArray(4);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                rs = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+
+                currentCon = null;
+            }
         }
-    } catch (SQLException e) {
-        System.out.println(e);
-    }finally{
-        //Code to release your resources
+        return gebruiker;
     }
-    return gebruiker;
-}
 }
