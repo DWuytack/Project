@@ -119,19 +119,13 @@ public class GebruikerDAO {
             ps.setString(4, "email");
             ps.setString(5, "login");
             ps.setString(6, "paswoord");
-            rs = ps.executeQuery(sql);
+            ps.executeQuery(sql);
 
-            while (rs.next()) {
-                String voornaam = rs.getString("voornaam");
-                String achternaam = rs.getString("achternaam");
-                String geboortedatum = rs.getString("geboortedatum");
-                String email = rs.getString("email");
-                String login = rs.getString("login");
-                String paswoord = rs.getString("paswoord");
-            }
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
         } finally {
             if (rs != null) {
                 try {
@@ -164,7 +158,7 @@ public class GebruikerDAO {
     }
 
     public Gebruiker cursistVerwijderen(Gebruiker gebruiker) {
-        Connection currentCon = null;
+        Connection connectie = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
 
@@ -172,17 +166,14 @@ public class GebruikerDAO {
                 = "DELETE g FROM gebruiker g inner join rol on g.rolID = rol.rolID WHERE rol = 'cursist' AND voornaam = ? AND achternaam = ?;";
 
         try {
-            currentCon = ConnectionManager.getConnection();
-            ps = currentCon.prepareStatement(sql);
+            connectie = ConnectionManager.getConnection();
+            ps = connectie.prepareStatement(sql);
 
             ps.setString(1, "voornaam");
             ps.setString(2, "achternaam");
-            rs = ps.executeQuery(sql);
+            ps.executeQuery(sql);
 
-            while (rs.next()) {
-                String voornaam = rs.getString("voornaam");
-                String achternaam = rs.getString("achternaam");
-            }
+           
 
         } catch (SQLException ex) {
             Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,14 +196,14 @@ public class GebruikerDAO {
                 ps = null;
             }
 
-            if (currentCon != null) {
+            if (connectie != null) {
                 try {
-                    currentCon.close();
+                    connectie.close();
                 } catch (SQLException e) {
                     System.out.println("Log In failed: An Exception has occurred! " + e);
                 }
 
-                currentCon = null;
+                connectie = null;
             }
         }
         return gebruiker;
@@ -233,14 +224,9 @@ public class GebruikerDAO {
             ps.setString(2, "achternaam");
             ps.setString(3, "geboorteDatum");
             ps.setString(4, "email");
-            rs = ps.executeQuery(sql);
+            ps.executeQuery(sql);
 
-            while (rs.next()) {
-                String voornaam = rs.getString("voornaam");
-                String achternaam = rs.getString("achternaam");
-                String geboortedatum = rs.getString("geboortedatum");
-                String email = rs.getString("email");
-            }
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
