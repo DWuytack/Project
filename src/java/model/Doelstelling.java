@@ -4,14 +4,14 @@ package model;
  * Klasse Doelstelling: Een doelstelling is een verzameling taken die
  * bijeenhoort.
  *
- * @author Ewout Phlips
+ * @author Ewout Phlips 
  */
 public class Doelstelling {
 
-    private int doelstellingID; // ID van de doelstelling in de DataBase
+    private int doelstellingID; // ID van de doelstelling in de DataBase.
     private String naam; // Naam van de doelstelling.
     private String beschrijving; // Beschrijving van de doelstellig.
-    private boolean kerndoelstelling; // Kerndoelstelling. Ja of Nee
+    private boolean kerndoelstelling; // Kerndoelstelling. Ja of Nee.
 
     public int getDoelstellingID() {
         return doelstellingID;
