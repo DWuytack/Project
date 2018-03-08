@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
             if (gebruiker.isGeldig()) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("currentSessionUser", gebruiker);
-                response.sendRedirect("Menu.jsp"); //logged-in page      		
+                response.sendRedirect("BeginMenu.jsp"); //logged-in page      		
             } else {
                 response.sendRedirect("InvalidLogin.jsp"); //error page 
             }
