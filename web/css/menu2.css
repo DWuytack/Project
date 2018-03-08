@@ -1,0 +1,172 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 8-mrt-2018, 11:08:32
+    Author     : CURSIST
+*/
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5-mrt-2018, 9:57:00
+    Author     : CURSIST
+*/
+
+/* IMPORTS */
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/google_material_icons.woff2) format('woff2');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/raleway_thin-webfont.woff) format('woff');
+}
+
+/* SPECIAL STYLING */
+::-webkit-scrollbar { display: none; }
+
+/* PAGE STYLING */
+* {}
+
+body {
+    background-color: rgba(224,64,6,.99);
+	background-image: url('../images/noise.png');
+	
+    color: #ec6e24;
+	
+    font-family: sans-serif;
+}
+
+header {
+	position: relative;
+	text-align: center;
+	min-height: 100px;
+	max-height: 200px;
+	display: flex;
+}
+header > h1 {
+	margin: auto;
+	line-height: 100px;
+	font-size: 50px;
+}
+
+/* CONTENT STYLING */
+
+nav {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    font-family: Raleway;
+    list-style-type: none;
+}
+
+#menu {
+    width: 100%;
+	margin: auto;
+
+    overflow-y: scroll;
+
+    background: rgba(224,64,6,.99);
+	background-image: url('../images/noise.png');
+	
+    transition: all 0.7s ease-in-out;
+    -webkit-transition: all 0.7s ease-in-out;
+}
+
+#main-menu {
+    position: relative;
+    width: 100%;
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-direction: row;
+    padding: 0;
+    text-align: left;
+    text-decoration: none;
+    list-style: none;
+}
+
+#main-menu > li {
+    position: relative;
+    display: flex;
+    min-width: 400px;
+    max-width: 600px;
+    height: 75px;
+
+    flex-wrap: wrap;
+	margin: 10px;
+	padding: 5px;
+    text-align: center;
+
+    background-color: #ec6e24;
+
+    /* Experimental */
+    background-image: url(../images/bg-chef3.png);
+    background-size: 250px;
+    background-blend-mode: soft-light;
+
+    transition: opacity .7s ease-out 0.7s;
+    -webkit-transition: opacity .7s ease-out 0.7s;
+}
+
+#main-menu > li > a {
+    width: 100%;
+
+    display: block;
+    margin: auto;
+
+    line-height: 30px;
+    font-size: 30px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 150px #000;
+}
+#main-menu > li:nth-last-child(-n+3) {
+    filter: brightness(75%);
+}
+
+@media screen and (min-width: 1250px) {
+    #main-menu > li {
+			width: 600px;
+    }
+    #main-menu > li > a {
+			font-size: 36px;
+			padding: 10px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #main-menu > li {
+            height: auto;
+			width: auto;
+    }
+    #main-menu > li > a {
+			font-size: 24px;
+			padding: 10px;
+    }
+	header {
+		display: none;
+	}
+}
