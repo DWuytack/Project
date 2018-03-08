@@ -19,7 +19,6 @@
         
         <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
         
-        
        
         <% if (gebruiker.getRol().equals("admin")) { %>
         
