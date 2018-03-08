@@ -13,14 +13,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Startmenu</title>
     </head>
     <body>
         <h2>Score On Web</h2><br>
         <form action="LoginServlet">
-
+            
+         
             <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
 
+            <h2><p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p> </h2>
+        
+            
             <% if (gebruiker.getRol().equals("admin")) { %>
                 <input type="button" value="Overzicht cursisten" name="cursisten"/><br>
                 <input type="button" value="Overzicht doelstellingen" name="doelstellingen"/><br>

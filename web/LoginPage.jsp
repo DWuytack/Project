@@ -9,7 +9,6 @@
 <html>
     <head>
         <title>Login Pagina</title>
-        <p>voorbeeld</p>
         <link rel="stylesheet" href="css/login.css">
     </head>
 
