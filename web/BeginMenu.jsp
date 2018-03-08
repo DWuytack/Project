@@ -23,32 +23,32 @@
 
         <h2><p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p> </h2>
         <nav>    
-            <form action="LoginServlet" id="main-menu">
+            <form action="MenuServlet" id="main-menu">
 
                 <% if (gebruiker.getRol().equals("admin")) { %>
-                    <input type="button" value="Overzicht cursisten" name="cursisten"/><br>
-                    <input type="button" value="Overzicht doelstellingen" name="doelstellingen"/><br>
-                    <input type="button" value="Overzicht taken"  name="taken"/><br>
-                    <input type="button" value="Overzicht opleidingen" name="opleidingen"/><br>
-                    <input type="button" value="Overzicht modules" name="modules"/><br>
-                    <input type="button" value="Overzicht scores" name="modules"/><br>
+                    <input type="submit" value="Overzicht cursisten" name="actie"/><br>
+                    <input type="submit" value="Overzicht doelstellingen" name="actie"/><br>
+                    <input type="submit" value="Overzicht taken"  name="actie"/><br>
+                    <input type="submit" value="Overzicht opleidingen" name="actie"/><br>
+                    <input type="submit" value="Overzicht modules" name="actie"/><br>
+                    <input type="submit" value="Overzicht scores" name="actie"/><br>
                 <%} %>
 
                 <% if (gebruiker.getRol().equals("leerkracht")) { %>
-                    <input type="button" value="Evaluatieformulieren" name="evaluatie"/><br> 
-                    <input type="button" value="Overzicht cursisten" name="cursisten"/><br>
-                    <input type="button" value="Overzicht doelstellingen" name="doelstellingen"/><br>
-                    <input type="button" value="Overzicht taken"  name="taken"/><br>
-                    <input type="button" value="Overzicht opleidingen" name="opleidingen"/><br>
-                    <input type="button" value="Overzicht modules" name="modules"/><br>
+                    <input type="submit" value="Evaluatieformulieren" name="actie"/><br> 
+                    <input type="submit" value="Overzicht cursisten" name="actie"/><br>
+                    <input type="submit" value="Overzicht doelstellingen" name="actie"/><br>
+                    <input type="submit" value="Overzicht taken"  name="actie"/><br>
+                    <input type="submit" value="Overzicht opleidingen" name="actie"/><br>
+                    <input type="submit" value="Overzicht modules" name="actie"/><br>
                 <%}%>
 
                 <% if (gebruiker.getRol().equals("cursist")) { %>
-                    <input type="button" value="Rapport" name="rapport"/><br>
+                    <input type="submit" value="Rapport" name="actie"/><br>
                 <% } %>
 
                 <% if (gebruiker.getRol().equals("secretariaat")) { %>
-                    <input type="button" value="Overzicht scores" name="modules"/><br>
+                    <input type="submit" value="Overzicht scores" name="actie"/><br>
                 <%}%>
             </form>
         </nav>
