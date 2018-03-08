@@ -39,6 +39,9 @@ public class MenuServlet extends HttpServlet {
                 case "Overzicht cursisten":
                     response.sendRedirect("CursistenOverzicht.jsp");
                     break;
+                case "Overzicht gebruikers":
+                    response.sendRedirect("GebruikersOverzicht.jsp");
+                    break;
                 case "Overzicht doelstellingen":
                     response.sendRedirect("Doelstelling.jsp");
                     break;

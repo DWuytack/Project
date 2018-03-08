@@ -26,9 +26,13 @@
         <input type="button" value="Cursist aanpassen" name="aanpassen"/><br>
         <input type="button" value="Cursist verwijderen"  name="verwijderen"/><br>
         
+         <% } %>
+        
         
         <% if (gebruiker.getRol().equals("secretariaat")) { %>
         <input type="button" value="Cursist toevoegen" name="toevoegen"/><br>
         <input type="button" value="Cursist aanpassen" name="aanpassen"/><br>
+         <% } %>
+         
     </body>
 </html>

@@ -26,7 +26,7 @@
             <form action="MenuServlet" id="main-menu">
 
                 <% if (gebruiker.getRol().equals("admin")) { %>
-                    <input type="submit" value="Overzicht cursisten" name="actie"/><br>
+                    <input type="submit" value="Overzicht gebruikers" name="actie"/><br>
                     <input type="submit" value="Overzicht doelstellingen" name="actie"/><br>
                     <input type="submit" value="Overzicht taken"  name="actie"/><br>
                     <input type="submit" value="Overzicht opleidingen" name="actie"/><br>
