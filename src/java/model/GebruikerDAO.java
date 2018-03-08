@@ -7,8 +7,13 @@ package model;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -59,14 +64,14 @@ public class GebruikerDAO {
                 gebruiker.setEmail(email);
                 gebruiker.setGeldig(true);
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             System.out.println("Inloggen niet gelukt! : Volgende fout heeft zich voorgedaan: " + ex);
         } //some exception handling
         finally {
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (Exception e) {
+                } catch (SQLException e) {
                     System.out.println("Log In failed: An Exception has occurred! " + e);
                 }
                 rs = null;
@@ -96,7 +101,206 @@ public class GebruikerDAO {
 
     }
 
-    public void gebruikerAanmaken() {
+    public void gebruikerAanmaken(Gebruiker gebruiker) {
 
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "INSERT INTO gebruiker(rolID, voornaam, achternaam, geboortedatum, email, login, paswoord) VALUES(3,?,?,?,?,?,MD5(?));";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, "voornaam");
+            ps.setString(2, "achternaam");
+            ps.setString(3, "geboortedatum");
+            ps.setString(4, "email");
+            ps.setString(5, "login");
+            ps.setString(6, "paswoord");
+            ps.executeQuery(sql);
+
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (Exception e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+
+                currentCon = null;
+            }
+        }
+    }
+
+    public Gebruiker cursistVerwijderen(Gebruiker gebruiker) {
+        Connection connectie = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        String sql
+                = "DELETE g FROM gebruiker g inner join rol on g.rolID = rol.rolID WHERE rol = 'cursist' AND voornaam = ? AND achternaam = ?;";
+
+        try {
+            connectie = ConnectionManager.getConnection();
+            ps = connectie.prepareStatement(sql);
+
+            ps.setString(1, "voornaam");
+            ps.setString(2, "achternaam");
+            ps.executeQuery(sql);
+
+           
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                ps = null;
+            }
+
+            if (connectie != null) {
+                try {
+                    connectie.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+
+                connectie = null;
+            }
+        }
+        return gebruiker;
+    }
+
+    public Gebruiker cursistAanpassen(Gebruiker gebruiker) {
+        Connection currentCon = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        String sql = "UPDATE gebruiker(rolID, voornaam, achternaam, geboortedatum, email) VALUES(3,?,?,?,?)";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, "voornaam");
+            ps.setString(2, "achternaam");
+            ps.setString(3, "geboorteDatum");
+            ps.setString(4, "email");
+            ps.executeQuery(sql);
+
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+
+                currentCon = null;
+            }
+        }
+        return gebruiker;
+    }
+
+    public ArrayList<Gebruiker> getAllCursisten() {
+
+        ArrayList<Gebruiker> gebruiker = new ArrayList<>();
+        Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String s = "SELECT * FROM gebruiker";
+
+            rs = statement.executeQuery(s);
+
+            while (rs.next()) {
+                rs.getString(3);
+                rs.getArray(4);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+                rs = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                }
+
+                currentCon = null;
+            }
+        }
+        return gebruiker;
     }
 }
