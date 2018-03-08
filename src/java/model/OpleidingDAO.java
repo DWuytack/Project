@@ -14,23 +14,22 @@ import java.sql.Statement;
  *
  * @author Davino
  */
-public class ModuleDAO {
+public class OpleidingDAO {
     
-     private void ModuleAanmaken(Module module) {
+     private void OpleidingToevoegen(Opleiding opleiding) {
 
         //connectie maken met database
         Connection connectie = null;
 
         //insertquery
-        String sql = "INSERT INTO Modules "
-                + "(moduleID,opleidingID,naam) VALUES (?,?,?)";
+        String sql = "INSERT INTO Opleidingen "
+                + "(opleidingID,naam) VALUES (?,?)";
 
         //opslaan in database
         try {
             PreparedStatement statement = connectie.prepareStatement(sql);
-            statement.setInt(1, module.getmoduleID());
-            statement.setInt(2, module.getopleidingID());
-            statement.setString(3, module.getnaam());
+            statement.setInt(1, opleiding.getopleidingID());
+            statement.setString(2, opleiding.getnaam());
             statement.execute();
             statement.close();
             connectie.close();
@@ -40,17 +39,17 @@ public class ModuleDAO {
         }
     }
 
-    private void ModuleAanpassen(Module module) {
+    private void OpleidingAanpassen(Opleiding opleiding) {
 
         //connectie maken met database
         Connection connectie = null;
         connectie = ConnectionManager.getConnection();
 
         //insertquery
-        String sql = "UPDATE Modules "
-                + " set naam =  " + module.getnaam() + ", opleidingID= "
-                + module.getopleidingID() + " where moduleID= "
-                + module.getmoduleID();
+        String sql = "UPDATE Opleidingen "
+                + " set naam =  " + opleiding.getnaam() 
+                + " where opleidingID= "
+                + opleiding.getopleidingID();
 
         //opslaan in database
         try {
@@ -65,14 +64,14 @@ public class ModuleDAO {
 
     }
 
-    private void ModuleVerwijderen(Module module) {
+    private void OpleidingVerwijderen(Opleiding opleiding) {
 
         //connectie maken met database
         Connection connectie = null;
 
         //insertquery
-        String sql = "DELETE FROM Modules "
-                + " where moduleID= " + module.getmoduleID();
+        String sql = "DELETE FROM Opleidingen "
+                + " where opleidingID= " + opleiding.getopleidingID();
 
         //opslaan in database
         try {
@@ -86,7 +85,6 @@ public class ModuleDAO {
         }
 
     }
-    
     
     
 }
