@@ -21,7 +21,7 @@
         
         <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
 
-        <h2><p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p> </h2>
+        <p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p>
         <nav>    
             <form action="MenuServlet" id="main-menu">
 
