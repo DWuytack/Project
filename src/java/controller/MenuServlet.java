@@ -14,12 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Gebruiker;
 import model.GebruikerDAO;
+import model.Score;
+import model.ScoreDAO;
 
 /**
  *
  * @author Dirk
  */
 public class MenuServlet extends HttpServlet {
+
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,7 +41,7 @@ public class MenuServlet extends HttpServlet {
         try {
 
             String actie = request.getParameter("actie");
-
+            HttpSession session = request.getSession(true);
             switch (actie) {
 
                 case "Overzicht cursisten":
@@ -45,7 +49,7 @@ public class MenuServlet extends HttpServlet {
                     //laden van cursisten uit database
                     GebruikerDAO gebruikerDAO = new GebruikerDAO();
                     ArrayList<Gebruiker> gebruikers = gebruikerDAO.cursistenLaden();
-                    HttpSession session = request.getSession(true);
+
                     session.setAttribute("lijstGebruikers", gebruikers);
 
                     response.sendRedirect("CursistenOverzicht.jsp");
@@ -71,7 +75,14 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("Module.jsp");
                     break;
                 case "Overzicht scores":
+                    //laden van de scores uit de database
+                    
                     response.sendRedirect("Score.jsp");
+
+                    ScoreDAO scoreDAO = new ScoreDAO();
+                    ArrayList<Score> score = ScoreDAO.scoreLaden();
+                    session.setAttribute("lijstScores", score);
+
                     break;
                 case "Evaluatieformulieren":
                     response.sendRedirect("EvaluatieFormulier.jsp");
@@ -80,6 +91,7 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("Rapport.jsp");
                     break;
                 case "Type score aanpassen":
+                    //laden van de types scores
                     response.sendRedirect("TypeScore.jsp");
                     break;
             }
