@@ -130,8 +130,7 @@ public class GebruikerDAO {
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException e) {
-                    
+                } catch (SQLException e) {  
                 }
                 rs = null;
             }
