@@ -25,6 +25,6 @@ public class ScoreDAO {
          throw new UnsupportedOperationException("Schrijf code.");        
     }
     private void scoreVerwijderen(Gebruiker gebruiker){
-            throw new UnsupportedOperationException("Schrijf code.");                 
+            throw new UnsupportedOperationException("Schrijf code.");                  
 }
 }
