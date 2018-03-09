@@ -1,8 +1,10 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Klasse Doelstelling DataBase Access Object: Alles handeling in verband met
@@ -13,7 +15,7 @@ import java.sql.SQLException;
 public class DoelstellingDAO {
 
     //Creër een nieuwe doelstelling.
-    public void DoelstellingAanmaken(Doelstelling doelstelling) {
+    public void doelstellingAanmaken(Doelstelling doelstelling) {
 
         Connection currentCon = null;
         
@@ -41,7 +43,7 @@ public class DoelstellingDAO {
     }
 
     //Pas een doelstelling aan.
-    public void DoelstellingAanpassen(Doelstelling doelstelling) {
+    public void doelstellingAanpassen(Doelstelling doelstelling) {
         Connection currentCon = null;
 
         String sqlQuery //Query voor het aanpassen van een doelstelling.
@@ -69,7 +71,7 @@ public class DoelstellingDAO {
     }
 
     //Verwijdert een doelstelling.
-    public void DoelstellingVerwijderen(Doelstelling doelstelling) {
+    public void doelstellingVerwijderen(Doelstelling doelstelling) {
         Connection currentCon = null;
 
         String sqlQuery //Query voor het verwijderen van een doelstelling.
@@ -92,5 +94,40 @@ public class DoelstellingDAO {
             }
         }
     }
-
+    
+    //Laad alle Doelstellingen uit de Database.
+    public ArrayList<Doelstelling> doelstellingenLaden() {
+        Statement stmt;
+        
+        Connection currentCon;
+        ResultSet rs;
+        
+        ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
+        
+        String selectDoelstellingen = "SELECT * FROM doelstellingen;";
+        
+        try {
+            currentCon = ConnectionManager.getConnection();
+            stmt =  currentCon.createStatement();
+            rs = stmt.executeQuery(selectDoelstellingen);
+            
+            while(rs.next()) {
+                Doelstelling doelstelling = new Doelstelling();
+                doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
+                doelstelling.setNaam(rs.getString("naam"));
+                doelstelling.setBeschrijving(rs.getString("beschrijving"));
+                doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
+                
+                doelstellingen.add(doelstelling);
+            }
+            
+            currentCon.close();
+            
+            return doelstellingen;
+            
+        } catch(Exception e) {
+            System.out.println("Error - Kon geen doelstellingen laden.");
+            return null;
+        }
+    }
 }

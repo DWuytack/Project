@@ -75,6 +75,8 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("Module.jsp");
                     break;
                 case "Overzicht scores":
+                    //laden van de scores uit de database
+                    
                     response.sendRedirect("Score.jsp");
 
                     ScoreDAO scoreDAO = new ScoreDAO();
@@ -89,6 +91,7 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("Rapport.jsp");
                     break;
                 case "Type score aanpassen":
+                    //laden van de types scores
                     response.sendRedirect("TypeScore.jsp");
                     break;
             }
