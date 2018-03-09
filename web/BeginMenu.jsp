@@ -21,7 +21,7 @@
         <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
         <nav>
             <li id="profiel" tabindex="1">
-                <a>
+                <a id="bt-profiel">
                     <i class="material-icons">person</i>
                     <span><%= gebruiker.getVoorNaam() + " " + gebruiker.getAchternaam() %></span>
                 </a>
@@ -85,8 +85,9 @@
         </section>
         <script>
             document.addEventListener("click", function(e){
-                if(e.target.id === "profiel") {
-                    alert("ok");
+                console.log(e.target.id);
+                if(e.target.id === "bt-profiel") {
+                    e.target.blur();
                     var loc = document.querySelector("#profiel");
                     if(!loc.className.includes("active"))
                         loc.className += " active";
