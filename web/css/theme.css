@@ -1,0 +1,66 @@
+/* IMPORTS */
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/google_material_icons.woff2) format('woff2');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/raleway_thin-webfont.woff) format('woff');
+}
+
+/* SPECIAL STYLING */
+::-webkit-scrollbar { display: none; } /* Chrome Only */
+
+/* PRESET MODIFICATION */
+input[type="button"], input[type="submit"] { 
+    border: none;
+    background: none;
+} 
+input[type="button"]:focus, input[type="submit"]:focus {
+    outline: none;
+    filter: brightness(75%);
+}
+
+/* PAGE STYLING */
+* {}
+
+body {
+    background-color: rgba(224,64,6,.99);
+    background-image: url('../images/noise.png');
+    color: #fff;
+	
+    font-family: sans-serif;
+}
+
+/* CONTENT STYLING */
+
+header {
+    position: relative;
+    text-align: center;
+    min-height: 100px;
+    max-height: 200px;
+    display: flex;
+}
+
+nav {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    font-family: Raleway;
+    list-style-type: none;
+    color: #ec6e24;
+}
+
+header > h1 {
+    margin: auto;
+    line-height: 100px;
+    font-size: 50px;
+}
