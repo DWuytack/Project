@@ -1,21 +1,106 @@
-/* HEADER */
-header {
-    position: relative;
-    text-align: center;
-    min-height: 100px;
-    max-height: 200px;
+/* NAV */
+nav {
+    font-family: Raleway;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+nav > li {
+    
+}
+
+#profiel {
+}
+
+#profiel > a {
+    position: relative;				
+    display: flex;
+    font-size: 20px;
+    line-height: 50px;
+    padding: 0 10px;
+    
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+#profiel > a:after {
+    content: '\2023';
+    transform: scaleX(1.2) rotate(90deg);
+    font-size: 30px;
+
+    transition: transform 300ms ease-in-out;
+    -webkit-transition: transform 300ms ease-in-out;
+}
+
+#profiel > a > i {
+    font-size: 30px;
+    line-height: 50px;
+}
+#profiel > a > span {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#bt-profile.active:after {
+    transform: scaleY(1.3) rotate(0deg);
+}
+
+.dropdown {
+    list-style: none;
+    margin: 0;
+    display: none;
+    flex-direction: column;
+}
+.dropdown li {
+    padding: 0 10px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+}
+.dropdown a {
+    text-decoration: none;
+    padding: 10px;
     display: flex;
 }
 
-header > h1 {
-    margin: auto;
-    line-height: 100px;
-    font-size: 50px;
+.dropdown > li > a > i {
+    font-size: 24px;
+    line-height: 24px;
 }
 
-/* NAV */
+.dropdown a > span {
+    margin-left: 3px;
+    margin-right: 0;
+    line-height: 24px;
+}
+.active > .dropdown {
+    display: flex;
+}
 
-nav {
+/* HEADER */
+header {
+    position: relative;
+    min-height: 100px;
+    max-height: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+header > img {
+}
+
+/* SECTION: WELKOM */
+#welkom > p {
+    text-align: center;
+    font-size: 24px;
+}
+
+/* SECTION: NAVIGATION MENU */
+
+#nav-menu {
     position: relative;
     width: 100%;
     display: flex;

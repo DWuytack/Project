@@ -18,12 +18,41 @@
         <link rel="stylesheet" href="css/menu.css">
     </head>
     <body>
-        <h2>Score On Web</h2><br>
-        <img src="images/LogoPCVO.png">
         <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
-
-        <p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p>
-        <nav>    
+        <nav>
+            <li id="profiel" tabindex="1">
+                <a>
+                    <i class="material-icons">person</i>
+                    <span><%= gebruiker.getVoorNaam() + " " + gebruiker.getAchternaam() %></span>
+                </a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="#">
+                            <i class="material-icons">person</i><span>Profiel</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon-cog"></i><span>Instellingen</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon-remove"></i><span>Uitloggen</span>
+                        </a>
+                    </li>
+                </ul>
+                
+            </li>
+        </nav>
+        <header>
+            <!-- <h2>Score On Web</h2><br> -->
+            <img src="images/LogoPCVO.png">
+        </header>
+        <section id="welkom">
+            <p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p>
+        </section>
+        <section id="nav-menu">    
             <form action="MenuServlet" id="main-menu">
 
                 <% if (gebruiker.getRol().equals("admin")) { %>
@@ -53,6 +82,18 @@
                     <input type="submit" value="Overzicht scores" name="actie"/><br>
                 <%}%>
             </form>
-        </nav>
+        </section>
+        <script>
+            document.addEventListener("click", function(e){
+                if(e.target.id === "profiel") {
+                    alert("ok");
+                    var loc = document.querySelector("#profiel");
+                    if(!loc.className.includes("active"))
+                        loc.className += " active";
+                    else
+                        loc.classList.remove("active");
+                }
+            });
+        </script>
     </body>
 </html>

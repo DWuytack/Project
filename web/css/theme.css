@@ -16,6 +16,23 @@
 /* SPECIAL STYLING */
 ::-webkit-scrollbar { display: none; } /* Chrome Only */
 
+/* SPECIAL CLASSES */
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
 /* PRESET MODIFICATION */
 input[type="button"], input[type="submit"] { 
     border: none;
@@ -30,12 +47,14 @@ input[type="button"]:focus, input[type="submit"]:focus {
 * {}
 
 body {
-    background-color: rgba(224,64,6,.99);
+    /* background-color: rgba(224,64,6,.99); */
     background-image: url('../images/noise.png');
-    color: #fff;
+    color: #333;
 	
     font-family: sans-serif;
 }
 
 /* CONTENT STYLING */
-
+nav {
+    list-style: none;
+}
