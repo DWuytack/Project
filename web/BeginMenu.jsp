@@ -14,11 +14,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Startmenu</title>
-        <link rel="stylesheet" href="css/menu2.css">
+        <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/menu.css">
     </head>
     <body>
         <h2>Score On Web</h2><br>
-        
+        <img src="images/LogoPCVO.png">
         <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
 
         <p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p>
