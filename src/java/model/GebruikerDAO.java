@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 public class GebruikerDAO {
 
     public Gebruiker login(Gebruiker gebruiker) {
-
         Connection currentCon = null;
         ResultSet rs = null;
 
@@ -35,7 +34,7 @@ public class GebruikerDAO {
         String searchQuery
                 = "select Gebruiker.*, Rol.rol from Gebruiker"
                 + " inner join Rol on Gebruiker.rolID= Rol.rolID "
-                + "where login='" + login + "' AND wachtwoord=md5('" + paswoord + "')";
+                + "where login='" + login + "' AND wachtwoord=md5('" + paswoord + "');";
         try {
             //connectie met onze database
             currentCon = ConnectionManager.getConnection();
@@ -72,7 +71,7 @@ public class GebruikerDAO {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 rs = null;
             }
@@ -81,7 +80,7 @@ public class GebruikerDAO {
                 try {
                     stmt.close();
                 } catch (Exception e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 stmt = null;
             }
@@ -90,7 +89,7 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (Exception e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
 
                 currentCon = null;
@@ -100,6 +99,66 @@ public class GebruikerDAO {
         return gebruiker;
 
     }
+
+     public ArrayList<Gebruiker> cursistenLaden() {
+         
+        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
+        Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String s = "SELECT * FROM Gebruiker;";
+            statement = currentCon.createStatement();
+            rs = statement.executeQuery(s);
+            
+            
+            
+            while (rs.next()) {
+                Gebruiker gebruiker = new Gebruiker();
+                gebruiker.setVoorNaam(rs.getString("voornaam"));
+                gebruiker.setAchternaam(rs.getString("achternaam"));
+                gebruiker.setGeboorteDatum(rs.getDate("geboorteDatum"));
+                gebruiker.setEmail(rs.getString("email"));
+                
+                gebruikers.add(gebruiker);
+            }
+        } catch (SQLException e) {
+            
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {  
+                }
+                rs = null;
+            }
+            
+             if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception e) {
+                    
+                }
+
+                statement = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+                    
+                }
+
+                currentCon = null;
+            }
+            
+        }
+        return gebruikers;
+    }
+
 
     public void gebruikerAanmaken(Gebruiker gebruiker) {
 
@@ -124,14 +183,14 @@ public class GebruikerDAO {
             
 
         } catch (SQLException ex) {
-            Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
             
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 rs = null;
             }
@@ -140,7 +199,7 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (Exception e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 ps = null;
             }
@@ -149,7 +208,7 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
 
                 currentCon = null;
@@ -158,31 +217,29 @@ public class GebruikerDAO {
     }
 
     public Gebruiker cursistVerwijderen(Gebruiker gebruiker) {
-        Connection connectie = null;
+        Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
 
         String sql
                 = "DELETE g FROM gebruiker g inner join rol on g.rolID = rol.rolID WHERE rol = 'cursist' AND voornaam = ? AND achternaam = ?;";
 
-        try {
-            connectie = ConnectionManager.getConnection();
-            ps = connectie.prepareStatement(sql);
+        try {    
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
 
             ps.setString(1, "voornaam");
             ps.setString(2, "achternaam");
             ps.executeQuery(sql);
 
-           
-
         } catch (SQLException ex) {
-            Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 rs = null;
             }
@@ -191,19 +248,19 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                   
                 }
                 ps = null;
             }
 
-            if (connectie != null) {
+            if (currentCon != null) {
                 try {
-                    connectie.close();
+                    currentCon.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
 
-                connectie = null;
+                currentCon = null;
             }
         }
         return gebruiker;
@@ -226,16 +283,14 @@ public class GebruikerDAO {
             ps.setString(4, "email");
             ps.executeQuery(sql);
 
-            
-
         } catch (SQLException ex) {
-            Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 rs = null;
             }
@@ -244,7 +299,7 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 ps = null;
             }
@@ -253,7 +308,7 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
 
                 currentCon = null;
@@ -261,46 +316,5 @@ public class GebruikerDAO {
         }
         return gebruiker;
     }
-
-    public ArrayList<Gebruiker> getAllCursisten() {
-
-        ArrayList<Gebruiker> gebruiker = new ArrayList<>();
-        Connection currentCon = null;
-        Statement statement = null;
-        ResultSet rs = null;
-
-        try {
-            currentCon = ConnectionManager.getConnection();
-            String s = "SELECT * FROM gebruiker";
-
-            rs = statement.executeQuery(s);
-
-            while (rs.next()) {
-                rs.getString(3);
-                rs.getArray(4);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
-                }
-                rs = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
-                }
-
-                currentCon = null;
-            }
-        }
-        return gebruiker;
-    }
+  
 }

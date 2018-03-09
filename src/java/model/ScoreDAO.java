@@ -5,19 +5,26 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Keanu
  * hier komen sql query's
  */
 public class ScoreDAO {
-    private void scoreAanmaken(Gebruiker gebruiker){
+
+    public static ArrayList<Score> scoreLaden() {
+        throw new UnsupportedOperationException("Schrijf code."); 
+    }
     
+    private void scoreAanmaken(Gebruiker gebruiker){
+         throw new UnsupportedOperationException("Schrijf code.");    
     }
     private void scoreAanpassen(Gebruiker gebruiker){
-        
+         throw new UnsupportedOperationException("Schrijf code.");        
     }
     private void scoreVerwijderen(Gebruiker gebruiker){
-                    
+            throw new UnsupportedOperationException("Schrijf code.");                  
 }
 }
