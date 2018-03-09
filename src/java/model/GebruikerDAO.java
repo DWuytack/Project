@@ -101,15 +101,64 @@ public class GebruikerDAO {
     }
 
      public ArrayList<Gebruiker> cursistenLaden() {
-      
          
-         
-         
-         return null;
-     }
-    
-    
-    
+        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
+        Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String s = "SELECT * FROM gebruiker";
+
+            rs = statement.executeQuery(s);
+            
+            Gebruiker gebruiker = new Gebruiker();
+            
+            while (rs.next()) {
+                gebruiker.setVoorNaam(rs.getString("voornaam"));
+                gebruiker.setAchternaam(rs.getString("achternaam"));
+                gebruiker.setGeboorteDatum(rs.getDate("geboorteDatum"));
+                gebruiker.setEmail(rs.getString("email"));
+                
+                gebruikers.add(gebruiker);
+            }
+        } catch (SQLException e) {
+            
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    
+                }
+                rs = null;
+            }
+            
+             if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception e) {
+                    
+                }
+
+                statement = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+                    
+                }
+
+                currentCon = null;
+            }
+        }
+        return gebruikers;
+    }
+
+
     public void gebruikerAanmaken(Gebruiker gebruiker) {
 
         Connection currentCon = null;
@@ -270,46 +319,5 @@ public class GebruikerDAO {
         }
         return gebruiker;
     }
-
-    public ArrayList<Gebruiker> cursistenLaden() {
-
-        ArrayList<Gebruiker> gebruiker = new ArrayList<>();
-        Connection currentCon = null;
-        Statement statement = null;
-        ResultSet rs = null;
-
-        try {
-            currentCon = ConnectionManager.getConnection();
-            String s = "SELECT * FROM gebruiker";
-
-            rs = statement.executeQuery(s);
-
-            while (rs.next()) {
-                rs.getString(3);
-                rs.getArray(4);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    
-                }
-                rs = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-                    
-                }
-
-                currentCon = null;
-            }
-        }
-        return gebruiker;
-    }
+  
 }
