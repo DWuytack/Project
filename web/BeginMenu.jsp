@@ -32,6 +32,7 @@
                     <input type="submit" value="Overzicht opleidingen" name="actie"/><br>
                     <input type="submit" value="Overzicht modules" name="actie"/><br>
                     <input type="submit" value="Overzicht scores" name="actie"/><br>
+                    <input type="submit" value="Type score aanpassen" name="actie"/><br>
                 <%} %>
 
                 <% if (gebruiker.getRol().equals("leerkracht")) { %>
