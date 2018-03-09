@@ -17,27 +17,28 @@
     </head>
     <body>
 
-        <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
+        <form action="GebruikersServlet">
+            <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
 
-        <% if (gebruiker.getRol().equals("admin")) { %>
+            <% if (gebruiker.getRol().equals("admin")) { %>
 
-        <input type="button" value="Cursist toevoegen" name="toevoegen"/><br>
-        <input type="button" value="Cursist aanpassen" name="aanpassen"/><br>
-        <input type="button" value="Cursist verwijderen"  name="verwijderen"/><br>
+            <input type="submit" value="Cursist toevoegen" name="actie"/><br>
+            <input type="submit" value="Cursist aanpassen" name="actie"/><br>
+            <input type="submit" value="Cursist verwijderen"  name="actie"/><br>
 
-        <% } %>
+            <% } %>
 
-        <% if (gebruiker.getRol().equals("leerkracht")) { %>
-        <input type="button" value="Cursist toevoegen" name="toevoegen"/><br>
-        <input type="button" value="Cursist aanpassen" name="aanpassen"/><br>
+            <% if (gebruiker.getRol().equals("leerkracht")) { %>
+            <input type="submit" value="Cursist toevoegen" name="actie"/><br>
+            <input type="submit" value="Cursist aanpassen" name="actie"/><br>
 
-        <% } %>
+            <% } %>
 
-        <% if (gebruiker.getRol().equals("secretariaat")) { %>
-        <input type="button" value="Cursist toevoegen" name="toevoegen"/><br>
-        <input type="button" value="Cursist aanpassen" name="aanpassen"/><br>
-        <% }%>
+            <% if (gebruiker.getRol().equals("secretariaat")) { %>
+            <input type="submit" value="Cursist toevoegen" name="actie"/><br>
+            <input type="submit" value="Cursist aanpassen" name="actie"/><br>
+            <% }%>
 
-
+        </form>
     </body>
 </html>
