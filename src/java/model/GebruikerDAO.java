@@ -34,7 +34,7 @@ public class GebruikerDAO {
         String searchQuery
                 = "select Gebruiker.*, Rol.rol from Gebruiker"
                 + " inner join Rol on Gebruiker.rolID= Rol.rolID "
-                + "where login='" + login + "' AND wachtwoord=md5('" + paswoord + "')";
+                + "where login='" + login + "' AND wachtwoord=md5('" + paswoord + "');";
         try {
             //connectie met onze database
             currentCon = ConnectionManager.getConnection();
@@ -109,13 +109,14 @@ public class GebruikerDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String s = "SELECT * FROM gebruiker";
-
+            String s = "SELECT * FROM Gebruiker;";
+            statement = currentCon.createStatement();
             rs = statement.executeQuery(s);
             
-            Gebruiker gebruiker = new Gebruiker();
+            
             
             while (rs.next()) {
+                Gebruiker gebruiker = new Gebruiker();
                 gebruiker.setVoorNaam(rs.getString("voornaam"));
                 gebruiker.setAchternaam(rs.getString("achternaam"));
                 gebruiker.setGeboorteDatum(rs.getDate("geboorteDatum"));
@@ -217,22 +218,20 @@ public class GebruikerDAO {
     }
 
     public Gebruiker cursistVerwijderen(Gebruiker gebruiker) {
-        Connection connectie = null;
+        Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
 
         String sql
                 = "DELETE g FROM gebruiker g inner join rol on g.rolID = rol.rolID WHERE rol = 'cursist' AND voornaam = ? AND achternaam = ?;";
 
-        try {
-            connectie = ConnectionManager.getConnection();
-            ps = connectie.prepareStatement(sql);
+        try {    
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
 
             ps.setString(1, "voornaam");
             ps.setString(2, "achternaam");
             ps.executeQuery(sql);
-
-           
 
         } catch (SQLException ex) {
             
@@ -255,14 +254,14 @@ public class GebruikerDAO {
                 ps = null;
             }
 
-            if (connectie != null) {
+            if (currentCon != null) {
                 try {
-                    connectie.close();
+                    currentCon.close();
                 } catch (SQLException e) {
                     
                 }
 
-                connectie = null;
+                currentCon = null;
             }
         }
         return gebruiker;
@@ -284,8 +283,6 @@ public class GebruikerDAO {
             ps.setString(3, "geboorteDatum");
             ps.setString(4, "email");
             ps.executeQuery(sql);
-
-            
 
         } catch (SQLException ex) {
             
