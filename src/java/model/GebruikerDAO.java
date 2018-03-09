@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 public class GebruikerDAO {
 
     public Gebruiker login(Gebruiker gebruiker) {
-
         Connection currentCon = null;
         ResultSet rs = null;
 
@@ -72,7 +71,7 @@ public class GebruikerDAO {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 rs = null;
             }
@@ -81,7 +80,7 @@ public class GebruikerDAO {
                 try {
                     stmt.close();
                 } catch (Exception e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 stmt = null;
             }
@@ -90,7 +89,7 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (Exception e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
 
                 currentCon = null;
@@ -124,14 +123,14 @@ public class GebruikerDAO {
             
 
         } catch (SQLException ex) {
-            Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
             
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 rs = null;
             }
@@ -140,7 +139,7 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (Exception e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 ps = null;
             }
@@ -149,7 +148,7 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
 
                 currentCon = null;
@@ -176,13 +175,13 @@ public class GebruikerDAO {
            
 
         } catch (SQLException ex) {
-            Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 rs = null;
             }
@@ -191,7 +190,7 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                   
                 }
                 ps = null;
             }
@@ -200,7 +199,7 @@ public class GebruikerDAO {
                 try {
                     connectie.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
 
                 connectie = null;
@@ -229,13 +228,13 @@ public class GebruikerDAO {
             
 
         } catch (SQLException ex) {
-            Logger.getLogger(GebruikerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 rs = null;
             }
@@ -244,7 +243,7 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 ps = null;
             }
@@ -253,7 +252,7 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
 
                 currentCon = null;
@@ -262,7 +261,7 @@ public class GebruikerDAO {
         return gebruiker;
     }
 
-    public ArrayList<Gebruiker> getAllCursisten() {
+    public ArrayList<Gebruiker> cursistenLaden() {
 
         ArrayList<Gebruiker> gebruiker = new ArrayList<>();
         Connection currentCon = null;
@@ -286,7 +285,7 @@ public class GebruikerDAO {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
                 rs = null;
             }
@@ -295,7 +294,7 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (Exception e) {
-                    System.out.println("Log In failed: An Exception has occurred! " + e);
+                    
                 }
 
                 currentCon = null;
