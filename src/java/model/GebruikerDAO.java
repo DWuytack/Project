@@ -154,6 +154,7 @@ public class GebruikerDAO {
 
                 currentCon = null;
             }
+            
         }
         return gebruikers;
     }
