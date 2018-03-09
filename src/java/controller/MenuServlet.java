@@ -6,10 +6,14 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Gebruiker;
+import model.GebruikerDAO;
 
 /**
  *
@@ -37,21 +41,33 @@ public class MenuServlet extends HttpServlet {
             switch (actie) {
 
                 case "Overzicht cursisten":
+
+                    //laden van cursisten uit database
+                    GebruikerDAO gebruikerDAO = new GebruikerDAO();
+                    ArrayList<Gebruiker> gebruikers = gebruikerDAO.cursistenLaden();
+                    HttpSession session = request.getSession(true);
+                    session.setAttribute("lijstGebruikers", gebruikers);
+
                     response.sendRedirect("CursistenOverzicht.jsp");
                     break;
                 case "Overzicht gebruikers":
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
                 case "Overzicht doelstellingen":
+
+                    //laden van doelstellingen uit database
                     response.sendRedirect("Doelstelling.jsp");
                     break;
                 case "Overzicht taken":
                     response.sendRedirect("Taken.jsp");
                     break;
                 case "Overzicht opleidingen":
+                    //laden van modules
                     response.sendRedirect("Opleiding.jsp");
                     break;
                 case "Overzicht modules":
+                    //laden van modules uit database
+
                     response.sendRedirect("Module.jsp");
                     break;
                 case "Overzicht scores":
@@ -63,7 +79,9 @@ public class MenuServlet extends HttpServlet {
                 case "Rapport":
                     response.sendRedirect("Rapport.jsp");
                     break;
-
+                case "Type score aanpassen":
+                    response.sendRedirect("TypeScore.jsp");
+                    break;
             }
 
         } catch (Throwable theException) {

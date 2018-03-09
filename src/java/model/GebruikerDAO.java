@@ -100,6 +100,16 @@ public class GebruikerDAO {
 
     }
 
+     public ArrayList<Gebruiker> cursistenLaden() {
+      
+         
+         
+         
+         return null;
+     }
+    
+    
+    
     public void gebruikerAanmaken(Gebruiker gebruiker) {
 
         Connection currentCon = null;
