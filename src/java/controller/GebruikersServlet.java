@@ -6,16 +6,19 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Dirk
+ * @author CURSIST
  */
-public class MenuServlet extends HttpServlet {
+@WebServlet(name = "GebruikersServlet", urlPatterns = {"/GebruikersServlet"})
+public class GebruikersServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,48 +31,27 @@ public class MenuServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
-        try {
+        String actie = request.getParameter("actie");
 
-            String actie = request.getParameter("actie");
+        switch (actie) {
 
-            switch (actie) {
-
-                case "Overzicht cursisten":
-                    response.sendRedirect("CursistenOverzicht.jsp");
-                    break;
-                case "Overzicht gebruikers":
-                    response.sendRedirect("GebruikersOverzicht.jsp");
-                    break;
-                case "Overzicht doelstellingen":
-                    response.sendRedirect("Doelstelling.jsp");
-                    break;
-                case "Overzicht taken":
-                    response.sendRedirect("Taken.jsp");
-                    break;
-                case "Overzicht opleidingen":
-                    response.sendRedirect("Opleiding.jsp");
-                    break;
-                case "Overzicht modules":
-                    response.sendRedirect("Module.jsp");
-                    break;
-                case "Overzicht scores":
-                    response.sendRedirect("Score.jsp");
-                    break;
-                case "Evaluatieformulieren":
-                    response.sendRedirect("EvaluatieFormulier.jsp");
-                    break;
-                case "Rapport":
-                    response.sendRedirect("Rapport.jsp");
-                    break;
-                case "Type score aanpassen":
-                    response.sendRedirect("TypeScore.jsp");
-                    break;
-            }
-
-        } catch (Throwable theException) {
-            System.out.println(theException);
+            case "Cursist toevoegen":
+                
+                
+                
+                response.sendRedirect("CursistenOverzicht.jsp");
+                break;
+            case "Cursist aanpassen":
+                
+                response.sendRedirect("GebruikersOverzicht.jsp");
+                break;
+            case "Cursist verwijderen":
+                
+                
+                response.sendRedirect("Doelstelling.jsp");
+                break;
+           
         }
 
     }
