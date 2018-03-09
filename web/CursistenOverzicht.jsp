@@ -23,10 +23,10 @@
 
         <form action="GebruikersServlet">
 
-            <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
+            <% ArrayList<Gebruiker> lijstCursisten = (ArrayList<Gebruiker>) (session.getAttribute("lijstCursisten"));%>
 
             <table>
-                <c:forEach items="${lijstGebruikers}" var="gebruiker">
+                <c:forEach items="${lijstCursisten}" var="gebruiker">
                     <tr>
                         <td> ${gebruiker.achternaam} <td>
                         <td> ${gebruiker.voorNaam} <td>

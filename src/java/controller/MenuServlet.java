@@ -48,13 +48,17 @@ public class MenuServlet extends HttpServlet {
 
                     //laden van cursisten uit database
                     GebruikerDAO gebruikerDAO = new GebruikerDAO();
-                    ArrayList<Gebruiker> gebruikers = gebruikerDAO.cursistenLaden();
+                    ArrayList<Gebruiker> cursisten = gebruikerDAO.cursistenLaden();
 
-                    session.setAttribute("lijstGebruikers", gebruikers);
+                    session.setAttribute("lijstCursisten", cursisten);
 
                     response.sendRedirect("CursistenOverzicht.jsp");
                     break;
                 case "Overzicht gebruikers":
+                    GebruikerDAO gebruikerDAO2 = new GebruikerDAO();
+                    ArrayList<Gebruiker> gebruikers = gebruikerDAO2.gebruikersLaden();
+
+                    session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
                 case "Overzicht doelstellingen":

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.Connection;
@@ -12,12 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
- * @author Dirk
+ *  Deze klasse is verantwoordelijk voor alle gebruikersbewerkingen in de database.
+ * @author Gil
  */
 public class GebruikerDAO {
 
@@ -102,27 +95,25 @@ public class GebruikerDAO {
 
      public ArrayList<Gebruiker> cursistenLaden() {
          
-        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
+        ArrayList<Gebruiker> cursisten = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
         ResultSet rs = null;
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String s = "SELECT * FROM Gebruiker;";
+            String sql = "SELECT * FROM Gebruiker;";
             statement = currentCon.createStatement();
-            rs = statement.executeQuery(s);
-            
-            
+            rs = statement.executeQuery(sql);
             
             while (rs.next()) {
                 Gebruiker gebruiker = new Gebruiker();
                 gebruiker.setVoorNaam(rs.getString("voornaam"));
                 gebruiker.setAchternaam(rs.getString("achternaam"));
-                gebruiker.setGeboorteDatum(rs.getDate("geboorteDatum"));
+                gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
                 gebruiker.setEmail(rs.getString("email"));
                 
-                gebruikers.add(gebruiker);
+                cursisten.add(gebruiker);
             }
         } catch (SQLException e) {
             
@@ -156,7 +147,7 @@ public class GebruikerDAO {
             }
             
         }
-        return gebruikers;
+        return cursisten;
     }
 
 
@@ -315,6 +306,62 @@ public class GebruikerDAO {
             }
         }
         return gebruiker;
+    }
+
+    public ArrayList<Gebruiker> gebruikersLaden() {
+        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
+        Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "SELECT * FROM Gebruiker;";
+            statement = currentCon.createStatement();
+            rs = statement.executeQuery(sql);
+            
+            while (rs.next()) {
+                Gebruiker gebruiker = new Gebruiker();
+                gebruiker.setVoorNaam(rs.getString("voornaam"));
+                gebruiker.setAchternaam(rs.getString("achternaam"));
+                gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
+                gebruiker.setEmail(rs.getString("email"));
+                
+                gebruikers.add(gebruiker);
+            }
+        } catch (SQLException e) {
+            
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {  
+                }
+                rs = null;
+            }
+            
+             if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception e) {
+                    
+                }
+
+                statement = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+                    
+                }
+
+                currentCon = null;
+            }
+            
+        }
+        return gebruikers;
     }
   
 }
