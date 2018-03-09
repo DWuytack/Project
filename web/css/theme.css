@@ -39,28 +39,3 @@ body {
 
 /* CONTENT STYLING */
 
-header {
-    position: relative;
-    text-align: center;
-    min-height: 100px;
-    max-height: 200px;
-    display: flex;
-}
-
-nav {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin: 0;
-    padding: 0;
-    font-family: Raleway;
-    list-style-type: none;
-    color: #ec6e24;
-}
-
-header > h1 {
-    margin: auto;
-    line-height: 100px;
-    font-size: 50px;
-}
