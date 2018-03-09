@@ -28,17 +28,17 @@
                 <ul class="dropdown">
                     <li>
                         <a href="#">
-                            <i class="material-icons">person</i><span>Profiel</span>
+                            <i class="material-icons">account_box</i><span>Profiel</span>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="icon-cog"></i><span>Instellingen</span>
+                            <i class="material-icons">settings</i><span>Instellingen</span>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="icon-remove"></i><span>Uitloggen</span>
+                            <i class="material-icons">exit_to_app</i><span>Uitloggen</span>
                         </a>
                     </li>
                 </ul>
