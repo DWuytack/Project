@@ -50,10 +50,12 @@ html {
     
     pointer-events: none;
 }
+
 input, a {
     pointer-events: all;
     cursor: pointer;
 }
+
 a * {
     pointer-events: none;
 }
