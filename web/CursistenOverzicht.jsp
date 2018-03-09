@@ -28,7 +28,7 @@
                 <c:forEach items="${lijstGebruikers}" var="gebruiker">
                     <tr>
                         <td> ${gebruiker.achternaam} <td>
-                        <td> ${gebruiker.voornaam} <td>
+                        <td> ${gebruiker.voorNaam} <td>
                         <td> ${gebruiker.geboorteDatum} <td>
                         <td> ${gebruiker.email} <td>
                     </tr>
