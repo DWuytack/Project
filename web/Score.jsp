@@ -40,7 +40,7 @@
             <% } %>
 
             <% if (gebruiker.getRol().equals("secretariaat")) { %>
-                <input type="submit" value="Overzicht scores" name="actiet"/><br>
+                <input type="submit" value="Overzicht scores" name="actie"/><br>
             <%}%>
         </form>
         
