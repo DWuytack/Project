@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
         <h1>Hier komt het rapport van een individuele cursist!</h1>

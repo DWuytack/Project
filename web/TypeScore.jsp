@@ -14,6 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Score on Web</title>
+        <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
         <h1>Hier worden de type scores aangepast</h1>

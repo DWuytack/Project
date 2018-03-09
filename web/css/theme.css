@@ -14,7 +14,7 @@
 }
 
 /* SPECIAL STYLING */
-::-webkit-scrollbar { display: none; } /* Chrome Only */
+body > ::-webkit-scrollbar { display: none; } /* Chrome Only */
 
 /* SPECIAL CLASSES */
 .material-icons {
@@ -34,18 +34,41 @@
 }
 
 /* PRESET MODIFICATION */
+:focus {
+    outline: none;
+}
+
+* {}
+
+html {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    
+    pointer-events: none;
+}
+
+input, a {
+    pointer-events: all;
+    cursor: pointer;
+}
+
+a * {
+    pointer-events: none;
+}
+
 input[type="button"], input[type="submit"] { 
     border: none;
     background: none;
 } 
 input[type="button"]:focus, input[type="submit"]:focus {
-    outline: none;
     filter: brightness(75%);
 }
 
 /* PAGE STYLING */
-* {}
-
 body {
     /* background-color: rgba(224,64,6,.99); */
     background-image: url('../images/noise.png');
@@ -57,4 +80,9 @@ body {
 /* CONTENT STYLING */
 nav {
     list-style: none;
+    z-index: 10;
+}
+
+header {
+    z-index: 1;
 }

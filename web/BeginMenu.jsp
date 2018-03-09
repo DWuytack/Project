@@ -21,24 +21,24 @@
         <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
         <nav>
             <li id="profiel" tabindex="1">
-                <a>
+                <a id="bt-profiel">
                     <i class="material-icons">person</i>
                     <span><%= gebruiker.getVoorNaam() + " " + gebruiker.getAchternaam() %></span>
                 </a>
                 <ul class="dropdown">
                     <li>
                         <a href="#">
-                            <i class="material-icons">person</i><span>Profiel</span>
+                            <i class="material-icons">account_box</i><span>Profiel</span>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="icon-cog"></i><span>Instellingen</span>
+                            <i class="material-icons">settings</i><span>Instellingen</span>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="icon-remove"></i><span>Uitloggen</span>
+                            <i class="material-icons">exit_to_app</i><span>Uitloggen</span>
                         </a>
                     </li>
                 </ul>
@@ -85,8 +85,9 @@
         </section>
         <script>
             document.addEventListener("click", function(e){
-                if(e.target.id === "profiel") {
-                    alert("ok");
+                console.log(e.target.id);
+                if(e.target.id === "bt-profiel") {
+                    e.target.blur();
                     var loc = document.querySelector("#profiel");
                     if(!loc.className.includes("active"))
                         loc.className += " active";

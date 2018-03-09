@@ -16,6 +16,7 @@
     <head>
          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Score Menu</title>
+        <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
         <h2>Score On Web</h2><br>
