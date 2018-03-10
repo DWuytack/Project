@@ -14,6 +14,12 @@
         <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
+        <nav class="top-navigatie">
+            <li id="menu">
+                <a id="bt-menu" title="Menu"></a>
+            </li>
+        </nav>
+        <br><br>
         <h1>Hier komt het overzicht van de taken!</h1>
     </body>
 </html>

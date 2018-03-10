@@ -20,6 +20,12 @@
         <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
+        <nav class="top-navigatie">
+            <li id="menu">
+                <a id="bt-menu" title="Menu"></a>
+            </li>
+        </nav>
+        <br><br>
         <h2>Score On Web</h2><br>
         <form action="ScoreServlet">
             

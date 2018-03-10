@@ -19,6 +19,12 @@
         <title>Gebruikers overzicht</title>
     </head>
     <body>
+        <nav class="top-navigatie">
+            <li id="menu">
+                <a id="bt-menu" title="Menu"></a>
+            </li>
+        </nav>
+        <br><br>
         <form action="GebruikersServlet">
             <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
 

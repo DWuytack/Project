@@ -18,6 +18,12 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <nav class="top-navigatie">
+            <li id="menu">
+                <a id="bt-menu" title="Menu"></a>
+            </li>
+        </nav>
+        <br><br>
         <h2>Modules</h2><br>
          
          

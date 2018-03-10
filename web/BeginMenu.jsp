@@ -20,7 +20,12 @@
     </head>
     <body>
         <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
-        <nav>
+        <nav class="top-navigatie">
+            <li id="afmelden">
+                <a id="bt-afmelden" title="Afmelden">
+                    <i class="material-icons">exit_to_app</i>
+                </a>
+            </li>
             <li id="profiel" tabindex="1">
                 <a id="bt-profiel">
                     <i class="material-icons">person</i>
@@ -39,7 +44,7 @@
                     </li>
                     <li>
                         <a href="#">
-                            <i class="material-icons">exit_to_app</i><span>Uitloggen</span>
+                            <i class="material-icons">exit_to_app</i><span>Afmelden</span>
                         </a>
                     </li>
                 </ul>
