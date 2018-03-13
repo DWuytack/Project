@@ -27,19 +27,20 @@
                         <i class="material-icons">exit_to_app</i>
                     </a>
                 </li>
+                <img id="logo" src="images/LogoPCVO.png" width="165" height="50">
                 <li id="profiel" tabindex="1">
                     <a id="bt-profiel">
                         <i class="material-icons">person</i>
                     </a>
                     <ul class="dropdown">
                         <li>
-                            <a href="Profiel.jsp">
+                            <a id="bt-naam">
                                 <i class="material-icons">account_box</i><span><%= gebruiker.getVoorNaam() + " " + gebruiker.getAchternaam() %></span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="material-icons">settings</i><span>Instellingen</span>
+                            <a href="Profiel.jsp" title="profiel">
+                                <i class="material-icons">settings</i><span>Profiel</span>
                             </a>
                         </li>
                         <li>
@@ -52,8 +53,6 @@
                 </li>
             </nav>
             <header>
-                <!-- <h2>Score On Web</h2><br> -->
-                <img src="images/LogoPCVO.png">
             </header>
             <section id="welkom">
                 <p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p>

@@ -33,11 +33,15 @@ li.active > #bt-profiel:after {
 
 .dropdown {
     position: absolute;
+    top: 60px;
     right: 0;
     list-style: none;
     margin: 0;
     display: none;
     flex-direction: column;
+    
+    background-image: url(images/noise.png);
+    padding: 0;
 }
 .dropdown li {
     padding: 0 10px;
@@ -64,18 +68,19 @@ li.active > .dropdown {
     display: flex;
 }
 
+#bt-naam {
+    cursor: default;
+}
+
 /* HEADER */
 header {
     position: relative;
-    min-height: 100px;
-    max-height: 200px;
     display: flex;
     justify-content: center;
 }
 
-header > img {
-    width: 500px;
-    height: auto;
+#logo {
+    margin: auto;
 }
 
 /* SECTION: WELKOM */
@@ -165,11 +170,5 @@ header > img {
     #main-menu > li > a {
         font-size: 24px;
         padding: 10px;
-    }
-    header {
-        display: none;
-    }
-    #bt-profiel > span {
-        display: none;
     }
 }
