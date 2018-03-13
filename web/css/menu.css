@@ -74,6 +74,8 @@ header {
 }
 
 header > img {
+    width: 500px;
+    height: auto;
 }
 
 /* SECTION: WELKOM */
