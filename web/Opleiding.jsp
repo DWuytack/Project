@@ -4,6 +4,8 @@
     Author     : Davino
 --%>
 
+<%@page import="model.Opleiding"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" 
          contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"
@@ -26,6 +28,22 @@
         <br><br>
         <h2>Opleidingen</h2><br>
         
+         <form action="MenuServlet">
+
+            <% ArrayList<Opleiding> lijstOpleidingen = (ArrayList<Opleiding>) (session.getAttribute("lijstOpleidingen"));%>
+
+            <table>
+                <c:forEach items="${lijstModules}" var="opleiding">
+                    <tr>
+                        <td> ${opleiding.opleidingID} <td>
+                        <td> ${opleiding.naam} <td>
+                       
+                       
+                    </tr>
+                </c:forEach>
+            </table>
+
+        
          
         <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
          
@@ -34,11 +52,7 @@
          <input type="button" value="Opleiding Aanpassen" name="Aanpassen"/><br>
          <input type="button" value="Opleiding Verwijderen"name="Verwijderen"/><br>
             <%} %>
-            <% if (gebruiker.getRol().equals("leerkracht")) { %>
-          <input type="button" value="Opleiding Toevoegen" name="Toevoegen"/><br>
-         <input type="button" value="Opleiding Aanpassen" name="Aanpassen"/><br>
-         <input type="button" value="Opleiding Verwijderen"name="Verwijderen"/><br>
-            <%} %>
+     
             
         
     </body>

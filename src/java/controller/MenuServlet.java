@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Gebruiker;
 import model.GebruikerDAO;
+import model.Module;
+import model.ModuleDAO;
+import model.Opleiding;
+import model.OpleidingDAO;
 import model.Score;
 import model.ScoreDAO;
 
@@ -70,11 +74,15 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("Taken.jsp");
                     break;
                 case "Overzicht opleidingen":
-                    //laden van modules
+                    OpleidingDAO opleidingDAO2 = new OpleidingDAO();
+                    ArrayList<Opleiding> opleidingen = opleidingDAO2.opleidingenLaden();
+                    session.setAttribute("lijstOpleidingen", opleidingen);
                     response.sendRedirect("Opleiding.jsp");
                     break;
                 case "Overzicht modules":
-                    //laden van modules uit database
+                    ModuleDAO moduleDAO2 = new ModuleDAO();
+                    ArrayList<Module> modules = moduleDAO2.modulesLaden();
+                    session.setAttribute("lijstModules", modules);
 
                     response.sendRedirect("Module.jsp");
                     break;
