@@ -4,6 +4,8 @@
     Author     : Davino
 --%>
 
+<%@page import="model.Module"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" 
          contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"
@@ -25,7 +27,20 @@
         </nav>
         <br><br>
         <h2>Modules</h2><br>
-         
+          <form action="MenuServlet">
+
+            <% ArrayList<Module> lijstModules = (ArrayList<Module>) (session.getAttribute("lijstModules"));%>
+
+            <table>
+                <c:forEach items="${lijstModules}" var="module">
+                    <tr>
+                        <td> ${module.moduleID} <td>
+                        <td> ${module.opleidingID} <td>
+                        <td> ${module.naam} <td>
+                       
+                    </tr>
+                </c:forEach>
+            </table>
          
         <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
          
@@ -34,11 +49,7 @@
          <input type="button" value="Module Aanpassen" name="Aanpassen"/><br>
          <input type="button" value="Module Verwijderen"name="Verwijderen"/><br>
             <%} %>
-            <% if (gebruiker.getRol().equals("leerkracht")) { %>
-          <input type="button" value="Module Toevoegen" name="Toevoegen"/><br>
-         <input type="button" value="Module Aanpassen" name="Aanpassen"/><br>
-         <input type="button" value="Module Verwijderen"name="Verwijderen"/><br>
-            <%} %>
+      
             
         
     </body>
