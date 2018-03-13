@@ -1,7 +1,7 @@
 <%-- 
     Document   : CursistenOverzicht
     Created on : 8-mrt-2018, 11:27:41
-    Author     : CURSIST
+    Author     : Gil
 --%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" 
@@ -50,12 +50,6 @@
             <input type="submit" value="Cursist toevoegen" name="actie"/><br>
             <input type="submit" value="Cursist aanpassen" name="actie"/><br>
             <input type="submit" value="Cursist verwijderen"  name="actie"/><br>
-
-            <% } %>
-
-            <% if (gebruiker.getRol().equals("leerkracht")) { %>
-            <input type="submit" value="Cursist toevoegen" name="actie"/><br>
-            <input type="submit" value="Cursist aanpassen" name="actie"/><br>
 
             <% } %>
 

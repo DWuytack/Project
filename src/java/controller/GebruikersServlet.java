@@ -7,11 +7,15 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Gebruiker;
+import model.GebruikerDAO;
 
 /**
  *
@@ -33,25 +37,58 @@ public class GebruikersServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String actie = request.getParameter("actie");
+        HttpSession session = request.getSession(true);
+        GebruikerDAO gebruikerDAO = new GebruikerDAO();
 
         switch (actie) {
 
             case "Cursist toevoegen":
                 
-                
-                
+                gebruikerDAO.cursistAanmaken();
+
+                //session.setAttribute("ToegevoegdeCursist");
                 response.sendRedirect("CursistenOverzicht.jsp");
                 break;
-            case "Cursist aanpassen":
                 
-                response.sendRedirect("GebruikersOverzicht.jsp");
+            case "Cursist aanpassen":
+              
+                //gebruikerDAO.cursistAanpassen();
+
+                //session.setAttribute("AangemaakteCursist");
+                response.sendRedirect("CursistenOverzicht.jsp");
                 break;
+                
             case "Cursist verwijderen":
                 
+                //gebruikerDAO.cursistVerwijderen(gebruiker);
+
+                //session.setAttribute("VerwijderdeCursist");
+                response.sendRedirect("CursistenOverzicht.jsp");
+                break;
                 
-                response.sendRedirect("Doelstelling.jsp");
+            case "Gebruiker toevoegen":
+                
+                gebruikerDAO.gebruikerAanmaken();
+
+                //session.setAttribute("AangemaakteCursist");
+                response.sendRedirect("GebruikersOverzicht.jsp");
                 break;
            
+            case "Gebruiker aanpassen":
+                
+                //gebruikerDAO.gebruikerAanpassen(gebruiker);
+
+                //session.setAttribute("AangepasteGebruiker");
+                response.sendRedirect("GebruikersOverzicht.jsp");
+                break;
+                
+            case "Gebruiker verwijderen":
+                
+                //gebruikerDAO.gebruikerVerwijderen(gebruiker);
+
+                //session.setAttribute("VerwijderdeGebruiker");
+                response.sendRedirect("GebruikersOverzicht.jsp");
+                break;
         }
 
     }

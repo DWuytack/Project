@@ -1,7 +1,7 @@
 <%-- 
     Document   : Gebruiker
     Created on : 8-mrt-2018, 11:16:41
-    Author     : CURSIST
+    Author     : Gil
 --%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" 
@@ -46,16 +46,16 @@
        
         <% if (gebruiker.getRol().equals("admin")) { %>
         
-        <input type="button" value="Gebruiker toevoegen" name="actie"/><br>
-        <input type="button" value="Gebruiker aanpassen" name="actie"/><br>
-        <input type="button" value="Gebruiker verwijderen"  name="actie"/><br>
+        <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
+        <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
+        <input type="submit" value="Gebruiker verwijderen"  name="actie"/><br>
         
          <% } %>
         
         
         <% if (gebruiker.getRol().equals("secretariaat")) { %>
-        <input type="button" value="Gebruiker toevoegen" name="actie"/><br>
-        <input type="button" value="Gebruiker aanpassen" name="actie"/><br>
+        <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
+        <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
          <% } %>
         
          </form>

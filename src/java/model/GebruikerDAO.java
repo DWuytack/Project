@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *  Deze klasse is verantwoordelijk voor alle gebruikersbewerkingen in de database.
+ * Deze klasse is verantwoordelijk voor alle gebruikersbewerkingen in de database.
  * @author Gil
  */
 public class GebruikerDAO {
@@ -93,7 +93,7 @@ public class GebruikerDAO {
 
     }
 
-     public ArrayList<Gebruiker> cursistenLaden() {
+    public ArrayList<Gebruiker> cursistenLaden() {
          
         ArrayList<Gebruiker> cursisten = new ArrayList<>();
         Connection currentCon = null;
@@ -102,7 +102,7 @@ public class GebruikerDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Gebruiker;";
+            String sql = "SELECT voornaam,  FROM Gebruiker WHERE Gebruiker.rolID = 3;";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
             
@@ -150,10 +150,8 @@ public class GebruikerDAO {
         return cursisten;
     }
 
-
-    public void gebruikerAanmaken(Gebruiker gebruiker) {
-
-        Connection currentCon = null;
+    public void cursistAanmaken() {
+         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -205,59 +203,10 @@ public class GebruikerDAO {
                 currentCon = null;
             }
         }
+        
     }
-
-    public Gebruiker cursistVerwijderen(Gebruiker gebruiker) {
-        Connection currentCon = null;
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-
-        String sql
-                = "DELETE g FROM gebruiker g inner join rol on g.rolID = rol.rolID WHERE rol = 'cursist' AND voornaam = ? AND achternaam = ?;";
-
-        try {    
-            currentCon = ConnectionManager.getConnection();
-            ps = currentCon.prepareStatement(sql);
-
-            ps.setString(1, "voornaam");
-            ps.setString(2, "achternaam");
-            ps.executeQuery(sql);
-
-        } catch (SQLException ex) {
-            
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                   
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-                    
-                }
-
-                currentCon = null;
-            }
-        }
-        return gebruiker;
-    }
-
-    public Gebruiker cursistAanpassen(Gebruiker gebruiker) {
+    
+    public void cursistAanpassen(Gebruiker gebruiker) {
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -305,9 +254,59 @@ public class GebruikerDAO {
                 currentCon = null;
             }
         }
-        return gebruiker;
+        
     }
+    
+    public void cursistVerwijderen(Gebruiker gebruiker) {
+        Connection currentCon = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
 
+        String sql
+                = "DELETE g FROM gebruiker g inner join rol on g.rolID = rol.rolID WHERE rol = 'cursist' AND voornaam = ? AND achternaam = ?;";
+
+        try {    
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, "voornaam");
+            ps.setString(2, "achternaam");
+            ps.executeQuery(sql);
+
+        } catch (SQLException ex) {
+            
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                   
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+                    
+                }
+
+                currentCon = null;
+            }
+        }
+        
+    }
+    
     public ArrayList<Gebruiker> gebruikersLaden() {
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
         Connection currentCon = null;
@@ -362,6 +361,161 @@ public class GebruikerDAO {
             
         }
         return gebruikers;
+    }
+    
+    public void gebruikerAanmaken() {
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "INSERT INTO gebruiker(rolID, voornaam, achternaam, geboortedatum, email, login, paswoord) VALUES(2,?,?,?,?,?,MD5(?));";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, "voornaam");
+            ps.setString(2, "achternaam");
+            ps.setString(3, "geboortedatum");
+            ps.setString(4, "email");
+            ps.setString(5, "login");
+            ps.setString(6, "paswoord");
+            ps.executeQuery(sql);
+
+            
+
+        } catch (SQLException ex) {
+            
+            
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (Exception e) {
+                    
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+                    
+                }
+
+                currentCon = null;
+            }
+        }
+    }
+    
+    public void gebruikerAanpassen(Gebruiker gebruiker) {
+        Connection currentCon = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        String sql = "UPDATE gebruiker(rolID, voornaam, achternaam, geboortedatum, email) VALUES(2,?,?,?,?)";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, "voornaam");
+            ps.setString(2, "achternaam");
+            ps.setString(3, "geboorteDatum");
+            ps.setString(4, "email");
+            ps.executeQuery(sql);
+
+        } catch (SQLException ex) {
+            
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+                    
+                }
+
+                currentCon = null;
+            }
+        }
+        
+    }
+
+    public void gebruikerVerwijderen(Gebruiker gebruiker) {
+        Connection currentCon = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        String sql
+                = "DELETE g FROM gebruiker g inner join rol on g.rolID = rol.rolID WHERE rol = 'leerkracht' AND voornaam = ? AND achternaam = ?;";
+
+        try {    
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, "voornaam");
+            ps.setString(2, "achternaam");
+            ps.executeQuery(sql);
+
+        } catch (SQLException ex) {
+            
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                   
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+                    
+                }
+
+                currentCon = null;
+            }
+        }
     }
   
 }
