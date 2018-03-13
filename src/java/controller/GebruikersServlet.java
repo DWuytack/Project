@@ -1,25 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Gebruiker;
 import model.GebruikerDAO;
 
 /**
- *
- * @author CURSIST
+ *  Deze klasse bevat alle mogelijke knoppen naar gebruikersbewerkingen.
+ *  @author Gil
  */
 @WebServlet(name = "GebruikersServlet", urlPatterns = {"/GebruikersServlet"})
 public class GebruikersServlet extends HttpServlet {
@@ -36,6 +29,7 @@ public class GebruikersServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        try {
         String actie = request.getParameter("actie");
         HttpSession session = request.getSession(true);
         GebruikerDAO gebruikerDAO = new GebruikerDAO();
@@ -89,9 +83,13 @@ public class GebruikersServlet extends HttpServlet {
                 //session.setAttribute("VerwijderdeGebruiker");
                 response.sendRedirect("GebruikersOverzicht.jsp");
                 break;
+            }
+        } catch (Throwable theException) {
+            
         }
 
     }
+        
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
