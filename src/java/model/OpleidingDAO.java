@@ -7,8 +7,10 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -84,6 +86,62 @@ public class OpleidingDAO {
 
         }
 
+    }
+    
+     public ArrayList<Opleiding> opleidingenLaden() {
+         
+        ArrayList<Opleiding> opleidingen = new ArrayList<>();
+        Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "SELECT * FROM Opleidingen;";
+            statement = currentCon.createStatement();
+            rs = statement.executeQuery(sql);
+            
+            while (rs.next()) {
+                Opleiding opleiding = new Opleiding();
+                opleiding.setopleidingID(rs.getInt("opleidingID"));
+                opleiding.setnaam(rs.getString("naam"));
+              
+                
+                opleidingen.add(opleiding);
+            }
+        } catch (SQLException e) {
+            
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {  
+                }
+                rs = null;
+            }
+            
+             if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception e) {
+                    
+                }
+
+                statement = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+                    
+                }
+
+                currentCon = null;
+            }
+            
+        }
+        return opleidingen;
     }
     
     
