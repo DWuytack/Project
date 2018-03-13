@@ -10,6 +10,8 @@
          import="model.Gebruiker"
          %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -44,16 +46,16 @@
        
         <% if (gebruiker.getRol().equals("admin")) { %>
         
-        <input type="button" value="Gebruiker toevoegen" name="toevoegen"/><br>
-        <input type="button" value="Gebruiker aanpassen" name="aanpassen"/><br>
-        <input type="button" value="Gebruiker verwijderen"  name="verwijderen"/><br>
+        <input type="button" value="Gebruiker toevoegen" name="actie"/><br>
+        <input type="button" value="Gebruiker aanpassen" name="actie"/><br>
+        <input type="button" value="Gebruiker verwijderen"  name="actie"/><br>
         
          <% } %>
         
         
         <% if (gebruiker.getRol().equals("secretariaat")) { %>
-        <input type="button" value="Gebruiker toevoegen" name="toevoegen"/><br>
-        <input type="button" value="Gebruiker aanpassen" name="aanpassen"/><br>
+        <input type="button" value="Gebruiker toevoegen" name="actie"/><br>
+        <input type="button" value="Gebruiker aanpassen" name="actie"/><br>
          <% } %>
         
          </form>
