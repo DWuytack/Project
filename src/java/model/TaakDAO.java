@@ -2,8 +2,10 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -81,4 +83,39 @@ public class TaakDAO {
         }
 
     }
+    
+        public ArrayList<Taak> takenLaden() {
+        Statement stmt;
+        
+        Connection currentCon;
+        ResultSet rs;
+        
+        ArrayList<Taak> taken = new ArrayList<>();
+        
+        String selectTaken = "SELECT * FROM Taken;";
+        
+        try {
+            currentCon = ConnectionManager.getConnection();
+            stmt =  currentCon.createStatement();
+            rs = stmt.executeQuery(selectTaken);
+            
+            while(rs.next()) {
+                Taak taak = new Taak();
+                taak.setTaakID(rs.getInt("taakID"));
+                taak.setNaam(rs.getString("naam"));
+                taak.setBeschrijving(rs.getString("beschrijving"));
+                
+                taken.add(taak);
+            }
+            
+            currentCon.close();
+            
+            return taken;
+            
+        } catch(Exception e) {
+            System.out.println("Error - Kon geen taken laden.");
+            return null;
+        }
+    }
+    
 }
