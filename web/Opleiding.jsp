@@ -25,12 +25,7 @@
             
         <%@include file="Bovenbalk.jsp" %>
     
-        <nav class="top-navigatie">
-            <li id="menu">
-                <a id="bt-menu" href="BeginMenu.jsp" title="Menu"></a>
-            </li>
-        </nav>
-        <br><br>
+      
         <h2>Opleidingen</h2><br>
         
          <form action="MenuServlet">
@@ -50,8 +45,7 @@
 
         
          
-        <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
-         
+          
           <% if (gebruiker.getRol().equals("admin")) { %>
           <input type="button" value="Opleiding Toevoegen" name="Toevoegen"/><br>
          <input type="button" value="Opleiding Aanpassen" name="Aanpassen"/><br>

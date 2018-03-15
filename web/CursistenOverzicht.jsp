@@ -21,6 +21,8 @@
         <title>Cursisten overzicht</title>
     </head>
     <body>
+        
+         <%@include file="Bovenbalk.jsp" %>
         <nav class="top-navigatie">
             <li id="menu">
                 <a id="bt-menu" href="BeginMenu.jsp" title="Menu"></a>
@@ -45,8 +47,7 @@
             </table>
             
 
-            <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
-
+          
             <% if (gebruiker.getRol().equals("admin")) { %>
 
             <input type="submit" value="Cursist toevoegen" name="actie"/><br>

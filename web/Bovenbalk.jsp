@@ -14,6 +14,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
          <link rel="stylesheet" href="css/style.css">
+            <link rel="stylesheet" href="css/menu.css">
+         
     </head>
     <body>
         <nav class="top-navigatie">

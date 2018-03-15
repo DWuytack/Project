@@ -21,6 +21,8 @@
         <title>Gebruiker toevoegen</title>
     </head>
     <body>
+        
+         <%@include file="Bovenbalk.jsp" %>
         <form action="/GebruikersServlet" method="post">
             
                 

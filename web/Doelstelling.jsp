@@ -21,12 +21,8 @@
         <title>Doelstellingen</title>
     </head>
 <body>
-    <nav class="top-navigatie">
-        <li id="menu">
-            <a id="bt-menu" href="BeginMenu.jsp" title="Menu"></a>
-        </li>
-    </nav>
-    <br><br>
+     <%@include file="Bovenbalk.jsp" %>
+  
     <h2>Doelstellingen</h2>
     <table>
         <tr>

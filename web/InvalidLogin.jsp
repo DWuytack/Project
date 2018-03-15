@@ -13,6 +13,7 @@
       </head>
 	
       <body>
+           <%@include file="Bovenbalk.jsp" %>
          <center>
              <>Oops! We hebben je niet teruggevonden in onze database...<br>
                 Misschien kan je nog eens proberen?</p>

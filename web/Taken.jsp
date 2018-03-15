@@ -20,12 +20,8 @@
         <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
-        <nav class="top-navigatie">
-            <li id="menu">
-                <a id="bt-menu" href="BeginMenu.jsp" title="Menu"></a>
-            </li>
-        </nav>
-        <br><br>
+         <%@include file="Bovenbalk.jsp" %>
+        
         <h1>Hier komt het overzicht van de taken!</h1>
     </body>
 </html>

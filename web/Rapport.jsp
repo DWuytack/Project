@@ -20,11 +20,8 @@
         <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
-        <nav class="top-navigatie">
-            <li id="menu">
-                <a id="bt-menu" href="BeginMenu.jsp" title="Menu"></a>
-            </li>
-        </nav>
+         <%@include file="Bovenbalk.jsp" %>
+       
         <br><br>
         <h1>Hier komt het rapport van een individuele cursist!</h1>
     </body>

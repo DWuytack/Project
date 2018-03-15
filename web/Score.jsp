@@ -22,18 +22,12 @@
         <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
-        <nav class="top-navigatie">
-            <li id="menu">
-                <a id="bt-menu" href="BeginMenu.jsp" title="Menu"></a>
-            </li>
-        </nav>
-        <br><br>
+       <%@include file="Bovenbalk.jsp" %>
         <h2>Score On Web</h2><br>
         <form action="ScoreServlet">
             
          
-            <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
-
+    
             <% if (gebruiker.getRol().equals("admin")) { %>
                 <input type="submit" value="Score Overzicht" name="actie"/><br>
 

@@ -21,13 +21,8 @@
         <title>Gebruikers overzicht</title>
     </head>
     <body>
-        <nav class="top-navigatie">
-            <li id="menu">
-                <a id="bt-menu" href="BeginMenu.jsp" title="Menu"></a>
-            </li>
-        </nav>
-        <br><br>
-        <form action="GebruikersServlet">
+         <%@include file="Bovenbalk.jsp" %>
+       <form action="GebruikersServlet">
             <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
             
             <select name="zoeken">
@@ -47,7 +42,6 @@
                 </c:forEach>
             </table>
         
-        <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
         
        
         <% if (gebruiker.getRol().equals("admin")) { %>
