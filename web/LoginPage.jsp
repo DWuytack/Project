@@ -9,23 +9,20 @@
 <html>
     <head>
         <title>Login Pagina</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/theme.css">
+        <p>voorbeeld</p>
         <link rel="stylesheet" href="css/login.css">
     </head>
 
     <body>  
-        <header>
+        
             <h1 class="titel">Score On Web</h1><br>
-        </header>
-        <main>
-            <form action="LoginServlet">
-                <input type="text" name="un">
-                <input type="password" name="pw">
+           <form action="LoginServlet">
+               <input type="text" name="un"><br>
+                <input type="password" name="pw"><br>
                 <br><br>
                 <input type="submit" name="submit" value="Log in">	
             </form>
-        </main>
+          
+        
     </body>
 </html>
