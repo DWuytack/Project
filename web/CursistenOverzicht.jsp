@@ -32,21 +32,14 @@
 
             <% ArrayList<Gebruiker> lijstCursisten = (ArrayList<Gebruiker>) (session.getAttribute("lijstCursisten"));%>
 
-            <table>
-                <tr>
-                    <th>Voornaam</th>
-                    <th>Achternaam</th>
-                    <th>Geboortedatum</th>
-                    <th>Email</th>
-                </tr>
-                
+           <table>
                 <c:forEach items="${lijstCursisten}" var="gebruiker">
                     <tr>
-                        <td><input type="checkbox" name="admin" value="actie"/></td>
-                        <td> ${gebruiker.achternaam} </td>
-                        <td> ${gebruiker.voorNaam} </td>
-                        <td> ${gebruiker.geboorteDatum} </td>
-                        <td> ${gebruiker.email} </td>
+                        <td><input type="checkbox" name="checkbox" value="gebruiker" ></td>
+                        <td> ${gebruiker.achternaam} <td>
+                        <td> ${gebruiker.voorNaam} <td>
+                        <td> ${gebruiker.geboorteDatum} <td>
+                        <td> ${gebruiker.email} <td>
                     </tr>
                 </c:forEach>
             </table>

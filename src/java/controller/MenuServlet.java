@@ -54,6 +54,8 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("CursistenOverzicht.jsp");
                     break;
                 case "Overzicht gebruikers":
+                    
+                    //laden van gebruikers uit database
                     GebruikerDAO gebruikerDAO2 = new GebruikerDAO();
                     ArrayList<Gebruiker> gebruikers = gebruikerDAO2.gebruikersLaden();
 

@@ -6,7 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Deze klasse is verantwoordelijk voor alle gebruikersbewerkingen in de database.
@@ -102,7 +106,7 @@ public class GebruikerDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT voornaam,  FROM Gebruiker WHERE Gebruiker.rolID = 3;";
+            String sql = "SELECT * FROM Gebruiker WHERE Gebruiker.rolID = 3";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
             
@@ -150,7 +154,7 @@ public class GebruikerDAO {
         return cursisten;
     }
 
-    public void cursistAanmaken() {
+    public void cursistAanmaken(Gebruiker gebruiker) {
          Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -517,5 +521,4 @@ public class GebruikerDAO {
             }
         }
     }
-  
 }

@@ -29,10 +29,16 @@
         <br><br>
         <form action="GebruikersServlet">
             <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
-
+            
+            <select name="zoeken">
+            <option value="voornaam">voornaam</option>
+            <option value="achternaam">achternaam</option>
+            <option value="login">login</option>
+            </select>
             <table>
                 <c:forEach items="${lijstGebruikers}" var="gebruiker">
                     <tr>
+                        <td><input type="checkbox" name="checkbox" value="gebruiker" ></td>
                         <td> ${gebruiker.achternaam} <td>
                         <td> ${gebruiker.voorNaam} <td>
                         <td> ${gebruiker.geboorteDatum} <td>

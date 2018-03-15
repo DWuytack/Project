@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Gebruiker;
 import model.GebruikerDAO;
 
 /**
@@ -37,19 +38,19 @@ public class GebruikersServlet extends HttpServlet {
         switch (actie) {
 
             case "Cursist toevoegen":
-                
-                gebruikerDAO.cursistAanmaken();
+               
+               //gebruikerDAO.cursistAanmaken(gebruiker);
 
                 //session.setAttribute("ToegevoegdeCursist");
-                response.sendRedirect("CursistenOverzicht.jsp");
+                
                 break;
                 
             case "Cursist aanpassen":
               
                 //gebruikerDAO.cursistAanpassen();
 
-                //session.setAttribute("AangemaakteCursist");
-                response.sendRedirect("CursistenOverzicht.jsp");
+                //session.setAttribute("AangepasteCursist");
+                response.sendRedirect("GebruikersBewerking.jsp");
                 break;
                 
             case "Cursist verwijderen":
@@ -57,15 +58,26 @@ public class GebruikersServlet extends HttpServlet {
                 //gebruikerDAO.cursistVerwijderen(gebruiker);
 
                 //session.setAttribute("VerwijderdeCursist");
-                response.sendRedirect("CursistenOverzicht.jsp");
+                response.sendRedirect("GebruikersBewerking.jsp");
                 break;
                 
             case "Gebruiker toevoegen":
                 
-                gebruikerDAO.gebruikerAanmaken();
-
-                //session.setAttribute("AangemaakteCursist");
-                response.sendRedirect("GebruikersOverzicht.jsp");
+                response.sendRedirect("GebruikerAanmaken.jsp");
+                
+                Gebruiker gebruiker = new Gebruiker();
+                gebruiker.setVoorNaam(request.getParameter("voornaam"));
+                gebruiker.setAchternaam(request.getParameter("achternaam"));
+               
+                //gebruiker.setGeboorteDatum(request.getParameter("geboortedatum"));
+                gebruiker.setEmail(request.getParameter("email"));
+                gebruiker.setLogin(request.getParameter("login"));
+                gebruiker.setPaswoord(request.getParameter("wachtwoord"));
+                
+                gebruikerDAO.cursistAanmaken(gebruiker);
+                
+                //session.setAttribute("ToegevoegdeCursist");
+                
                 break;
            
             case "Gebruiker aanpassen":
@@ -73,7 +85,7 @@ public class GebruikersServlet extends HttpServlet {
                 //gebruikerDAO.gebruikerAanpassen(gebruiker);
 
                 //session.setAttribute("AangepasteGebruiker");
-                response.sendRedirect("GebruikersOverzicht.jsp");
+                response.sendRedirect("GebruikersBewerking.jsp");
                 break;
                 
             case "Gebruiker verwijderen":
@@ -81,7 +93,7 @@ public class GebruikersServlet extends HttpServlet {
                 //gebruikerDAO.gebruikerVerwijderen(gebruiker);
 
                 //session.setAttribute("VerwijderdeGebruiker");
-                response.sendRedirect("GebruikersOverzicht.jsp");
+                response.sendRedirect("GebruikersBewerking.jsp");
                 break;
             }
         } catch (Throwable theException) {
