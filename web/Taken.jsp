@@ -22,53 +22,44 @@
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
     </head>
-    <body>
-            
-        <%@include file="Bovenbalk.jsp" %>
-    
-      
-        <h2>Taken</h2><br>
-        
-         <form action="MenuServlet">
+    <body>  
+        <form action="MenuServlet">
+            <%@include file="Bovenbalk.jsp" %>
+            <header></header>
+            <section>
+                <h2>Taken</h2><br>
 
-            <% ArrayList<Taak> lijstTaken = (ArrayList<Taak>) (session.getAttribute("lijstTaken"));%>
+                <% ArrayList<Taak> lijstTaken = (ArrayList<Taak>) (session.getAttribute("lijstTaken"));%>
 
-            <table>
-                <tr>
-                    <th>Select</th>
-                    <th>naam</th>
-                    <th>beschrijving</th>
-                </tr>
-                <c:forEach items="${lijstTaken}" var="taken">
+                <table>
                     <tr>
-                        <td> <input type="radio" name="taak" value="${taak.taakID}" > </td>
-                        <td> ${taken.naam} <td>
-                        <td> ${taken.beschrijving} <td>
-                       
+                        <th>Select</th>
+                        <th>naam</th>
+                        <th>beschrijving</th>
                     </tr>
-                </c:forEach>
-            </table>
+                    <c:forEach items="${lijstTaken}" var="taken">
+                        <tr>
+                            <td> <input type="radio" name="taak" value="${taak.taakID}" > </td>
+                            <td> ${taken.naam} <td>
+                            <td> ${taken.beschrijving} <td>
 
-        
-           <% if (gebruiker.getRol().equals("admin")) { %>
-           <input type="submit" value="Taak Toevoegen" name="actie"/><br>
-           <input type="submit" value="Taak Aanpassen" name="actie"/><br>
-           <input type="submit" value="Taak Verwijderen"name="actie"/><br>
-           <%} %>
-           
-           <% if (gebruiker.getRol().equals("leerkracht")) { %>
-           <input type="submit" value="Taak Toevoegen" name="actie"/><br>
-           <input type="submit" value="Taak Aanpassen" name="actie"/><br>
-           <input type="submit" value="Taak Verwijderen"name="actie"/><br>
-           <%} %>
-           
-     
-            
-        
-        <%@include file="Bovenbalk.jsp" %>
-        <header></header>
-        <section>
-            <h1>Hier komt het overzicht van de taken!</h1>
-        </section>
+                        </tr>
+                    </c:forEach>
+                </table>
+
+
+               <% if (gebruiker.getRol().equals("admin")) { %>
+               <input type="submit" value="Taak Toevoegen" name="actie"/><br>
+               <input type="submit" value="Taak Aanpassen" name="actie"/><br>
+               <input type="submit" value="Taak Verwijderen"name="actie"/><br>
+               <%} %>
+
+               <% if (gebruiker.getRol().equals("leerkracht")) { %>
+               <input type="submit" value="Taak Toevoegen" name="actie"/><br>
+               <input type="submit" value="Taak Aanpassen" name="actie"/><br>
+               <input type="submit" value="Taak Verwijderen"name="actie"/><br>
+               <%} %>
+            </section>
+        </form>
     </body>
 </html>

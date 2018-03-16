@@ -45,7 +45,7 @@ html {
     pointer-events: none;
 }
 
-input, a { 
+input, a, select { 
     pointer-events: all;
     cursor: pointer;
 }

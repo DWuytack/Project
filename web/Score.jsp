@@ -26,41 +26,13 @@
             <%@include file="Bovenbalk.jsp" %>
             <header></header>
             <section>
-                <h2>Score On Web</h2><br>
-
-                <% if (gebruiker.getRol().equals("admin")) { %>
                 
                 <select name="Schooljaar">
-
-                    <option value="ipod">iPod</option>
-                    <option value="radio">Radio</option>
-                    <option value="computer">Computer</option>
+                    <option value="schooljaar">schooljaar</option>
+                    <option value="semester">semester</option>
+                    <option value="module">module</option>
                 </select>
-
-                //admin mag alle scores van alle modules zien
-
-                    <% if (gebruiker.getRol().equals("cursist")) { %>
-                        <input type="submit" value="Score Overzicht" name="actie"/><br>
-                    <% } %>
-
-                <% if (gebruiker.getRol().equals("leerkracht")) { %>
-
-                //leerkracht mag scores zien van zijn eigen modules
-
-
-                <%}%>
-
-                <% if (gebruiker.getRol().equals("cursist")) { %>
-
-                //cursist mag enkel zijn eigen scores zien
-
-                <% } %>
-
-                <% if (gebruiker.getRol().equals("secretariaat")) { %>
-
-                //secretariaat mag alle scores van alle modules zien
-
-                <%}%>
+                
             </section>
         </form>
     </body>
