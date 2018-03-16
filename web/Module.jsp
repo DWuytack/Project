@@ -34,7 +34,7 @@
                 <c:forEach items="${lijstModules}" var="module">
                     <tr>
                         <td> ${module.moduleID} <td>
-                        <td> ${module.opleidingID} <td>
+                     
                         <td> ${module.naam} <td>
                        
                     </tr>
@@ -43,9 +43,9 @@
          
          
           <% if (gebruiker.getRol().equals("admin")) { %>
-          <input type="button" value="Module Toevoegen" name="Toevoegen"/><br>
-         <input type="button" value="Module Aanpassen" name="Aanpassen"/><br>
-         <input type="button" value="Module Verwijderen"name="Verwijderen"/><br>
+          <input type="submit" value="Module Toevoegen" name="actie"/><br>
+         <input type="submit" value="Module Aanpassen" name="actie"/><br>
+         <input type="submit" value="Module Verwijderen"name="actie"/><br>
             <%} %>
       
             
