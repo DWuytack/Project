@@ -4,10 +4,12 @@
     Author     : Dirk
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" 
          contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"
          import="model.Gebruiker"
+         import="model.Taak"
          %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
@@ -20,8 +22,41 @@
         <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
-         <%@include file="Bovenbalk.jsp" %>
+            
+        <%@include file="Bovenbalk.jsp" %>
+    
+      
+        <h2>Taken</h2><br>
         
-        <h1>Hier komt het overzicht van de taken!</h1>
+         <form action="MenuServlet">
+
+            <% ArrayList<Taak> lijstTaken = (ArrayList<Taak>) (session.getAttribute("lijstTaken"));%>
+
+            <table>
+                <c:forEach items="${lijstTaken}" var="taken">
+                    <tr>
+                        <td> ${taken.naam} <td>
+                        <td> ${taken.beschrijving} <td>
+                       
+                    </tr>
+                </c:forEach>
+            </table>
+
+        
+           <% if (gebruiker.getRol().equals("admin")) { %>
+           <input type="submit" value="Taak Toevoegen" name="actie"/><br>
+           <input type="submit" value="Taak Aanpassen" name="actie"/><br>
+           <input type="submit" value="Taak Verwijderen"name="actie"/><br>
+           <%} %>
+           
+           <% if (gebruiker.getRol().equals("leerkracht")) { %>
+           <input type="submit" value="Taak Toevoegen" name="actie"/><br>
+           <input type="submit" value="Taak Aanpassen" name="actie"/><br>
+           <input type="submit" value="Taak Verwijderen"name="actie"/><br>
+           <%} %>
+           
+     
+            
+        
     </body>
 </html>
