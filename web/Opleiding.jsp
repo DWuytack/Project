@@ -17,44 +17,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>JSP Page</title>
+        <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
-            
-        <%@include file="Bovenbalk.jsp" %>
-    
-      
-        <h2>Opleidingen</h2><br>
-        
-         <form action="MenuServlet">
+        <form action="MenuServlet">
+            <%@include file="Bovenbalk.jsp" %>
+            <header></header>
+            <section>
+                <h2>Opleidingen</h2><br>
+                <% ArrayList<Opleiding> lijstOpleidingen = (ArrayList<Opleiding>) (session.getAttribute("lijstOpleidingen"));%>
 
-            <% ArrayList<Opleiding> lijstOpleidingen = (ArrayList<Opleiding>) (session.getAttribute("lijstOpleidingen"));%>
+                <table>
+                    <c:forEach items="${lijstOpleidingen}" var="opleiding">
+                        <tr>
+                             <td> ${opleiding.opleidingID} <td>
+                             <td> ${opleiding.naam} <td>
 
-            <table>
-                <c:forEach items="${lijstOpleidingen}" var="opleiding">
-                    <tr>
-                         <td> ${opleiding.opleidingID} <td>
-                         <td> ${opleiding.naam} <td>
-                      
-                       
-                       
-                    </tr>
-                </c:forEach>
-            </table>
 
-        
-         
-          
-          <% if (gebruiker.getRol().equals("admin")) { %>
-          <input type="submit" value="Opleiding Toevoegen" name="actie"/><br>
-         <input type="submit" value="Opleiding Aanpassen" name="actie"/><br>
-         <input type="submit" value="Opleiding Verwijderen"name="actie"/><br>
-            <%} %>
+
+                        </tr>
+                    </c:forEach>
+                </table>
+                <% if (gebruiker.getRol().equals("admin"))
+                {%>
+                    <input type="submit" value="Opleiding Toevoegen" name="actie"/><br>
+                    <input type="submit" value="Opleiding Aanpassen" name="actie"/><br>
+                    <input type="submit" value="Opleiding Verwijderen"name="actie"/><br>
+                <%}
+                %>
+            </section>
      
-            
+        </form>    
         
     </body>
 </html>

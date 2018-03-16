@@ -20,7 +20,7 @@ import model.GebruikerDAO;
 public class LoginServlet extends HttpServlet {
 
      
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, java.io.IOException {
 
         try {

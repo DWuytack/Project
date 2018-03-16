@@ -12,16 +12,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Startmenu</title>
+        <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/menu.css">
     </head>
     <body>
         <form action="MenuServlet">
-            <header></header>
             <%@include file="Bovenbalk.jsp" %>
+            <header></header>
             <section id="welkom">
                 <p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p>
             </section>
@@ -58,18 +58,5 @@
                 </div>
             </section>
         </form>
-        <script>
-            document.addEventListener("click", function(e){
-                console.log(e.target.id);
-                if(e.target.id === "bt-profiel") {
-                    e.target.blur();
-                    var loc = document.querySelector("#profiel");
-                    if(!loc.className.includes("active"))
-                        loc.className += " active";
-                    else
-                        loc.classList.remove("active");
-                }
-            });
-        </script>
     </body>
 </html>

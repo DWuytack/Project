@@ -13,44 +13,55 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 
 <!DOCTYPE html>
-
 <html>
     <head>
-         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Score Menu</title>
+        <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
     </head>
-    <body>
-       <%@include file="Bovenbalk.jsp" %>
-        <h2>Score On Web</h2><br>
-        <form action="ScoreServlet">
-            
-         
     
-            <% if (gebruiker.getRol().equals("admin")) { %>
-                <input type="submit" value="Score Overzicht" name="actie"/><br>
+    <body>
+        <form action="ScoreServlet">
+            <%@include file="Bovenbalk.jsp" %>
+            <header></header>
+            <section>
+                <h2>Score On Web</h2><br>
 
-            <%} %>
+                <% if (gebruiker.getRol().equals("admin")) { %>
+                
+                <select name="Schooljaar">
 
-            <% if (gebruiker.getRol().equals("leerkracht")) { %>
-            <input type="submit" value="Score Aanmaken" name="actie"/><br>
-            <input type="submit" value="Score Bewerken" name="actie"/><br>
-            <input type="submit" value="Score Overzicht" name="actie"/><br>
-            <%}%>
+                    <option value="ipod">iPod</option>
+                    <option value="radio">Radio</option>
+                    <option value="computer">Computer</option>
+                </select>
 
-            <% if (gebruiker.getRol().equals("cursist")) { %>
-                <input type="submit" value="Score Overzicht" name="actie"/><br>
-            <% } %>
+                //admin mag alle scores van alle modules zien
 
-            <% if (gebruiker.getRol().equals("secretariaat")) { %>
-                <input type="submit" value="Score Overzicht" name="actie"/><br>
-            <%}%>
+                    <% if (gebruiker.getRol().equals("cursist")) { %>
+                        <input type="submit" value="Score Overzicht" name="actie"/><br>
+                    <% } %>
+
+                <% if (gebruiker.getRol().equals("leerkracht")) { %>
+
+                //leerkracht mag scores zien van zijn eigen modules
+
+
+                <%}%>
+
+                <% if (gebruiker.getRol().equals("cursist")) { %>
+
+                //cursist mag enkel zijn eigen scores zien
+
+                <% } %>
+
+                <% if (gebruiker.getRol().equals("secretariaat")) { %>
+
+                //secretariaat mag alle scores van alle modules zien
+
+                <%}%>
+            </section>
         </form>
-        
-            
-        
-        
-        
     </body>
 </html>

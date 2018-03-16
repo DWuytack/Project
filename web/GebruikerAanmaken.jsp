@@ -15,27 +15,27 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/theme.css">
         <title>Gebruiker toevoegen</title>
+        <script src="js/nav.js"></script>
+        <link rel="stylesheet" href="css/theme.css">  
     </head>
+    
     <body>
-        
-         <%@include file="Bovenbalk.jsp" %>
-         
         <form action="GebruikersServlet" method="post">
- 
-                <ol><input type="text" name="voornaam"></ol>
-                <ol><input type="text" name="achternaam" ></ol>
-                <ol><input type="date" name="geboortedatum" ></ol>
-                <ol><input type="text" name="email" ></ol> 
-                <ol><input type="text" name="login" ></ol>
-                <ol><input type="text" name="wachtwoord" ></ol>
-                <input type="submit" name="submit">
-            
-
-            
+            <%@include file="Bovenbalk.jsp" %>
+            <header></header>
+            <section>
+                <table>
+                    <tr><td><label>Voornaam: </label></td><td><input type="text" name="voornaam" size="40" maxlength="40"/><td></tr><br>
+                    <tr><td><label>Achternaam: </label></td><td><input type="text" name="achternaam" size="40" maxlength="40"/><td></tr><br>
+                    <tr><td><label>Rol: </label></td><td><input type="date" name="rol" size="40" maxlength="40"/><td></tr><br>
+                    <tr><td><label>GeboorteDatum: </label></td><td><input type="text" name="geboortedatum" size="40" maxlength="40"/><td></tr><br>
+                    <tr><td> <label>Email: </label></td><td><input type="text" name="email" size="40" maxlength="40"/><td></tr><br>
+                    <tr><td><label>Login: </label></td><td><input type="text" name="login" size="40" maxlength="40"/><td></tr><br><br><br>
+                    <tr><td><label>Wachtwoord: </label></td><td><input type="text" name="wachtwoord" size="40" maxlength="40"/><td></tr>
+                </table>
+            </section>
         </form>
     </body>
 </html>
