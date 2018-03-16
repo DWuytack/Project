@@ -84,15 +84,20 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("Module.jsp");
                     break;
                 case "Overzicht scores":
-                    //laden van de scores uit de database
+                    
+                    //laden schooljaren uit database en in het geheugen plaatsen
+                    ScoreDAO scoreDAO = new ScoreDAO();
+                    
+                    
+            
+                    //laden semester uit database en in het geheugen plaatsen
+                    
+                    
+                    //laden modules uit database en in het geheugen plaatsen
+                    
                     
                     response.sendRedirect("Score.jsp");
-
-                    ScoreDAO scoreDAO = new ScoreDAO();
-                    ArrayList<Score> score = ScoreDAO.scoreLaden();
-                    session.setAttribute("lijstScores", score);
-
-                    break;
+                  break;
                 case "Evaluatieformulieren":
                     response.sendRedirect("EvaluatieFormulier.jsp");
                     break;
@@ -101,6 +106,8 @@ public class MenuServlet extends HttpServlet {
                     break;
                 case "Type score aanpassen":
                     //laden van de types scores
+                    
+                    
                     response.sendRedirect("TypeScore.jsp");
                     break;
             }
