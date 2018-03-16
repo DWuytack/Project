@@ -26,13 +26,7 @@
             <header></header>
             <section>
                 <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
-
-                <select name="zoeken">
-                <option value="voornaam">voornaam</option>
-                <option value="achternaam">achternaam</option>
-                <option value="login">login</option>
-                </select>
-                
+            
                 <table>
                     <c:forEach items="${lijstGebruikers}" var="gebruiker">
                         <tr>
@@ -45,18 +39,19 @@
                     </c:forEach>
                 </table>
 
-                <% if (gebruiker.getRol().equals("admin")) { %>
+            <% if (gebruiker.getRol().equals("admin")) { %>
 
-                <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
-                <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
-                <input type="submit" value="Gebruiker verwijderen"  name="actie"/><br>
+            <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
+            <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
+            <input type="submit" value="Gebruiker verwijderen"  name="actie"/><br>
 
-                <% } %>
+             <% } %>
 
-                <% if (gebruiker.getRol().equals("secretariaat")) { %>
-                <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
-                <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
-                <% } %>
+
+            <% if (gebruiker.getRol().equals("secretariaat")) { %>
+            <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
+            <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
+             <% } %>
             </section>
          </form>
     </body>

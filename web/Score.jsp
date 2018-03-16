@@ -26,27 +26,42 @@
             <%@include file="Bovenbalk.jsp" %>
             <header></header>
             <section>
-                <h2>Score On Web</h2>
-                <br>
-                <% if (gebruiker.getRol().equals("admin")) { %>
-                    <input type="submit" value="Score Overzicht" name="actie"/><br>
+                <h2>Score On Web</h2><br>
 
-                <%} %>
+                <% if (gebruiker.getRol().equals("admin")) { %>
+                
+                <select name="Schooljaar">
+
+                    <option value="ipod">iPod</option>
+                    <option value="radio">Radio</option>
+                    <option value="computer">Computer</option>
+                </select>
+
+                //admin mag alle scores van alle modules zien
+
+                    <% if (gebruiker.getRol().equals("cursist")) { %>
+                        <input type="submit" value="Score Overzicht" name="actie"/><br>
+                    <% } %>
 
                 <% if (gebruiker.getRol().equals("leerkracht")) { %>
-                <input type="submit" value="Score Aanmaken" name="actie"/><br>
-                <input type="submit" value="Score Bewerken" name="actie"/><br>
-                <input type="submit" value="Score Overzicht" name="actie"/><br>
+
+                //leerkracht mag scores zien van zijn eigen modules
+
+
                 <%}%>
 
                 <% if (gebruiker.getRol().equals("cursist")) { %>
-                    <input type="submit" value="Score Overzicht" name="actie"/><br>
+
+                //cursist mag enkel zijn eigen scores zien
+
                 <% } %>
 
                 <% if (gebruiker.getRol().equals("secretariaat")) { %>
-                    <input type="submit" value="Score Overzicht" name="actie"/><br>
+
+                //secretariaat mag alle scores van alle modules zien
+
                 <%}%>
             </section>
-        </form> 
+        </form>
     </body>
 </html>

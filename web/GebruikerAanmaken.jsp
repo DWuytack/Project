@@ -26,13 +26,15 @@
             <%@include file="Bovenbalk.jsp" %>
             <header></header>
             <section>
-                <ol><input type="text" name="voornaam"></ol>
-                <ol><input type="text" name="achternaam" ></ol>
-                <ol><input type="date" name="geboortedatum" ></ol>
-                <ol><input type="text" name="email" ></ol> 
-                <ol><input type="text" name="login" ></ol>
-                <ol><input type="text" name="wachtwoord" ></ol>
-                <input type="submit" name="submit">
+                <table>
+                    <tr><td><label>Voornaam: </label></td><td><input type="text" name="voornaam" size="40" maxlength="40"/><td></tr><br>
+                    <tr><td><label>Achternaam: </label></td><td><input type="text" name="achternaam" size="40" maxlength="40"/><td></tr><br>
+                    <tr><td><label>Rol: </label></td><td><input type="date" name="rol" size="40" maxlength="40"/><td></tr><br>
+                    <tr><td><label>GeboorteDatum: </label></td><td><input type="text" name="geboortedatum" size="40" maxlength="40"/><td></tr><br>
+                    <tr><td> <label>Email: </label></td><td><input type="text" name="email" size="40" maxlength="40"/><td></tr><br>
+                    <tr><td><label>Login: </label></td><td><input type="text" name="login" size="40" maxlength="40"/><td></tr><br><br><br>
+                    <tr><td><label>Wachtwoord: </label></td><td><input type="text" name="wachtwoord" size="40" maxlength="40"/><td></tr>
+                </table>
             </section>
         </form>
     </body>

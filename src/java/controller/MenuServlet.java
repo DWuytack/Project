@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Doelstelling;
+import model.DoelstellingDAO;
 import model.Gebruiker;
 import model.GebruikerDAO;
 import model.Module;
@@ -15,14 +17,14 @@ import model.Opleiding;
 import model.OpleidingDAO;
 import model.Score;
 import model.ScoreDAO;
+import model.Taak;
+import model.TaakDAO;
 
 /**
  *
  * @author Dirk
  */
 public class MenuServlet extends HttpServlet {
-
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,7 +56,7 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("CursistenOverzicht.jsp");
                     break;
                 case "Overzicht gebruikers":
-                    
+
                     //laden van gebruikers uit database
                     GebruikerDAO gebruikerDAO2 = new GebruikerDAO();
                     ArrayList<Gebruiker> gebruikers = gebruikerDAO2.gebruikersLaden();
@@ -62,13 +64,21 @@ public class MenuServlet extends HttpServlet {
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
+                    
                 case "Overzicht doelstellingen":
-
-                    //laden van doelstellingen uit database
-                    response.sendRedirect("Doelstelling.jsp");
+                    DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+                    ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden();
+                    
+                    session.setAttribute("lijstDoelstellingen", doelstellingen);
+                    response.sendRedirect("DoelstellingenOverzicht.jsp");
                     break;
+                    
                 case "Overzicht taken":
+                    TaakDAO taakDAO = new TaakDAO();
+                    ArrayList<Taak> taken = taakDAO.takenLaden();
+                    session.setAttribute("lijstTaken", taken);
                     response.sendRedirect("Taken.jsp");
+                    
                     break;
                 case "Overzicht opleidingen":
                     OpleidingDAO opleidingDAO2 = new OpleidingDAO();
@@ -84,15 +94,20 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("Module.jsp");
                     break;
                 case "Overzicht scores":
-                    //laden van de scores uit de database
+                    
+                    //laden schooljaren uit database en in het geheugen plaatsen
+                    ScoreDAO scoreDAO = new ScoreDAO();
+                    
+                    
+            
+                    //laden semester uit database en in het geheugen plaatsen
+                    
+                    
+                    //laden modules uit database en in het geheugen plaatsen
+                    
                     
                     response.sendRedirect("Score.jsp");
-
-                    ScoreDAO scoreDAO = new ScoreDAO();
-                    ArrayList<Score> score = ScoreDAO.scoreLaden();
-                    session.setAttribute("lijstScores", score);
-
-                    break;
+                  break;
                 case "Evaluatieformulieren":
                     response.sendRedirect("EvaluatieFormulier.jsp");
                     break;
@@ -101,12 +116,14 @@ public class MenuServlet extends HttpServlet {
                     break;
                 case "Type score aanpassen":
                     //laden van de types scores
+                    
+                    
                     response.sendRedirect("TypeScore.jsp");
                     break;
             }
 
         } catch (Throwable theException) {
-            
+
         }
 
     }

@@ -19,7 +19,7 @@
             <h1 class="titel">Score On Web</h1><br>
         </header>
         <main>
-            <form action="LoginServlet">
+            <form action="LoginServlet" method="post">
                 <input type="text" name="un">
                 <input type="password" name="pw">
                 <br><br>

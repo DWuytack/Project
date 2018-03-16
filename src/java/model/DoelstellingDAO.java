@@ -18,7 +18,7 @@ public class DoelstellingDAO {
     public void doelstellingAanmaken(Doelstelling doelstelling) {
 
         Connection currentCon = null;
-        
+
         String sqlQuery //Query voor het aanmaken van een doelstelling.
                 = "INSERT INTO Doelstellingen (naam, beschrijving, kerndoelstelling)"
                 + " VALUES ('" + doelstelling.getNaam() + "', '"
@@ -32,7 +32,7 @@ public class DoelstellingDAO {
 
         } catch (SQLException error) { //Error boodschap.
             System.out.println("De volgende Query leverde een error op: " + sqlQuery + ".");
-            
+
         } finally {
             try { //Sluit de connectie met de de DataBase.
                 currentCon.close();
@@ -60,11 +60,11 @@ public class DoelstellingDAO {
 
         } catch (SQLException error) { //Error boodschap.
             System.out.println("Error - De volgende Query werkte niet: " + sqlQuery + ".");
-            
+
         } finally {
             try { //Sluit de connectie met de DataBase.
                 currentCon.close();
-            } catch (SQLException error) { 
+            } catch (SQLException error) {
                 System.out.println("Error - Kon de connectie niet verbreken na het aanpassen van een doelstelling.");
             }
         }
@@ -85,49 +85,76 @@ public class DoelstellingDAO {
 
         } catch (SQLException error) { //Error Boodschap
             System.out.println("Error - De volgende Query werkte niet: " + sqlQuery + ".");
-            
+
         } finally {
             try { //Sluit de connectie met de DataBase.
-                currentCon.close(); 
+                currentCon.close();
             } catch (SQLException error) {
                 System.out.println("Error - Kon de connectie niet verbreken na het verwijderen van een doelstelling.");
             }
         }
     }
-    
+
     //Laad alle Doelstellingen uit de Database.
     public ArrayList<Doelstelling> doelstellingenLaden() {
-        Statement stmt;
-        
-        Connection currentCon;
-        ResultSet rs;
-        
+
+        Statement stmt = null;
+        Connection currentCon = null;
+        ResultSet rs = null;
+
         ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
-        
-        String selectDoelstellingen = "SELECT * FROM doelstellingen;";
-        
+
+        String selectDoelstellingen = "SELECT * FROM Doelstellingen;";
+
         try {
             currentCon = ConnectionManager.getConnection();
-            stmt =  currentCon.createStatement();
+            stmt = currentCon.createStatement();
             rs = stmt.executeQuery(selectDoelstellingen);
-            
-            while(rs.next()) {
+
+            while (rs.next()) {
                 Doelstelling doelstelling = new Doelstelling();
                 doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
                 doelstelling.setNaam(rs.getString("naam"));
                 doelstelling.setBeschrijving(rs.getString("beschrijving"));
                 doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
-                
+
                 doelstellingen.add(doelstelling);
             }
-            
+
             currentCon.close();
-            
+
             return doelstellingen;
-            
-        } catch(Exception e) {
+
+        } catch (Exception e) {
             System.out.println("Error - Kon geen doelstellingen laden.");
             return null;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                }
+                rs = null;
+            }
+
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (Exception e) {
+                }
+
+                stmt = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+                }
+
+                currentCon = null;
+            }
         }
+
     }
 }
