@@ -2,6 +2,7 @@
 package controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,14 +63,18 @@ public class GebruikersServlet extends HttpServlet {
                 break;
                 
             case "Gebruiker toevoegen":
-                
+            
                 response.sendRedirect("GebruikerAanmaken.jsp");
-                
+           
                 Gebruiker gebruiker = new Gebruiker();
                 gebruiker.setVoorNaam(request.getParameter("voornaam"));
                 gebruiker.setAchternaam(request.getParameter("achternaam"));
                
-                //gebruiker.setGeboorteDatum(request.getParameter("geboortedatum"));
+                String dateString = request.getParameter("geboorteDatum");
+                DateFormat df = new java.text.SimpleDateFormat("dd/mm/yyyy");;
+                java.util.Date datum = df.parse(dateString);
+                java.sql.Date sqlDate = new java.sql.Date(datum.getTime());
+                gebruiker.setGeboorteDatum(sqlDate);
                 gebruiker.setEmail(request.getParameter("email"));
                 gebruiker.setLogin(request.getParameter("login"));
                 gebruiker.setPaswoord(request.getParameter("wachtwoord"));

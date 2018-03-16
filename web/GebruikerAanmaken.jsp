@@ -23,15 +23,15 @@
     <body>
         
          <%@include file="Bovenbalk.jsp" %>
-        <form action="/GebruikersServlet" method="post">
-            
-                
-                <ol><input type="text" name="voornaam" placeholder="voornaam"></ol>
-                <ol><input type="text" name="achternaam" placeholder="achternaam"></ol>
-                <ol><input type="text" name="geboortedatum" placeholder="geboortedatum"></ol>
-                <ol><input type="text" name="email" placeholder="email"></ol> 
-                <ol><input type="text" name="login" placeholder="login"></ol>
-                <ol><input type="text" name="wachtwoord" placeholder="wachtwoord"></ol>
+         
+        <form action="GebruikersServlet" method="post">
+ 
+                <ol><input type="text" name="voornaam"></ol>
+                <ol><input type="text" name="achternaam" ></ol>
+                <ol><input type="date" name="geboortedatum" ></ol>
+                <ol><input type="text" name="email" ></ol> 
+                <ol><input type="text" name="login" ></ol>
+                <ol><input type="text" name="wachtwoord" ></ol>
                 <input type="submit" name="submit">
             
 
