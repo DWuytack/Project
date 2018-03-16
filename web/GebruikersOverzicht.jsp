@@ -15,13 +15,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/theme.css">
         <title>Gebruikers overzicht</title>
+        <script src="js/nav.js"></script>
+        <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
          <%@include file="Bovenbalk.jsp" %>
+         <header></header>
        <form action="GebruikersServlet">
             <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
             

@@ -36,7 +36,9 @@
             <table>
                 <c:forEach items="${lijstOpleidingen}" var="opleiding">
                     <tr>
-                        <td> ${opleiding.naam} <td>
+                         <td> ${opleiding.opleidingID} <td>
+                         <td> ${opleiding.naam} <td>
+                      
                        
                        
                     </tr>
