@@ -15,6 +15,8 @@ import model.Opleiding;
 import model.OpleidingDAO;
 import model.Score;
 import model.ScoreDAO;
+import model.Taak;
+import model.TaakDAO;
 
 /**
  *
@@ -68,7 +70,11 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("Doelstelling.jsp");
                     break;
                 case "Overzicht taken":
+                    TaakDAO taakDAO = new TaakDAO();
+                    ArrayList<Taak> taken = taakDAO.takenLaden();
+                    session.setAttribute("lijstTaken", taken);
                     response.sendRedirect("Taken.jsp");
+                    
                     break;
                 case "Overzicht opleidingen":
                     OpleidingDAO opleidingDAO2 = new OpleidingDAO();
