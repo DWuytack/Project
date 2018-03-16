@@ -15,51 +15,44 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/theme.css">
         <title>Cursisten overzicht</title>
+        <script src="js/nav.js"></script>
+        <link rel="stylesheet" href="css/theme.css">
     </head>
     <body>
-        
-         <%@include file="Bovenbalk.jsp" %>
-        <nav class="top-navigatie">
-            <li id="menu">
-                <a id="bt-menu" href="BeginMenu.jsp" title="Menu"></a>
-            </li>
-        </nav>
-        <br><br>
-
         <form action="GebruikersServlet">
-
-            <% ArrayList<Gebruiker> lijstCursisten = (ArrayList<Gebruiker>) (session.getAttribute("lijstCursisten"));%>
-
-           <table>
-                <c:forEach items="${lijstCursisten}" var="gebruiker">
-                    <tr>
-                        <td><input type="checkbox" name="checkbox" value="gebruiker" ></td>
-                        <td> ${gebruiker.achternaam} <td>
-                        <td> ${gebruiker.voorNaam} <td>
-                        <td> ${gebruiker.geboorteDatum} <td>
-                        <td> ${gebruiker.email} <td>
-                    </tr>
-                </c:forEach>
-            </table>
             
+            <header></header>
+            <%@include file="Bovenbalk.jsp" %>
+            <section>
+                <% ArrayList<Gebruiker> lijstCursisten = (ArrayList<Gebruiker>) (session.getAttribute("lijstCursisten"));%>
 
-          
-            <% if (gebruiker.getRol().equals("admin")) { %>
+                <table>
+                     <c:forEach items="${lijstCursisten}" var="gebruiker">
+                         <tr>
+                             <td><input type="checkbox" name="checkbox" value="gebruiker" ></td>
+                             <td> ${gebruiker.achternaam} <td>
+                             <td> ${gebruiker.voorNaam} <td>
+                             <td> ${gebruiker.geboorteDatum} <td>
+                             <td> ${gebruiker.email} <td>
+                         </tr>
+                     </c:forEach>
+                 </table>
 
-            <input type="submit" value="Cursist toevoegen" name="actie"/><br>
-            <input type="submit" value="Cursist aanpassen" name="actie"/><br>
-            <input type="submit" value="Cursist verwijderen"  name="actie"/><br>
+                 <% if (gebruiker.getRol().equals("admin")) { %>
 
-            <% } %>
+                 <input type="submit" value="Cursist toevoegen" name="actie"/><br>
+                 <input type="submit" value="Cursist aanpassen" name="actie"/><br>
+                 <input type="submit" value="Cursist verwijderen"  name="actie"/><br>
 
-            <% if (gebruiker.getRol().equals("secretariaat")) { %>
-            <input type="submit" value="Cursist toevoegen" name="actie"/><br>
-            <input type="submit" value="Cursist aanpassen" name="actie"/><br>
-            <% }%>
+                 <% } %>
+
+                 <% if (gebruiker.getRol().equals("secretariaat")) { %>
+                 <input type="submit" value="Cursist toevoegen" name="actie"/><br>
+                 <input type="submit" value="Cursist aanpassen" name="actie"/><br>
+                 <% }%>
+            </section>
 
         </form>
     </body>

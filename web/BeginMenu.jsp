@@ -12,7 +12,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Startmenu</title>
         <script src="js/nav.js"></script>
@@ -21,8 +20,8 @@
     </head>
     <body>
         <form action="MenuServlet">
-            <header></header>
             <%@include file="Bovenbalk.jsp" %>
+            <header></header>
             <section id="welkom">
                 <p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p>
             </section>
