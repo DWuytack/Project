@@ -69,11 +69,10 @@ public class GebruikersServlet extends HttpServlet {
                 Gebruiker gebruiker = new Gebruiker();
                 gebruiker.setVoorNaam(request.getParameter("voornaam"));
                 gebruiker.setAchternaam(request.getParameter("achternaam"));
-               
                 String dateString = request.getParameter("geboorteDatum");
                 DateFormat df = new java.text.SimpleDateFormat("dd/mm/yyyy");;
                 java.util.Date datum = df.parse(dateString);
-                java.sql.Date sqlDate = new java.sql.Date(datum.getTime());
+                java.sql.Date sqlDate = new java.sql.Date(datum.getDate());
                 gebruiker.setGeboorteDatum(sqlDate);
                 gebruiker.setEmail(request.getParameter("email"));
                 gebruiker.setLogin(request.getParameter("login"));

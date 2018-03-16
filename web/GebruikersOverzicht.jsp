@@ -25,11 +25,6 @@
        <form action="GebruikersServlet">
             <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
             
-            <select name="zoeken">
-            <option value="voornaam">voornaam</option>
-            <option value="achternaam">achternaam</option>
-            <option value="login">login</option>
-            </select>
             <table>
                 <c:forEach items="${lijstGebruikers}" var="gebruiker">
                     <tr>
