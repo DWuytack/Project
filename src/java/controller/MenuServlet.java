@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Doelstelling;
+import model.DoelstellingDAO;
 import model.Gebruiker;
 import model.GebruikerDAO;
 import model.Module;
@@ -21,8 +23,6 @@ import model.ScoreDAO;
  * @author Dirk
  */
 public class MenuServlet extends HttpServlet {
-
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,7 +54,7 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("CursistenOverzicht.jsp");
                     break;
                 case "Overzicht gebruikers":
-                    
+
                     //laden van gebruikers uit database
                     GebruikerDAO gebruikerDAO2 = new GebruikerDAO();
                     ArrayList<Gebruiker> gebruikers = gebruikerDAO2.gebruikersLaden();
@@ -62,11 +62,15 @@ public class MenuServlet extends HttpServlet {
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
+                    
                 case "Overzicht doelstellingen":
-
-                    //laden van doelstellingen uit database
-                    response.sendRedirect("Doelstelling.jsp");
+                    DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+                    ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden();
+                    
+                    session.setAttribute("lijstDoelstellingen", doelstellingen);
+                    response.sendRedirect("DoelstellingenOverzicht.jsp");
                     break;
+                    
                 case "Overzicht taken":
                     response.sendRedirect("Taken.jsp");
                     break;
@@ -113,7 +117,7 @@ public class MenuServlet extends HttpServlet {
             }
 
         } catch (Throwable theException) {
-            
+
         }
 
     }

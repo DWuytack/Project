@@ -10,10 +10,15 @@
 
 <% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
 <nav class="top-navigatie">
+    <!-- toon afmelden alleen bij LoginPage -->
     <li id="afmelden">
         <a id="bt-afmelden" title="Afmelden">
             <i class="material-icons">exit_to_app</i>
         </a>
+    </li>
+    <!-- toon menu altijd behalve bij LoginPage -->
+    <li id="menu">
+        <a id="bt-menu" href="BeginMenu.jsp" title="menu"></a>
     </li>
     <img id="logo" src="images/LogoPCVO.png" width="165" height="50">
     <h1>Score on Web</h1>
