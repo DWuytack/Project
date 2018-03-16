@@ -4,12 +4,13 @@
     Author     : Davino
 --%>
 
-<%@page import="model.Opleiding"%>
-<%@page import="java.util.ArrayList"%>
+
 <%@ page language="java" 
          contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"
          import="model.Gebruiker"
+         import="model.Opleiding"
+         import="java.util.ArrayList"
          %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -33,10 +34,11 @@
             <% ArrayList<Opleiding> lijstOpleidingen = (ArrayList<Opleiding>) (session.getAttribute("lijstOpleidingen"));%>
 
             <table>
-                <c:forEach items="${lijstModules}" var="opleiding">
+                <c:forEach items="${lijstOpleidingen}" var="opleiding">
                     <tr>
-                        <td> ${opleiding.opleidingID} <td>
-                        <td> ${opleiding.naam} <td>
+                         <td> ${opleiding.opleidingID} <td>
+                         <td> ${opleiding.naam} <td>
+                      
                        
                        
                     </tr>
@@ -47,9 +49,9 @@
          
           
           <% if (gebruiker.getRol().equals("admin")) { %>
-          <input type="button" value="Opleiding Toevoegen" name="Toevoegen"/><br>
-         <input type="button" value="Opleiding Aanpassen" name="Aanpassen"/><br>
-         <input type="button" value="Opleiding Verwijderen"name="Verwijderen"/><br>
+          <input type="submit" value="Opleiding Toevoegen" name="actie"/><br>
+         <input type="submit" value="Opleiding Aanpassen" name="actie"/><br>
+         <input type="submit" value="Opleiding Verwijderen"name="actie"/><br>
             <%} %>
      
             
