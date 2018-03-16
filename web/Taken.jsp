@@ -33,8 +33,14 @@
             <% ArrayList<Taak> lijstTaken = (ArrayList<Taak>) (session.getAttribute("lijstTaken"));%>
 
             <table>
+                <tr>
+                    <th>Select</th>
+                    <th>naam</th>
+                    <th>beschrijving</th>
+                </tr>
                 <c:forEach items="${lijstTaken}" var="taken">
                     <tr>
+                        <td> <input type="radio" name="taak" value="${taak.taakID}" > </td>
                         <td> ${taken.naam} <td>
                         <td> ${taken.beschrijving} <td>
                        
