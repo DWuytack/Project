@@ -20,11 +20,8 @@
     </head>
     <body>
         <form action="MenuServlet">
-               
-        <%@include file="Bovenbalk.jsp" %>
-    
-            <header>
-            </header>
+            <header></header>
+            <%@include file="Bovenbalk.jsp" %>
             <section id="welkom">
                 <p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p>
             </section>
