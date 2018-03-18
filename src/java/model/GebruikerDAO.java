@@ -372,18 +372,19 @@ public class GebruikerDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "INSERT INTO gebruiker(rolID, voornaam, achternaam, geboortedatum, email, login, paswoord) VALUES(2,?,?,?,?,?,MD5(?));";
-
+        String sql = "INSERT INTO Gebruiker(voornaam, achternaam, rolID , geboortedatum, email, login, wachtwoord) VALUES(?,?,?,?,?,?,MD5(?))";
+        
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
             ps.setString(1, "voornaam");
             ps.setString(2, "achternaam");
-            ps.setString(3, "geboortedatum");
-            ps.setString(4, "email");
-            ps.setString(5, "login");
-            ps.setString(6, "paswoord");
+            ps.setString(3, "rol");
+            ps.setString(4, "geboortedatum");
+            ps.setString(5, "email");
+            ps.setString(6, "login");
+            ps.setString(7, "wachtwoord");
             ps.executeQuery(sql);
 
             

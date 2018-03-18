@@ -35,7 +35,7 @@ public class GebruikersServlet extends HttpServlet {
 
         try {
         String actie = request.getParameter("actie");
-        
+        String bewerking = request.getParameter("bewerking");
         HttpSession session = request.getSession(true);
         GebruikerDAO gebruikerDAO = new GebruikerDAO();
         Gebruiker gebruiker = new Gebruiker();
@@ -70,24 +70,7 @@ public class GebruikersServlet extends HttpServlet {
             
                 response.sendRedirect("GebruikerAanmaken.jsp");
            
-                
-                gebruiker.setVoorNaam(request.getParameter("voornaam"));
-                gebruiker.setAchternaam(request.getParameter("achternaam"));
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                java.util.Date util_StartDate = format.parse(request.getParameter("geboortedatum"));
-                java.sql.Date sqlDate = new java.sql.Date( util_StartDate.getTime());
-                //String dateString = request.getParameter("geboorteDatum");
-                //DateFormat df = new java.text.SimpleDateFormat("dd/mm/yyyy");;
-                //java.util.Date datum = df.parse(dateString);
-                //java.sql.Date sqlDate = new java.sql.Date(datum.getDate());
-                gebruiker.setGeboorteDatum(sqlDate);
-                gebruiker.setEmail(request.getParameter("email"));
-                gebruiker.setLogin(request.getParameter("login"));
-                gebruiker.setPaswoord(request.getParameter("wachtwoord"));
-                
-                gebruikerDAO.cursistAanmaken(gebruiker);
-               
-                response.sendRedirect("GebruikersOverzicht.jsp");
+
                 
                 break;
            
@@ -114,10 +97,32 @@ public class GebruikersServlet extends HttpServlet {
 
                 break;
                 
-            }
+            
+            case "toevoegen":
+                
+                gebruiker.setVoorNaam(request.getParameter("voornaam"));
+                gebruiker.setAchternaam(request.getParameter("achternaam"));
+                gebruiker.setRol(request.getParameter("rol"));
+               
+                String dateString = request.getParameter("geboorteDatum");
+                DateFormat df = new java.text.SimpleDateFormat("yyyy/mm/dd");;
+                java.util.Date datum = df.parse(dateString);
+                java.sql.Date sqlDate = new java.sql.Date(datum.getTime());
+                gebruiker.setGeboorteDatum(sqlDate);
+                gebruiker.setEmail(request.getParameter("email"));
+                gebruiker.setLogin(request.getParameter("login"));
+                gebruiker.setPaswoord(request.getParameter("wachtwoord"));
+                
+                gebruikerDAO.cursistAanmaken(gebruiker);
+               
+                response.sendRedirect("GebruikersOverzicht.jsp");
+                break;
+        }
+
         } catch (Throwable theException) {
             
         }
+        
 
     }
         
