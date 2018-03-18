@@ -35,12 +35,12 @@
                             <td> ${gebruiker.voorNaam} <td>
                             <td> ${gebruiker.geboorteDatum} <td>
                             <td> ${gebruiker.email} <td>
-                <% if (gebruiker.getRol().equals("admin")) { %>
+                            <% if (gebruiker.getRol().equals("admin")) { %>
 
-                <td> <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
-                <td> <input type="submit" value="Gebruiker verwijderen"  name="actie"/><br>
+                            <td> <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
+                            <td> <input type="submit" value="Gebruiker verwijderen"  name="actie"/><br>
 
-             <% } %>
+                            <% } %>
                         </tr>
                     </c:forEach>
                 </table>

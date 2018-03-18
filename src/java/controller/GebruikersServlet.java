@@ -4,6 +4,7 @@ package controller;
 import java.io.IOException;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +35,7 @@ public class GebruikersServlet extends HttpServlet {
 
         try {
         String actie = request.getParameter("actie");
+        
         HttpSession session = request.getSession(true);
         GebruikerDAO gebruikerDAO = new GebruikerDAO();
         Gebruiker gebruiker = new Gebruiker();
@@ -71,10 +73,13 @@ public class GebruikersServlet extends HttpServlet {
                 
                 gebruiker.setVoorNaam(request.getParameter("voornaam"));
                 gebruiker.setAchternaam(request.getParameter("achternaam"));
-                String dateString = request.getParameter("geboorteDatum");
-                DateFormat df = new java.text.SimpleDateFormat("dd/mm/yyyy");;
-                java.util.Date datum = df.parse(dateString);
-                java.sql.Date sqlDate = new java.sql.Date(datum.getDate());
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date util_StartDate = format.parse(request.getParameter("geboortedatum"));
+                java.sql.Date sqlDate = new java.sql.Date( util_StartDate.getTime());
+                //String dateString = request.getParameter("geboorteDatum");
+                //DateFormat df = new java.text.SimpleDateFormat("dd/mm/yyyy");;
+                //java.util.Date datum = df.parse(dateString);
+                //java.sql.Date sqlDate = new java.sql.Date(datum.getDate());
                 gebruiker.setGeboorteDatum(sqlDate);
                 gebruiker.setEmail(request.getParameter("email"));
                 gebruiker.setLogin(request.getParameter("login"));
@@ -82,6 +87,7 @@ public class GebruikersServlet extends HttpServlet {
                 
                 gebruikerDAO.cursistAanmaken(gebruiker);
                
+                response.sendRedirect("GebruikersOverzicht.jsp");
                 
                 break;
            
@@ -107,6 +113,7 @@ public class GebruikersServlet extends HttpServlet {
                 gebruikerDAO.gebruikerVerwijderen(gebruiker);
 
                 break;
+                
             }
         } catch (Throwable theException) {
             

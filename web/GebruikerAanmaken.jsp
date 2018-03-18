@@ -33,11 +33,11 @@
                     <input type="radio" name="rol" value="leerkracht"> Leerkracht<td></tr><br>
                     <tr><td><label>GeboorteDatum: </label></td><td><input type="date" name="geboortedatum" size="16" maxlength="20"/><td></tr><br>
                     <tr><td><label>Email: </label></td><td><input type="text" name="email" size="16" maxlength="30"/><td></tr><br>
-                    <tr><td><label>Login: </label></td><td><input type="text" name="login" size="16" maxlength="10"/><td></tr><br><br><br>
-                    <tr><td><label>Wachtwoord: </label></td><td><input type="text" name="wachtwoord" size="16" maxlength="20"/><td></tr>
+                    <tr><td><label>Login: </label></td><td><input type="text" name="login" size="16" maxlength="30"/><td></tr><br><br><br>
+                    <tr><td><label>Wachtwoord: </label></td><td><input type="password" name="wachtwoord" size="16" maxlength="20"/><td></tr>
                 </table>
                 <br>
-                <input type="submit" name="submit" value="toevoegen" />
+                <input type="submit" name="bewerking" value="Gebruiker toevoegen" />
             </section>
         </form>
     </body>
