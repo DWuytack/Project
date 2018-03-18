@@ -27,14 +27,17 @@
             <header></header>
             <section>
                 <table>
-                    <tr><td><label>Voornaam: </label></td><td><input type="text" name="voornaam" size="40" maxlength="40"/><td></tr><br>
-                    <tr><td><label>Achternaam: </label></td><td><input type="text" name="achternaam" size="40" maxlength="40"/><td></tr><br>
-                    <tr><td><label>Rol: </label></td><td><input type="date" name="rol" size="40" maxlength="40"/><td></tr><br>
-                    <tr><td><label>GeboorteDatum: </label></td><td><input type="text" name="geboortedatum" size="40" maxlength="40"/><td></tr><br>
-                    <tr><td> <label>Email: </label></td><td><input type="text" name="email" size="40" maxlength="40"/><td></tr><br>
-                    <tr><td><label>Login: </label></td><td><input type="text" name="login" size="40" maxlength="40"/><td></tr><br><br><br>
-                    <tr><td><label>Wachtwoord: </label></td><td><input type="text" name="wachtwoord" size="40" maxlength="40"/><td></tr>
+                    <tr><td><label>Voornaam: </label></td><td><input type="text" name="voornaam" size="16" maxlength="30"/><td></tr><br>
+                    <tr><td><label>Achternaam: </label></td><td><input type="text" name="achternaam" size="16" maxlength="30"/><td></tr><br>
+                    <tr><td><label>Rol: </label></td><td><input type="radio" name="rol" value="cursist"/> Cursist
+                    <input type="radio" name="rol" value="leerkracht"> Leerkracht<td></tr><br>
+                    <tr><td><label>GeboorteDatum: </label></td><td><input type="date" name="geboortedatum" size="16" maxlength="20"/><td></tr><br>
+                    <tr><td><label>Email: </label></td><td><input type="text" name="email" size="16" maxlength="30"/><td></tr><br>
+                    <tr><td><label>Login: </label></td><td><input type="text" name="login" size="16" maxlength="10"/><td></tr><br><br><br>
+                    <tr><td><label>Wachtwoord: </label></td><td><input type="text" name="wachtwoord" size="16" maxlength="20"/><td></tr>
                 </table>
+                <br>
+                <input type="submit" name="submit" value="toevoegen" />
             </section>
         </form>
     </body>

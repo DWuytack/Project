@@ -2,6 +2,7 @@
 package controller;
 
 import java.io.IOException;
+
 import java.text.DateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,6 +36,7 @@ public class GebruikersServlet extends HttpServlet {
         String actie = request.getParameter("actie");
         HttpSession session = request.getSession(true);
         GebruikerDAO gebruikerDAO = new GebruikerDAO();
+        Gebruiker gebruiker = new Gebruiker();
 
         switch (actie) {
 
@@ -66,7 +68,7 @@ public class GebruikersServlet extends HttpServlet {
             
                 response.sendRedirect("GebruikerAanmaken.jsp");
            
-                Gebruiker gebruiker = new Gebruiker();
+                
                 gebruiker.setVoorNaam(request.getParameter("voornaam"));
                 gebruiker.setAchternaam(request.getParameter("achternaam"));
                 String dateString = request.getParameter("geboorteDatum");
@@ -79,25 +81,31 @@ public class GebruikersServlet extends HttpServlet {
                 gebruiker.setPaswoord(request.getParameter("wachtwoord"));
                 
                 gebruikerDAO.cursistAanmaken(gebruiker);
-                
-                //session.setAttribute("ToegevoegdeCursist");
+               
                 
                 break;
            
             case "Gebruiker aanpassen":
+                gebruiker.setVoorNaam(request.getParameter("voornaam"));
+                gebruiker.setAchternaam(request.getParameter("achternaam"));
+                gebruiker.setEmail(request.getParameter("email"));
+                gebruiker.setLogin(request.getParameter("login"));
+                gebruiker.setPaswoord(request.getParameter("wachtwoord"));
                 
-                //gebruikerDAO.gebruikerAanpassen(gebruiker);
-
-                //session.setAttribute("AangepasteGebruiker");
-                response.sendRedirect("GebruikersBewerking.jsp");
+                gebruikerDAO.gebruikerAanpassen(gebruiker);
+                
                 break;
                 
             case "Gebruiker verwijderen":
+                gebruiker.setVoorNaam(request.getParameter("voornaam"));
+                gebruiker.setAchternaam(request.getParameter("achternaam"));
+                gebruiker.setEmail(request.getParameter("email"));
+                gebruiker.setLogin(request.getParameter("login"));
+                gebruiker.setPaswoord(request.getParameter("wachtwoord"));
                 
-                //gebruikerDAO.gebruikerVerwijderen(gebruiker);
+                
+                gebruikerDAO.gebruikerVerwijderen(gebruiker);
 
-                //session.setAttribute("VerwijderdeGebruiker");
-                response.sendRedirect("GebruikersBewerking.jsp");
                 break;
             }
         } catch (Throwable theException) {

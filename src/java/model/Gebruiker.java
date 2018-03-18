@@ -22,6 +22,7 @@ public class Gebruiker {
     private String login;
     private String paswoord;
     private boolean geldig;
+    
 
     public int getGebruikerID() {
         return gebruikerID;

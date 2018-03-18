@@ -30,28 +30,28 @@
                 <table>
                     <c:forEach items="${lijstGebruikers}" var="gebruiker">
                         <tr>
-                            <td><input type="checkbox" name="checkbox" value="gebruiker" ></td>
+                            
                             <td> ${gebruiker.achternaam} <td>
                             <td> ${gebruiker.voorNaam} <td>
                             <td> ${gebruiker.geboorteDatum} <td>
                             <td> ${gebruiker.email} <td>
+                <% if (gebruiker.getRol().equals("admin")) { %>
+
+                <td> <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
+                <td> <input type="submit" value="Gebruiker verwijderen"  name="actie"/><br>
+
+             <% } %>
                         </tr>
                     </c:forEach>
                 </table>
+                <br>
 
-            <% if (gebruiker.getRol().equals("admin")) { %>
+            <% if (gebruiker.getRol().equals("admin")|| gebruiker.getRol().equals("secretariaat")) { %>
 
             <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
-            <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
-            <input type="submit" value="Gebruiker verwijderen"  name="actie"/><br>
-
+           
              <% } %>
 
-
-            <% if (gebruiker.getRol().equals("secretariaat")) { %>
-            <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
-            <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
-             <% } %>
             </section>
          </form>
     </body>
