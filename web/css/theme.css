@@ -53,7 +53,9 @@ input, a, select {
 a * { pointer-events: none; }
 
 /* PRESET MODIFICATION */
-* {}
+* {
+    opacity: .99 /* BUGFIX Z-INDEX */
+}
 
 :focus {
     outline: none;
@@ -80,12 +82,17 @@ body {
 /* CONTENT STYLING */
 nav {
     list-style: none;
-    z-index: 10;
+    z-index: 300;
 }
 
 header {
-    z-index: 1;
+    position: relative;
+    z-index: 100;
     min-height: 60px;
+}
+section {
+    position: relative;
+    z-index: 50;
 }
 
 /* NAV */
@@ -100,7 +107,8 @@ header {
     display: flex;
     justify-content: flex-end;
     
-    background-image: url(images/noise.png);
+    background-color: #fff;
+    background-image: url(../images/noise.png);
     border-bottom: 1px solid silver;
 }
 .top-navigatie > li {
@@ -128,7 +136,7 @@ header {
     color: #333;
 }
 #bt-menu:after {
-    content: '☰';
+    content: '\2630';
     font-size: 50px;
 }
 
@@ -168,14 +176,15 @@ li.active > #bt-profiel:after {
 
 .dropdown {
     position: absolute;
-    top: 60px;
+    top: 61px;
     right: 0;
     list-style: none;
     margin: 0;
     display: none;
     flex-direction: column;
     
-    background-image: url(images/noise.png);
+    background-color: #fff;
+    background-image: url(../images/noise.png);
     padding: 0;
 }
 .dropdown li {

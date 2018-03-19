@@ -12,7 +12,6 @@ header {
 }
 
 /* SECTION: NAVIGATION MENU */
-
 #nav-menu {
     position: relative;
     width: 100%;
@@ -45,7 +44,7 @@ header {
     list-style: none;
 }
 
-#main-menu > input[type="button"], #main-menu > input[type="submit"] { 
+#main-menu input[type="button"], #main-menu input[type="submit"] { 
     font-family: Raleway; /*Force Elem Bug */
     
     position: relative;
@@ -75,21 +74,21 @@ header {
 
 /* RESIZE SUPPORT */
 @media screen and (min-width: 1250px) {
-    #main-menu > li {
+    #main-menu li {
         width: 600px;
     }
-    #main-menu > li > a {
+    #main-menu li > a {
         font-size: 36px;
         padding: 10px;
     }
 }
 
 @media screen and (max-width: 800px) {
-    #main-menu > li {
+    #main-menu li {
         height: auto;
         width: auto;
     }
-    #main-menu > li > a {
+    #main-menu li > a {
         font-size: 24px;
         padding: 10px;
     }
