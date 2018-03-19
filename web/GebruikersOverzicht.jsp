@@ -37,8 +37,8 @@
                             <td> ${gebruiker.email} <td>
                             <% if (gebruiker.getRol().equals("admin")) { %>
 
-                            <td> <input type="submit" value="Gebruiker aanpassen" name="actie"/><br>
-                            <td> <input type="submit" value="Gebruiker verwijderen"  name="actie"/><br>
+                            <td> <input type="submit" value="" style='background-image: url("images/pencil.jpg");  width: 25px; height: 25px;' name="actie" /><br>
+                            <td> <input type="submit" value="" style='background-image: url("images/vuilbak.jpg"); width: 25px; height: 25px;' name="actie"/><br>
 
                             <% } %>
                         </tr>
