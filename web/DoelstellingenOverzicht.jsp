@@ -29,11 +29,12 @@
             <section>
                 <h2>Doelstellingen</h2>
 
+                <% if (!gebruiker.getRol().equals("cursist")) { %>
+
                 <% ArrayList<Doelstelling> lijstDoelstellingen = (ArrayList<Doelstelling>) (session.getAttribute("lijstDoelstellingen"));%>
 
                 <table>
                     <tr>
-                        <th>Select</th>
                         <th>Doelstelling</th>
                         <th>Beschrijving</th>
                         <th>Kerndoelstelling</th>
@@ -41,19 +42,21 @@
 
                     <c:forEach items="${lijstDoelstellingen}" var="doelstelling">
                         <tr>
-                            <td> <input type="radio" name="doelstelling" value="${doelstelling.doelstellingID}" > </td>
                             <td> ${doelstelling.naam} </td>
                             <td> ${doelstelling.beschrijving} </td>
                             <td> ${doelstelling.kerndoelstelling} </td>
+                            <% if (gebruiker.getRol().equals("admin")) { %>
+                            <td> <input type="submit" name="aanpassen" value="🖉"> </td>
+                            <td> <input type="submit" name="verwijderen" value="✘"> </td>
+                                <% }; %>
                         </tr>
                     </c:forEach>
                 </table>
 
-                <br>
-                <input type="submit" value="Doelstelling Aanmaken" name="actie"/>
-                <input type="submit" value="Doelstelling Aanpassen" name="actie"/>
-                <input type="submit" value="Doelstelling Verwijderen" name="actie"/>
-        </section>
+                <% } else { %>
+                <h1>Cursisten hebben geen toegang tot deze informatie!</h1>
+                <% }%>
+            </section>
 
         </form>
     </body>
