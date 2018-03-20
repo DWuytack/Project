@@ -42,21 +42,25 @@
                             <td> <input type="radio" name="taak" value="${taak.taakID}" > </td>
                             <td> ${taken.naam} <td>
                             <td> ${taken.beschrijving} <td>
-                                
+                                <% if (gebruiker.getRol().equals("admin")) { %>
                             <td> <input type="image"  name="idEdit" value="${taken.taakID}" src='images/pencil.png'  /> </td>
                             <td> <input type="image"  name="idDelete" value="${taken.taakID}" src='images/vuilbak.png' /> </td>
+                                <%} %>
+
+                            <% if (gebruiker.getRol().equals("leerkracht")) { %>
+                            <td> <input type="image"  name="idEdit" value="${taken.taakID}" src='images/pencil.png'  /> </td>
+                            <td> <input type="image"  name="idDelete" value="${taken.taakID}" src='images/vuilbak.png' /> </td>
+                                <%}%>
                         </tr>
                     </c:forEach>
                 </table>
 
+                <% if (gebruiker.getRol().equals("admin") || gebruiker.getRol().equals("leerkracht")) { %>
 
-               <% if (gebruiker.getRol().equals("admin")) { %>
-               <input type="submit" value="Taak Toevoegen" name="actie"/><br>
-               <%} %>
+                <input type="submit" value="taak toevoegen" name="actie"/><br>
 
-               <% if (gebruiker.getRol().equals("leerkracht")) { %>
-               <input type="submit" value="Taak Toevoegen" name="actie"/><br>
-               <%} %>
+                <% }%>
+
             </section>
         </form>
     </body>
