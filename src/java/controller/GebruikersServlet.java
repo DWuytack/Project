@@ -49,7 +49,7 @@ public class GebruikersServlet extends HttpServlet {
                //gebruiker met id moet aangepast worden in database 
                 System.out.println("edit gebruiker: " + id);
                 HttpSession session = request.getSession(true);
-                session.setAttribute("gebruikerID", id);
+                session.setAttribute("editID", id);
                 response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                 break;
                 

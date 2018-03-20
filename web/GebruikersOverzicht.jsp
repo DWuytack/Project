@@ -26,23 +26,44 @@
             <header></header>
             <section>
                 <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
-                <% String id = (String) session.getAttribute("gebruikerID");%>
+                
+                <% String id = (String) session.getAttribute("editID");%>
 
                 <table>
                     <c:forEach items="${lijstGebruikers}" var="cursist">
                         <tr>
+                            <% String gebID = "${cursist.gebruikerID}"; %>
+                            
+          
+                            <% if (id != null && id.equals(gebID) ) { %>
 
+                            <td> edit </td>
+                            <td> edit </td>
+                            <td> edit </td>
+                            <td> edit </td>
+
+                            
+                            <% } else { %>
+                            
                             <td> ${cursist.achternaam} </td>
                             <td> ${cursist.voorNaam} </td>
                             <td> ${cursist.geboorteDatum} </td>
                             <td> ${cursist.email} </td>
-                       
+                              
+
+                           <% } %>
+
+
                             <% if (gebruiker.getRol().equals("admin")) { %>
 
                             <td> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'  /> </td>
                             <td> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png' /> </td>
 
                             <% } %>
+
+
+
+
                         </tr>
                     </c:forEach>
                 </table>
