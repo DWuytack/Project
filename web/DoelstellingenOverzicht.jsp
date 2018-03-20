@@ -15,19 +15,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 
 <!DOCTYPE html>
-<html>
-    <head>
+
+    
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/theme.css">
         <title>Doelstellingen</title>
-    </head>
+    
     <body>
         <form action="MenuServlet">
             <%@include file="Bovenbalk.jsp" %>
             <header></header>
             <section>
-                <h2>Doelstellingen</h2>
+                <fieldset>
+                    <legend>Doelstellingen</legend>
 
                 <% if (!gebruiker.getRol().equals("cursist")) { %>
 
@@ -35,7 +36,7 @@
 
                 <table>
                     <tr>
-                        <th>Doelstelling</th>
+                        <th>Naam</th>
                         <th>Beschrijving</th>
                         <th>Kerndoelstelling</th>
                     </tr> 
@@ -46,9 +47,11 @@
                             <td> ${doelstelling.beschrijving} </td>
                             <td> ${doelstelling.kerndoelstelling} </td>
                             <% if (gebruiker.getRol().equals("admin")) { %>
-                            <td> <input type="submit" name="aanpassen" value="🖉"> </td>
-                            <td> <input type="submit" name="verwijderen" value="✘"> </td>
-                                <% }; %>
+
+                            <td> <input type="image"  name="idEdit" value="${doelstelling.doelstellingID}" formmethod="post" src='images/pencil.png'  /> </td>
+                            <td> <input type="image"  name="idDelete" value="${doelstelling.doelstellingID}" formmethod="post" src='images/vuilbak.png' /> </td>
+
+                            <% } %>
                         </tr>
                     </c:forEach>
                 </table>
@@ -56,8 +59,10 @@
                 <% } else { %>
                 <h1>Cursisten hebben geen toegang tot deze informatie!</h1>
                 <% }%>
+                
+                </fieldset>
             </section>
 
         </form>
     </body>
-</html>
+
