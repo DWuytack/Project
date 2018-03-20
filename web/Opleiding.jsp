@@ -40,15 +40,13 @@
 
                         </tr>
                     </c:forEach>
-                </table>
-                <% if (gebruiker.getRol().equals("admin"))
-                {%>
-                    <input type="submit" value="Opleiding Toevoegen" name="actie"/><br>
-                    <input type="submit" value="Opleiding Aanpassen" name="actie"/><br>
-                    <input type="submit" value="Opleiding Verwijderen"name="actie"/><br>
-                <%}
-                %>
-            </section>
+                <% if (gebruiker.getRol().equals("admin")) { %>
+
+                            <td> <input type="image"  name="idEdit" value="${opleiding.opleidingID}" src='images/pencil.png'  /> </td>
+                            <td> <input type="image"  name="idDelete" value="${opleiding.naam}" src='images/vuilbak.png' /> </td>
+
+                            <% } %>
+                        </tr>
      
         </form>    
         
