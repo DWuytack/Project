@@ -4,7 +4,6 @@ package controller;
 import java.io.IOException;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,6 +48,9 @@ public class GebruikersServlet extends HttpServlet {
             case "Edit gebruiker":
                //gebruiker met id moet aangepast worden in database 
                 System.out.println("edit gebruiker: " + id);
+                HttpSession session = request.getSession(true);
+                session.setAttribute("gebruikerID", id);
+                response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                 break;
                 
             case "Delete gebruiker":
