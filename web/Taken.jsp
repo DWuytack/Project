@@ -43,8 +43,8 @@
                             <td> ${taken.naam} <td>
                             <td> ${taken.beschrijving} <td>
                                 
-                            <td> <input type="image"  name="idEdit" value="${taken.taakID}" src='images/pencil.jpg'  /> </td>
-                            <td> <input type="image"  name="idDelete" value="${taken.taakID}" src='images/vuilbak.jpg' /> </td>
+                            <td> <input type="image"  name="idEdit" value="${taken.taakID}" src='images/pencil.png'  /> </td>
+                            <td> <input type="image"  name="idDelete" value="${taken.taakID}" src='images/vuilbak.png' /> </td>
                         </tr>
                     </c:forEach>
                 </table>
