@@ -52,14 +52,10 @@
 
                <% if (gebruiker.getRol().equals("admin")) { %>
                <input type="submit" value="Taak Toevoegen" name="actie"/><br>
-               <input type="submit" value="Taak Aanpassen" name="actie"/><br>
-               <input type="submit" value="Taak Verwijderen"name="actie"/><br>
                <%} %>
 
                <% if (gebruiker.getRol().equals("leerkracht")) { %>
                <input type="submit" value="Taak Toevoegen" name="actie"/><br>
-               <input type="submit" value="Taak Aanpassen" name="actie"/><br>
-               <input type="submit" value="Taak Verwijderen"name="actie"/><br>
                <%} %>
             </section>
         </form>
