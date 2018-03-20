@@ -36,7 +36,7 @@
                             <td> ${cursist.voorNaam} </td>
                             <td> ${cursist.geboorteDatum} </td>
                             <td> ${cursist.email} </td>
-
+                       
                             <% if (gebruiker.getRol().equals("admin")) { %>
 
                             <td> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'  /> </td>
