@@ -34,13 +34,28 @@ public class GebruikersServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-        String actie = request.getParameter("actie");
-        String bewerking = request.getParameter("bewerking");
-        HttpSession session = request.getSession(true);
+        String actie="Edit gebruiker" ;
+        String id = request.getParameter("idEdit");
+        if (id == null) {
+            id = request.getParameter("idDelete");
+            actie="Delete gebruiker";
+        }
         GebruikerDAO gebruikerDAO = new GebruikerDAO();
         Gebruiker gebruiker = new Gebruiker();
 
         switch (actie) {
+            
+            
+            case "Edit gebruiker":
+               //gebruiker met id moet aangepast worden in database 
+                System.out.println("edit gebruiker: " + id);
+                break;
+                
+            case "Delete gebruiker":
+                //gebruiker met id moet verwijderd worden in database
+                 System.out.println("delete gebruiker: " + id);
+                
+                break;
 
             case "Cursist toevoegen":
                

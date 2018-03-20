@@ -6,11 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Deze klasse is verantwoordelijk voor alle gebruikersbewerkingen in de database.
@@ -52,6 +48,7 @@ public class GebruikerDAO {
                 Date geboorteDatum = rs.getDate("geboorteDatum");
                 String email = rs.getString("email");
 
+                gebruiker.setGebruikerID(gebruikerID);
                 gebruiker.setVoorNaam(voornaam);
                 gebruiker.setAchternaam(achternaam);
                 gebruiker.setGebruikerID(gebruikerID);
@@ -325,6 +322,7 @@ public class GebruikerDAO {
             
             while (rs.next()) {
                 Gebruiker gebruiker = new Gebruiker();
+                gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
                 gebruiker.setVoorNaam(rs.getString("voornaam"));
                 gebruiker.setAchternaam(rs.getString("achternaam"));
                 gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
