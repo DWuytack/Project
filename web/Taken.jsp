@@ -42,7 +42,9 @@
                             <td> <input type="radio" name="taak" value="${taak.taakID}" > </td>
                             <td> ${taken.naam} <td>
                             <td> ${taken.beschrijving} <td>
-
+                                
+                            <td> <input type="image"  name="idEdit" value="${taken.taakID}" src='images/pencil.png'  /> </td>
+                            <td> <input type="image"  name="idDelete" value="${taken.taakID}" src='images/vuilbak.png' /> </td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -50,14 +52,10 @@
 
                <% if (gebruiker.getRol().equals("admin")) { %>
                <input type="submit" value="Taak Toevoegen" name="actie"/><br>
-               <input type="submit" value="Taak Aanpassen" name="actie"/><br>
-               <input type="submit" value="Taak Verwijderen"name="actie"/><br>
                <%} %>
 
                <% if (gebruiker.getRol().equals("leerkracht")) { %>
                <input type="submit" value="Taak Toevoegen" name="actie"/><br>
-               <input type="submit" value="Taak Aanpassen" name="actie"/><br>
-               <input type="submit" value="Taak Verwijderen"name="actie"/><br>
                <%} %>
             </section>
         </form>

@@ -4,7 +4,6 @@ package controller;
 import java.io.IOException;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,13 +33,31 @@ public class GebruikersServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-        String actie = request.getParameter("actie");
-        String bewerking = request.getParameter("bewerking");
-        HttpSession session = request.getSession(true);
+        String actie="Edit gebruiker" ;
+        String id = request.getParameter("idEdit");
+        if (id == null) {
+            id = request.getParameter("idDelete");
+            actie="Delete gebruiker";
+        }
         GebruikerDAO gebruikerDAO = new GebruikerDAO();
         Gebruiker gebruiker = new Gebruiker();
 
         switch (actie) {
+            
+            
+            case "Edit gebruiker":
+               //gebruiker met id moet aangepast worden in database 
+                System.out.println("edit gebruiker: " + id);
+                HttpSession session = request.getSession(true);
+                session.setAttribute("gebruikerID", id);
+                response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
+                break;
+                
+            case "Delete gebruiker":
+                //gebruiker met id moet verwijderd worden in database
+                 System.out.println("delete gebruiker: " + id);
+                
+                break;
 
             case "Cursist toevoegen":
                

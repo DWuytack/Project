@@ -26,19 +26,21 @@
             <header></header>
             <section>
                 <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
-            
+                <% String id = (String) session.getAttribute("gebruikerID");%>
+
                 <table>
-                    <c:forEach items="${lijstGebruikers}" var="gebruiker">
+                    <c:forEach items="${lijstGebruikers}" var="cursist">
                         <tr>
-                            
-                            <td> ${gebruiker.achternaam} <td>
-                            <td> ${gebruiker.voorNaam} <td>
-                            <td> ${gebruiker.geboorteDatum} <td>
-                            <td> ${gebruiker.email} <td>
+
+                            <td> ${cursist.achternaam} </td>
+                            <td> ${cursist.voorNaam} </td>
+                            <td> ${cursist.geboorteDatum} </td>
+                            <td> ${cursist.email} </td>
+                       
                             <% if (gebruiker.getRol().equals("admin")) { %>
 
-                            <td> <input type="submit" value="" style='background-image: url("images/pencil.jpg");  width: 25px; height: 25px;' name="actie" /><br>
-                            <td> <input type="submit" value="" style='background-image: url("images/vuilbak.jpg"); width: 25px; height: 25px;' name="actie"/><br>
+                            <td> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'  /> </td>
+                            <td> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png' /> </td>
 
                             <% } %>
                         </tr>
@@ -46,13 +48,13 @@
                 </table>
                 <br>
 
-            <% if (gebruiker.getRol().equals("admin")|| gebruiker.getRol().equals("secretariaat")) { %>
+                <% if (gebruiker.getRol().equals("admin") || gebruiker.getRol().equals("secretariaat")) { %>
 
-            <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
-           
-             <% } %>
+                <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
+
+                <% }%>
 
             </section>
-         </form>
+        </form>
     </body>
 </html>

@@ -40,18 +40,16 @@
 
                             </tr>
                         </c:forEach>
-                    </table>
+                <% if (gebruiker.getRol().equals("admin")) { %>
 
-                    <% if (gebruiker.getRol().equals("admin"))
-                        { %>
-                        <input type="submit" value="Module Toevoegen" name="actie"/><br>
-                        <input type="submit" value="Module Aanpassen" name="actie"/><br>
-                        <input type="submit" value="Module Verwijderen"name="actie"/><br>
-                        <%}
-                    %>
-                    
-            </section>
+                            <td> <input type="image"  name="idEdit" value="${module.moduleID}" src='images/pencil.png'  /> </td>
+                            <td> <input type="image"  name="idDelete" value="${module.naam}" src='images/vuilbak.png' /> </td>
+
+                            <% } %>
+                        </tr>
+        
         </form>
+
     </body>
 </html>
 
