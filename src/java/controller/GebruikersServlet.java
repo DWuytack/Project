@@ -41,14 +41,12 @@ public class GebruikersServlet extends HttpServlet {
         }
         GebruikerDAO gebruikerDAO = new GebruikerDAO();
         Gebruiker gebruiker = new Gebruiker();
-            System.out.println("controller.GebruikersServlet.processRequest()");
-
+ 
         switch (actie) {
             
             
             case "Edit gebruiker":
                //gebruiker met id moet aangepast worden in database 
-                System.out.println("edit gebruiker: " + id);
                 HttpSession session = request.getSession(true);
                 session.setAttribute("editID", id);
                 response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
@@ -56,7 +54,6 @@ public class GebruikersServlet extends HttpServlet {
                 
             case "Delete gebruiker":
                 //gebruiker met id moet verwijderd worden in database
-                 System.out.println("delete gebruiker: " + id);
                 
                 break;
 

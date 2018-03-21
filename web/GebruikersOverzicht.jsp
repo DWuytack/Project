@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,14 +25,14 @@
                             <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
                                 <td> <input type="text" name="achternaam" size="25" maxlength="25" value="${cursist.achternaam}"/> </td>
                                 <td>  <input type="text" name="voornaam" size="25" maxlength="25" value="${cursist.voorNaam}"/> </td>
-                                <td>  <input type="text" name="geboorteDatum" size="25" maxlength="25" value="${cursist.geboorteDatum}"/> </td>
+                                <td>  <input type="text" name="geboorteDatum" size="25" maxlength="25" value="<fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" />"/> </td>
                                 <td>  <input type="text" name="email" size="25" maxlength="25" value="${cursist.email}"/> </td>
                             </c:if>
 
                             <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
                                 <td> ${cursist.achternaam} </td>
                                 <td> ${cursist.voorNaam} </td>
-                                <td> ${cursist.geboorteDatum} </td>
+                                <td> <fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" /> </td>
                                 <td> ${cursist.email} </td>
                             </c:if>
 
