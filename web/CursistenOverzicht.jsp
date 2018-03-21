@@ -16,44 +16,39 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Cursisten overzicht</title>
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+        <title>Cursisten overzicht</title>
     </head>
     <body>
-        <form action="GebruikersServlet">
-            
-            <header></header>
-            <%@include file="Bovenbalk.jsp" %>
-            <section>
+        <%@include file="Bovenbalk.jsp" %>
+        <section>
+            <form action="GebruikersServlet">
                 <% ArrayList<Gebruiker> lijstCursisten = (ArrayList<Gebruiker>) (session.getAttribute("lijstCursisten"));%>
 
                 <table>
-                     <c:forEach items="${lijstCursisten}" var="gebruiker">
-                         <tr>
-                             <td><input type="checkbox" name="checkbox" value="gebruiker" ></td>
-                             <td> ${gebruiker.achternaam} <td>
-                             <td> ${gebruiker.voorNaam} <td>
-                             <td> ${gebruiker.geboorteDatum} <td>
-                             <td> ${gebruiker.email} <td>
-                         </tr>
-                     </c:forEach>
+                    <c:forEach items="${lijstCursisten}" var="gebruiker">
+                    <tr>
+                        <td><input type="checkbox" name="checkbox" value="gebruiker" ></td>
+                        <td> ${gebruiker.achternaam} </td>
+                        <td> ${gebruiker.voorNaam} </td>
+                        <td> ${gebruiker.geboorteDatum} </td>
+                        <td> ${gebruiker.email} </td>
+                    </tr>
+                    </c:forEach>
                  </table>
 
                  <% if (gebruiker.getRol().equals("admin")) { %>
-
-                 <input type="submit" value="Cursist toevoegen" name="actie"/><br>
-                 <input type="submit" value="Cursist aanpassen" name="actie"/><br>
-                 <input type="submit" value="Cursist verwijderen"  name="actie"/><br>
-
+                 <input type="submit" value="Cursist toevoegen" name="actie"><br>
+                 <input type="submit" value="Cursist aanpassen" name="actie"><br>
+                 <input type="submit" value="Cursist verwijderen"  name="actie"><br>
                  <% } %>
 
                  <% if (gebruiker.getRol().equals("secretariaat")) { %>
-                 <input type="submit" value="Cursist toevoegen" name="actie"/><br>
-                 <input type="submit" value="Cursist aanpassen" name="actie"/><br>
+                 <input type="submit" value="Cursist toevoegen" name="actie"><br>
+                 <input type="submit" value="Cursist aanpassen" name="actie"><br>
                  <% }%>
-            </section>
-
-        </form>
+             </form>
+        </section>
     </body>
 </html>

@@ -10,20 +10,20 @@
          import="model.Module"
          import="model.Opleiding"
          %>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="js/nav.js"></script>
+        <link rel="stylesheet" href="css/theme.css">
+        <title>ModuleAanmaken</title>
     </head>
+    
     <body>
-         <%@include file="Bovenbalk.jsp" %>
-         
-        <h1>Module Aanmaken</h1>
-        
-      
-        
-        
-        
-        
+        <%@include file="Bovenbalk.jsp" %>
+        <section>
+            <h1>Module Aanmaken</h1>
+        </section>
     </body>
 </html>

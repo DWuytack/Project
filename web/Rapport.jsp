@@ -10,18 +10,19 @@
          import="model.Gebruiker"
          %>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>JSP Page</title>
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+        <title>JSP Page</title>
     </head>
+    
     <body>
         <%@include file="Bovenbalk.jsp" %>
-        <header></header>
         <section>
             <h1>Hier komt het rapport van een individuele cursist!</h1>
         </section>

@@ -16,7 +16,6 @@
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
-        <header></header>
         <section>
             <center>
                 <p>

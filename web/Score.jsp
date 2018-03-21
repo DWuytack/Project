@@ -21,19 +21,16 @@
         <link rel="stylesheet" href="css/theme.css">
     </head>
     
-    <body>
-        <form action="ScoreServlet">
-            <%@include file="Bovenbalk.jsp" %>
-            <header></header>
-            <section>
-                
+    <body> 
+        <%@include file="Bovenbalk.jsp" %>
+        <section>
+            <form action="ScoreServlet">
                 <select name="Schooljaar">
                     <option value="schooljaar">schooljaar</option>
                     <option value="semester">semester</option>
                     <option value="module">module</option>
                 </select>
-                
-            </section>
-        </form>
+            </form>    
+        </section>
     </body>
 </html>
