@@ -16,66 +16,51 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Gebruikers overzicht</title>
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+        <title>Gebruikers overzicht</title>
     </head>
+    
     <body>
-        <form action="GebruikersServlet">
-            <%@include file="Bovenbalk.jsp" %>
-            <header></header>
-            <section>
+        <%@include file="Bovenbalk.jsp" %>
+        <header></header>
+        <section>
+            <form action="GebruikersServlet">
                 <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
-                
+
                 <% String id = (String) session.getAttribute("editID");%>
 
                 <table>
                     <c:forEach items="${lijstGebruikers}" var="cursist">
-                        <tr>
-                            <% String gebID = "${cursist.gebruikerID}"; %>
-                            
-          
-                            <% if (id != null && id.equals(gebID) ) { %>
+                    <tr>
+                        <% String gebID = "${cursist.gebruikerID}"; %>
 
-                            <td> edit </td>
-                            <td> edit </td>
-                            <td> edit </td>
-                            <td> edit </td>
-
-                            
-                            <% } else { %>
-                            
-                            <td> ${cursist.achternaam} </td>
-                            <td> ${cursist.voorNaam} </td>
-                            <td> ${cursist.geboorteDatum} </td>
-                            <td> ${cursist.email} </td>
-                              
-
-                           <% } %>
+                        <% if (id != null && id.equals(gebID) ) { %>
+                        <td> edit </td>
+                        <td> edit </td>
+                        <td> edit </td>
+                        <td> edit </td>
+                        <% } else { %>
+                        <td> ${cursist.achternaam} </td>
+                        <td> ${cursist.voorNaam} </td>
+                        <td> ${cursist.geboorteDatum} </td>
+                        <td> ${cursist.email} </td>
+                        <% } %>
 
 
-                            <% if (gebruiker.getRol().equals("admin")) { %>
-
-                            <td> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'  /> </td>
-                            <td> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png' /> </td>
-
-                            <% } %>
-
-
-
-
-                        </tr>
+                        <% if (gebruiker.getRol().equals("admin")) { %>
+                        <td> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'> </td>
+                        <td> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'> </td>
+                        <% } %>
+                    </tr>
                     </c:forEach>
                 </table>
                 <br>
 
                 <% if (gebruiker.getRol().equals("admin") || gebruiker.getRol().equals("secretariaat")) { %>
-
-                <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
-
+                <input type="submit" value="Gebruiker toevoegen" name="actie"><br>
                 <% }%>
-
-            </section>
-        </form>
+            </form>
+        </section>
     </body>
 </html>

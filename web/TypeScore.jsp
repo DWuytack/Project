@@ -16,24 +16,21 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Score on Web</title>
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+        <title>Score on Web</title>
     </head>
     
-    <body>
-        <form action="TypeScoreServlet">
-            <%@include file="Bovenbalk.jsp" %>
-            <header></header>
-            <section>
-                
+    <body>  
+        <%@include file="Bovenbalk.jsp" %>
+        <section>
+            <form action="TypeScoreServlet">
                 <h1>Hier worden de type scores aangepast</h1>
 
                 <% if (gebruiker.getRol().equals("admin")) { %>
                 <input type="submit" value="Type Score Aanpassen" name="actie"/><br>
                 <%} %>
-                
-            </section>
-        </form>
+            </form>
+        </section>
     </body>
 </html>

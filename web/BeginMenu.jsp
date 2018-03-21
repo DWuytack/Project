@@ -13,10 +13,10 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Startmenu</title>
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/menu.css">
+        <title>Startmenu</title>
     </head>
     
     <body>

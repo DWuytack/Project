@@ -22,34 +22,29 @@
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
     </head>
-    <body>
-        <form action="MenuServlet">
-            <%@include file="Bovenbalk.jsp" %>
-            <header></header>
-            <section>
-                <h2>Opleidingen</h2><br>
+    
+    <body> 
+        <%@include file="Bovenbalk.jsp" %>
+        <section>
+            <form action="MenuServlet">
+                <h2>Opleidingen</h2>
+                <br>
                 <% ArrayList<Opleiding> lijstOpleidingen = (ArrayList<Opleiding>) (session.getAttribute("lijstOpleidingen"));%>
 
                 <table>
                     <c:forEach items="${lijstOpleidingen}" var="opleiding">
-                        <tr>
-                             <td> ${opleiding.opleidingID} <td>
-                             <td> ${opleiding.naam} <td>
-
-
-
-                        </tr>
+                    <tr>
+                        <td> ${opleiding.opleidingID} <td>
+                        <td> ${opleiding.naam} <td>
+                        <% if (gebruiker.getRol().equals("admin")) { %>
+                        <td> <input type="image"  name="idEdit" value="${opleiding.opleidingID}" src='images/pencil.png'> </td>
+                        <td> <input type="image"  name="idDelete" value="${opleiding.naam}" src='images/vuilbak.png'> </td>
+                        <% } %>
+                    </tr>
                     </c:forEach>
-                <% if (gebruiker.getRol().equals("admin")) { %>
-
-                            <td> <input type="image"  name="idEdit" value="${opleiding.opleidingID}" src='images/pencil.png'  /> </td>
-                            <td> <input type="image"  name="idDelete" value="${opleiding.naam}" src='images/vuilbak.png' /> </td>
-
-                            <% } %>
-                        </tr>
-     
-        </form>    
-        
+                </table>
+            </form>   
+        </section>    
     </body>
 </html>
 

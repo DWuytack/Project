@@ -16,10 +16,10 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Gebruikers overzicht</title>
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/gebruikers.css">
+        <title>Gebruikers overzicht</title>
     </head>
     <body>
         <%@include file="Bovenbalk.jsp" %>
@@ -27,33 +27,33 @@
             <form action="GebruikersServlet">
                 <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
                 <div class="table-container">
-                <table class="datatable">
-                    <thead>
-                        <tr>
-                            <th onclick="sortTable(0)"><a>Achternaam</a></th>
-                            <th onclick="sortTable(1)"><a>Voornaam</a></th>
-                            <th onclick="sortTable(2)"><a>GeboorteDatum</a></th>
-                            <th onclick="sortTable(3)"><a>E-mail</a></th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${lijstGebruikers}" var="gebruiker">
-                        <tr>
-                            <td> ${gebruiker.achternaam} </td>
-                            <td> ${gebruiker.voorNaam} </td>
-                            <td> ${gebruiker.geboorteDatum} </td>
-                            <td> ${gebruiker.email} </td>
-                            <% if (gebruiker.getRol().equals("admin")) { %>
+                    <table class="datatable">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0)"><a>Achternaam</a></th>
+                                <th onclick="sortTable(1)"><a>Voornaam</a></th>
+                                <th onclick="sortTable(2)"><a>GeboorteDatum</a></th>
+                                <th onclick="sortTable(3)"><a>E-mail</a></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${lijstGebruikers}" var="gebruiker">
+                            <tr>
+                                <td> ${gebruiker.achternaam} </td>
+                                <td> ${gebruiker.voorNaam} </td>
+                                <td> ${gebruiker.geboorteDatum} </td>
+                                <td> ${gebruiker.email} </td>
+                                <% if (gebruiker.getRol().equals("admin")) { %>
                                 <td class="icon">
                                     <input type="submit" value="" style='background-image: url("images/pencil.jpg");  width: 25px; height: 25px;' name="actie">
                                     <input type="submit" value="" style='background-image: url("images/vuilbak.jpg"); width: 25px; height: 25px;' name="actie">
                                 </td>
-                            <% } %>
-                        </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                                <% } %>
+                            </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
                 <br>
 
