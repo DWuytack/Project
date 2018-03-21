@@ -41,6 +41,7 @@ public class GebruikersServlet extends HttpServlet {
         }
         GebruikerDAO gebruikerDAO = new GebruikerDAO();
         Gebruiker gebruiker = new Gebruiker();
+            System.out.println("controller.GebruikersServlet.processRequest()");
 
         switch (actie) {
             

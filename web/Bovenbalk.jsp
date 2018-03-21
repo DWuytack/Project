@@ -3,12 +3,8 @@
     Created on : 15-mrt-2018, 20:37:51
     Author     : Dirk
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 
-<%@ page language="java"
-         import="model.Gebruiker"
-         %>
-
-<% Gebruiker gebruiker = (Gebruiker) (session.getAttribute("currentSessionUser"));%>
 <nav class="top-navigatie">
     <div id="nav-left">
         <!-- toon menu altijd behalve bij het menu -->
@@ -25,7 +21,7 @@
             <ul class="dropdown">
                 <li>
                     <a id="bt-naam">
-                        <i class="material-icons">account_box</i><span><%= gebruiker.getVoorNaam() + " " + gebruiker.getAchternaam()%></span>
+                        <i class="material-icons">account_box</i><span><c:out value = "${sessionScope.currentSessionUser.voorNaam}" /> </span>
                     </a>
                 </li>
                 <li>

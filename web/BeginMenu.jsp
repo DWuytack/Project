@@ -3,11 +3,8 @@
     Created on : 8-mrt-2018, 9:34:57
     Author     : CURSIST
 --%>
-<%@ page language="java" 
-         contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"
-         import="model.Gebruiker"
-         %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 
 <!DOCTYPE html>
 <html>
@@ -18,18 +15,17 @@
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/menu.css">
     </head>
-    
     <body>
-        <%@include file="Bovenbalk.jsp" %>
+          <%@include file="Bovenbalk.jsp" %>
         <header></header>
         <section id="welkom">
-            <p> Welkom, <%= gebruiker.getVoorNaam() %> ! </p>
-        </section>
-        <section id="nav-menu">  
-            <form action="MenuServlet">
-                <div id="main-menu">
+            <p> Welkom, <c:out value = "${sessionScope.currentSessionUser.voorNaam}" />! </p>
+            </section>
+            <section id="nav-menu">  
+                <form action="MenuServlet">
+                    <div id="main-menu">
 
-                        <% if (gebruiker.getRol().equals("admin")) { %>
+                        <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                             <input type="submit" value="Overzicht gebruikers" name="actie"/><br>
                             <input type="submit" value="Overzicht doelstellingen" name="actie"/><br>
                             <input type="submit" value="Overzicht taken"  name="actie"/><br>
@@ -37,28 +33,28 @@
                             <input type="submit" value="Overzicht modules" name="actie"/><br>
                             <input type="submit" value="Overzicht scores" name="actie"/><br>
                             <input type="submit" value="Type score aanpassen" name="actie"/><br>
-                        <%} %>
+                        </c:if>
 
-                        <% if (gebruiker.getRol().equals("leerkracht")) { %>
+                        <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
                             <input type="submit" value="Evaluatieformulieren" name="actie"/><br> 
                             <input type="submit" value="Overzicht cursisten" name="actie"/><br>
                             <input type="submit" value="Overzicht doelstellingen" name="actie"/><br>
                             <input type="submit" value="Overzicht taken"  name="actie"/><br>
                             <input type="submit" value="Overzicht opleidingen" name="actie"/><br>
                             <input type="submit" value="Overzicht modules" name="actie"/><br>
-                        <%}%>
+                        </c:if>
 
-                        <% if (gebruiker.getRol().equals("cursist")) { %>
+                        <c:if test="${sessionScope.currentSessionUser.rol == 'cursist'}" >
                             <input type="submit" value="Rapport" name="actie"/><br>
-                        <% } %>
+                        </c:if>
 
-                        <% if (gebruiker.getRol().equals("secretariaat")) { %>
+                        <c:if test="${sessionScope.currentSessionUser.rol == 'secretariaat'}" >
                             <input type="submit" value="Overzicht scores" name="actie"/><br>
                             <input type="submit" value="Overzicht gebruikers" name="actie"/><br>
-                        <%}%>
+                        </c:if>
 
-                </div>
-            </form>
-        </section>
+                    </div>
+                </form>
+            </section>
     </body>
 </html>
