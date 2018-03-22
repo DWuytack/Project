@@ -6,19 +6,19 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Gebruikers overzicht</title>
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+        <title>Gebruikers overzicht</title>
     </head>
     <body>
-        <form action="GebruikersServlet">
-            <%@include file="Bovenbalk.jsp" %>
-            <header></header>
-            <section>
+        <%@include file="Bovenbalk.jsp" %>
+        <section>
+            <form action="GebruikersServlet">
                 <table>
                     <c:forEach items="${lijstGebruikers}" var="cursist">
                         <tr>
@@ -48,12 +48,11 @@
                 <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                     <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
                 </c:if>
-                    
+
                 <c:if test="${sessionScope.currentSessionUser.rol == 'secretariaat'}" >
                     <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
                 </c:if>
-
-            </section>
-        </form>
+            </form>
+        </section>
     </body>
 </html>
