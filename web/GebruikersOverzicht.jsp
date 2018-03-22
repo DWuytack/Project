@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/gebruikers.css">
         <title>Gebruikers overzicht</title>
     </head>
     <body>
@@ -37,14 +38,14 @@
                             </c:if>
 
                             <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                <td> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'  /> </td>
-                                <td> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png' /> </td>
-                                </c:if>
+                                <td> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'> </td>
+                                <td> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'> </td>
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </table>
+                
                 <br>
-
                 <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                     <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
                 </c:if>

@@ -3,14 +3,9 @@
     Created on : 8-mrt-2018, 11:16:41
     Author     : Gil
 --%>
-<%@page import="java.util.ArrayList"%>
-<%@ page language="java" 
-         contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"
-         import="model.Gebruiker"
-         %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +20,6 @@
         <%@include file="Bovenbalk.jsp" %>
         <section>
             <form action="GebruikersServlet">
-                <% ArrayList<Gebruiker> lijstGebruikers = (ArrayList<Gebruiker>) (session.getAttribute("lijstGebruikers"));%>
                 <div class="table-container">
                     <table class="datatable">
                         <thead>
@@ -38,19 +32,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${lijstGebruikers}" var="gebruiker">
-                            <tr>
-                                <td> ${gebruiker.achternaam} </td>
-                                <td> ${gebruiker.voorNaam} </td>
-                                <td> ${gebruiker.geboorteDatum} </td>
-                                <td> ${gebruiker.email} </td>
-                                <% if (gebruiker.getRol().equals("admin")) { %>
-                                <td class="icon">
-                                    <input type="submit" value="" style='background-image: url("images/pencil.jpg");  width: 25px; height: 25px;' name="actie">
-                                    <input type="submit" value="" style='background-image: url("images/vuilbak.jpg"); width: 25px; height: 25px;' name="actie">
-                                </td>
-                                <% } %>
-                            </tr>
+                            <c:forEach items="${lijstGebruikers}" var="cursist">
+                                <tr>
+                                    <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
+                                        <td> <input type="text" name="achternaam" size="25" maxlength="25" value="${cursist.achternaam}"> </td>
+                                        <td> <input type="text" name="voornaam" size="25" maxlength="25" value="${cursist.voorNaam}"> </td>
+                                        <td> <input type="text" name="geboorteDatum" size="25" maxlength="25" value="<fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" />"> </td>
+                                        <td> <input type="text" name="email" size="25" maxlength="25" value="${cursist.email}"> </td>
+                                    </c:if>
+
+                                    <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
+                                        <td> ${cursist.achternaam} </td>
+                                        <td> ${cursist.voorNaam} </td>
+                                        <td> <fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" /> </td>
+                                        <td> ${cursist.email} </td>
+                                    </c:if>
+
+                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                        <td class="actie">
+                                            <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'>
+                                            <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'>
+                                        </td>
+                                    </c:if>
+                                </tr>
                             </c:forEach>
                         </tbody>
                     </table>
@@ -114,9 +118,13 @@
                     }
                 </script>
 
-                <% if (gebruiker.getRol().equals("admin")|| gebruiker.getRol().equals("secretariaat")) { %>
-                <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
-                <% } %>
+                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                    <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
+                </c:if>
+
+                <c:if test="${sessionScope.currentSessionUser.rol == 'secretariaat'}" >
+                    <input type="submit" value="Gebruiker toevoegen" name="actie"/><br>
+                </c:if>
             </form>
         </section>
     </body>
