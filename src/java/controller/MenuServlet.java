@@ -59,7 +59,7 @@ public class MenuServlet extends HttpServlet {
 
                     //laden van gebruikers uit database
                     GebruikerDAO gebruikerDAO2 = new GebruikerDAO();
-                    ArrayList<Gebruiker> gebruikers = gebruikerDAO2.gebruikersLaden();
+                    ArrayList<Gebruiker> gebruikers = gebruikerDAO2.gebruikersLaden(1);
 
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");

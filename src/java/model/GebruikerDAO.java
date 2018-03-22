@@ -9,7 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * Deze klasse is verantwoordelijk voor alle gebruikersbewerkingen in de database.
+ * Deze klasse is verantwoordelijk voor alle gebruikersbewerkingen in de
+ * database.
+ *
  * @author Gil
  */
 public class GebruikerDAO {
@@ -27,7 +29,7 @@ public class GebruikerDAO {
         String searchQuery
                 = "select Gebruiker.*, Rol.rol from Gebruiker"
                 + " inner join Rol on Gebruiker.rolID= Rol.rolID "
-                + "where login='" + login + "' AND wachtwoord=md5('" + paswoord + "');";
+                + "where login='" + login + "' AND wachtwoord=md5('" + paswoord + "') order by Gebruiker.achternaam;";
         try {
             //connectie met onze database
             currentCon = ConnectionManager.getConnection();
@@ -65,7 +67,7 @@ public class GebruikerDAO {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    
+
                 }
                 rs = null;
             }
@@ -74,7 +76,7 @@ public class GebruikerDAO {
                 try {
                     stmt.close();
                 } catch (Exception e) {
-                    
+
                 }
                 stmt = null;
             }
@@ -83,7 +85,7 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (Exception e) {
-                    
+
                 }
 
                 currentCon = null;
@@ -95,7 +97,7 @@ public class GebruikerDAO {
     }
 
     public ArrayList<Gebruiker> cursistenLaden() {
-         
+
         ArrayList<Gebruiker> cursisten = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
@@ -106,32 +108,32 @@ public class GebruikerDAO {
             String sql = "SELECT * FROM Gebruiker WHERE Gebruiker.rolID = 3";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
-            
+
             while (rs.next()) {
                 Gebruiker gebruiker = new Gebruiker();
                 gebruiker.setVoorNaam(rs.getString("voornaam"));
                 gebruiker.setAchternaam(rs.getString("achternaam"));
                 gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
                 gebruiker.setEmail(rs.getString("email"));
-                
+
                 cursisten.add(gebruiker);
             }
         } catch (SQLException e) {
-            
+
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException e) {  
+                } catch (SQLException e) {
                 }
                 rs = null;
             }
-            
-             if (statement != null) {
+
+            if (statement != null) {
                 try {
                     statement.close();
                 } catch (Exception e) {
-                    
+
                 }
 
                 statement = null;
@@ -141,18 +143,18 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (Exception e) {
-                    
+
                 }
 
                 currentCon = null;
             }
-            
+
         }
         return cursisten;
     }
 
     public void cursistAanmaken(Gebruiker gebruiker) {
-         Connection currentCon = null;
+        Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -170,17 +172,14 @@ public class GebruikerDAO {
             ps.setString(6, "paswoord");
             ps.executeQuery(sql);
 
-            
-
         } catch (SQLException ex) {
-            
-            
+
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    
+
                 }
                 rs = null;
             }
@@ -189,7 +188,7 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (Exception e) {
-                    
+
                 }
                 ps = null;
             }
@@ -198,15 +197,15 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (SQLException e) {
-                    
+
                 }
 
                 currentCon = null;
             }
         }
-        
+
     }
-    
+
     public void cursistAanpassen(Gebruiker gebruiker) {
         Connection currentCon = null;
         ResultSet rs = null;
@@ -225,13 +224,13 @@ public class GebruikerDAO {
             ps.executeQuery(sql);
 
         } catch (SQLException ex) {
-            
+
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    
+
                 }
                 rs = null;
             }
@@ -240,7 +239,7 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    
+
                 }
                 ps = null;
             }
@@ -249,15 +248,15 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (SQLException e) {
-                    
+
                 }
 
                 currentCon = null;
             }
         }
-        
+
     }
-    
+
     public void cursistVerwijderen(Gebruiker gebruiker) {
         Connection currentCon = null;
         ResultSet rs = null;
@@ -266,7 +265,7 @@ public class GebruikerDAO {
         String sql
                 = "DELETE g FROM gebruiker g inner join rol on g.rolID = rol.rolID WHERE rol = 'cursist' AND voornaam = ? AND achternaam = ?;";
 
-        try {    
+        try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
@@ -275,13 +274,13 @@ public class GebruikerDAO {
             ps.executeQuery(sql);
 
         } catch (SQLException ex) {
-            
+
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    
+
                 }
                 rs = null;
             }
@@ -290,7 +289,7 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                   
+
                 }
                 ps = null;
             }
@@ -299,16 +298,16 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (SQLException e) {
-                    
+
                 }
 
                 currentCon = null;
             }
         }
-        
+
     }
-    
-    public ArrayList<Gebruiker> gebruikersLaden() {
+
+    public ArrayList<Gebruiker> gebruikersLaden(int bladz) {
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
@@ -316,36 +315,40 @@ public class GebruikerDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Gebruiker;";
+            String sql = "select gebruikerID,voornaam, achternaam, login,  email, geboortedatum, rol from Gebruiker inner join Rol  on Gebruiker.rolID= Rol.rolID order by achternaam";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
-            
-            while (rs.next()) {
-                Gebruiker gebruiker = new Gebruiker();
-                gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
-                gebruiker.setVoorNaam(rs.getString("voornaam"));
-                gebruiker.setAchternaam(rs.getString("achternaam"));
-                gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
-                gebruiker.setEmail(rs.getString("email"));
-                
-                gebruikers.add(gebruiker);
+
+            for (int i = (bladz * 10) - 9; i <= 10 * bladz; i++) {
+                if (rs.next()) {
+                    Gebruiker gebruiker = new Gebruiker();
+                    gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
+                    gebruiker.setVoorNaam(rs.getString("voornaam"));
+                    gebruiker.setAchternaam(rs.getString("achternaam"));
+                    gebruiker.setLogin(rs.getString("login"));
+                    gebruiker.setRol(rs.getString("rol"));
+                    gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
+                    gebruiker.setEmail(rs.getString("email"));
+                    gebruikers.add(gebruiker);
+                }
             }
+
         } catch (SQLException e) {
-            
+
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException e) {  
+                } catch (SQLException e) {
                 }
                 rs = null;
             }
-            
-             if (statement != null) {
+
+            if (statement != null) {
                 try {
                     statement.close();
                 } catch (Exception e) {
-                    
+
                 }
 
                 statement = null;
@@ -355,23 +358,23 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (Exception e) {
-                    
+
                 }
 
                 currentCon = null;
             }
-            
+
         }
         return gebruikers;
     }
-    
+
     public void gebruikerAanmaken() {
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         String sql = "INSERT INTO Gebruiker(voornaam, achternaam, rolID , geboortedatum, email, login, wachtwoord) VALUES(?,?,?,?,?,?,MD5(?))";
-        
+
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
@@ -385,17 +388,14 @@ public class GebruikerDAO {
             ps.setString(7, "wachtwoord");
             ps.executeQuery(sql);
 
-            
-
         } catch (SQLException ex) {
-            
-            
+
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    
+
                 }
                 rs = null;
             }
@@ -404,7 +404,7 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (Exception e) {
-                    
+
                 }
                 ps = null;
             }
@@ -413,14 +413,14 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (SQLException e) {
-                    
+
                 }
 
                 currentCon = null;
             }
         }
     }
-    
+
     public void gebruikerAanpassen(Gebruiker gebruiker) {
         Connection currentCon = null;
         ResultSet rs = null;
@@ -439,13 +439,13 @@ public class GebruikerDAO {
             ps.executeQuery(sql);
 
         } catch (SQLException ex) {
-            
+
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    
+
                 }
                 rs = null;
             }
@@ -454,7 +454,7 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    
+
                 }
                 ps = null;
             }
@@ -463,13 +463,13 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (SQLException e) {
-                    
+
                 }
 
                 currentCon = null;
             }
         }
-        
+
     }
 
     public void gebruikerVerwijderen(Gebruiker gebruiker) {
@@ -480,7 +480,7 @@ public class GebruikerDAO {
         String sql
                 = "DELETE g FROM gebruiker g inner join rol on g.rolID = rol.rolID WHERE rol = 'leerkracht' AND voornaam = ? AND achternaam = ?;";
 
-        try {    
+        try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
@@ -489,13 +489,13 @@ public class GebruikerDAO {
             ps.executeQuery(sql);
 
         } catch (SQLException ex) {
-            
+
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    
+
                 }
                 rs = null;
             }
@@ -504,7 +504,7 @@ public class GebruikerDAO {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                   
+
                 }
                 ps = null;
             }
@@ -513,7 +513,7 @@ public class GebruikerDAO {
                 try {
                     currentCon.close();
                 } catch (SQLException e) {
-                    
+
                 }
 
                 currentCon = null;
