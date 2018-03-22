@@ -30,7 +30,9 @@
                                 <th onclick="sortTable(1)"><a>Voornaam</a></th>
                                 <th onclick="sortTable(2)"><a>GeboorteDatum</a></th>
                                 <th onclick="sortTable(3)"><a>E-mail</a></th>
-                                <th>Actions</th>
+                                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                    <th>Actions</th>
+                                </c:if>
                             </tr>
                         </thead>
                         <tbody>

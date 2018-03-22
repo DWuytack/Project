@@ -111,7 +111,7 @@ section {
     display: flex;
     justify-content: flex-end;
     
-    background-color: #fff;
+    background-color: #eee;
     background-image: url(../images/noise.png);
     border-bottom: 1px solid silver;
 }
@@ -175,7 +175,7 @@ div.active > #bt-profiel:after {
     display: none;
     flex-direction: column;
     
-    background-color: #fff;
+    background-color: #eee;
     background-image: url(../images/noise.png);
     padding: 0;
 }
