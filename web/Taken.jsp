@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="css/theme.css">
         <title>JSP Page</title>
     </head>
-    
+
     <body>  
         <%@include file="Bovenbalk.jsp" %>
         <section>
@@ -38,26 +38,37 @@
                         <th>beschrijving</th>
                     </tr>
                     <c:forEach items="${lijstTaken}" var="taken">
-                    <tr>
-                        <td> <input type="radio" name="taak" value="${taak.taakID}" > </td>
-                        <td> ${taken.naam} <td>
-                        <td> ${taken.beschrijving} <td>
-                        <% if (gebruiker.getRol().equals("admin")) { %>
-                        <td> <input type="image"  name="idEdit" value="${taken.taakID}" src='images/pencil.png'> </td>
-                        <td> <input type="image"  name="idDelete" value="${taken.taakID}" src='images/vuilbak.png'> </td>
-                        <%} %>
+                        <tr>
+                            <td> <input type="radio" name="taak" value="${taak.taakID}" > </td>
+                            <td> ${taken.naam} <td>
+                            <td> ${taken.beschrijving} <td>
+                                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                <td> <input type="image"  name="idEdit" value="${cursist.taakID}" src='images/pencil.png'  /> </td>
+                                <td> <input type="image"  name="idDelete" value="${cursist.taakID}" src='images/vuilbak.png' /> </td>
+                                </c:if>
 
-                        <% if (gebruiker.getRol().equals("leerkracht")) { %>
-                        <td> <input type="image"  name="idEdit" value="${taken.taakID}" src='images/pencil.png'> </td>
-                        <td> <input type="image"  name="idDelete" value="${taken.taakID}" src='images/vuilbak.png'> </td>
-                        <%}%>
-                    </tr>
+                            <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
+                                <td> <input type="image"  name="idEdit" value="${cursist.taakID}" src='images/pencil.png'  /> </td>
+                                <td> <input type="image"  name="idDelete" value="${cursist.taakID}" src='images/vuilbak.png' /> </td>
+                                </c:if>
+
+                            <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
+                                <td> <input type="image"  name="idSave" value="${cursist.taakID}" src='images/green.gif'  /> </td>
+                                <td> <input type="image"  name="idCancel" value="${cursist.taakID}" src='images/cancel.jpg'  /> </td>
+                            </c:if>
+
+                        </tr>
                     </c:forEach>
                 </table>
 
-                <% if (gebruiker.getRol().equals("admin") || gebruiker.getRol().equals("leerkracht")) { %>
-                <input type="submit" value="taak toevoegen" name="actie"><br>
-                <% }%>
+                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                    <input type="submit" value="taak toevoegen" name="actie"/><br>
+                </c:if>
+
+                <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
+                    <input type="submit" value="taak toevoegen" name="actie"/><br>
+                </c:if>
+
             </form>
         </section> 
     </body>
