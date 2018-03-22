@@ -72,8 +72,14 @@
 
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                         <td>
-                                            <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'>
-                                            <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'>
+                                            <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
+                                                <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'>
+                                                <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'>
+                                            </c:if>
+                                            <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
+                                                <input type="image"  name="idSave" value="${cursist.gebruikerID}" src='images/green.png'>
+                                                <input type="image"  name="idCancel" value="${cursist.gebruikerID}" src='images/cancel.png'>
+                                            </c:if>
                                         </td>
                                     </c:if>
 

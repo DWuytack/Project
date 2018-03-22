@@ -210,15 +210,30 @@ div.active > .dropdown {
 header > h1 {
     margin: auto;
     padding: 0;
-    opacity: .7;
+    opacity: .8;
 }
 
 /* TABLE */
+.table-container {
+    margin: 1em;
+}
+.table-container input {
+    color: #333;
+    font-size: 15px;
+}
+.table-container input[readonly] {
+    border-color: transparent;
+    background-color: transparent;
+    color: #333;
+    font-size: 15px;
+}
+
 .table-container table {
+    width: 100%;
     border-collapse: collapse;
     border-radius: 10px;
     overflow: hidden;
-    margin: 1em auto;
+    transition: all 1s;
 }
 .table-container table tbody { overflow: scroll; }
 .table-container table tbody tr:nth-child(odd) { background-color: #f8f6ff; }
