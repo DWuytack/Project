@@ -5,7 +5,7 @@
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -28,6 +28,7 @@
                                 <td>  <input type="text" name="voornaam" size="25" maxlength="25" value="${cursist.voorNaam}"/> </td>
                                 <td>  <input type="text" name="geboorteDatum" size="25" maxlength="25" value="<fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" />"/> </td>
                                 <td>  <input type="text" name="email" size="25" maxlength="25" value="${cursist.email}"/> </td>
+                       
                             </c:if>
 
                             <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
@@ -35,11 +36,18 @@
                                 <td> ${cursist.voorNaam} </td>
                                 <td> <fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" /> </td>
                                 <td> ${cursist.email} </td>
+                            
                             </c:if>
 
                             <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                 <td> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'> </td>
                                 <td> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'> </td>
+                            </c:if>
+                                
+                            <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
+                                 <td> <input type="image"  name="idSave" value="${cursist.gebruikerID}" src='images/green.gif'  /> </td>
+                                 <td> <input type="image"  name="idCancel" value="${cursist.gebruikerID}" src='images/cancel.jpg'  /> </td>
+               
                             </c:if>
                         </tr>
                     </c:forEach>

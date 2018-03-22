@@ -4,15 +4,8 @@
     Author     : Ewout phlips
 --%>
 
-<%@ page language="java" 
-         contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"
-         import="model.Gebruiker"
-         import="model.Doelstelling"
-         import="java.util.ArrayList"
-         %>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt" %>  
 
 <!DOCTYPE html>
 <html>
@@ -22,42 +15,50 @@
         <link rel="stylesheet" href="css/theme.css">
         <title>Doelstellingen</title>
     </head>
-    
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
-            <form action="MenuServlet">
-                <fieldset>
-                    <legend>Doelstellingen</legend>
+            <form action="DoelstellingenServlet">
+                <table>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Beschrijving</th>
+                        <th>Kenrdoelstelling</th>
+                        <th>Acties</th>
+                    </tr>
+                    <c:forEach items="${lijstDoelstellingen}" var="doelstelling">
+                        <tr>
+                            <c:if test="${doelstelling.doelstellingID == sessionScope.editID}" >
+                                <td> <input type="text" name="naam" size="25" maxlength="25" value="${doelstelling.naam}"> </td>
+                                <td> <input type="text" name="beschrijving" size="50" maxlength="50" value="${doelstelling.beschrijving}"> </td>
+                                <td> <input type="text" name="kerndoelstelling" size="25" maxlength="25" value="${doelstelling.kerndoelstelling}"> </td>
+                                </c:if>
 
-                    <% if (!gebruiker.getRol().equals("cursist")) { %>
-                    <% ArrayList<Doelstelling> lijstDoelstellingen = (ArrayList<Doelstelling>) (session.getAttribute("lijstDoelstellingen"));%>
-                    <table>
-                        <tr>
-                            <th>Naam</th>
-                            <th>Beschrijving</th>
-                            <th>Kerndoelstelling</th>
-                        </tr> 
-                        <c:forEach items="${lijstDoelstellingen}" var="doelstelling">
-                        <tr>
-                            <td> ${doelstelling.naam} </td>
-                            <td> ${doelstelling.beschrijving} </td>
-                            <td> ${doelstelling.kerndoelstelling} </td>
-                            <% if (gebruiker.getRol().equals("admin")) { %>
-                            <td> <input type="image"  name="idEdit" value="${doelstelling.doelstellingID}" formmethod="post" src='images/pencil.png'> </td>
-                            <td> <input type="image"  name="idDelete" value="${doelstelling.doelstellingID}" formmethod="post" src='images/vuilbak.png'> </td>
-                            <% } %>
+                            <c:if test="${doelstelling.doelstellingID != sessionScope.editID}" >
+                                <td> ${doelstelling.naam} </td>
+                                <td> ${doelstelling.beschrijving} </td>
+                                <td> ${doelstelling.kerndoelstelling} </td>
+                            </c:if>
+
+                            <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                <td> <input type="image"  name="idEdit" value="${doelstelling.doelstellingID}" src='images/pencil.png'> </td>
+                                <td> <input type="image"  name="idDelete" value="${doelstelling.doelstellingID}" src='images/vuilbak.png'> </td>
+                            </c:if>
                         </tr>
-                        </c:forEach>
-                    </table>
-                    <% } else { %>
-                    <h1>Cursisten hebben geen toegang tot deze informatie!</h1>
-                    <% }%>
+                    </c:forEach>
+                </table>
+                <br>
 
-                </fieldset>
+                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                    <input type="submit" value="Doelstelling toevoegen" name="actie"/><br>
+                </c:if>
+
+                <c:if test="${sessionScope.currentSessionUser.rol == 'secretariaat'}" >
+                    <input type="submit" value="Doelstelling toevoegen" name="actie"/><br>
+                </c:if>
             </form>
         </section> 
     </body>
 </html>
-  
+
 
