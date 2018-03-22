@@ -42,30 +42,28 @@
                                         <td> <input type="text" name="achternaam" size="25" maxlength="25" value="${cursist.achternaam}"> </td>
                                         <td> <input type="text" name="voornaam" size="25" maxlength="25" value="${cursist.voorNaam}"> </td>
                                         <td> <input type="text" name="geboorteDatum" size="25" maxlength="25" value="<fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" />"> </td>
-                                        <td> <input type="text" name="email" size="25" maxlength="25" value="${cursist.email}"/> </td>
+                                        <td> <input type="text" name="email" size="25" maxlength="25" value="${cursist.email}"> </td>
 
                                     </c:if>
 
                                     <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
-                                        <td> ${cursist.achternaam} </td>
-                                        <td> ${cursist.voorNaam} </td>
-                                        <td> <fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" /> </td>
-                                        <td> ${cursist.email} </td>
-
+                                        <td> <input type="text" name="achternaam" size="25" maxlength="25" value="${cursist.achternaam}" readonly> </td>
+                                        <td> <input type="text" name="voornaam" size="25" maxlength="25" value="${cursist.voorNaam}" readonly> </td>
+                                        <td> <input type="text" name="geboorteDatum" size="25" maxlength="25" value="<fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" />" readonly> </td>
+                                        <td> <input type="text" name="email" size="25" maxlength="25" value="${cursist.email}" readonly> </td>
                                     </c:if>
 
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                         <td>
-                                            <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'>
-                                            <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'>
+                                            <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
+                                                <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'>
+                                                <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'>
+                                            </c:if>
+                                            <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
+                                                <input type="image"  name="idSave" value="${cursist.gebruikerID}" src='images/green.png'>
+                                                <input type="image"  name="idCancel" value="${cursist.gebruikerID}" src='images/cancel.png'>
+                                            </c:if>
                                         </td>
-                                    </c:if>
-
-                                    <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
-                                         <td>
-                                            <input type="image"  name="idSave" value="${cursist.gebruikerID}" src='images/green.gif'>
-                                            <input type="image"  name="idCancel" value="${cursist.gebruikerID}" src='images/cancel.jpg'>
-                                         </td>
                                     </c:if>
                                 </tr>
                             </c:forEach>
