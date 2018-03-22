@@ -55,9 +55,18 @@ public class GebruikersServlet extends HttpServlet {
                     break;
 
                 case "Delete gebruiker":
-                    //gebruiker met id moet verwijderd worden in database
-
+                    session = request.getSession(true);
+                    session.setAttribute("deleteID", deleteID);
+                    response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                     break;
+                    
+                case "Cancel gebruiker":
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
+                    break;
+
+                   
 
                 case "Cursist toevoegen":
 
