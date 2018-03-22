@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,15 +34,25 @@ public class GebruikersServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            String actie = "Edit gebruiker";
+            String actie = "";
             String editID = request.getParameter("idEdit");
             String cancelID = request.getParameter("idCancel");
+            String saveID = request.getParameter("idSave");
             String deleteID = request.getParameter("idDelete");
 
-            if (editID != null) actie = "Edit gebruiker";
-            if (cancelID != null) actie = "Cancel gebruiker";
-            if (deleteID != null) actie = "Delete gebruiker";
-            
+            if (editID != null) {
+                actie = "Edit gebruiker";
+            }
+            if (cancelID != null) {
+                actie = "Cancel gebruiker";
+            }
+            if (saveID != null) {
+                actie = "Save gebruiker";
+            }
+            if (deleteID != null) {
+                actie = "Delete gebruiker";
+            }
+
             GebruikerDAO gebruikerDAO = new GebruikerDAO();
             Gebruiker gebruiker = new Gebruiker();
 
@@ -51,22 +62,39 @@ public class GebruikersServlet extends HttpServlet {
                     //gebruiker met id moet aangepast worden in database 
                     HttpSession session = request.getSession(true);
                     session.setAttribute("editID", editID);
+                    session.removeAttribute("deleteID");
+                    session.removeAttribute("saveID");
                     response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                     break;
 
                 case "Delete gebruiker":
                     session = request.getSession(true);
-                    session.setAttribute("deleteID", deleteID);
-                    response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
+                    session.removeAttribute("editID");
+                    session.removeAttribute("saveID");
+                    session.removeAttribute("lijstGebruikers");
+                   
+                    gebruikerDAO.gebruikerVerwijderen(Integer.parseInt(deleteID));
+                    ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(1);
+
+                    session.setAttribute("lijstGebruikers", gebruikers);
+                    response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
-                    
+
                 case "Cancel gebruiker":
                     session = request.getSession(true);
                     session.removeAttribute("editID");
+                    session.removeAttribute("deleteID");
+                    session.removeAttribute("saveID");
                     response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                     break;
 
-                   
+                case "Save gebruiker":
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    session.removeAttribute("deleteID");
+                     session.removeAttribute("saveID");
+                    response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
+                    break;
 
                 case "Cursist toevoegen":
 

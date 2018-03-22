@@ -28,7 +28,7 @@
                         <tr style="background-color:rgba(0, 0, 0, 0);"> 
                             <td  style="text-align:center;">   
                                 <input type="image"  name="gebruiker zoeken" value="gebruiker zoeken" src='images/searchUser.png'> 
-                             <input  type="text" style="height:30px;font-size:14pt;" name="zoekterm" size="25" maxlength="25" value=""> 
+                                <input  type="text" style="height:30px;font-size:14pt;" name="zoekterm" size="25" maxlength="25" value=""> 
                             </td> 
                         </tr>
                     </table>
@@ -83,7 +83,7 @@
                                         </td>
                                     </c:if>
 
-                               
+
                                 </tr>
                             </c:forEach>
 
@@ -100,7 +100,7 @@
                         </tr>
                         <tr> 
                             <td colspan="3" style="text-align:center;">   
-                                <input type="image"  name="gebruiker toevoegeb" value="gebruiker toevoegen" src='images/adduser.png'> 
+                                <input type="image"  name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/adduser.png'> 
                             </td> 
                         </tr>
                     </table>

@@ -472,7 +472,15 @@ public class GebruikerDAO {
 
     }
 
-    public void gebruikerVerwijderen(Gebruiker gebruiker) {
+     public void gebruikerVerwijderen(Gebruiker gebruiker) {
+         
+     }
+    
+    
+    
+    
+    public void gebruikerVerwijderen(int gebruikerID) {
+        
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
