@@ -83,12 +83,7 @@
                                         </td>
                                     </c:if>
 
-                                    <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
-                                        <td>
-                                            <input type="image"  name="idSave" value="${cursist.gebruikerID}" src='images/green.png'>
-                                            <input type="image"  name="idCancel" value="${cursist.gebruikerID}" src='images/cancel.jpg'>
-                                        </td>
-                                    </c:if>
+                               
                                 </tr>
                             </c:forEach>
 
