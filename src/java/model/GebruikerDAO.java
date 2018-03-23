@@ -308,6 +308,7 @@ public class GebruikerDAO {
     }
 
     public ArrayList<Gebruiker> gebruikersLaden(int bladz, int aantalPerBlz) {
+       
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
@@ -318,13 +319,17 @@ public class GebruikerDAO {
             String sql = "select gebruikerID,voornaam, achternaam, login,  email, geboortedatum, rol from Gebruiker inner join Rol  on Gebruiker.rolID= Rol.rolID order by achternaam";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
-            int recordStart = (bladz * aantalPerBlz) - aantalPerBlz-1;
+            int recordStart = (bladz * aantalPerBlz) - (aantalPerBlz-1);
             int recordEinde = bladz * aantalPerBlz;
             int recordTeller = 0;
+            
 
             while (rs.next()) {
                 recordTeller++;
+              
                 if (recordTeller >= recordStart && recordTeller <= recordEinde) {
+                    System.out.println("RecordStart: " + recordStart);
+                    System.out.println("Recordnr: " + recordTeller);
                     Gebruiker gebruiker = new Gebruiker();
                     gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
                     gebruiker.setVoorNaam(rs.getString("voornaam"));
@@ -430,7 +435,7 @@ public class GebruikerDAO {
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        String sql = "UPDATE gebruiker(rolID, voornaam, achternaam, geboortedatum, email) VALUES(2,?,?,?,?)";
+        String sql = "UPDATE gebruiker(rolID, voornaam, achternaam, geboortedatum, email) VALUES(?,?,?,?,?)";
 
         try {
             currentCon = ConnectionManager.getConnection();
