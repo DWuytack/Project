@@ -307,7 +307,7 @@ public class GebruikerDAO {
 
     }
 
-    public ArrayList<Gebruiker> gebruikersLaden(int bladz) {
+    public ArrayList<Gebruiker> gebruikersLaden(int bladz, int aantalPerBlz) {
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
@@ -318,9 +318,13 @@ public class GebruikerDAO {
             String sql = "select gebruikerID,voornaam, achternaam, login,  email, geboortedatum, rol from Gebruiker inner join Rol  on Gebruiker.rolID= Rol.rolID order by achternaam";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
+            int recordStart = (bladz * aantalPerBlz) - aantalPerBlz-1;
+            int recordEinde = bladz * aantalPerBlz;
+            int recordTeller = 0;
 
-            for (int i = (bladz * 10) - 9; i <= 10 * bladz; i++) {
-                if (rs.next()) {
+            while (rs.next()) {
+                recordTeller++;
+                if (recordTeller >= recordStart && recordTeller <= recordEinde) {
                     Gebruiker gebruiker = new Gebruiker();
                     gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
                     gebruiker.setVoorNaam(rs.getString("voornaam"));
@@ -472,15 +476,12 @@ public class GebruikerDAO {
 
     }
 
-     public void gebruikerVerwijderen(Gebruiker gebruiker) {
-         
-     }
-    
-    
-    
-    
+    public void gebruikerVerwijderen(Gebruiker gebruiker) {
+
+    }
+
     public void gebruikerVerwijderen(int gebruikerID) {
-        
+
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;

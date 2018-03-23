@@ -23,7 +23,6 @@
         <section>
             <form action="GebruikersServlet">
                 <div class="table-container">
-
                     <table>
                         <tr style="background-color:rgba(0, 0, 0, 0);"> 
                             <td  style="text-align:center;">   
@@ -32,8 +31,6 @@
                             </td> 
                         </tr>
                     </table>
-
-
                     <table class="datatable">
                         <thead>
                             <tr>
