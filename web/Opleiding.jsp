@@ -36,10 +36,10 @@
                     <tr>
                         <td> ${opleiding.opleidingID} <td>
                         <td> ${opleiding.naam} <td>
-                        <% if (gebruiker.getRol().equals("admin")) { %>
+                        <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}">
                         <td> <input type="image"  name="idEdit" value="${opleiding.opleidingID}" src='images/pencil.png'> </td>
                         <td> <input type="image"  name="idDelete" value="${opleiding.naam}" src='images/vuilbak.png'> </td>
-                        <% } %>
+                        </c:if>
                     </tr>
                     </c:forEach>
                 </table>
