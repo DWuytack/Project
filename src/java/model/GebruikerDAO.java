@@ -307,7 +307,7 @@ public class GebruikerDAO {
 
     }
 
-    public ArrayList<Gebruiker> gebruikersLaden(int bladz, int aantalPerBlz) {
+    public ArrayList<Gebruiker> gebruikersLaden(int bladz) {
        
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
         Connection currentCon = null;
@@ -319,8 +319,8 @@ public class GebruikerDAO {
             String sql = "select gebruikerID,voornaam, achternaam, login,  email, geboortedatum, rol from Gebruiker inner join Rol  on Gebruiker.rolID= Rol.rolID order by achternaam";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
-            int recordStart = (bladz * aantalPerBlz) - (aantalPerBlz-1);
-            int recordEinde = bladz * aantalPerBlz;
+            int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE -1);
+            int recordEinde = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE ;
             int recordTeller = 0;
             
 

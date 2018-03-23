@@ -48,38 +48,44 @@ public class GebruikersServlet extends HttpServlet {
             String vorige = request.getParameter("Vorige");
             String volgende = request.getParameter("Volgende");
             String laatste = request.getParameter("Laatste");
-            int bladz=(int) session.getAttribute("bladzijde");
-            int aantalGebruikers= (int) session.getAttribute("aantalRecords");
-          
+            int bladz = (int) session.getAttribute("bladzijde");
+            int aantalGebruikers = (int) session.getAttribute("aantalRecords");
+
             if (eerste != null) {
                 bladz = 1;
                 session.setAttribute("bladzijde", bladz);
-                gebruikers = gebruikerDAO.gebruikersLaden(bladz, 5);
+                gebruikers = gebruikerDAO.gebruikersLaden(bladz);
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
+
             if (vorige != null) {
                 bladz--;
                 if (bladz < 1) {
                     bladz = 1;
                 }
                 session.setAttribute("bladzijde", bladz);
-                gebruikers = gebruikerDAO.gebruikersLaden(bladz, 5);
+                gebruikers = gebruikerDAO.gebruikersLaden(bladz);
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
+
             if (volgende != null) {
                 bladz++;
-                if ( (bladz *5 ) > (aantalGebruikers -5)) bladz--;
+                if (bladz > (aantalGebruikers / 5) ) {
+                    bladz--;
+                }
                 session.setAttribute("bladzijde", bladz);
-                gebruikers = gebruikerDAO.gebruikersLaden(bladz, 5);
+                gebruikers = gebruikerDAO.gebruikersLaden(bladz);
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
-             if (laatste != null) {
-                bladz=aantalGebruikers/5;
+
+            if (laatste != null) {
+                bladz = aantalGebruikers / 5 ;
+                System.out.println("bladz: " + bladz);
                 session.setAttribute("bladzijde", bladz);
-                gebruikers = gebruikerDAO.gebruikersLaden(bladz, 5);
+                gebruikers = gebruikerDAO.gebruikersLaden(bladz);
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
@@ -96,7 +102,7 @@ public class GebruikersServlet extends HttpServlet {
             if (deleteID != null) {
                 actie = "Delete gebruiker";
             }
-            
+
             Gebruiker gebruiker = new Gebruiker();
 
             switch (actie) {
@@ -116,7 +122,7 @@ public class GebruikersServlet extends HttpServlet {
                     session.removeAttribute("lijstGebruikers");
 
                     gebruikerDAO.gebruikerVerwijderen(Integer.parseInt(deleteID));
-                    gebruikers = gebruikerDAO.gebruikersLaden(1, 5);
+                    gebruikers = gebruikerDAO.gebruikersLaden(1);
 
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");

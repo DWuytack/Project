@@ -110,7 +110,7 @@
                             <input type="image"  name="Eerste" value="Eerste" src='images/eerste.png'> 
                             <input type="image"  name="Vorige" value="Eerste" src='images/terug.png'>  
                             <input type="image"  name="Volgende" value="Volgende" src='images/volgende.png'> 
-                            <input type="image"  name="Laatste 10" value="Laatste" src='images/laatste.png'>
+                            <input type="image"  name="Laatste" value="Laatste" src='images/laatste.png'>
                         </div>
                         <input type="image"  name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/adduser.png'> 
                     </div>
