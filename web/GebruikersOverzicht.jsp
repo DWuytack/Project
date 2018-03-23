@@ -23,7 +23,6 @@
         <section>
             <form action="GebruikersServlet">
                 <div class="table-container">
-
                     <table>
                         <tr style="background-color:rgba(0, 0, 0, 0);"> 
                             <td  style="text-align:center;">   
@@ -32,8 +31,6 @@
                             </td> 
                         </tr>
                     </table>
-
-
                     <table class="datatable">
                         <thead>
                             <tr>
@@ -92,10 +89,10 @@
                     <table>
                         <tr style="background-color:rgba(0, 0, 0, 0);"> 
                             <td style="text-align:center;">   
-                                <input type="image"  name="Eerste 10" value="Eerste 10" src='images/eerste.png'> 
-                                <input type="image"  name="Vorige" value="Eerste 10" src='images/terug.png'>  
-                                <input type="image"  name="Volgende" value="Volgende 10" src='images/volgende.png'> 
-                                <input type="image"  name="Laatste 10" value="Laatste 10" src='images/laatste.png'> 
+                                <input type="image"  name="Eerste" value="Eerste" src='images/eerste.png'> 
+                                <input type="image"  name="Vorige" value="Vorige" src='images/terug.png'>  
+                                <input type="image"  name="Volgende" value="Volgende" src='images/volgende.png'> 
+                                <input type="image"  name="Laatste" value="Laatste" src='images/laatste.png'> 
                             </td> 
                         </tr>
                         <tr> 
