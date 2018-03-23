@@ -58,8 +58,8 @@
                             <c:forEach items="${lijstTaken}" var="taak">
                                 <tr>
                                     <c:if test="${taak.taakID == sessionScope.editID}" >
-                                        <td> <input type="text" name="achternaam" size="15" maxlength="25" value="${taak.naam}"> </td>
-                                        <td> <input type="text" name="voornaam" size="15" maxlength="25" value="${taak.beschrijving}"> </td>
+                                        <td> <input type="text" name="taak_naam" size="15" maxlength="25" value="${taak.naam}"> </td>
+                                        <td> <input type="text" name="taak_beschrijving" size="15" maxlength="25" value="${taak.beschrijving}"> </td>
                                         </c:if>
 
                                     <c:if test="${taak.taakID != sessionScope.editID}" >
