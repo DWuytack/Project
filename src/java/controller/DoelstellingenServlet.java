@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +17,9 @@ import model.Doelstelling;
 import model.DoelstellingDAO;
 
 /**
+ * Servlet voor alle handelingen van doelstellingen.
  *
- * @author CURSIST
+ * @author Ewout Phlips
  */
 @WebServlet(name = "DoelstellingenServlet", urlPatterns = {"/DoelstellingenServlet"})
 public class DoelstellingenServlet extends HttpServlet {
@@ -33,63 +35,73 @@ public class DoelstellingenServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
 
         try {
-        String actie="Edit doelstelling" ;
-        String id = request.getParameter("idEdit");
-        if (id == null) {
-            id = request.getParameter("idDelete");
-            actie="Delete doelstelling";
-        }
-        DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
-        Doelstelling doelstelling = new Doelstelling();
- 
-        switch (actie) {
-            
-            
-            case "Edit doelstelling":
-               //doelstelling met id moet aangepast worden in database 
-                HttpSession session = request.getSession(true);
-                session.setAttribute("editID", id);
-                response.sendRedirect("DoelstellingenOverzicht.jsp"); //logged-in page 
-                break;
-                
-            case "Delete doelstelling":
-                //doelstelling met id moet verwijderd worden in database
-                
-                break;
+            String actie = "";
+            String editID = request.getParameter("idEdit");
+            String cancelID = request.getParameter("idCancel");
+            String saveID = request.getParameter("idSave");
+            String deleteID = request.getParameter("idDelete");
 
-            case "Doelstelling toevoegen":
-               
-               //doelstellingDAO.doelstellingAanmaken(doelstelling);
+            if (editID != null) {
+                actie = "Edit doelstelling";
+            }
+            if (cancelID != null) {
+                actie = "Cancel doelstelling";
+            }
+            if (saveID != null) {
+                actie = "Save doelstelling";
+            }
+            if (deleteID != null) {
+                actie = "Delete doelstelling";
+            }
 
-                //session.setAttribute("ToegevoegdeDoelstelling");
-                
-                break;
-                
-            case "Doelstelling aanpassen":
-              
-                //doelstelling.doelstellingAanpassen();
+            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+            Doelstelling doelstelling = new Doelstelling();
 
-                //session.setAttribute("AangepasteDoelstelling");
-                response.sendRedirect("DoelstellingsBewerking.jsp");
-                break;
-                
-            case "Doelstelling verwijderen":
-                
-                //doelstellingDAO.doelstellingVerwijderen(doelstelling);
+            switch (actie) {
 
-                //session.setAttribute("VerwijderdeDoelstelling");
-                response.sendRedirect("DoelstellingsBewerking.jsp");
-                break;
-            
-        }
+                case "Edit doelstelling":
+                    //doelstelling met id moet aangepast worden in database 
+                    HttpSession session = request.getSession(true);
+                    session.setAttribute("editID", editID);
+                    session.removeAttribute("deleteID");
+                    session.removeAttribute("saveID");
+                    response.sendRedirect("DoelstellingenOverzicht.jsp"); //logged-in page 
+                    break;
 
+                case "Delete doelstelling":
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    session.removeAttribute("saveID");
+                    session.removeAttribute("lijstDoelstellingen");
+
+                    doelstellingDAO.doelstellingVerwijderen(doelstelling);
+                    ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(/*1*/);
+
+                    session.setAttribute("lijstDoelstellingen", doelstellingen);
+                    response.sendRedirect("DoelstellingenOverzicht.jsp");
+                    break;
+
+                case "Cancel doelstelling":
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    session.removeAttribute("deleteID");
+                    session.removeAttribute("saveID");
+                    response.sendRedirect("DoelstellingenOverzicht.jsp"); //logged-in page 
+                    break;
+
+                case "Save doelstelling":
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    session.removeAttribute("deleteID");
+                    session.removeAttribute("saveID");
+                    response.sendRedirect("DoelstellingenOverzicht.jsp"); //logged-in page 
+                    break;
+
+            }
         } catch (Throwable theException) {
-            
         }
-        
 
     }
 

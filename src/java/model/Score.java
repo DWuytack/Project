@@ -8,9 +8,45 @@ package model;
 
 /**
  *
- * @author CURSIST
+ * @author Keanu
 hier komt de score
-*/
+*/ 
 public class Score {
     
+  private int beoordelingssoortID;
+    String naam;
+    String beschrijving;
+    int waarde;
+    
+    private int getBeoordelingssoortID() {
+        return beoordelingssoortID;
+    }
+
+    private void setBeoordelingssoortID(int beoordelingssoortID) {
+        this.beoordelingssoortID = beoordelingssoortID;
+    }
+
+    private String getNaam() {
+        return naam;
+    }
+
+    private void setNaam(String naam) {
+        this.naam = naam;
+    }
+
+    private String getBeschrijving() {
+        return beschrijving;
+    }
+
+    private void setBeschrijving(String beschrijving) {
+        this.beschrijving = beschrijving;
+    }
+
+    private int getWaarde() {
+        return waarde;
+    }
+
+    private void setWaarde(int waarde) {
+        this.waarde = waarde;
+    }
 }

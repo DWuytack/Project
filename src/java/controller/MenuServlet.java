@@ -15,7 +15,6 @@ import model.Module;
 import model.ModuleDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
-import model.Score;
 import model.ScoreDAO;
 import model.Taak;
 import model.TaakDAO;
@@ -58,9 +57,12 @@ public class MenuServlet extends HttpServlet {
                 case "Overzicht gebruikers":
 
                     //laden van gebruikers uit database
-                    GebruikerDAO gebruikerDAO2 = new GebruikerDAO();
-                    ArrayList<Gebruiker> gebruikers = gebruikerDAO2.gebruikersLaden(1);
-
+                    gebruikerDAO = new GebruikerDAO();
+                    ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(1,5);
+                   // int aantalGebruikers=gebruikerDAO.aantalRecordsGebruikers();
+                    int aantalGebruikers=30;
+                    session.setAttribute("aantalRecords", aantalGebruikers );
+                    session.setAttribute("bladzijde", 1);
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;

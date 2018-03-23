@@ -66,7 +66,7 @@
                                         <td> <input type="text" name="rol" size="15" maxlength="25" value="${cursist.rol}"> </td>
                                         <td> <input type="text" name="geboorteDatum" size="15" maxlength="25" value="<fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" />"> </td>
                                         <td> <input type="text" name="email" size="15" maxlength="25" value="${cursist.email}"/> </td>
-                                        </c:if>
+                                    </c:if>
 
                                     <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
                                         <td> ${cursist.achternaam} </td>
@@ -90,8 +90,6 @@
                                             </c:if>
                                         </td>
                                     </c:if>
-
-
                                 </tr>
                             </c:forEach>
 
@@ -101,18 +99,18 @@
                         <!-- béta -->
                         <!--
                         <div class="table-nav-icons">
-                            <a name="Eerste 10"><i class="material-icons">skip_previous</i></a>
+                            <a name="Eerste"><i class="material-icons">skip_previous</i></a>
                             <a name="Vorige"><i class="material-icons">fast_rewind</i></a>
                             <a name="Volgende"><i class="material-icons">fast_forward</i></a>
-                            <a name="Laatste 10"><i class="material-icons">skip_next</i></a>
+                            <a name="Laatste"><i class="material-icons">skip_next</i></a>
                         </div>
                         <a name="gebruiker toevoegen"><i class="material-icons">person_add</i></a>
                         -->
                         <div>
-                            <input type="image"  name="Eerste 10" value="Eerste 10" src='images/eerste.png'> 
-                            <input type="image"  name="Vorige" value="Eerste 10" src='images/terug.png'>  
-                            <input type="image"  name="Volgende" value="Volgende 10" src='images/volgende.png'> 
-                            <input type="image"  name="Laatste 10" value="Laatste 10" src='images/laatste.png'>
+                            <input type="image"  name="Eerste" value="Eerste" src='images/eerste.png'> 
+                            <input type="image"  name="Vorige" value="Eerste" src='images/terug.png'>  
+                            <input type="image"  name="Volgende" value="Volgende" src='images/volgende.png'> 
+                            <input type="image"  name="Laatste 10" value="Laatste" src='images/laatste.png'>
                         </div>
                         <input type="image"  name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/adduser.png'> 
                     </div>
