@@ -49,6 +49,7 @@ public class GebruikersServlet extends HttpServlet {
             String volgende = request.getParameter("Volgende");
             String laatste = request.getParameter("Laatste");
             int bladz=(int) session.getAttribute("bladzijde");
+            int aantalGebruikers= (int) session.getAttribute("aantalRecords");
           
             if (eerste != null) {
                 bladz = 1;
@@ -69,13 +70,14 @@ public class GebruikersServlet extends HttpServlet {
             }
             if (volgende != null) {
                 bladz++;
+                if ( (bladz *5 ) > (aantalGebruikers -5)) bladz--;
                 session.setAttribute("bladzijde", bladz);
                 gebruikers = gebruikerDAO.gebruikersLaden(bladz, 5);
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
              if (laatste != null) {
-                bladz++;
+                bladz=aantalGebruikers/5;
                 session.setAttribute("bladzijde", bladz);
                 gebruikers = gebruikerDAO.gebruikersLaden(bladz, 5);
                 session.setAttribute("lijstGebruikers", gebruikers);
