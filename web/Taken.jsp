@@ -32,7 +32,7 @@
                     <table>
                         <tr style="background-color:rgba(0, 0, 0, 0);"> 
                             <td  style="text-align:center;">   
-                                <input type="image"  name="taazk zoeken" value="taak zoeken" src='images/searchUser.png'> 
+                                <input type="image"  name="taak zoeken" value="taak zoeken" src='images/searchUser.png'> 
                                 <input  type="text" style="height:30px;font-size:14pt;" name="zoekterm" size="25" maxlength="25" value=""> 
                             </td> 
                         </tr>
