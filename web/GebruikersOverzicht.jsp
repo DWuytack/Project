@@ -16,6 +16,12 @@
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/gebruikers.css">
         <title>Gebruikers overzicht</title>
+        <!--
+        <script>
+            document.querySelector(".datatable tbody tr:first-child td:first-child input").removeAttribute("readonly");
+            document.querySelector(".datatable tbody tr:first-child td:first-child input").setAttribute("readonly");
+        </script>
+        -->
     </head>
 
     <body>
@@ -23,17 +29,19 @@
         <section>
             <form action="GebruikersServlet">
                 <div class="table-container">
-
-                    <table>
-                        <tr style="background-color:rgba(0, 0, 0, 0);"> 
-                            <td  style="text-align:center;">   
-                                <input type="image"  name="gebruiker zoeken" value="gebruiker zoeken" src='images/searchUser.png'> 
-                                <input  type="text" style="height:30px;font-size:14pt;" name="zoekterm" size="25" maxlength="25" value=""> 
-                            </td> 
-                        </tr>
-                    </table>
-
-
+                    <div class="table-nav-header">
+                        <img src='images/searchUser.png'>
+                        <!-- béta -->
+                        <!-- <div style="position: relative;">
+                            <i name="gebruiker zoeken" class="material-icons" style="font-size: 50px;">person</i>
+                            <i name="gebruiker zoeken" class="material-icons" style="
+                               font-size: 25px; position: absolute; bottom: 11px; right: 0; color: #ec6e24; transform: scale(-1, 1);
+                               
+                               ">search</i>
+                        </div>
+                         -->
+                        <input type="text" name="zoekterm" size="25" maxlength="25" value=""> 
+                    </div>
                     <table class="datatable">
                         <thead>
                             <tr>
@@ -43,9 +51,9 @@
                                 <th onclick="sortTable(3)"><a>Rol</a></th>
                                 <th onclick="sortTable(4)"><a>GeboorteDatum</a></th>
                                 <th onclick="sortTable(5)"><a>E-mail</a></th>
-                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <th>Actions</th>
-                                    </c:if>
+                                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                    <th>Actie</th>
+                                </c:if>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,7 +79,7 @@
                                     </c:if>
 
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                        <td>
+                                        <td class="actie">
                                             <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
                                                 <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'>
                                                 <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'>
@@ -89,22 +97,26 @@
 
                         </tbody>
                     </table>
-                    <table>
-                        <tr style="background-color:rgba(0, 0, 0, 0);"> 
-                            <td style="text-align:center;">   
-                                <input type="image"  name="Eerste 10" value="Eerste 10" src='images/eerste.png'> 
-                                <input type="image"  name="Vorige" value="Eerste 10" src='images/terug.png'>  
-                                <input type="image"  name="Volgende" value="Volgende 10" src='images/volgende.png'> 
-                                <input type="image"  name="Laatste 10" value="Laatste 10" src='images/laatste.png'> 
-                            </td> 
-                        </tr>
-                        <tr> 
-                            <td colspan="3" style="text-align:center;">   
-                                <input type="image"  name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/adduser.png'> 
-                            </td> 
-                        </tr>
-                    </table>
-                </div>  
+                    <div class="table-nav-footer">
+                        <!-- béta -->
+                        <!--
+                        <div class="table-nav-icons">
+                            <a name="Eerste 10"><i class="material-icons">skip_previous</i></a>
+                            <a name="Vorige"><i class="material-icons">fast_rewind</i></a>
+                            <a name="Volgende"><i class="material-icons">fast_forward</i></a>
+                            <a name="Laatste 10"><i class="material-icons">skip_next</i></a>
+                        </div>
+                        <a name="gebruiker toevoegen"><i class="material-icons">person_add</i></a>
+                        -->
+                        <div>
+                            <input type="image"  name="Eerste 10" value="Eerste 10" src='images/eerste.png'> 
+                            <input type="image"  name="Vorige" value="Eerste 10" src='images/terug.png'>  
+                            <input type="image"  name="Volgende" value="Volgende 10" src='images/volgende.png'> 
+                            <input type="image"  name="Laatste 10" value="Laatste 10" src='images/laatste.png'>
+                        </div>
+                        <input type="image"  name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/adduser.png'> 
+                    </div>
+                </div>
             </form>
         </section>
     </body>

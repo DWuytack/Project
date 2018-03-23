@@ -215,7 +215,7 @@ header > h1 {
 
 /* TABLE */
 .table-container {
-    margin: 1em;
+    margin: auto 1em;
 }
 .table-container input {
     color: #333;
@@ -227,13 +227,41 @@ header > h1 {
     color: #333;
     font-size: 15px;
 }
+.table-nav-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 10px;
+}
+.table-nav-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.table-nav-header input {
+    display: flex;
+    height: 30px;
+    font-size: 14;
+    margin: 10px;
+}
+.table-nav-footer > div {
+    display: flex;
+}
+.table-nav-footer > input {
+    display: flex;
+}
 
 .table-container table {
-    width: 100%;
     border-collapse: collapse;
     border-radius: 10px;
     overflow: hidden;
     transition: all 1s;
+    margin: 0 auto;
 }
 .table-container table tbody { overflow: scroll; }
 .table-container table tbody tr:nth-child(odd) { background-color: #f8f6ff; }
@@ -264,6 +292,33 @@ header > h1 {
 
     font-weight: unset;
     padding-right: 10px;
+}
+.table-container table td input {
+    width: 100%;
+    max-width: 100px;
+}
+.table-container table td.actie input {
+    width: 25px;
+}
+.table-nav-icons > a {
+    margin-right: 5px;
+}
+.table-nav-icons > a:last-child {
+    margin-right: 0
+}
+.table-nav-icons i {
+    border-radius: 50%;
+    background-color: #ec6e24;
+    color: white;
+    padding: 1px;
+}
+a[name="gebruiker toevoegen"] i {
+    font-size: 50px;
+    background-color: #ec6e24;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 5px;
 }
 
 /* RESIZE SUPPORT */
