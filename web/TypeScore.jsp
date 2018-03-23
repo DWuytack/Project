@@ -20,15 +20,17 @@
         <link rel="stylesheet" href="css/theme.css">
         <title>Score on Web</title>
     </head>
-    
+        
     <body>  
         <%@include file="Bovenbalk.jsp" %>
         <section>
             <form action="TypeScoreServlet">
                 <h1>Hier worden de type scores aangepast</h1>
 
-                <% if (gebruiker.getRol().equals("admin")) { %>
-                <input type="submit" value="Type Score Aanpassen" name="actie"/><br>
+                <<c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                  <input type="submit" value="Type Score Aanpassen" name="actie"/><br>
+                  </c:if>
+                
                 <%} %>
             </form>
         </section>
