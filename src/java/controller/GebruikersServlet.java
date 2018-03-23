@@ -74,7 +74,7 @@ public class GebruikersServlet extends HttpServlet {
                     session.removeAttribute("lijstGebruikers");
                    
                     gebruikerDAO.gebruikerVerwijderen(Integer.parseInt(deleteID));
-                    ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(1);
+                    ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(1,5);
 
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
