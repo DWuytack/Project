@@ -5,6 +5,9 @@
  */
 package model;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +17,11 @@ import java.util.ArrayList;
 public class ScoreDAO {
 
     public static ArrayList<Score> scoreLaden() {
+        ArrayList<Score> beoordelingssoorten = new ArrayList<>();
+        Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+        
         throw new UnsupportedOperationException("Schrijf code.");
     }
 
