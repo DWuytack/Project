@@ -23,53 +23,99 @@
         <title>JSP Page</title>
     </head>
 
-    <body>  
+    <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
-            <form action="MenuServlet">
-                <h2>Taken</h2><br>
+            <form action="GebruikersServlet">
+                <div class="table-container">
 
-                <% ArrayList<Taak> lijstTaken = (ArrayList<Taak>) (session.getAttribute("lijstTaken"));%>
-
-                <table>
-                    <tr>
-                        <th>Select</th>
-                        <th>naam</th>
-                        <th>beschrijving</th>
-                    </tr>
-                    <c:forEach items="${lijstTaken}" var="taken">
-                        <tr>
-                            <td> <input type="radio" name="taak" value="${taak.taakID}" > </td>
-                            <td> ${taken.naam} <td>
-                            <td> ${taken.beschrijving} <td>
-                                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                <td> <input type="image"  name="idEdit" value="${cursist.taakID}" src='images/pencil.png'  /> </td>
-                                <td> <input type="image"  name="idDelete" value="${cursist.taakID}" src='images/vuilbak.png' /> </td>
-                                </c:if>
-
-                            <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
-                                <td> <input type="image"  name="idEdit" value="${cursist.taakID}" src='images/pencil.png'  /> </td>
-                                <td> <input type="image"  name="idDelete" value="${cursist.taakID}" src='images/vuilbak.png' /> </td>
-                                </c:if>
-
-                            <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
-                                <td> <input type="image"  name="idSave" value="${cursist.taakID}" src='images/green.gif'  /> </td>
-                                <td> <input type="image"  name="idCancel" value="${cursist.taakID}" src='images/cancel.jpg'  /> </td>
-                            </c:if>
-
+                    <table>
+                        <tr style="background-color:rgba(0, 0, 0, 0);"> 
+                            <td  style="text-align:center;">   
+                                <input type="image"  name="taazk zoeken" value="taak zoeken" src='images/searchUser.png'> 
+                                <input  type="text" style="height:30px;font-size:14pt;" name="zoekterm" size="25" maxlength="25" value=""> 
+                            </td> 
                         </tr>
-                    </c:forEach>
-                </table>
+                    </table>
 
-                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                    <input type="submit" value="taak toevoegen" name="actie"/><br>
-                </c:if>
 
-                <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
-                    <input type="submit" value="taak toevoegen" name="actie"/><br>
-                </c:if>
+                    <table class="datatable">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0)"><a>Taak naam</a></th>
+                                <th onclick="sortTable(1)"><a>Beschrijving</a></th>
+                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                    <th>Actions</th>
+                                    </c:if>
 
+                                <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
+                                    <th>Actions</th>
+                                    </c:if>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${lijstTaken}" var="taak">
+                                <tr>
+                                    <c:if test="${taak.taakID == sessionScope.editID}" >
+                                        <td> <input type="text" name="achternaam" size="15" maxlength="25" value="${taak.naam}"> </td>
+                                        <td> <input type="text" name="voornaam" size="15" maxlength="25" value="${taak.beschrijving}"> </td>
+                                        </c:if>
+
+                                    <c:if test="${taak.taakID != sessionScope.editID}" >
+                                        <td> ${taak.naam} </td>
+                                        <td> ${taak.beschrijving} </td>
+                                    </c:if>
+
+                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                        <td>
+                                            <c:if test="${taak.taakID != sessionScope.editID}" >
+                                                <input type="image"  name="idEdit" value="${taak.taakID}" src='images/pencil.png'>
+                                                <input type="image"  name="idDelete" value="${taak.taakID}" src='images/vuilbak.png'>
+                                            </c:if>
+                                            <c:if test="${taak.taakID == sessionScope.editID}" >
+                                                <input type="image"  name="idSave" value="${taak.taakID}" src='images/green.png'>
+                                                <input type="image"  name="idCancel" value="${taak.taakID}" src='images/cancel.png'>
+                                            </c:if>
+                                        </td>
+                                    </c:if>
+
+                                    <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
+                                        <td>
+                                            <c:if test="${taak.taakID != sessionScope.editID}" >
+                                                <input type="image"  name="idEdit" value="${taak.taakID}" src='images/pencil.png'>
+                                                <input type="image"  name="idDelete" value="${taak.taakID}" src='images/vuilbak.png'>
+                                            </c:if>
+                                            <c:if test="${taak.taakID == sessionScope.editID}" >
+                                                <input type="image"  name="idSave" value="${taak.taakID}" src='images/green.png'>
+                                                <input type="image"  name="idCancel" value="${taak.taakID}" src='images/cancel.png'>
+                                            </c:if>
+                                        </td>
+                                    </c:if>
+
+
+                                </tr>
+                            </c:forEach>
+
+                        </tbody>
+                    </table>
+                    <table>
+                        <tr style="background-color:rgba(0, 0, 0, 0);"> 
+                            <td style="text-align:center;">   
+                                <input type="image"  name="Eerste 10" value="Eerste 10" src='images/eerste.png'> 
+                                <input type="image"  name="Vorige" value="Eerste 10" src='images/terug.png'>  
+                                <input type="image"  name="Volgende" value="Volgende 10" src='images/volgende.png'> 
+                                <input type="image"  name="Laatste 10" value="Laatste 10" src='images/laatste.png'> 
+                            </td> 
+                        </tr>
+                        <tr> 
+                            <td colspan="3" style="text-align:center;">   
+                                <input type="image"  name="taak toevoegen" value="taak toevoegen" src='images/adduser.png'> 
+                            </td> 
+                        </tr>
+                    </table>
+                </div>  
             </form>
-        </section> 
+        </section>
     </body>
 </html>
