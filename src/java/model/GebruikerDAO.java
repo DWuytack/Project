@@ -308,7 +308,8 @@ public class GebruikerDAO {
     }
 
     public ArrayList<Gebruiker> gebruikersLaden(int bladz, int aantalPerBlz) {
-        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
+       
+        ArrayList<Gebruiker> gebruikers = new ArrayList<Gebruiker>();
         Connection currentCon = null;
         Statement statement = null;
         ResultSet rs = null;
@@ -430,7 +431,7 @@ public class GebruikerDAO {
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        String sql = "UPDATE gebruiker(rolID, voornaam, achternaam, geboortedatum, email) VALUES(2,?,?,?,?)";
+        String sql = "UPDATE gebruiker(rolID, voornaam, achternaam, geboortedatum, email) VALUES(?,?,?,?,?)";
 
         try {
             currentCon = ConnectionManager.getConnection();
