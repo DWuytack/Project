@@ -35,10 +35,10 @@
                     <tr>
                         <td> ${module.moduleID} </td>
                         <td> ${module.naam} </td>
-                        <% if (gebruiker.getRol().equals("admin")) { %>
+                        <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}">
                         <td> <input type="image"  name="idEdit" value="${module.moduleID}" src='images/pencil.png'> </td>
                         <td> <input type="image"  name="idDelete" value="${module.naam}" src='images/vuilbak.png'> </td>
-                        <% } %>
+                        </c:if>
                     </tr>
                     </c:forEach>
                 </table>
@@ -46,4 +46,3 @@
         </section>
     </body>
 </html>
-
