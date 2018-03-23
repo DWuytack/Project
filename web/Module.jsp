@@ -28,11 +28,13 @@
         <section>
             <form action="ModuleServlet">
                 <h2>Modules</h2><br>
+                <% ArrayList<Module> lijstModules = (ArrayList<Module>) (session.getAttribute("lijstModules"));%>
+
           <table class="datatable">
                         <thead>
                             <tr>
-                                <th onclick="sortTable(0)"><a>moduleID</a></th>
-                                <th onclick="sortTable(1)"><a>naam</a></th>
+                            
+                                <th onclick="sortTable(0)"><a>naam</a></th>
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                     <th>Actions</th>
                                     </c:if>
@@ -40,15 +42,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                             <c:forEach items="${lijstModules}" var="taak">
+                             <c:forEach items="${lijstModules}" var="module">
                                 <tr>
                                     <c:if test="${module.moduleID == sessionScope.editID}" >
-                                        <td> <input type="text" name="moduleID" size="15" maxlength="25" value="${module.moduleID}"> </td>
+                          
                                         <td> <input type="text" name="modulenaam" size="15" maxlength="25" value="${module.naam}"> </td>
                                         </c:if>
 
                                     <c:if test="${module.moduleID != sessionScope.editID}" >
-                                        <td> ${module.moduleID} </td>
+                                   
                                         <td> ${module.naam} </td>
                                     </c:if>
 

@@ -29,11 +29,13 @@
             <form action="OpleidingServlet">
                 <h2>Opleidingen</h2>
                 <br>
-                <table class="datatable">
+                <% ArrayList<Opleiding> lijstOpleidingen = (ArrayList<Opleiding>) (session.getAttribute("lijstOpleidingen"));%>
+
+                 <table class="datatable">
                         <thead>
                             <tr>
-                                <th onclick="sortTable(0)"><a>opleidingID</a></th>
-                                <th onclick="sortTable(1)"><a>naam</a></th>
+                              
+                                <th onclick="sortTable(0)"><a>naam</a></th>
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                     <th>Actions</th>
                                     </c:if>
@@ -41,15 +43,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                             <c:forEach items="${lijstOpleidingen}" var="taak">
+                             <c:forEach items="${lijstOpleidingen}" var="opleiding">
                                 <tr>
                                     <c:if test="${opleiding.opleidingID == sessionScope.editID}" >
-                                        <td> <input type="text" name="moduleID" size="15" maxlength="25" value="${opleiding.opleidingID}"> </td>
+                                  
                                         <td> <input type="text" name="modulenaam" size="15" maxlength="25" value="${opleiding.naam}"> </td>
                                         </c:if>
 
                                     <c:if test="${opleiding.opleidingID != sessionScope.editID}" >
-                                        <td> ${opleiding.opleidingID} </td>
+                                   
                                         <td> ${opleiding.naam} </td>
                                     </c:if>
 
