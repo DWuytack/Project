@@ -26,24 +26,64 @@
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
-            <form action="MenuServlet">
+            <form action="ModuleServlet">
                 <h2>Modules</h2><br>
-                <% ArrayList<Module> lijstModules = (ArrayList<Module>) (session.getAttribute("lijstModules"));%>
+          <table class="datatable">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0)"><a>moduleID</a></th>
+                                <th onclick="sortTable(1)"><a>naam</a></th>
+                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                    <th>Actions</th>
+                                    </c:if>
 
-                <table>
-                    <c:forEach items="${lijstModules}" var="module">
-                    <tr>
-                        <td> ${module.moduleID} </td>
-                        <td> ${module.naam} </td>
-                        <% if (gebruiker.getRol().equals("admin")) { %>
-                        <td> <input type="image"  name="idEdit" value="${module.moduleID}" src='images/pencil.png'> </td>
-                        <td> <input type="image"  name="idDelete" value="${module.naam}" src='images/vuilbak.png'> </td>
-                        <% } %>
-                    </tr>
-                    </c:forEach>
-                </table>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             <c:forEach items="${lijstModules}" var="taak">
+                                <tr>
+                                    <c:if test="${module.moduleID == sessionScope.editID}" >
+                                        <td> <input type="text" name="moduleID" size="15" maxlength="25" value="${module.moduleID}"> </td>
+                                        <td> <input type="text" name="modulenaam" size="15" maxlength="25" value="${module.naam}"> </td>
+                                        </c:if>
+
+                                    <c:if test="${module.moduleID != sessionScope.editID}" >
+                                        <td> ${module.moduleID} </td>
+                                        <td> ${module.naam} </td>
+                                    </c:if>
+
+                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                        <td>
+                                            <c:if test="${module.moduleID != sessionScope.editID}" >
+                                                <input type="image"  name="idEdit" value="${module.moduleID}" src='images/pencil.png'>
+                                                <input type="image"  name="idDelete" value="${module.moduleID}" src='images/vuilbak.png'>
+                                            </c:if>
+                                            <c:if test="${module.moduleID == sessionScope.editID}" >
+                                                <input type="image"  name="idSave" value="${module.moduleID}" src='images/green.png'>
+                                                <input type="image"  name="idCancel" value="${module.moduleID}" src='images/cancel.png'>
+                                            </c:if>
+                                        </td>
+                                    </c:if>
+                         </c:forEach>
+                        </tbody>
+                    </table>
+                 <table>
+                        <tr style="background-color:rgba(0, 0, 0, 0);"> 
+                            <td style="text-align:center;">   
+                                <input type="image"  name="Eerste" value="Eerste 10" src='images/eerste.png'> 
+                                <input type="image"  name="Vorige" value="Eerste 10" src='images/terug.png'>  
+                                <input type="image"  name="Volgende" value="Volgende 10" src='images/volgende.png'> 
+                                <input type="image"  name="Laatste" value="Laatste 10" src='images/laatste.png'> 
+                            </td> 
+                        </tr>
+                        <tr> 
+                            <td colspan="3" style="text-align:center;">   
+                                <input type="image"  name="Module Toevoegen" value="Module Toevoegen" src='images/adduser.png'> 
+                            </td> 
+                        </tr>
+                    </table>
+                </div> 
             </form>
         </section>
     </body>
 </html>
-
