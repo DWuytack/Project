@@ -26,7 +26,7 @@
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
-            <form action="GebruikersServlet">
+            <form action="TakenServlet">
                 <div class="table-container">
 
                     <table>
