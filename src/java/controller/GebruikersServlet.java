@@ -50,12 +50,10 @@ public class GebruikersServlet extends HttpServlet {
             String laatste = request.getParameter("Laatste");
             int bladz=(int) session.getAttribute("bladzijde");
           
-          
             if (eerste != null) {
                 bladz = 1;
                 session.setAttribute("bladzijde", bladz);
                 gebruikers = gebruikerDAO.gebruikersLaden(bladz, 5);
-                session.removeAttribute("lijstGebruikers");
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
@@ -66,7 +64,6 @@ public class GebruikersServlet extends HttpServlet {
                 }
                 session.setAttribute("bladzijde", bladz);
                 gebruikers = gebruikerDAO.gebruikersLaden(bladz, 5);
-                session.removeAttribute("lijstGebruikers");
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
@@ -74,7 +71,6 @@ public class GebruikersServlet extends HttpServlet {
                 bladz++;
                 session.setAttribute("bladzijde", bladz);
                 gebruikers = gebruikerDAO.gebruikersLaden(bladz, 5);
-                session.removeAttribute("lijstGebruikers");
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
@@ -82,7 +78,6 @@ public class GebruikersServlet extends HttpServlet {
                 bladz++;
                 session.setAttribute("bladzijde", bladz);
                 gebruikers = gebruikerDAO.gebruikersLaden(bladz, 5);
-                session.removeAttribute("lijstGebruikers");
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
@@ -99,8 +94,7 @@ public class GebruikersServlet extends HttpServlet {
             if (deleteID != null) {
                 actie = "Delete gebruiker";
             }
-
-            GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            
             Gebruiker gebruiker = new Gebruiker();
 
             switch (actie) {
