@@ -50,7 +50,7 @@
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
-                                <td  align="right"> <label><center> Totaal aantal gebruikers: </center></label> <br> <br><label><center> ${sessionScope.aantalRecords} </center> </label> </td>
+                                <td  align="right"> <center> Totaal aantal gebruikers: <br><br> ${sessionScope.aantalRecords} </center></td>
 
                             <tr>
                         </table>
@@ -59,14 +59,14 @@
                     <table >
                         <thead>
                             <tr>
-                                <th width="13%" onclick="sortTable(0)"><a>Achternaam</a></th>
-                                <th width="8%" onclick="sortTable(1)"><a>Voornaam</a></th>
-                                <th width="8%" onclick="sortTable(2)"><a>Login</a></th>
-                                <th width="8%" onclick="sortTable(3)"><a>Rol</a></th>
-                                <th width="18%" onclick="sortTable(4)"><a>GDatum</a></th>
-                                <th width="30%" onclick="sortTable(5)"><a>E-mail</a></th>
+                                <th align="center" width="12%" onclick="sortTable(0)">Achternaam</a</th>
+                                <th align="center" width="8%" onclick="sortTable(1)">Voornaam</a</th>
+                                <th align="center" width="8%" onclick="sortTable(2)">Login</th>
+                                <th align="center" width="8%" onclick="sortTable(3)">Rol</th>
+                                <th align="center" width="15%" onclick="sortTable(4)">GebtDatum</th>
+                                <th align="center" width="32%" onclick="sortTable(5)">E-mail</th>
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <th width="15%">Acties</th>
+                                    <th width="17%">Acties</th>
                                     </c:if>
                             </tr>
                         </thead>
