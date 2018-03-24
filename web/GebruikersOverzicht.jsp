@@ -31,24 +31,28 @@
                 <br>
                 <div class="table-container">
                     <div class="table-nav-header">
-                        
+
                         <table >
                             <tr >
                                 <td style="background-color: rgba(0,0,0,0);" width="5%"> <img src='images/searchUser.png' > </td>
-                  
-                        <!-- béta -->
-                        <!-- <div style="position: relative;">
-                            <i name="gebruiker zoeken" class="material-icons" style="font-size: 50px;">person</i>
-                            <i name="gebruiker zoeken" class="material-icons" style="
-                               font-size: 25px; position: absolute; bottom: 11px; right: 0; color: #ec6e24; transform: scale(-1, 1);
-                               
-                               ">search</i>
-                        </div>
-                         -->
-                                <td> <input type="text" name="zoekterm" value="" width="70%" > </td>
-                                <td style="background-color: rgba(0,0,0,0);"  width="25%" align="right"> <label><center> Totaal aantal gebruikers: </center></label> <br> <br><label><center> ${sessionScope.aantalRecords} </center> </label> </td>
-                 
-                        <tr>
+
+                                <!-- béta -->
+                                <!-- <div style="position: relative;">
+                                    <i name="gebruiker zoeken" class="material-icons" style="font-size: 50px;">person</i>
+                                    <i name="gebruiker zoeken" class="material-icons" style="
+                                       font-size: 25px; position: absolute; bottom: 11px; right: 0; color: #ec6e24; transform: scale(-1, 1);
+                                       
+                                       ">search</i>
+                                </div>
+                                -->
+                                <td> <input type="text" name="zoekterm" value="" size="15"> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td  align="right"> <label><center> Totaal aantal gebruikers: </center></label> <br> <br><label><center> ${sessionScope.aantalRecords} </center> </label> </td>
+
+                            <tr>
                         </table>
                     </div>
                     <br>
@@ -61,9 +65,9 @@
                                 <th width="8%" onclick="sortTable(3)"><a>Rol</a></th>
                                 <th width="18%" onclick="sortTable(4)"><a>GDatum</a></th>
                                 <th width="30%" onclick="sortTable(5)"><a>E-mail</a></th>
-                                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                     <th width="15%">Acties</th>
-                                </c:if>
+                                    </c:if>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,7 +80,7 @@
                                         <td> <input type="text" name="rol" value="${cursist.rol}"> </td>
                                         <td  align="center"> <input  type="text" name="geboorteDatum" value="<fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" />"> </td>
                                         <td> <input type="text" name="email"  value="${cursist.email}"/> </td>
-                                    </c:if>
+                                        </c:if>
 
                                     <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
                                         <td> ${cursist.achternaam} </td>
@@ -117,7 +121,7 @@
                         </div>
                         <a name="gebruiker toevoegen"><i class="material-icons">person_add</i></a>
                         -->
-                        
+
                         <div>
                             <input type="image"  name="Eerste" value="Eerste" src='images/eerste.png'> 
                             <input type="image"  name="Vorige" value="Eerste" src='images/terug.png'>  
@@ -127,7 +131,7 @@
                         <br>
                         <input type="image"  name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/adduser.png'> 
                         <br><br>
-                        
+
                     </div>
                 </div>
             </form>
