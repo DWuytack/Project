@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/theme.css">
+     
         <link rel="stylesheet" href="css/login.css">
         <title>Login Pagina</title>
     </head>
@@ -21,9 +21,9 @@
         </header>
         <main>
             <form action="LoginServlet" method="post">
-                <br>
+                
                 <input type="text" name="un">
-                <input type="password" name="pw">
+                <input type="password"  name="pw">
                 <br><br>
                 <input type="submit" name="submit" value="Log in">	
             </form>
