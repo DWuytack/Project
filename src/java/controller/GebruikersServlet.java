@@ -72,7 +72,7 @@ public class GebruikersServlet extends HttpServlet {
 
             if (volgende != null) {
                 bladz++;
-                if (bladz > (aantalGebruikers / 5) ) {
+                if (bladz > ((aantalGebruikers / 5) + 1)) {
                     bladz--;
                 }
                 session.setAttribute("bladzijde", bladz);
@@ -82,7 +82,7 @@ public class GebruikersServlet extends HttpServlet {
             }
 
             if (laatste != null) {
-                bladz = aantalGebruikers / 5 ;
+                bladz = (aantalGebruikers / 5)+1;
                 System.out.println("bladz: " + bladz);
                 session.setAttribute("bladzijde", bladz);
                 gebruikers = gebruikerDAO.gebruikersLaden(bladz);
@@ -200,7 +200,7 @@ public class GebruikersServlet extends HttpServlet {
 
                     String dateString = request.getParameter("geboorteDatum");
                     DateFormat df = new java.text.SimpleDateFormat("yyyy/mm/dd");
-                    
+
                     java.util.Date datum = df.parse(dateString);
                     java.sql.Date sqlDate = new java.sql.Date(datum.getTime());
                     gebruiker.setGeboorteDatum(sqlDate);

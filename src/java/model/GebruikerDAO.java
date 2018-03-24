@@ -308,7 +308,7 @@ public class GebruikerDAO {
     }
 
     public ArrayList<Gebruiker> gebruikersLaden(int bladz) {
-       
+
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
@@ -319,17 +319,14 @@ public class GebruikerDAO {
             String sql = "select gebruikerID,voornaam, achternaam, login,  email, geboortedatum, rol from Gebruiker inner join Rol  on Gebruiker.rolID= Rol.rolID order by achternaam";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
-            int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE -1);
-            int recordEinde = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE ;
+            int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE - 1);
+            int recordEinde = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
             int recordTeller = 0;
-            
 
             while (rs.next()) {
                 recordTeller++;
-              
+
                 if (recordTeller >= recordStart && recordTeller <= recordEinde) {
-                    System.out.println("RecordStart: " + recordStart);
-                    System.out.println("Recordnr: " + recordTeller);
                     Gebruiker gebruiker = new Gebruiker();
                     gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
                     gebruiker.setVoorNaam(rs.getString("voornaam"));
@@ -377,35 +374,22 @@ public class GebruikerDAO {
         return gebruikers;
     }
 
-    
-     public int geefAantalGebruikers() {
-       
-        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
+    public int geefAantalGebruikers() {
+
         Connection currentCon = null;
         Statement statement = null;
         ResultSet rs = null;
+        int aantalGebruikers = 0;
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "select gebruikerID,voornaam, achternaam, login,  email, geboortedatum, rol from Gebruiker inner join Rol  on Gebruiker.rolID= Rol.rolID order by achternaam";
+            String sql = "select * from Gebruiker";
             statement = currentCon.createStatement();
-            rs = statement.executeQuery(sql);
-          
 
+            rs = statement.executeQuery(sql);
             while (rs.next()) {
-              
-               
-                 
-                    Gebruiker gebruiker = new Gebruiker();
-                    gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
-                    gebruiker.setVoorNaam(rs.getString("voornaam"));
-                    gebruiker.setAchternaam(rs.getString("achternaam"));
-                    gebruiker.setLogin(rs.getString("login"));
-                    gebruiker.setRol(rs.getString("rol"));
-                    gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
-                    gebruiker.setEmail(rs.getString("email"));
-                    gebruikers.add(gebruiker);
-                
+                aantalGebruikers++;
+                rs.getString(2);
             }
 
         } catch (SQLException e) {
@@ -440,11 +424,9 @@ public class GebruikerDAO {
             }
 
         }
-        return 30;
+        return aantalGebruikers;
     }
-    
-    
-    
+
     public void gebruikerAanmaken() {
         Connection currentCon = null;
         PreparedStatement ps = null;

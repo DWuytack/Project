@@ -45,8 +45,8 @@
                                ">search</i>
                         </div>
                          -->
-                                <td> <input type="text" name="zoekterm" value="" width="85%" > </td>
-                                <td style="background-color: rgba(0,0,0,0);"  width="10%" align="right"> <label><center> Totaal aantal gebruikers: </center></label> <br> <br><label><center> ${sessionScope.aantalRecords} </center> </label> </td>
+                                <td> <input type="text" name="zoekterm" value="" width="70%" > </td>
+                                <td style="background-color: rgba(0,0,0,0);"  width="25%" align="right"> <label><center> Totaal aantal gebruikers: </center></label> <br> <br><label><center> ${sessionScope.aantalRecords} </center> </label> </td>
                  
                         <tr>
                         </table>
@@ -55,14 +55,14 @@
                     <table >
                         <thead>
                             <tr>
-                                <th width="15%" onclick="sortTable(0)"><a>Achternaam</a></th>
-                                <th width="15%" onclick="sortTable(1)"><a>Voornaam</a></th>
-                                <th width="15%" onclick="sortTable(2)"><a>Login</a></th>
-                                <th width="10%" onclick="sortTable(3)"><a>Rol</a></th>
-                                <th width="15%" onclick="sortTable(4)"><a>GeboorteDatum</a></th>
-                                <th width="20%" onclick="sortTable(5)"><a>E-mail</a></th>
+                                <th width="13%" onclick="sortTable(0)"><a>Achternaam</a></th>
+                                <th width="8%" onclick="sortTable(1)"><a>Voornaam</a></th>
+                                <th width="8%" onclick="sortTable(2)"><a>Login</a></th>
+                                <th width="8%" onclick="sortTable(3)"><a>Rol</a></th>
+                                <th width="18%" onclick="sortTable(4)"><a>GDatum</a></th>
+                                <th width="30%" onclick="sortTable(5)"><a>E-mail</a></th>
                                 <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <th width="10%">Acties</th>
+                                    <th width="15%">Acties</th>
                                 </c:if>
                             </tr>
                         </thead>

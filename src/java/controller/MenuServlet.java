@@ -60,7 +60,7 @@ public class MenuServlet extends HttpServlet {
                     gebruikerDAO = new GebruikerDAO();
                     ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(1);
                     
-                    int  aantalGebruikers=30;
+                    int  aantalGebruikers=gebruikerDAO.geefAantalGebruikers();
                     session.setAttribute("aantalRecords", aantalGebruikers );
                     session.setAttribute("bladzijde", 1);
                     session.setAttribute("lijstGebruikers", gebruikers);
