@@ -42,20 +42,21 @@
                                ">search</i>
                         </div>
                          -->
-                        <input type="text" name="zoekterm" size="25" maxlength="25" value=""> 
+                        <input type="text" name="zoekterm" value="" style="width:20%"> 
                         
                     </div>
-                    <table>
+                    <br>
+                    <table >
                         <thead>
                             <tr>
-                                <th width="15%" onclick="sortTable(0)"><a>Achternaam</a></th>
-                                <th width="12%" onclick="sortTable(1)"><a>Voornaam</a></th>
+                                <th width="20%" onclick="sortTable(0)"><a>Achternaam</a></th>
+                                <th width="15%" onclick="sortTable(1)"><a>Voornaam</a></th>
                                 <th width="10%" onclick="sortTable(2)"><a>Login</a></th>
                                 <th width="10%" onclick="sortTable(3)"><a>Rol</a></th>
-                                <th width="13%" onclick="sortTable(4)"><a>GeboorteDatum</a></th>
-                                <th width="30%" onclick="sortTable(5)"><a>E-mail</a></th>
+                                <th width="6%" onclick="sortTable(4)"><a>GebDatum</a></th>
+                                <th width="33%" onclick="sortTable(5)"><a>E-mail</a></th>
                                 <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <th width="10%">Acties</th>
+                                    <th width="6%">Acties</th>
                                 </c:if>
                             </tr>
                         </thead>
@@ -98,7 +99,7 @@
 
                         </tbody>
                     </table>
-                    <br>
+                    <br><br>
                     <div class="table-nav-footer">
                         <!-- béta -->
                         <!--

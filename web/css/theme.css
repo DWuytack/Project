@@ -41,7 +41,7 @@ html {
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
-    
+
     pointer-events: none;
 }
 
@@ -70,23 +70,19 @@ input[type="button"]:focus, input[type="submit"]:focus {
     filter: brightness(75%);
 }
 
-
-table .last, td:last-child { 
-    padding: 2px 24px 2px 0px; 
+input[type="text"]{
+    width: 80%;
 }
-
-
-
 
 /* PAGE STYLING */
 body {
     /* background-color: rgba(224,64,6,.99); */
     background-image: url('../images/noise.png');
     color: #333;
-    
+
     margin: 0;
     padding: 0;
-	
+
     font-family: sans-serif;
 }
 
@@ -114,11 +110,11 @@ section {
     position: fixed;
     top: 0;
     left: 0;
-    
+
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    
+
     background-color: #eee;
     background-image: url(../images/noise.png);
     border-bottom: 1px solid silver;
@@ -182,7 +178,7 @@ div.active > #bt-profiel:after {
     margin: 0;
     display: none;
     flex-direction: column;
-    
+
     background-color: #eee;
     background-image: url(../images/noise.png);
     padding: 0;
@@ -222,19 +218,8 @@ header > h1 {
 }
 
 /* TABLE */
-.table-container {
-    margin: 1em 5em;
-}
-.table-container input {
-    color: #333;
-    font-size: 15px;
-}
-.table-container input[readonly] {
-    border-color: transparent;
-    background-color: transparent;
-    color: #333;
-    font-size: 15px;
-}
+
+
 .table-nav-header {
     display: flex;
     justify-content: center;
@@ -254,8 +239,7 @@ header > h1 {
 .table-nav-header input {
     display: flex;
     height: 30px;
-    font-size: 14;
-    margin: 20px;
+    font-size: 15;
 }
 .table-nav-footer > div {
     display: flex;
@@ -269,46 +253,39 @@ header > h1 {
     border-radius: 10px;
     overflow: hidden;
     transition: all 1s;
-    margin:  auto;
 }
 .table-container table tbody { overflow: scroll; }
 .table-container table tbody tr:nth-child(odd) { background-color: #f8f6ff; }
+
 .table-container table th {
+
     font-size: 18px;
-    
     color: #fff;
     line-height: 1;
     background-color: #ec6e24;
-    
-    padding-top: 18px;
-    padding-bottom: 18px;
-    
-    padding-left: 40px;
-    
     font-weight: bold;
-    padding-right: 10px;
-    
-    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
 }
 .table-container table td {
+
     font-size: 15px;
     color: #404040;
     line-height: 1;
-
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 40px;
-
     font-weight: unset;
-    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 50px;
+
 }
-.table-container table td input {
-    width: 100%;
-    max-width: 100px;
+table {
+    width:80%;
+    white-space:nowrap;
+    margin-left: auto;
+    margin-right: auto;
 }
-.table-container table td.actie input {
-    width: 25px;
-}
+
 .table-nav-icons > a {
     margin-right: 5px;
 }
@@ -329,6 +306,7 @@ a[name="gebruiker toevoegen"] i {
     padding: 5px;
     margin-top: 5px;
 }
+
 
 
 
