@@ -377,6 +377,74 @@ public class GebruikerDAO {
         return gebruikers;
     }
 
+    
+     public int geefAantalGebruikers() {
+       
+        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
+        Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "select gebruikerID,voornaam, achternaam, login,  email, geboortedatum, rol from Gebruiker inner join Rol  on Gebruiker.rolID= Rol.rolID order by achternaam";
+            statement = currentCon.createStatement();
+            rs = statement.executeQuery(sql);
+          
+
+            while (rs.next()) {
+              
+               
+                 
+                    Gebruiker gebruiker = new Gebruiker();
+                    gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
+                    gebruiker.setVoorNaam(rs.getString("voornaam"));
+                    gebruiker.setAchternaam(rs.getString("achternaam"));
+                    gebruiker.setLogin(rs.getString("login"));
+                    gebruiker.setRol(rs.getString("rol"));
+                    gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
+                    gebruiker.setEmail(rs.getString("email"));
+                    gebruikers.add(gebruiker);
+                
+            }
+
+        } catch (SQLException e) {
+
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                }
+                rs = null;
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception e) {
+
+                }
+
+                statement = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+
+                }
+
+                currentCon = null;
+            }
+
+        }
+        return 30;
+    }
+    
+    
+    
     public void gebruikerAanmaken() {
         Connection currentCon = null;
         PreparedStatement ps = null;

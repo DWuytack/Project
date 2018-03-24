@@ -200,7 +200,7 @@ public class GebruikersServlet extends HttpServlet {
 
                     String dateString = request.getParameter("geboorteDatum");
                     DateFormat df = new java.text.SimpleDateFormat("yyyy/mm/dd");
-                    ;
+                    
                     java.util.Date datum = df.parse(dateString);
                     java.sql.Date sqlDate = new java.sql.Date(datum.getTime());
                     gebruiker.setGeboorteDatum(sqlDate);

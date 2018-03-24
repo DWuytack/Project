@@ -31,7 +31,10 @@
                 <br>
                 <div class="table-container">
                     <div class="table-nav-header">
-                        <img src='images/searchUser.png'>
+                        
+                        <table >
+                            <tr >
+                                <td style="background-color: rgba(0,0,0,0);" width="5%"> <img src='images/searchUser.png' > </td>
                   
                         <!-- béta -->
                         <!-- <div style="position: relative;">
@@ -42,8 +45,11 @@
                                ">search</i>
                         </div>
                          -->
-                        <input type="text" name="zoekterm" value="" style="width:20%"> 
-                        
+                                <td> <input type="text" name="zoekterm" value="" width="70%" > </td>
+                                <td style="background-color: rgba(0,0,0,0);"  width="25%"> <label> Totaal aantal gebruikers: </label> <br> <br><label><center> ${sessionScope.aantalRecords} </center> </label> </td>
+                 
+                        <tr>
+                        </table>
                     </div>
                     <br>
                     <table >
@@ -120,6 +126,7 @@
                         </div>
                         <br>
                         <input type="image"  name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/adduser.png'> 
+                        <br><br>
                         
                     </div>
                 </div>
