@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Gebruiker;
 import model.GebruikerDAO;
+import model.Instellingen;
 
 /**
  * Deze klasse bevat alle mogelijke knoppen naar gebruikersbewerkingen.
@@ -54,6 +55,11 @@ public class GebruikersServlet extends HttpServlet {
             if (eerste != null) {
                 bladz = 1;
                 session.setAttribute("bladzijde", bladz);
+                int getoondeGebruikers = Instellingen.AANTAL_RECORDS_PER_PAGE;
+                if (getoondeGebruikers > aantalGebruikers) {
+                    getoondeGebruikers = aantalGebruikers;
+                }
+                session.setAttribute("getoondeGebruikers", getoondeGebruikers);
                 gebruikers = gebruikerDAO.gebruikersLaden(bladz);
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
@@ -64,6 +70,11 @@ public class GebruikersServlet extends HttpServlet {
                 if (bladz < 1) {
                     bladz = 1;
                 }
+                int getoondeGebruikers = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+                if (getoondeGebruikers > aantalGebruikers) {
+                    getoondeGebruikers = aantalGebruikers;
+                }
+                session.setAttribute("getoondeGebruikers", getoondeGebruikers);
                 session.setAttribute("bladzijde", bladz);
                 gebruikers = gebruikerDAO.gebruikersLaden(bladz);
                 session.setAttribute("lijstGebruikers", gebruikers);
@@ -75,6 +86,11 @@ public class GebruikersServlet extends HttpServlet {
                 if (bladz > ((aantalGebruikers / 5) + 1)) {
                     bladz--;
                 }
+                int getoondeGebruikers = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+                if (getoondeGebruikers > aantalGebruikers) {
+                    getoondeGebruikers = aantalGebruikers;
+                }
+                session.setAttribute("getoondeGebruikers", getoondeGebruikers);
                 session.setAttribute("bladzijde", bladz);
                 gebruikers = gebruikerDAO.gebruikersLaden(bladz);
                 session.setAttribute("lijstGebruikers", gebruikers);
@@ -82,7 +98,12 @@ public class GebruikersServlet extends HttpServlet {
             }
 
             if (laatste != null) {
-                bladz = (aantalGebruikers / 5)+1;
+                bladz = (aantalGebruikers / 5) + 1;
+                int getoondeGebruikers = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+                if (getoondeGebruikers > aantalGebruikers) {
+                    getoondeGebruikers = aantalGebruikers;
+                }
+                session.setAttribute("getoondeGebruikers", getoondeGebruikers);
                 System.out.println("bladz: " + bladz);
                 session.setAttribute("bladzijde", bladz);
                 gebruikers = gebruikerDAO.gebruikersLaden(bladz);

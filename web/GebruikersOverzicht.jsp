@@ -50,7 +50,7 @@
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
-                                <td  align="right"> <center> Totaal aantal gebruikers: <br><br> ${sessionScope.aantalRecords} </center></td>
+                                <td  align="right"> <center> Totaal aantal gebruikers: <br><br> ${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords} </center></td>
 
                             <tr>
                         </table>

@@ -11,6 +11,7 @@ import model.Doelstelling;
 import model.DoelstellingDAO;
 import model.Gebruiker;
 import model.GebruikerDAO;
+import model.Instellingen;
 import model.Module;
 import model.ModuleDAO;
 import model.Opleiding;
@@ -26,6 +27,7 @@ import model.TaakDAO;
 public class MenuServlet extends HttpServlet {
 
     /**
+     * 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -34,6 +36,9 @@ public class MenuServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+  
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -63,6 +68,9 @@ public class MenuServlet extends HttpServlet {
                     int  aantalGebruikers=gebruikerDAO.geefAantalGebruikers();
                     session.setAttribute("aantalRecords", aantalGebruikers );
                     session.setAttribute("bladzijde", 1);
+                    int getoondeGebruikers= Instellingen.AANTAL_RECORDS_PER_PAGE;
+                    if (getoondeGebruikers > aantalGebruikers) getoondeGebruikers=aantalGebruikers;
+                    session.setAttribute("getoondeGebruikers", getoondeGebruikers);
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
