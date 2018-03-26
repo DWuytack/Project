@@ -12,27 +12,34 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/nav.js"></script>
-        <link rel="stylesheet" href="css/theme.css">
-        <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
+        <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/doelstellingen.css">
         <title>Doelstellingen</title>
     </head>
+
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
             <form action="DoelstellingenServlet">
+                <br>
                 <div class="table-container">
+                    <div class="table-nav-header">
 
-                    <table>
-                        <tr style="background-color:rgba(0, 0, 0, 0);">
-                            <td  style="text-align:center;">   
-                                <input type="image"  na me="Doelstelling zoeken" value="doelstelling zoeken" src='images/searchUser.png'> 
-                                <input  type="text" style="height:30px;font-size:14pt;" name="zoekterm" size="25" maxlength="25" value=""> 
-                            </td>
-                        </tr>
-                    </table>
+                        <table>
+                            <tr >
+                                <td style="background-color:rgba(0, 0, 0, 0);"> <img src='images/searchUser.png' > </td>
+                                <td> <input type="text" name="zoekterm" value="" size="15"> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td  align="right"> <center> Totaal aantal doelstellingen: <br><br> ${sessionScope.getoondeDoelstellingen}/${sessionScope.aantalRecords} </center></td>
 
-                    <table class="datatable">
+                            </tr>
+                        </table>
+                    </div>
+                    <table >
                         <thead>
                             <tr>
                                 <th onclick="sortTable(0)"><a>Naam</a></th>
@@ -86,23 +93,19 @@
                             </c:forEach>
                         </tbody>
                     </table>
-                    <table>
-                        <tr style="background-color:rgba(0, 0, 0, 0);"> 
-                            <td style="text-align:center;">   
-                                <input type="image"  name="Eerste 10" value="Eerste 10" src='images/eerste.png'> 
-                                <input type="image"  name="Vorige" value="Eerste 10" src='images/terug.png'>  
-                                <input type="image"  name="Volgende" value="Volgende 10" src='images/volgende.png'> 
-                                <input type="image"  name="Laatste 10" value="Laatste 10" src='images/laatste.png'> 
-                            </td> 
-                        </tr>
-                        <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                            <tr> 
-                                <td colspan="3" style="text-align:center;">   
-                                    <input type="image"  name="doelstelling toevoegen" value="doelstelling toevoegen" src='images/adduser.png'> 
-                                </td> 
-                            </tr>
-                        </c:if>
-                    </table>
+                    <br><br>
+                    <div class="table-nav-footer">
+                        <div>
+                            <input type="image"  name="Eerste" value="Eerste" src='images/eerste.png'> 
+                            <input type="image"  name="Vorige" value="Eerste" src='images/terug.png'>  
+                            <input type="image"  name="Volgende" value="Volgende" src='images/volgende.png'> 
+                            <input type="image"  name="Laatste" value="Laatste" src='images/laatste.png'>
+                        </div>
+                        <br>
+                        <input type="image"  name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/adduser.png'> 
+                        <br><br>
+
+                    </div>
                 </div>
             </form>
         </section> 
