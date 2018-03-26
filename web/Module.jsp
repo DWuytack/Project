@@ -31,6 +31,7 @@
                             <td  style="text-align:center;">   
                                 <input type="image"  na me="Module zoeken" value="module zoeken" src='images/searchUser.png'> 
                                 <input  type="text" style="height:30px;font-size:14pt;" name="zoekterm" size="25" maxlength="25" value=""> 
+                                 <td  align="right"> <center> Totaal aantal modules: <br><br> ${sessionScope.getoondeModules}/${sessionScope.aantalRecords} </center></td>
                             </td>
                         </tr>
                     </table>

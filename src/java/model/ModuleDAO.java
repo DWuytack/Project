@@ -146,7 +146,7 @@ public class ModuleDAO {
         return modules;
     }
 
-    public int geefAantalGebruikers() {
+    public int geefAantalModules() {
         
          Connection currentCon = null;
         Statement statement = null;
@@ -197,6 +197,145 @@ public class ModuleDAO {
 
         }
         return aantalModules;
+        
+    }
+    
+     public void moduleAanmaken() {
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "INSERT INTO modules(naam) VALUES((?))";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, "naam");
+            ps.executeQuery(sql);
+
+        } catch (SQLException ex) {
+
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (Exception e) {
+
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+
+                }
+
+                currentCon = null;
+            }
+        }
+    }
+
+    public void moduleAanpassen(int parseInt, Module module) {
+        
+         Connection currentCon = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        String sql = "UPDATE modules(naam) VALUES(?)";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, "naam");
+            ps.executeQuery(sql);
+
+        } catch (SQLException ex) {
+
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+
+                }
+
+                currentCon = null;
+            }
+        }
+        
+    }
+
+    public void moduleVerwijderen(int moduleID) {
+        
+          Connection currentCon = null;
+        PreparedStatement ps = null;
+
+        String sql
+                = "DELETE from modules where module.moduleID = ?";
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setInt(1,moduleID);
+            ps.executeQuery();
+
+        } catch (SQLException ex) {
+            
+            System.out.println(ex.getMessage());
+
+        } finally {
+            
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+
+                }
+
+                currentCon = null;
+            }
+        }
         
     }
 

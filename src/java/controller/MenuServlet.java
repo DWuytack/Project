@@ -108,7 +108,7 @@ public class MenuServlet extends HttpServlet {
                     ModuleDAO moduleDAO = new ModuleDAO();
                     ArrayList<Module> modules = moduleDAO.modulesLaden(1);
                     
-                    int  aantalModules=moduleDAO.geefAantalGebruikers();
+                    int  aantalModules=moduleDAO.geefAantalModules();
                     session.setAttribute("aantalRecords", aantalModules );
                     session.setAttribute("bladzijde", 1);
                     int getoondeModules= Instellingen.AANTAL_RECORDS_PER_PAGE;

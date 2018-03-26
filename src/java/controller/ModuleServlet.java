@@ -130,40 +130,59 @@ public class ModuleServlet extends HttpServlet {
                 actie = "Delete module";
             }
 
-        switch (actie) {
+            Module module = new Module();
 
-            case "Module aanmaken":
-               
-               //moduleDAO.moduleAanmaken(module);
+            switch (actie) {
 
-                //session.setAttribute("AangemaakteModule");
-                
-                break;
-                
-            case "Module aanpassen":
-              
-                //moduleDAO.moduleAanpassen();
+                case "Edit module":
+                    session.setAttribute("editID", editID);
+                    session.removeAttribute("deleteID");
+                    session.removeAttribute("saveID");
+                    
+                    
+                    moduleDAO.moduleAanpassen(Integer.parseInt(editID),module);
+                    modules = moduleDAO.modulesLaden(1);
+                    session.setAttribute("lijstModules", modules);
+                    response.sendRedirect("Module.jsp"); //logged-in page 
+                    break;
 
-                //session.setAttribute("AangepasteModule");
-                response.sendRedirect("Module.jsp");
-                break;
-                
-            case "Module verwijderen":
-                
-                //moduleDAO.moduleVerwijderen(module);
+                case "Delete module":
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    session.removeAttribute("saveID");
 
-                //session.setAttribute("VerwijderdeModule");
-                response.sendRedirect("Module.jsp");
-                break;
-                
-       
-        }
+                    moduleDAO.moduleVerwijderen(Integer.parseInt(deleteID));
+                    modules = moduleDAO.modulesLaden(1);
+                    aantalModules = moduleDAO.geefAantalModules();
+                    session.setAttribute("aantalRecords", aantalModules);
+
+                    session.setAttribute("lijstModules", modules);
+                    response.sendRedirect("Module.jsp");
+                    break;
+
+                case "Cancel module":
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    session.removeAttribute("deleteID");
+                    session.removeAttribute("saveID");
+                    response.sendRedirect("Module.jsp"); //logged-in page 
+                    break;
+
+                case "Save module":
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    session.removeAttribute("deleteID");
+                    session.removeAttribute("saveID");
+                    response.sendRedirect("Module.jsp"); //logged-in page 
+                    break;
+
     
-           } catch (Throwable theException) {
-            
-        }
+}
+            } catch (Throwable theException) {
 
+        }
     }
 }
+    
 
 
