@@ -87,7 +87,6 @@ public class MenuServlet extends HttpServlet {
                     if (getoondeDoelstellingen > aantalDoelstellingen) getoondeDoelstellingen=aantalDoelstellingen;
                     session.setAttribute("getoondeDoelstellingen", getoondeDoelstellingen);
                     session.setAttribute("lijstDoelstellingen", doelstellingen);
-                    System.out.println("Aantal doelstellingen: " + aantalDoelstellingen);
                     response.sendRedirect("DoelstellingenOverzicht.jsp");
                     break;
                     

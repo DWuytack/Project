@@ -90,13 +90,12 @@ public class DoelstellingDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "select * from Doelstellingen";
+            String sql = "SELECT COUNT(*) FROM doelstellingen";
             statement = currentCon.createStatement();
 
             rs = statement.executeQuery(sql);
             while (rs.next()) {
-                aantalDoelstellingen++;
-                rs.getString(2);
+                aantalDoelstellingen = rs.getInt(1);
             }
 
         } catch (SQLException e) {

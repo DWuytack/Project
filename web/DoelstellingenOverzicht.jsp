@@ -14,7 +14,7 @@
         <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
-        <link rel="stylesheet" href="css/doelstellingen.css">
+
         <title>Doelstellingen</title>
     </head>
 
@@ -102,7 +102,7 @@
                             <input type="image"  name="Laatste" value="Laatste" src='images/laatste.png'>
                         </div>
                         <br>
-                        <input type="image"  name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/adduser.png'> 
+                        <input type="image"  name="doelstelling toevoegen" value="doelstelling toevoegen" src='images/adduser.png'> 
                         <br><br>
 
                     </div>
