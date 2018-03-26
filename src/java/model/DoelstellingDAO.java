@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DoelstellingDAO {
 
     //Laad alle Doelstellingen uit de Database.
-    public ArrayList<Doelstelling> doelstellingenLaden() {
+    public ArrayList<Doelstelling> doelstellingenLaden(int bladz) {
 
         ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
         Connection currentCon = null;
@@ -28,16 +28,23 @@ public class DoelstellingDAO {
             String sql = "SELECT * FROM doelstellingen";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
+            int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE - 1);
+            int recordEinde = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+            int recordTeller = 0;
 
             while (rs.next()) {
-                Doelstelling doelstelling = new Doelstelling();
-                doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
-                doelstelling.setNaam(rs.getString("naam"));
-                doelstelling.setBeschrijving(rs.getString("beschrijving"));
-                doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
+                recordTeller++;
 
-                doelstellingen.add(doelstelling);
+                if (recordTeller >= recordStart && recordTeller <= recordEinde) {
+                    Doelstelling doelstelling = new Doelstelling();
+                    doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
+                    doelstelling.setNaam(rs.getString("naam"));
+                    doelstelling.setBeschrijving(rs.getString("beschrijving"));
+                    doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
+                    doelstellingen.add(doelstelling);
+                }
             }
+
         } catch (SQLException e) {
 
         } finally {
@@ -62,8 +69,8 @@ public class DoelstellingDAO {
             if (currentCon != null) {
                 try {
                     currentCon.close();
-            } catch (SQLException error) {
-                System.out.println("Error - Kon de connectie niet verbreken na het aanmaken van een doelstelling.");
+                } catch (Exception e) {
+
                 }
 
                 currentCon = null;
@@ -71,6 +78,60 @@ public class DoelstellingDAO {
 
         }
         return doelstellingen;
+    }
+
+    //Geeft het aantal Doelstelligen weer.
+    public int geefAantalDoelstellingen() {
+
+        Connection currentCon = null;
+        Statement statement = null;     
+        ResultSet rs = null;
+        int aantalDoelstellingen = 0;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "select * from Doelstellingen";
+            statement = currentCon.createStatement();
+
+            rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                aantalDoelstellingen++;
+                rs.getString(2);
+            }
+
+        } catch (SQLException e) {
+
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                }
+                rs = null;
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception e) {
+
+                }
+
+                statement = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+
+                }
+
+                currentCon = null;
+            }
+
+        }
+        return aantalDoelstellingen;
     }
 
     //Creër een nieuwe doelstelling.
@@ -180,7 +241,7 @@ public class DoelstellingDAO {
     }
 
     //Verwijdert een doelstelling.
-    public void doelstellingVerwijderen(Doelstelling doelstelling) {
+    public void doelstellingVerwijderen(int doelstellingID) {
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -191,7 +252,7 @@ public class DoelstellingDAO {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
-            ps.setInt(1, doelstelling.getDoelstellingID());
+            ps.setInt(1, doelstellingID);
             ps.executeQuery(sql);
 
         } catch (SQLException ex) {
