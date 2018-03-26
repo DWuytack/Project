@@ -24,6 +24,17 @@
         <%@include file="Bovenbalk.jsp" %>
         <section>
             <h1>Module Aanmaken</h1>
+            
+              <form action="ModuleServlet" method="post">
+                <table>
+                    <tr>
+                        <td><label>naam: </label></td>
+                        <td><input type="text" name="naam" size="16" maxlength="30"></td>
+                    </tr>
+                </table>
+                <br>
+                <input type="submit" name="actie" value="toevoegen">
+            </form>
         </section>
     </body>
 </html>

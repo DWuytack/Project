@@ -4,23 +4,19 @@
     Author     : Davino
 --%>
 
-<%@page import="model.Module"%>
-<%@page import="java.util.ArrayList"%>
-<%@ page language="java" 
-         contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"
-         import="model.Gebruiker"
-         %>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt" %> 
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/nav.js"></script>
+             <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
-        <title>JSP Page</title>
+         <link rel="stylesheet" href="css/Module.css">
+        <title>Modules</title>
     </head>
     
     <body>
@@ -28,8 +24,17 @@
         <section>
             <form action="ModuleServlet">
                 <h2>Modules</h2><br>
-                <% ArrayList<Module> lijstModules = (ArrayList<Module>) (session.getAttribute("lijstModules"));%>
-
+                <div class="table-container">
+                
+                       <table>
+                        <tr style="background-color:rgba(0, 0, 0, 0);">
+                            <td  style="text-align:center;">   
+                                <input type="image"  na me="Module zoeken" value="module zoeken" src='images/searchUser.png'> 
+                                <input  type="text" style="height:30px;font-size:14pt;" name="zoekterm" size="25" maxlength="25" value=""> 
+                            </td>
+                        </tr>
+                    </table>
+              
           <table class="datatable">
                         <thead>
                             <tr>

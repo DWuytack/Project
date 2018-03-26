@@ -89,7 +89,7 @@ public class ModuleDAO {
 
     }
     
-     public ArrayList<Module> modulesLaden() {
+     public ArrayList<Module> modulesLaden( int bladz) {
          
         ArrayList<Module> modules = new ArrayList<>();
         Connection currentCon = null;
@@ -146,19 +146,58 @@ public class ModuleDAO {
         return modules;
     }
 
-    public void moduleAanpassen() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int geefAantalGebruikers() {
+        
+         Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+        int aantalModules = 0;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "select * from Modules";
+            statement = currentCon.createStatement();
+
+            rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                aantalModules++;
+                rs.getString(2);
+            }
+
+        } catch (SQLException e) {
+
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                }
+                rs = null;
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception e) {
+
+                }
+
+                statement = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+
+                }
+
+                currentCon = null;
+            }
+
+        }
+        return aantalModules;
+        
     }
 
-    public void moduleAanmaken() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void moduleVerwijderen() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    
-    
 }
