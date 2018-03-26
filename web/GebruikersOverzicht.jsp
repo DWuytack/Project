@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/gebruikers.css">
         <title>Gebruikers overzicht</title>
-      
+
         -->
     </head>
 
@@ -56,13 +56,13 @@
                         <thead>
                             <tr>
                                 <th align="center" width="12%" onclick="sortTable(0)">Achternaam</a</th>
-                                <th align="center" width="8%" onclick="sortTable(1)">Voornaam</a</th>
-                                <th align="center" width="8%" onclick="sortTable(2)">Login</th>
-                                <th align="center" width="8%" onclick="sortTable(3)">Rol</th>
+                                <th align="center" width="12%" onclick="sortTable(1)">Voornaam</a</th>
+                                <th align="center" width="12%" onclick="sortTable(2)">Login</th>
+                                <th align="center" width="9%" onclick="sortTable(3)">Rol</th>
                                 <th align="center" width="15%" onclick="sortTable(4)">GebtDatum</th>
-                                <th align="center" width="32%" onclick="sortTable(5)">E-mail</th>
+                                <th align="center" width="24%" onclick="sortTable(5)">E-mail</th>
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <th width="17%">Acties</th>
+                                    <th width="16%">Acties</th>
                                     </c:if>
                             </tr>
                         </thead>
@@ -73,35 +73,41 @@
                                         <td> <input type="text" name="achternaam"  value="${cursist.achternaam}"> </td>
                                         <td> <input type="text" name="voornaam" value="${cursist.voorNaam}"> </td>
                                         <td> <input type="text" name="login"  value="${cursist.login}"> </td>
-                                        <td> <input type="text" name="rol" value="${cursist.rol}"> </td>
-                                        <td  align="center"> <input  type="text" name="geboorteDatum" value="<fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" />"> </td>
-                                        <td> <input type="text" name="email"  value="${cursist.email}"/> </td>
-                                        </c:if>
+                                        <td> 
+                                <select name="rol" value="${cursist.rol}">
+                                    <option value="admin">admin</option>
+                                    <option value="leerkracht">leerkracht</option>
+                                    <option value="cursist">cursist</option>
+                                    <option value="secretariaat">secretariaat</option></td>
+                                </select>
+                                <td  align="center"> <input  type="text" name="geboorteDatum" value="<fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" />"> </td>
+                                <td> <input type="text" name="email"  value="${cursist.email}"/> </td>
+                                </c:if>
 
+                            <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
+                                <td> ${cursist.achternaam} </td>
+                                <td> ${cursist.voorNaam} </td>
+                                <td> ${cursist.login} </td>
+                                <td > ${cursist.rol} </td>
+                                <td align="center"> <fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" /> </td>
+                                <td> ${cursist.email} </td>
+
+                            </c:if>
+
+                            <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                <td class="actie">
                                     <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
-                                        <td> ${cursist.achternaam} </td>
-                                        <td> ${cursist.voorNaam} </td>
-                                        <td> ${cursist.login} </td>
-                                        <td > ${cursist.rol} </td>
-                                        <td align="center"> <fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yy" /> </td>
-                                        <td> ${cursist.email} </td>
-
+                                        <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'>
+                                        <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'>
                                     </c:if>
-
-                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                        <td class="actie">
-                                            <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
-                                                <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'>
-                                                <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'>
-                                            </c:if>
-                                            <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
-                                                <input type="image"  name="idSave" value="${cursist.gebruikerID}" src='images/green.png'>
-                                                <input type="image"  name="idCancel" value="${cursist.gebruikerID}" src='images/cancel.png'>
-                                            </c:if>
-                                        </td>
+                                    <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
+                                        <input type="image"  name="idSave" value="${cursist.gebruikerID}" src='images/green.png'>
+                                        <input type="image"  name="idCancel" value="${cursist.gebruikerID}" src='images/cancel.png'>
                                     </c:if>
-                                </tr>
-                            </c:forEach>
+                                </td>
+                            </c:if>
+                            </tr>
+                        </c:forEach>
 
                         </tbody>
                     </table>
