@@ -43,11 +43,11 @@
                                 <th align="center" width="12%" onclick="sortTable(0)">Achternaam</a</th>
                                 <th align="center" width="12%" onclick="sortTable(1)">Voornaam</a</th>
                                 <th align="center" width="12%" onclick="sortTable(2)">Login</th>
-                                <th align="center" width="9%" onclick="sortTable(3)">Rol</th>
-                                <th align="center" width="9%" onclick="sortTable(4)">GebtDatum</th>
-                                <th align="center" width="31%" onclick="sortTable(5)">E-mail</th>
+                                <th align="center" width="12%" onclick="sortTable(3)">Rol</th>
+                                <th align="center" width="14%" onclick="sortTable(4)">GebtDatum</th>
+                                <th align="center" width="28%" onclick="sortTable(5)">E-mail</th>
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <th width="15%">Acties</th>
+                                    <th >Acties</th>
                                     </c:if>
                             </tr>
                         </thead>
@@ -59,14 +59,14 @@
                                         <td width="12%"> <input type="text" name="voornaam" value="${cursist.voorNaam}"> </td>
                                         <td width="12%"> <input type="text" name="login"  value="${cursist.login}"> </td>
                                         <td> 
-                                <select width="9%" name="rol" value="${cursist.rol}">
+                                <select width="12%" name="rol" value="${cursist.rol}">
                                     <option value="admin">admin</option>
                                     <option value="leerkracht">leerkracht</option>
                                     <option value="cursist">cursist</option>
                                     <option value="secretariaat">secretariaat</option></td>
                                 </select>
-                                <td width="19%" align="center"> <input  style="text-align:right;" type="date" name="geboorteDatum" value="${cursist.geboorteDatum}" > </td>
-                                <td width="26%"> <input type="text" name="email"  value="${cursist.email}"/> </td>
+                                <td width="14%" align="center"> <input  style="text-align:right;" type="date" name="geboorteDatum" value="${cursist.geboorteDatum}" > </td>
+                                <td width="28%"> <input type="text" name="email"  value="${cursist.email}"/> </td>
                                 </c:if>
 
                             <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
@@ -80,7 +80,7 @@
                             </c:if>
 
                             <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                <td class="actie" width="10%">
+                                <td class="actie" >
                                     <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
                                         <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'>
                                         <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'>
