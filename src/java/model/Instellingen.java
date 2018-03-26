@@ -12,6 +12,6 @@ package model;
 public class Instellingen {
     
     
-   public final static int AANTAL_RECORDS_PER_PAGE= 5;
+   public final static int AANTAL_RECORDS_PER_PAGE= 8;
     
 }

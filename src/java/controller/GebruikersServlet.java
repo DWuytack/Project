@@ -83,7 +83,7 @@ public class GebruikersServlet extends HttpServlet {
 
             if (volgende != null) {
                 bladz++;
-                if (bladz > ((aantalGebruikers / 5) + 1)) {
+                if (bladz > ((aantalGebruikers / 5)+1)) {
                     bladz--;
                 }
                 int getoondeGebruikers = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
@@ -98,7 +98,8 @@ public class GebruikersServlet extends HttpServlet {
             }
 
             if (laatste != null) {
-                bladz = (aantalGebruikers / 5) + 1;
+                bladz =aantalGebruikers / Instellingen.AANTAL_RECORDS_PER_PAGE ;
+                if (aantalGebruikers % Instellingen.AANTAL_RECORDS_PER_PAGE  !=0) bladz++;
                 int getoondeGebruikers = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
                 if (getoondeGebruikers > aantalGebruikers) {
                     getoondeGebruikers = aantalGebruikers;
