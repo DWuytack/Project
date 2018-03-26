@@ -76,16 +76,24 @@ public class MenuServlet extends HttpServlet {
                     break;
                     
                 case "Overzicht doelstellingen":
-                    DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
-                    ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden();
                     
+                    DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+                    ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(1);
+                    
+                    int  aantalDoelstellingen=doelstellingDAO.geefAantalDoelstellingen();
+                    session.setAttribute("aantalRecords", aantalDoelstellingen );
+                    session.setAttribute("bladzijde", 1);
+                    int getoondeDoelstellingen= Instellingen.AANTAL_RECORDS_PER_PAGE;
+                    if (getoondeDoelstellingen > aantalDoelstellingen) getoondeDoelstellingen=aantalDoelstellingen;
+                    session.setAttribute("getoondeDoelstellingen", getoondeDoelstellingen);
                     session.setAttribute("lijstDoelstellingen", doelstellingen);
+                    System.out.println("Aantal doelstellingen: " + aantalDoelstellingen);
                     response.sendRedirect("DoelstellingenOverzicht.jsp");
                     break;
                     
                 case "Overzicht taken":
                     TaakDAO taakDAO = new TaakDAO();
-                    ArrayList<Taak> taken = taakDAO.takenLaden();
+                    ArrayList<Taak> taken = taakDAO.takenLaden(1);
                     session.setAttribute("lijstTaken", taken);
                     response.sendRedirect("Taken.jsp");
                     

@@ -129,10 +129,14 @@ public class GebruikersServlet extends HttpServlet {
             switch (actie) {
 
                 case "Edit gebruiker":
-                    //gebruiker met id moet aangepast worden in database 
                     session.setAttribute("editID", editID);
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
+                    
+                    
+                    gebruikerDAO.gebruikerAanpassen(Integer.parseInt(editID),gebruiker);
+                    gebruikers = gebruikerDAO.gebruikersLaden(1);
+                    session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                     break;
 
@@ -140,10 +144,11 @@ public class GebruikersServlet extends HttpServlet {
                     session = request.getSession(true);
                     session.removeAttribute("editID");
                     session.removeAttribute("saveID");
-                    session.removeAttribute("lijstGebruikers");
 
                     gebruikerDAO.gebruikerVerwijderen(Integer.parseInt(deleteID));
                     gebruikers = gebruikerDAO.gebruikersLaden(1);
+                    aantalGebruikers = gebruikerDAO.geefAantalGebruikers();
+                    session.setAttribute("aantalRecords", aantalGebruikers);
 
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
@@ -190,29 +195,7 @@ public class GebruikersServlet extends HttpServlet {
                     response.sendRedirect("GebruikerAanmaken.jsp");
 
                     break;
-
-                case "Gebruiker aanpassen":
-                    gebruiker.setVoorNaam(request.getParameter("voornaam"));
-                    gebruiker.setAchternaam(request.getParameter("achternaam"));
-                    gebruiker.setEmail(request.getParameter("email"));
-                    gebruiker.setLogin(request.getParameter("login"));
-                    gebruiker.setPaswoord(request.getParameter("wachtwoord"));
-
-                    gebruikerDAO.gebruikerAanpassen(gebruiker);
-
-                    break;
-
-                case "Gebruiker verwijderen":
-                    gebruiker.setVoorNaam(request.getParameter("voornaam"));
-                    gebruiker.setAchternaam(request.getParameter("achternaam"));
-                    gebruiker.setEmail(request.getParameter("email"));
-                    gebruiker.setLogin(request.getParameter("login"));
-                    gebruiker.setPaswoord(request.getParameter("wachtwoord"));
-
-                    gebruikerDAO.gebruikerVerwijderen(gebruiker);
-
-                    break;
-
+                    
                 case "toevoegen":
 
                     gebruiker.setVoorNaam(request.getParameter("voornaam"));
