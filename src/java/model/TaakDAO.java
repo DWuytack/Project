@@ -21,6 +21,7 @@ public class TaakDAO {
         Connection currentCon = null;
         Statement statement = null;
         ResultSet rs = null;
+        
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -88,13 +89,12 @@ public class TaakDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "select * from taken";
+            String sql = "select COUNT(*) from taken";
             statement = currentCon.createStatement();
 
             rs = statement.executeQuery(sql);
             while (rs.next()) {
-                aantalTaken++;
-                rs.getString(2);
+                aantalTaken = rs.getInt(1);
             }
 
         } catch (SQLException e) {
@@ -132,7 +132,7 @@ public class TaakDAO {
         return aantalTaken;
     }
 
-    public void TaakAanmaken() {
+    public void taakAanmaken() {
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -180,7 +180,7 @@ public class TaakDAO {
         }
     }
 
-    public void TaakAanpassen(Taak taak) {
+    public void taakAanpassen(Taak taak) {
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
