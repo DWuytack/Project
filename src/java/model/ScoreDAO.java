@@ -14,24 +14,25 @@ import java.util.ArrayList;
 public class ScoreDAO {
 
     public ArrayList<Score> typeScoreLaden() {
-        ArrayList<Score> beoordelingssoorten = new ArrayList<>();
+        ArrayList<Score> typeScores = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
         ResultSet rs = null;
         
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM beoordelingssoorten";
+            String sql = "SELECT beoordelingssoortID, naam, beschrijving, waarde FROM Beoordelingssoorten";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                Score score = new Score();
-                score.setBeoordelingssoortID(rs.getInt("BeoordelingssoortID"));
-                score.setNaam(rs.getString("naam"));
-                score.setBeschrijving(rs.getString("beschrijving"));
-                score.setWaarde(rs.getInt("waarde"));
-                beoordelingssoorten.add(score);
+                Score typeScore = new Score();
+                typeScore.setBeoordelingssoortID(rs.getInt("beoordelingssoortID"));
+                typeScore.setNaam(rs.getString("naam"));
+                typeScore.setBeschrijving(rs.getString("beschrijving"));
+                typeScore.setWaarde(rs.getInt("waarde"));
+                System.out.println(typeScore);
+                typeScores.add(typeScore);
             }
         } catch (SQLException e) {
 
@@ -65,7 +66,7 @@ public class ScoreDAO {
             }
 
         }
-        return beoordelingssoorten;
+        return typeScores;
     }
     
     public void typeScoreAanpassen(int beoordelingssoortID, Score score) {

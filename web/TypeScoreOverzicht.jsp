@@ -15,17 +15,13 @@
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <title>Type score</title>
-
-        -->
     </head>
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
             <form action="ScoreServlet">
-                <br>
                 <div class="table-container">
-                    <br>
                     <table>
                         <thead>
                             <tr>
@@ -38,23 +34,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${beoordelingssoorten}" var="typeScore">
+                            <c:forEach items="${lijstBeoordelingssoorten}" var="typeScore">
                                 <tr>
                                     <c:if test="${typeScore.beoordelingssoortID == sessionScope.editID}" >
                                         <td width="12%"> <input type="text" name="naam"  value="${typeScore.naam}"> </td>
                                         <td width="12%"> <input type="text" name="beschrijving" value="${typeScore.beschrijving}"> </td>
                                         <td width="12%"> <input type="text" name="waarde"  value="${typeScore.waarde}"> </td>
                                     </c:if>
+                                        
+                                    <c:if test="${typeScore.beoordelingssoortID != sessionScope.editID}" >
+                                        <td> ${typeScore.naam} </td>
+                                        <td> ${typeScore.beschrijving} </td>
+                                        <td> ${typeScore.waarde} </td>
+                                    </c:if>
 
                             <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                 <td class="actie" width="10%">
-                                    <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
-                                        <input type="image"  name="idEdit" value="${score.beoordelinssoortID}" src='images/pencil.png'>
+                                    <c:if test="${typeScore.beoordelingssoortID != sessionScope.editID}" >
+                                        <input type="image"  name="idEdit" value="${typeScore.beoordelingssoortID}" src='images/pencil.png'>
                                         
                                     </c:if>
-                                    <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
-                                        <input type="image"  name="idSave" value="${score.beoordelinssoortID}" src='images/green.png'>
-                                        <input type="image"  name="idCancel" value="${score.beoordelinssoortID}" src='images/cancel.png'>
+                                    <c:if test="${typeScore.beoordelingssoortID == sessionScope.editID}" >
+                                        <input type="image"  name="idSave" value="${typeScore.beoordelingssoortID}" src='images/green.png'>
+                                        <input type="image"  name="idCancel" value="${typeScore.beoordelingssoortID}" src='images/cancel.png'>
                                     </c:if>
                                 </td>
                             </c:if>

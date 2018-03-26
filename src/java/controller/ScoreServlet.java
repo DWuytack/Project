@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -62,7 +63,7 @@ public class ScoreServlet extends HttpServlet {
                     scoreDAO.typeScoreAanpassen(Integer.parseInt(editID), scoreType);
                     beoordelingssoorten = scoreDAO.typeScoreLaden();
                     session.setAttribute("beoordelingssoorten", beoordelingssoorten);
-                    response.sendRedirect("typeScore.jsp");
+                    response.sendRedirect("typeScoreOverzicht.jsp");
                     break;
                     
                 case "Cancel typeScore":
@@ -70,14 +71,14 @@ public class ScoreServlet extends HttpServlet {
                     session.removeAttribute("editID");
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
-                    response.sendRedirect("typeScore.jsp");
+                    response.sendRedirect("typeScoreOverzicht.jsp");
                     break;
 
                 case "Save typeScore":
                     session = request.getSession(true);
                     session.removeAttribute("editID");
                     session.removeAttribute("deleteID");
-                    response.sendRedirect("typeScore.jsp");
+                    response.sendRedirect("typeScoreOverzicht.jsp");
                     break;
      
             }

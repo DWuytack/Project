@@ -16,6 +16,7 @@ import model.Module;
 import model.ModuleDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
+import model.Score;
 import model.ScoreDAO;
 import model.Taak;
 import model.TaakDAO;
@@ -130,7 +131,7 @@ public class MenuServlet extends HttpServlet {
                 case "Overzicht scores":
 
                     //laden schooljaren uit database en in het geheugen plaatsen
-                    ScoreDAO scoreDAO = new ScoreDAO();
+                    
 
                     //laden semester uit database en in het geheugen plaatsen
                     //laden modules uit database en in het geheugen plaatsen
@@ -142,10 +143,13 @@ public class MenuServlet extends HttpServlet {
                 case "Rapport":
                     response.sendRedirect("Rapport.jsp");
                     break;
+                    
                 case "Type score aanpassen":
                     //laden van de types scores
-
-                    response.sendRedirect("TypeScore.jsp");
+                    ScoreDAO scoreDAO = new ScoreDAO();
+                    ArrayList<Score> typeScores = scoreDAO.typeScoreLaden();
+                    session.setAttribute("lijstBeoordelingssoorten", typeScores );
+                    response.sendRedirect("TypeScoreOverzicht.jsp");
                     break;
             }
 
