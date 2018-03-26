@@ -27,7 +27,7 @@ import model.TaakDAO;
 public class MenuServlet extends HttpServlet {
 
     /**
-     * 
+     *
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -36,9 +36,6 @@ public class MenuServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-  
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -64,40 +61,54 @@ public class MenuServlet extends HttpServlet {
                     //laden van gebruikers uit database
                     gebruikerDAO = new GebruikerDAO();
                     ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(1);
-                    
-                    int  aantalGebruikers=gebruikerDAO.geefAantalGebruikers();
-                    session.setAttribute("aantalRecords", aantalGebruikers );
+
+                    int aantalGebruikers = gebruikerDAO.geefAantalGebruikers();
+                    session.setAttribute("aantalRecords", aantalGebruikers);
                     session.setAttribute("bladzijde", 1);
-                    int getoondeGebruikers= Instellingen.AANTAL_RECORDS_PER_PAGE;
-                    if (getoondeGebruikers > aantalGebruikers) getoondeGebruikers=aantalGebruikers;
+                    int getoondeGebruikers = Instellingen.AANTAL_RECORDS_PER_PAGE;
+                    if (getoondeGebruikers > aantalGebruikers) {
+                        getoondeGebruikers = aantalGebruikers;
+                    }
                     session.setAttribute("getoondeGebruikers", getoondeGebruikers);
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
-                    
+
                 case "Overzicht doelstellingen":
-                    
+
                     DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
                     ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(1);
-                    
-                    int  aantalDoelstellingen=doelstellingDAO.geefAantalDoelstellingen();
-                    session.setAttribute("aantalRecords", aantalDoelstellingen );
+
+                    int aantalDoelstellingen = doelstellingDAO.geefAantalDoelstellingen();
+                    session.setAttribute("aantalRecords", aantalDoelstellingen);
                     session.setAttribute("bladzijde", 1);
-                    int getoondeDoelstellingen= Instellingen.AANTAL_RECORDS_PER_PAGE;
-                    if (getoondeDoelstellingen > aantalDoelstellingen) getoondeDoelstellingen=aantalDoelstellingen;
+                    int getoondeDoelstellingen = Instellingen.AANTAL_RECORDS_PER_PAGE;
+                    if (getoondeDoelstellingen > aantalDoelstellingen) {
+                        getoondeDoelstellingen = aantalDoelstellingen;
+                    }
                     session.setAttribute("getoondeDoelstellingen", getoondeDoelstellingen);
                     session.setAttribute("lijstDoelstellingen", doelstellingen);
-                    System.out.println("Aantal doelstellingen: " + aantalDoelstellingen);
                     response.sendRedirect("DoelstellingenOverzicht.jsp");
                     break;
-                    
+
                 case "Overzicht taken":
                     TaakDAO taakDAO = new TaakDAO();
                     ArrayList<Taak> taken = taakDAO.takenLaden(1);
-                    session.setAttribute("lijstTaken", taken);
-                    response.sendRedirect("Taken.jsp");
                     
+
+                    int aantalTaken = taakDAO.geefAantalTaken();
+                    session.setAttribute("aantalRecords", aantalTaken);
+                    session.setAttribute("bladzijde", 1);
+                    int getoondeTaken = Instellingen.AANTAL_RECORDS_PER_PAGE;
+                    if (getoondeTaken > aantalTaken) {
+                        getoondeTaken = aantalTaken;
+                    }
+                    session.setAttribute("getoondeTaken", getoondeTaken);
+                    session.setAttribute("lijstTaken", taken);
+                    System.out.println("Aantal taken: " + aantalTaken);
+                    response.sendRedirect("Taken.jsp");
                     break;
+
                 case "Overzicht opleidingen":
                     OpleidingDAO opleidingDAO = new OpleidingDAO();
                     ArrayList<Opleiding> opleidingen = opleidingDAO.opleidingenLaden();
@@ -119,20 +130,14 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("Module.jsp");
                     break;
                 case "Overzicht scores":
-                    
+
                     //laden schooljaren uit database en in het geheugen plaatsen
                     ScoreDAO scoreDAO = new ScoreDAO();
-                    
-                    
-            
+
                     //laden semester uit database en in het geheugen plaatsen
-                    
-                    
                     //laden modules uit database en in het geheugen plaatsen
-                    
-                    
                     response.sendRedirect("Score.jsp");
-                  break;
+                    break;
                 case "Evaluatieformulieren":
                     response.sendRedirect("EvaluatieFormulier.jsp");
                     break;
@@ -141,8 +146,7 @@ public class MenuServlet extends HttpServlet {
                     break;
                 case "Type score aanpassen":
                     //laden van de types scores
-                    
-                    
+
                     response.sendRedirect("TypeScore.jsp");
                     break;
             }

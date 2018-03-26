@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -149,9 +148,6 @@ public class TakenServlet extends HttpServlet {
                     break;
 
                 case "Taak verwijderen":
-                    break;
-
-                case "toevoegen":
                     break;
             }
 
