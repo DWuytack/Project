@@ -16,11 +16,7 @@
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/gebruikers.css">
         <title>Gebruikers overzicht</title>
-        <!--
-        <script>
-            document.querySelector(".datatable tbody tr:first-child td:first-child input").removeAttribute("readonly");
-            document.querySelector(".datatable tbody tr:first-child td:first-child input").setAttribute("readonly");
-        </script>
+      
         -->
     </head>
 

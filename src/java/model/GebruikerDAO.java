@@ -480,7 +480,7 @@ public class GebruikerDAO {
         }
     }
 
-    public void gebruikerAanpassen(Gebruiker gebruiker) {
+    public void gebruikerAanpassen(int gebruikerID, Gebruiker gebruiker) {
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -531,38 +531,27 @@ public class GebruikerDAO {
 
     }
 
-    public void gebruikerVerwijderen(Gebruiker gebruiker) {
-
-    }
-
+   
     public void gebruikerVerwijderen(int gebruikerID) {
 
         Connection currentCon = null;
-        ResultSet rs = null;
         PreparedStatement ps = null;
 
         String sql
-                = "DELETE g FROM gebruiker g inner join rol on g.rolID = rol.rolID WHERE rol = 'leerkracht' AND voornaam = ? AND achternaam = ?;";
-
+                = "DELETE from gebruiker where gebruiker.gebruikerID = ?";
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
-            ps.setString(1, "voornaam");
-            ps.setString(2, "achternaam");
-            ps.executeQuery(sql);
+            ps.setInt(1,gebruikerID);
+            ps.executeQuery();
 
         } catch (SQLException ex) {
+            
+            System.out.println(ex.getMessage());
 
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
+            
 
             if (ps != null) {
                 try {
