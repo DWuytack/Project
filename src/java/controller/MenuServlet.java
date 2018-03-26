@@ -108,16 +108,23 @@ public class MenuServlet extends HttpServlet {
                     break;
 
                 case "Overzicht opleidingen":
-                    OpleidingDAO opleidingDAO2 = new OpleidingDAO();
-                    ArrayList<Opleiding> opleidingen = opleidingDAO2.opleidingenLaden();
+                    OpleidingDAO opleidingDAO = new OpleidingDAO();
+                    ArrayList<Opleiding> opleidingen = opleidingDAO.opleidingenLaden();
                     session.setAttribute("lijstOpleidingen", opleidingen);
                     response.sendRedirect("Opleiding.jsp");
                     break;
                 case "Overzicht modules":
-                    ModuleDAO moduleDAO2 = new ModuleDAO();
-                    ArrayList<Module> modules = moduleDAO2.modulesLaden();
+                    ModuleDAO moduleDAO = new ModuleDAO();
+                    ArrayList<Module> modules = moduleDAO.modulesLaden(1);
+                    
+                    int  aantalModules=moduleDAO.geefAantalModules();
+                    session.setAttribute("aantalRecords", aantalModules );
+                    session.setAttribute("bladzijde", 1);
+                    int getoondeModules= Instellingen.AANTAL_RECORDS_PER_PAGE;
+                    if (getoondeModules > aantalModules) getoondeModules=aantalModules;
+                    session.setAttribute("getoondeModules", getoondeModules);
+                    
                     session.setAttribute("lijstModules", modules);
-
                     response.sendRedirect("Module.jsp");
                     break;
                 case "Overzicht scores":

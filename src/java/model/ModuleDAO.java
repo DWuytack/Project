@@ -89,7 +89,7 @@ public class ModuleDAO {
 
     }
     
-     public ArrayList<Module> modulesLaden() {
+     public ArrayList<Module> modulesLaden( int bladz) {
          
         ArrayList<Module> modules = new ArrayList<>();
         Connection currentCon = null;
@@ -146,19 +146,197 @@ public class ModuleDAO {
         return modules;
     }
 
-    public void moduleAanpassen() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int geefAantalModules() {
+        
+         Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+        int aantalModules = 0;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "select * from Modules";
+            statement = currentCon.createStatement();
+
+            rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                aantalModules++;
+                rs.getString(2);
+            }
+
+        } catch (SQLException e) {
+
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                }
+                rs = null;
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception e) {
+
+                }
+
+                statement = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+
+                }
+
+                currentCon = null;
+            }
+
+        }
+        return aantalModules;
+        
+    }
+    
+     public void moduleAanmaken() {
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "INSERT INTO modules(naam) VALUES((?))";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, "naam");
+            ps.executeQuery(sql);
+
+        } catch (SQLException ex) {
+
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (Exception e) {
+
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+
+                }
+
+                currentCon = null;
+            }
+        }
     }
 
-    public void moduleAanmaken() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void moduleAanpassen(int parseInt, Module module) {
+        
+         Connection currentCon = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        String sql = "UPDATE modules(naam) VALUES(?)";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, "naam");
+            ps.executeQuery(sql);
+
+        } catch (SQLException ex) {
+
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+
+                }
+
+                currentCon = null;
+            }
+        }
+        
     }
 
-    public void moduleVerwijderen() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void moduleVerwijderen(int moduleID) {
+        
+          Connection currentCon = null;
+        PreparedStatement ps = null;
+
+        String sql
+                = "DELETE from modules where module.moduleID = ?";
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setInt(1,moduleID);
+            ps.executeQuery();
+
+        } catch (SQLException ex) {
+            
+            System.out.println(ex.getMessage());
+
+        } finally {
+            
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+
+                }
+
+                currentCon = null;
+            }
+        }
+        
     }
-    
-    
-    
-    
+
 }
