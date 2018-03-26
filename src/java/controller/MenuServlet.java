@@ -88,7 +88,6 @@ public class MenuServlet extends HttpServlet {
                     }
                     session.setAttribute("getoondeDoelstellingen", getoondeDoelstellingen);
                     session.setAttribute("lijstDoelstellingen", doelstellingen);
-                    System.out.println("Aantal doelstellingen: " + aantalDoelstellingen);
                     response.sendRedirect("DoelstellingenOverzicht.jsp");
                     break;
 
