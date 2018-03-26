@@ -21,11 +21,10 @@ public class TaakDAO {
         Connection currentCon = null;
         Statement statement = null;
         ResultSet rs = null;
-        
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "select taakID, naam, beschrijving";
+            String sql = "SELECT * FROM taken";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
             int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE - 1);
@@ -40,7 +39,6 @@ public class TaakDAO {
                     taak.setTaakID(rs.getInt("taakID"));
                     taak.setNaam(rs.getString("naam"));
                     taak.setBeschrijving(rs.getString("beschrijving"));
-
                     taken.add(taak);
                 }
             }

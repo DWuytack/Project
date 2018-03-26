@@ -4,24 +4,18 @@
     Author     : Dirk & Aaron
 --%>
 
-<%@page import="java.util.ArrayList"%>
-<%@ page language="java" 
-         contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"
-         import="model.Gebruiker"
-         import="model.Taak"
-         %>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt" %> 
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/nav.js"></script>
+        <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
-        <title>JSP Page</title>
+
+        <title>Taken</title>
     </head>
 
     <body>
@@ -55,18 +49,18 @@
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                     <th width="17%">Acties</th>
                                     </c:if>
-
-                                <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
+                                    <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
                                     <th width="17%">Acties</th>
                                     </c:if>
                             </tr>
                         </thead>
+                        
                         <tbody>
                             <c:forEach items="${lijstTaken}" var="taak">
                                 <tr>
                                     <c:if test="${taak.taakID == sessionScope.editID}" >
-                                        <td> <input type="text" name="naam"  value="${taak.naam}"> </td>
-                                        <td> <input type="text" name="beschrijving" value="${taak.beschrijving}"> </td>
+                                        <td> <input type="text" size="25" name="naam"  value="${taak.naam}"> </td>
+                                        <td> <input type="text" size="50" name="beschrijving" value="${taak.beschrijving}"> </td>
                                         </c:if>
 
                                     <c:if test="${taak.taakID != sessionScope.editID}" >
@@ -75,7 +69,7 @@
                                     </c:if>
 
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                        <td class="actie">
+                                        <td>
                                             <c:if test="${taak.taakID != sessionScope.editID}" >
                                                 <input type="image"  name="idEdit" value="${taak.taakID}" src='images/pencil.png'>
                                                 <input type="image"  name="idDelete" value="${taak.taakID}" src='images/vuilbak.png'>
@@ -88,7 +82,7 @@
                                     </c:if>
 
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
-                                        <td class="actie">
+                                        <td>
                                             <c:if test="${taak.taakID != sessionScope.editID}" >
                                                 <input type="image"  name="idEdit" value="${taak.taakID}" src='images/pencil.png'>
                                                 <input type="image"  name="idDelete" value="${taak.taakID}" src='images/vuilbak.png'>
@@ -102,12 +96,10 @@
 
                                 </tr>
                             </c:forEach>
-
                         </tbody>
                     </table>
                     <br><br>
                     <div class="table-nav-footer">
-
                         <div>
                             <input type="image"  name="Eerste" value="Eerste" src='images/eerste.png'> 
                             <input type="image"  name="Vorige" value="Eerste" src='images/terug.png'>  

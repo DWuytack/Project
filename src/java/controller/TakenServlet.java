@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Instellingen;
 import model.TaakDAO;
 import model.Taak;
+import model.Instellingen;
 
 /**
  * Deze klasse bevat alle mogelijke knoppen naar takenbewerkingen.
@@ -102,7 +102,6 @@ public class TakenServlet extends HttpServlet {
                     getoondeTaken = aantalTaken;
                 }
                 session.setAttribute("getoondeTaken", getoondeTaken);
-                System.out.println("bladz: " + bladz);
                 session.setAttribute("bladzijde", bladz);
                 taken = taakDAO.takenLaden(bladz);
                 session.setAttribute("lijstTaken", taken);
@@ -127,27 +126,31 @@ public class TakenServlet extends HttpServlet {
             switch (actie) {
 
                 case "Edit taak":
+                    response.sendRedirect("Taken.jsp");
                     break;
 
                 case "Delete taak":
+                    response.sendRedirect("Taken.jsp");
                     break;
 
                 case "Cancel taak":
+                    response.sendRedirect("Taken.jsp");
                     break;
 
                 case "Save taak":
+                    response.sendRedirect("Taken.jsp");
                     break;
 
                 case "taak toevoegen":
+                    response.sendRedirect("Taken.jsp");
                     break;
 
                 case "taak aanpassen":
+                    response.sendRedirect("Taken.jsp");
                     break;
 
                 case "taak verwijderen":
-                    break;
-
-                case "Taak verwijderen":
+                    response.sendRedirect("Taken.jsp");
                     break;
             }
 

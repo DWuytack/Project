@@ -95,7 +95,6 @@ public class MenuServlet extends HttpServlet {
                     TaakDAO taakDAO = new TaakDAO();
                     ArrayList<Taak> taken = taakDAO.takenLaden(1);
                     
-
                     int aantalTaken = taakDAO.geefAantalTaken();
                     session.setAttribute("aantalRecords", aantalTaken);
                     session.setAttribute("bladzijde", 1);
@@ -105,7 +104,6 @@ public class MenuServlet extends HttpServlet {
                     }
                     session.setAttribute("getoondeTaken", getoondeTaken);
                     session.setAttribute("lijstTaken", taken);
-                    System.out.println("Aantal taken: " + aantalTaken);
                     response.sendRedirect("Taken.jsp");
                     break;
 
