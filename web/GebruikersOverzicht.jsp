@@ -97,17 +97,7 @@
                     </table>
                     <br><br>
                     <div class="table-nav-footer">
-                        <!-- béta -->
-                        <!--
-                        <div class="table-nav-icons">
-                            <a name="Eerste" value="Eerste"><i class="material-icons">skip_previous</i></a>
-                            <a name="Vorige" value="Vorige"><i class="material-icons">fast_rewind</i></a>
-                            <a name="Volgende" value="Volgende"><i class="material-icons">fast_forward</i></a>
-                            <a href="?action=GebruikersServlet" name="Laatste" value="Laatste"><i class="material-icons">skip_next</i></a>
-                        </div>
-                        <a name="gebruiker toevoegen"><i class="material-icons">person_add</i></a>
-                        <p>Totaal aantal gebruikers: <br><br> ${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</p>
-                        -->
+                        <!-- WIP -->
                         <center>Totaal aantal gebruikers: <br><br> ${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</center>
                     </div>
                 </div>
