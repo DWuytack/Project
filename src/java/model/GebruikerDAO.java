@@ -376,24 +376,22 @@ public class GebruikerDAO {
 
     public int geefAantalGebruikers() {
 
-        Connection currentCon = null;
-        Statement statement = null;
+         Connection currentCon = null;
+        Statement statement = null;     
         ResultSet rs = null;
         int aantalGebruikers = 0;
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "select * from Gebruiker";
+            String sql = "SELECT COUNT(*) FROM Gebruiker";
             statement = currentCon.createStatement();
 
             rs = statement.executeQuery(sql);
             while (rs.next()) {
-                aantalGebruikers++;
-                rs.getString(2);
+                aantalGebruikers = rs.getInt(1);
             }
 
         } catch (SQLException e) {
-
         } finally {
             if (rs != null) {
                 try {
@@ -538,7 +536,7 @@ public class GebruikerDAO {
         PreparedStatement ps = null;
 
         String sql
-                = "DELETE from gebruiker where gebruiker.gebruikerID = ?";
+                = "DELETE from Gebruiker where Gebruiker.gebruikerID = ?";
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);

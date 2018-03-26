@@ -144,12 +144,10 @@ public class GebruikersServlet extends HttpServlet {
                     session = request.getSession(true);
                     session.removeAttribute("editID");
                     session.removeAttribute("saveID");
-
                     gebruikerDAO.gebruikerVerwijderen(Integer.parseInt(deleteID));
                     gebruikers = gebruikerDAO.gebruikersLaden(1);
                     aantalGebruikers = gebruikerDAO.geefAantalGebruikers();
                     session.setAttribute("aantalRecords", aantalGebruikers);
-
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
