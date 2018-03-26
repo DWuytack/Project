@@ -15,53 +15,39 @@
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <title>Gebruikers overzicht</title>
-
-        -->
     </head>
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
             <form action="GebruikersServlet">
-                <br>
                 <div class="table-container">
-                    <div class="table-nav-header">
-
-                        <table >
-                            <tr >
-                                <td style="background-color: rgba(0,0,0,0);" width="5%"> <img src='images/searchUser.png' > </td>
-
-                                <!-- béta -->
-                                <!-- <div style="position: relative;">
-                                    <i name="gebruiker zoeken" class="material-icons" style="font-size: 50px;">person</i>
-                                    <i name="gebruiker zoeken" class="material-icons" style="
-                                       font-size: 25px; position: absolute; bottom: 11px; right: 0; color: #ec6e24; transform: scale(-1, 1);
-                                       
-                                       ">search</i>
-                                </div>
-                                -->
-                                <td> <input type="text" name="zoekterm" value="" size="15"> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td  align="right"> <center> Totaal aantal gebruikers: <br><br> ${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords} </center></td>
-
-                            <tr>
-                        </table>
+                    
+                    <div id="side-nav">
+                        <div id="zoeken">
+                            <a id="bt-zoeken">
+                                <i class="material-icons">search</i>
+                            </a>
+                            <input type="text" name="zoekterm" value="" size="15"">
+                        </div>
+                        <input type="image" name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/person_add.png'> 
+                        <input type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
+                        <input type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
+                        <input type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
+                        <input type="image" name="Laatste" value="skip_next" src='images/skip_next.png'>
                     </div>
-                    <br>
-                    <table >
+                        
+                    <table>
                         <thead>
                             <tr>
                                 <th align="center" width="12%" onclick="sortTable(0)">Achternaam</a</th>
                                 <th align="center" width="12%" onclick="sortTable(1)">Voornaam</a</th>
                                 <th align="center" width="12%" onclick="sortTable(2)">Login</th>
-                                <th align="center" width="9%" onclick="sortTable(3)">Rol</th>
-                                <th align="center" width="9%" onclick="sortTable(4)">GebtDatum</th>
-                                <th align="center" width="31%" onclick="sortTable(5)">E-mail</th>
+                                <th align="center" width="12%" onclick="sortTable(3)">Rol</th>
+                                <th align="center" width="14%" onclick="sortTable(4)">GebtDatum</th>
+                                <th align="center" width="28%" onclick="sortTable(5)">E-mail</th>
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <th width="15%">Acties</th>
+                                    <th >Acties</th>
                                     </c:if>
                             </tr>
                         </thead>
@@ -73,14 +59,14 @@
                                         <td width="12%"> <input type="text" name="voornaam" value="${cursist.voorNaam}"> </td>
                                         <td width="12%"> <input type="text" name="login"  value="${cursist.login}"> </td>
                                         <td> 
-                                <select width="9%" name="rol" value="${cursist.rol}">
+                                <select width="12%" name="rol" value="${cursist.rol}">
                                     <option value="admin">admin</option>
                                     <option value="leerkracht">leerkracht</option>
                                     <option value="cursist">cursist</option>
                                     <option value="secretariaat">secretariaat</option></td>
                                 </select>
-                                <td width="19%" align="center"> <input  style="text-align:right;" type="date" name="geboorteDatum" value="${cursist.geboorteDatum}" > </td>
-                                <td width="26%"> <input type="text" name="email"  value="${cursist.email}"/> </td>
+                                <td width="14%" align="center"> <input  style="text-align:right;" type="date" name="geboorteDatum" value="${cursist.geboorteDatum}" > </td>
+                                <td width="28%"> <input type="text" name="email"  value="${cursist.email}"/> </td>
                                 </c:if>
 
                             <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
@@ -94,7 +80,7 @@
                             </c:if>
 
                             <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                <td class="actie" width="10%">
+                                <td class="actie" >
                                     <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
                                         <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'>
                                         <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'>
@@ -105,34 +91,14 @@
                                     </c:if>
                                 </td>
                             </c:if>
-                            </tr>
+                            </tr> 
                         </c:forEach>
-
                         </tbody>
                     </table>
                     <br><br>
                     <div class="table-nav-footer">
-                        <!-- béta -->
-                        <!--
-                        <div class="table-nav-icons">
-                            <a name="Eerste"><i class="material-icons">skip_previous</i></a>
-                            <a name="Vorige"><i class="material-icons">fast_rewind</i></a>
-                            <a name="Volgende"><i class="material-icons">fast_forward</i></a>
-                            <a name="Laatste"><i class="material-icons">skip_next</i></a>
-                        </div>
-                        <a name="gebruiker toevoegen"><i class="material-icons">person_add</i></a>
-                        -->
-
-                        <div>
-                            <input type="image"  name="Eerste" value="Eerste" src='images/eerste.png'> 
-                            <input type="image"  name="Vorige" value="Eerste" src='images/terug.png'>  
-                            <input type="image"  name="Volgende" value="Volgende" src='images/volgende.png'> 
-                            <input type="image"  name="Laatste" value="Laatste" src='images/laatste.png'>
-                        </div>
-                        <br>
-                        <input type="image"  name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/adduser.png'> 
-                        <br><br>
-
+                        <!-- WIP -->
+                        <center>Totaal aantal gebruikers: <br><br> ${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</center>
                     </div>
                 </div>
             </form>
