@@ -83,9 +83,7 @@ public class GebruikersServlet extends HttpServlet {
 
             if (volgende != null) {
                 bladz++;
-                if (bladz > ((aantalGebruikers / 5)+1)) {
-                    bladz--;
-                }
+                if (((aantalGebruikers / Instellingen.AANTAL_RECORDS_PER_PAGE)+1) < bladz) bladz--;
                 int getoondeGebruikers = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
                 if (getoondeGebruikers > aantalGebruikers) {
                     getoondeGebruikers = aantalGebruikers;
