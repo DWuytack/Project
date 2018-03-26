@@ -8,15 +8,15 @@ package model;
 
 /**
  *
- * @author Keanu
-hier komt de score
+ * @author Keanu      
+hier komt de score  
 */ 
 public class Score {
     
   private int beoordelingssoortID;
-    String naam;
-    String beschrijving;
-    int waarde;
+   private String naam;
+   private String beschrijving;
+   private int waarde;
     
     private int getBeoordelingssoortID() {
         return beoordelingssoortID;
@@ -30,7 +30,7 @@ public class Score {
         return naam;
     }
 
-    private void setNaam(String naam) {
+    void setNaam(String naam) {
         this.naam = naam;
     }
 
@@ -38,7 +38,7 @@ public class Score {
         return beschrijving;
     }
 
-    private void setBeschrijving(String beschrijving) {
+    void setBeschrijving(String beschrijving) {
         this.beschrijving = beschrijving;
     }
 
@@ -46,7 +46,7 @@ public class Score {
         return waarde;
     }
 
-    private void setWaarde(int waarde) {
+    void setWaarde(int waarde) {
         this.waarde = waarde;
     }
 }
