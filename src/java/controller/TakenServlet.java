@@ -1,26 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Instellingen;
 import model.TaakDAO;
 import model.Taak;
 
 /**
+ * Deze klasse bevat alle mogelijke knoppen naar takenbewerkingen.
  *
- * @author CURSIST
+ * @author Aaron
  */
 @WebServlet(name = "TakenServlet", urlPatterns = {"/TakenServlet"})
 public class TakenServlet extends HttpServlet {
+
+    TaakDAO taakDAO = new TaakDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,50 +35,124 @@ public class TakenServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession(true);
+        ArrayList<Taak> taken = null;
+
         try {
-            String actie = "Edit taak";
-            String id = request.getParameter("idEdit");
-            if (id == null) {
-                id = request.getParameter("idDelete");
+            String actie = "";
+            String editID = request.getParameter("idEdit");
+            String cancelID = request.getParameter("idCancel");
+            String saveID = request.getParameter("idSave");
+            String deleteID = request.getParameter("idDelete");
+            String eerste = request.getParameter("Eerste");
+            String vorige = request.getParameter("Vorige");
+            String volgende = request.getParameter("Volgende");
+            String laatste = request.getParameter("Laatste");
+            int bladz = (int) session.getAttribute("bladzijde");
+            int aantalTaken = (int) session.getAttribute("aantalRecords");
+
+            if (eerste != null) {
+                bladz = 1;
+                session.setAttribute("bladzijde", bladz);
+                int getoondeTaken = Instellingen.AANTAL_RECORDS_PER_PAGE;
+                if (getoondeTaken > aantalTaken) {
+                    getoondeTaken = aantalTaken;
+                }
+                session.setAttribute("getoondeTaken", getoondeTaken);
+                taken = taakDAO.takenLaden(bladz);
+                session.setAttribute("lijstTaken", taken);
+                response.sendRedirect("Taken.jsp");
+            }
+
+            if (vorige != null) {
+                bladz--;
+                if (bladz < 1) {
+                    bladz = 1;
+                }
+                int getoondeTaken = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+                if (getoondeTaken > aantalTaken) {
+                    getoondeTaken = aantalTaken;
+                }
+                session.setAttribute("getoondeTaken", getoondeTaken);
+                session.setAttribute("bladzijde", bladz);
+                taken = taakDAO.takenLaden(bladz);
+                session.setAttribute("lijstTaken", taken);
+                response.sendRedirect("Taken.jsp");
+            }
+
+            if (volgende != null) {
+                bladz++;
+                if (bladz > ((aantalTaken / 5) + 1)) {
+                    bladz--;
+                }
+                int getoondeTaken = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+                if (getoondeTaken > aantalTaken) {
+                    getoondeTaken = aantalTaken;
+                }
+                session.setAttribute("getoondeTaken", getoondeTaken);
+                session.setAttribute("bladzijde", bladz);
+                taken = taakDAO.takenLaden(bladz);
+                session.setAttribute("lijstTaken", taken);
+                response.sendRedirect("Taken.jsp");
+            }
+
+            if (laatste != null) {
+                bladz = (aantalTaken / 5) + 1;
+                int getoondeTaken = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+                if (getoondeTaken > aantalTaken) {
+                    getoondeTaken = aantalTaken;
+                }
+                session.setAttribute("getoondeTaken", getoondeTaken);
+                System.out.println("bladz: " + bladz);
+                session.setAttribute("bladzijde", bladz);
+                taken = taakDAO.takenLaden(bladz);
+                session.setAttribute("lijstTaken", taken);
+                response.sendRedirect("Taken.jsp");
+            }
+
+            if (editID != null) {
+                actie = "Edit taak";
+            }
+            if (cancelID != null) {
+                actie = "Cancel taak";
+            }
+            if (saveID != null) {
+                actie = "Save taak";
+            }
+            if (deleteID != null) {
                 actie = "Delete taak";
             }
-            TaakDAO taakDAO = new TaakDAO();
+
             Taak taak = new Taak();
 
             switch (actie) {
 
                 case "Edit taak":
-                    //taak met id moet aangepast worden in database 
-                    HttpSession session = request.getSession(true);
-                    session.setAttribute("editID", id);
-                    response.sendRedirect("Taken.jsp"); //logged-in page 
                     break;
 
                 case "Delete taak":
-                    //taak met id moet verwijderd worden in database
-
                     break;
 
-                case "Taak toevoegen":
-
-                    //TaakDAO.taakAanmaken(taak);
-                    //session.setAttribute("ToegevoegdeTaak");
+                case "Cancel taak":
                     break;
 
-                case "Taak aanpassen":
-
-                    //taak.taakAanpassen();
-                    //session.setAttribute("AangepasteTaak");
-                    response.sendRedirect("DoelstellingsBewerking.jsp");
+                case "Save taak":
                     break;
 
-                case "Doelstelling verwijderen":
-
-                    //doelstellingDAO.doelstellingVerwijderen(doelstelling);
-                    //session.setAttribute("VerwijderdeDoelstelling");
-                    response.sendRedirect("TakenBewerking.jsp");
+                case "taak toevoegen":
                     break;
 
+                case "taak aanpassen":
+                    break;
+
+                case "taak verwijderen":
+                    break;
+
+                case "Taak verwijderen":
+                    break;
+
+                case "toevoegen":
+                    break;
             }
 
         } catch (Throwable theException) {
