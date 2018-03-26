@@ -1,11 +1,4 @@
 package model;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author Keanu      
@@ -13,40 +6,40 @@ hier komt de score
 */ 
 public class Score {
     
-  private int beoordelingssoortID;
-   private String naam;
-   private String beschrijving;
-   private int waarde;
+    private int beoordelingssoortID;
+    private String naam;
+    private String beschrijving;
+    private int waarde;
     
-    private int getBeoordelingssoortID() {
+    public int getBeoordelingssoortID() {
         return beoordelingssoortID;
     }
 
-    private void setBeoordelingssoortID(int beoordelingssoortID) {
+    public void setBeoordelingssoortID(int beoordelingssoortID) {
         this.beoordelingssoortID = beoordelingssoortID;
     }
 
-    private String getNaam() {
+    public String getNaam() {
         return naam;
     }
 
-    void setNaam(String naam) {
+    public void setNaam(String naam) {
         this.naam = naam;
     }
 
-    private String getBeschrijving() {
+    public String getBeschrijving() {
         return beschrijving;
     }
 
-    void setBeschrijving(String beschrijving) {
+    public void setBeschrijving(String beschrijving) {
         this.beschrijving = beschrijving;
     }
 
-    private int getWaarde() {
+    public int getWaarde() {
         return waarde;
     }
 
-    void setWaarde(int waarde) {
+    public void setWaarde(int waarde) {
         this.waarde = waarde;
     }
 }
