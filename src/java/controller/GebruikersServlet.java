@@ -167,29 +167,10 @@ public class GebruikersServlet extends HttpServlet {
                     response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                     break;
 
-                case "Cursist toevoegen":
-
-                    //gebruikerDAO.cursistAanmaken(gebruiker);
-                    //session.setAttribute("ToegevoegdeCursist");
-                    break;
-
-                case "Cursist aanpassen":
-
-                    //gebruikerDAO.cursistAanpassen();
-                    //session.setAttribute("AangepasteCursist");
-                    response.sendRedirect("GebruikersBewerking.jsp");
-                    break;
-
-                case "Cursist verwijderen":
-
-                    //gebruikerDAO.cursistVerwijderen(gebruiker);
-                    //session.setAttribute("VerwijderdeCursist");
-                    response.sendRedirect("GebruikersBewerking.jsp");
-                    break;
-
+                
                 case "Gebruiker toevoegen":
 
-                    response.sendRedirect("GebruikerAanmaken.jsp");
+                   
 
                     break;
                     

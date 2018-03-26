@@ -60,9 +60,11 @@ public class ScoreServlet extends HttpServlet {
                     session.setAttribute("editID", editID);
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
+                    
+                    
                     scoreDAO.typeScoreAanpassen(Integer.parseInt(editID), scoreType);
                     beoordelingssoorten = scoreDAO.typeScoreLaden();
-                    session.setAttribute("beoordelingssoorten", beoordelingssoorten);
+                    session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
                     response.sendRedirect("typeScoreOverzicht.jsp");
                     break;
                     
