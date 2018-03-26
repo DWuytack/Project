@@ -93,7 +93,7 @@ public class MenuServlet extends HttpServlet {
                     
                 case "Overzicht taken":
                     TaakDAO taakDAO = new TaakDAO();
-                    ArrayList<Taak> taken = taakDAO.takenLaden();
+                    ArrayList<Taak> taken = taakDAO.takenLaden(1);
                     session.setAttribute("lijstTaken", taken);
                     response.sendRedirect("Taken.jsp");
                     
