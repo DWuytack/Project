@@ -97,6 +97,11 @@ header {
     z-index: 300;
     min-height: 60px;
     display: flex;
+    /*
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    */
 }
 section {
     position: relative;
@@ -218,14 +223,16 @@ header > h1 {
 }
 
 /* TABLE */
-
-
 .table-nav-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     align-content: center;
     padding: 5px;
+    background-color: #f8f6ff;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 10px;
 }
 .table-nav-footer {
     display: flex;
@@ -235,11 +242,16 @@ header > h1 {
     padding: 5px;
     flex-direction: column;
 }
-
+.table-nav-header > div {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;   
+}
 .table-nav-header input {
     display: flex;
     height: 30px;
-    font-size: 15;
+    font-size: 15px;
 }
 .table-nav-footer > div {
     display: flex;
@@ -247,7 +259,9 @@ header > h1 {
 .table-nav-footer > input {
     display: flex;
 }
-
+.table-container {
+    margin: auto 5%;
+}
 .table-container table {
     border-collapse: collapse;
     border-radius: 10px;
@@ -279,11 +293,6 @@ header > h1 {
     padding-left: 50px;
 
 }
-table {
-    width:80%;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 .table-nav-icons > a {
     margin-right: 5px;
@@ -305,9 +314,30 @@ a[name="gebruiker toevoegen"] i {
     padding: 5px;
     margin-top: 5px;
 }
+span[name="gebruiker zoeken"] {
+    position: relative;
+    margin-right: 1em;
+    display: none;
+}
+span[name="gebruiker zoeken"] i:first-child {
+    font-size: 60px;
+}
+span[name="gebruiker zoeken"] i:last-child {
+    font-size: 30px;
+    position: absolute;
+    bottom: 11px;
+    right: 0;
+    color: #ec6e24;
+    transform: scale(-1, 1);
+}
 
-
-
+i[name="gebruiker zoeken"] {
+    font-size: 44px;
+    color: #ec6e24;
+    transform: scale(-1, 1);
+    padding-left: 5px;
+}
+                               
 
 
 /* RESIZE SUPPORT */
@@ -324,4 +354,68 @@ a[name="gebruiker toevoegen"] i {
         padding: 0;
         text-align: center;
     }
+}
+
+
+
+/* TO SORT  WIP*/
+
+/*
+#side-nav {
+    position: absolute; left: 0; top: -10px; display: flex; flex-direction: row;
+    background-color: #eee; background-image: url(images/noise.png);
+    border-bottom: 1px solid silver; border-right: 1px solid silver; z-index: 300;
+    justify-content: space-around; width: 100%;
+}
+*/
+#side-nav * {
+    transition: 1s all;
+}
+#side-nav a {
+    margin: 0; padding: 10px; opacity: .2;
+}
+#side-nav i { font-size: 50px;}
+
+#side-nav {
+    position: relative;
+    display: flex;
+    background: none;
+    border: 0;
+    justify-content: space-around;
+    width: 100%;
+}
+#side-nav > input {
+    background: none;
+    border: none;
+    max-width: 50px;
+    max-height: 50px;
+    font-size: 50px;
+    display: flex;
+    line-height: 1;
+    padding: 10px;
+    opacity: .2;
+}
+#side-nav a:hover, #side-nav input:hover {
+    opacity: .99;
+}
+#side-nav.search input[name="Eerste"], #side-nav.search input[name="Vorige"], #side-nav.search input[name="Volgende"], #side-nav.search input[name="Laatste"] {
+    display: none;
+}
+#zoeken {
+    display: flex;
+    align-items: center;
+}
+#zoeken > input {
+    display: none;
+}
+.search #zoeken > input {
+    display: flex;
+}
+#zoeken [name="zoekterm"] {
+    max-width: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,.2);
+    padding: 6px;
+    font-size: 20px;
+
 }
