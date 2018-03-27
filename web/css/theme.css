@@ -384,7 +384,10 @@ i[name="gebruiker zoeken"] {
     justify-content: space-around;
     width: 100%;
 }
-#side-nav > input {
+#side-nav > div {
+    display: flex;
+}
+#side-nav div > input {
     background: none;
     border: none;
     max-width: 50px;
