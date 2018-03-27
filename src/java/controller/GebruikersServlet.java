@@ -41,6 +41,7 @@ public class GebruikersServlet extends HttpServlet {
         try {
             String actie = "";
             String editID = request.getParameter("idEdit");
+            String addID=request.getParameter("addID");
             String cancelID = request.getParameter("idCancel");
             String saveID = request.getParameter("idSave");
             String deleteID = request.getParameter("idDelete");
@@ -125,7 +126,9 @@ public class GebruikersServlet extends HttpServlet {
             if (deleteID != null) {
                 actie = "Delete gebruiker";
             }
-       
+            if (addID != null) {
+                actie="Add gebruiker";
+            }
 
             Gebruiker gebruiker = new Gebruiker();
 
@@ -151,6 +154,11 @@ public class GebruikersServlet extends HttpServlet {
                     aantalGebruikers = gebruikerDAO.geefAantalGebruikers();
                     session.setAttribute("aantalRecords", aantalGebruikers);
                     session.setAttribute("lijstGebruikers", gebruikers);
+                    int getoondeGebruikers = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+                    if (getoondeGebruikers > aantalGebruikers) {
+                        getoondeGebruikers = aantalGebruikers;
+                    }
+                    session.setAttribute("getoondeGebruikers", getoondeGebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
 
@@ -169,7 +177,7 @@ public class GebruikersServlet extends HttpServlet {
                     gebruiker.setVoorNaam(request.getParameter("voornaam"));
                     gebruiker.setAchternaam(request.getParameter("achternaam"));
                     gebruiker.setRol(request.getParameter("rol"));
-                    java.sql.Date datum=java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
+                    java.sql.Date datum = java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
                     gebruiker.setGeboorteDatum(datum);
                     gebruiker.setEmail(request.getParameter("email"));
                     gebruiker.setLogin(request.getParameter("login"));
@@ -183,8 +191,15 @@ public class GebruikersServlet extends HttpServlet {
                     session.removeAttribute("saveID");
                     break;
 
-                case "Gebruiker toevoegen":
+                case "Add gebruiker":
 
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     break;
 
             }
