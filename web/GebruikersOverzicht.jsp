@@ -28,11 +28,13 @@
                             <a id="bt-zoeken">
                                 <i class="material-icons">search</i>
                             </a>
-                            <input type="text" name="zoekterm" value="" size="15"">
+                            <input type="text" name="zoekterm" value="" size="15">
                         </div>
                         <div>
-                            <!-- <a name="gebruiker toevoegen"><i class="material-icons">person_add</i></a> -->
-                            <input type="image" name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/person_add.png'> 
+                            <a id="bt-gebruiker_toevoegen" name="gebruiker toevoegen">
+                                <i class="material-icons">person_add</i>
+                            </a>
+                            <!-- <input type="image" name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/person_add.png'> -->
                             <input type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
                             <input type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
                             <input type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
@@ -107,6 +109,42 @@
                         <!-- WIP -->
                         <center>Totaal aantal gebruikers: <br><br> ${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</center>
                     </div>
+                </div>
+                <div id="gebruiker_toevoegen">
+                    <fieldset>
+                        <legend>Gebruiker Toevoegen: </legend><br>
+                        <label>Voornaam: </label>
+                        <br>
+                        <input type="text" name="voornaam" size="16" maxlength="30">
+                        <br><br>
+                        <label>Achternaam: </label>
+                        <br>
+                        <input type="text" name="achternaam" size="16" maxlength="30">
+                        <br><br>
+                        <label>Rol: </label>
+                        <br>
+                        <input type="radio" name="rol" value="3"> <span>Cursist</span>
+                        <br>
+                        <input type="radio" name="rol" value="2"> <span>Leerkracht</span>
+                        <br><br>
+                        <label>GeboorteDatum: </label>
+                        <br>
+                        <input type="date" name="geboortedatum" size="16" maxlength="20">
+                        <br><br>
+                        <label>Email: </label>
+                        <br>
+                        <input type="text" name="email" size="16" maxlength="30">
+                        <br><br>
+                        <label>Login: </label>
+                        <br>
+                        <input type="text" name="login" size="16" maxlength="30">
+                        <br><br>
+                        <label>Wachtwoord: </label>
+                        <br>
+                        <input type="password" name="wachtwoord" size="16" maxlength="20">
+
+                    </fieldset>
+                    <input type="submit" name="actie" value="toevoegen">
                 </div>
             </form>
         </section>

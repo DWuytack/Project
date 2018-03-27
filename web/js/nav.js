@@ -19,5 +19,13 @@ document.addEventListener("click", function(e){
         else
             loc.classList.remove("search");
     }
+    if(e.target.id === "bt-gebruiker_toevoegen") {
+        e.target.blur();
+        var loc = document.querySelector("#gebruiker_toevoegen");
+        if(!loc.className.includes("active"))
+            loc.className += " active";
+        else
+            loc.classList.remove("active");
+    }
 });
 
