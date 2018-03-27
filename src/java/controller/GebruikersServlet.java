@@ -83,7 +83,9 @@ public class GebruikersServlet extends HttpServlet {
 
             if (volgende != null) {
                 bladz++;
-                if (((aantalGebruikers / Instellingen.AANTAL_RECORDS_PER_PAGE)+1) < bladz) bladz--;
+                if (((aantalGebruikers / Instellingen.AANTAL_RECORDS_PER_PAGE) + 1) < bladz) {
+                    bladz--;
+                }
                 int getoondeGebruikers = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
                 if (getoondeGebruikers > aantalGebruikers) {
                     getoondeGebruikers = aantalGebruikers;
@@ -96,8 +98,10 @@ public class GebruikersServlet extends HttpServlet {
             }
 
             if (laatste != null) {
-                bladz =aantalGebruikers / Instellingen.AANTAL_RECORDS_PER_PAGE ;
-                if (aantalGebruikers % Instellingen.AANTAL_RECORDS_PER_PAGE  !=0) bladz++;
+                bladz = aantalGebruikers / Instellingen.AANTAL_RECORDS_PER_PAGE;
+                if (aantalGebruikers % Instellingen.AANTAL_RECORDS_PER_PAGE != 0) {
+                    bladz++;
+                }
                 int getoondeGebruikers = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
                 if (getoondeGebruikers > aantalGebruikers) {
                     getoondeGebruikers = aantalGebruikers;
@@ -131,10 +135,11 @@ public class GebruikersServlet extends HttpServlet {
                     session.setAttribute("editID", editID);
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
-                    
-                    
-                    gebruikerDAO.gebruikerAanpassen(Integer.parseInt(editID),gebruiker);
-                    gebruikers = gebruikerDAO.gebruikersLaden(1);
+
+                    gebruikerDAO.gebruikerAanpassen(Integer.parseInt(editID), gebruiker);
+                    int bladzd = (int) session.getAttribute("bladzijde");
+                    gebruikers = gebruikerDAO.gebruikersLaden(bladzd);
+
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                     break;
@@ -144,7 +149,8 @@ public class GebruikersServlet extends HttpServlet {
                     session.removeAttribute("editID");
                     session.removeAttribute("saveID");
                     gebruikerDAO.gebruikerVerwijderen(Integer.parseInt(deleteID));
-                    gebruikers = gebruikerDAO.gebruikersLaden(1);
+                    bladzd = (int) session.getAttribute("bladzijde");
+                    gebruikers = gebruikerDAO.gebruikersLaden(bladzd);
                     aantalGebruikers = gebruikerDAO.geefAantalGebruikers();
                     session.setAttribute("aantalRecords", aantalGebruikers);
                     session.setAttribute("lijstGebruikers", gebruikers);
@@ -167,13 +173,10 @@ public class GebruikersServlet extends HttpServlet {
                     response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                     break;
 
-                
                 case "Gebruiker toevoegen":
 
-                   
-
                     break;
-                    
+
                 case "toevoegen":
 
                     gebruiker.setVoorNaam(request.getParameter("voornaam"));
