@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,6 +41,7 @@ public class GebruikersServlet extends HttpServlet {
         try {
             String actie = "";
             String editID = request.getParameter("idEdit");
+            String addID=request.getParameter("addID");
             String cancelID = request.getParameter("idCancel");
             String saveID = request.getParameter("idSave");
             String deleteID = request.getParameter("idDelete");
@@ -126,6 +126,9 @@ public class GebruikersServlet extends HttpServlet {
             if (deleteID != null) {
                 actie = "Delete gebruiker";
             }
+            if (addID != null) {
+                actie="Add gebruiker";
+            }
 
             Gebruiker gebruiker = new Gebruiker();
 
@@ -135,11 +138,8 @@ public class GebruikersServlet extends HttpServlet {
                     session.setAttribute("editID", editID);
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
-
-                    gebruikerDAO.gebruikerAanpassen(Integer.parseInt(editID), gebruiker);
                     int bladzd = (int) session.getAttribute("bladzijde");
                     gebruikers = gebruikerDAO.gebruikersLaden(bladzd);
-
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                     break;
@@ -154,6 +154,11 @@ public class GebruikersServlet extends HttpServlet {
                     aantalGebruikers = gebruikerDAO.geefAantalGebruikers();
                     session.setAttribute("aantalRecords", aantalGebruikers);
                     session.setAttribute("lijstGebruikers", gebruikers);
+                    int getoondeGebruikers = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+                    if (getoondeGebruikers > aantalGebruikers) {
+                        getoondeGebruikers = aantalGebruikers;
+                    }
+                    session.setAttribute("getoondeGebruikers", getoondeGebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
 
@@ -168,35 +173,35 @@ public class GebruikersServlet extends HttpServlet {
                 case "Save gebruiker":
                     session = request.getSession(true);
                     session.removeAttribute("editID");
-                    session.removeAttribute("deleteID");
-                    session.removeAttribute("saveID");
-                    response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
-                    break;
-
-                case "Gebruiker toevoegen":
-
-                    break;
-
-                case "toevoegen":
-
+                    int id = Integer.parseInt(saveID);
                     gebruiker.setVoorNaam(request.getParameter("voornaam"));
                     gebruiker.setAchternaam(request.getParameter("achternaam"));
                     gebruiker.setRol(request.getParameter("rol"));
-
-                    String dateString = request.getParameter("geboorteDatum");
-                    DateFormat df = new java.text.SimpleDateFormat("yyyy/mm/dd");
-
-                    java.util.Date datum = df.parse(dateString);
-                    java.sql.Date sqlDate = new java.sql.Date(datum.getTime());
-                    gebruiker.setGeboorteDatum(sqlDate);
+                    java.sql.Date datum = java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
+                    gebruiker.setGeboorteDatum(datum);
                     gebruiker.setEmail(request.getParameter("email"));
                     gebruiker.setLogin(request.getParameter("login"));
-                    gebruiker.setPaswoord(request.getParameter("wachtwoord"));
-
-                    gebruikerDAO.cursistAanmaken(gebruiker);
-
+                    gebruikerDAO.gebruikerAanpassen(id, gebruiker);
+                    bladzd = (int) session.getAttribute("bladzijde");
+                    gebruikers = gebruikerDAO.gebruikersLaden(bladzd);
+                    aantalGebruikers = gebruikerDAO.geefAantalGebruikers();
+                    session.setAttribute("aantalRecords", aantalGebruikers);
+                    session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
+                    session.removeAttribute("saveID");
                     break;
+
+                case "Add gebruiker":
+
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    break;
+
             }
 
         } catch (Throwable theException) {
