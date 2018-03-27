@@ -35,7 +35,10 @@
             </li>
         </ul>
     </div>
+    <div id="titel">
+        <h1>Score on Web</h1>
+    </div>
 </nav>
 <header>
-    <h1>Score on Web</h1>
+    
 </header>
