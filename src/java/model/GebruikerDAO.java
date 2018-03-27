@@ -488,12 +488,13 @@ public class GebruikerDAO {
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
-
+            
+            ps.setString(1, "rolID");
             ps.setString(1, "voornaam");
             ps.setString(2, "achternaam");
             ps.setString(3, "geboorteDatum");
             ps.setString(4, "email");
-            ps.executeQuery(sql);
+            ps.executeQuery();
 
         } catch (SQLException ex) {
 
