@@ -376,8 +376,8 @@ public class GebruikerDAO {
 
     public int geefAantalGebruikers() {
 
-         Connection currentCon = null;
-        Statement statement = null;     
+        Connection currentCon = null;
+        Statement statement = null;
         ResultSet rs = null;
         int aantalGebruikers = 0;
 
@@ -483,18 +483,38 @@ public class GebruikerDAO {
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        String sql = "UPDATE gebruiker(rolID, voornaam, achternaam, geboortedatum, email) VALUES(?,?,?,?,?)";
+        String sql = "UPDATE gebruiker set gebruiker.voornaam=?,"
+                + "gebruiker.achternaam=?, gebruiker.login=?, "
+                + "gebruiker.rolID=?, gebruiker.email=?,"
+                + "gebruiker.geboortedatum=? where gebruiker.gebruikerID=?";
+
+        int rolId = 0;
+        if (gebruiker.getRol().equals("admin")) {
+            rolId = 1;
+        }
+        if (gebruiker.getRol().equals("leerkracht")) {
+            rolId = 2;
+        }
+        if (gebruiker.getRol().equals("cursist")) {
+            rolId = 3;
+        }
+        if (gebruiker.getRol().equals("secretariaat")) {
+            rolId = 4;
+        }
 
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
-            
-            ps.setString(1, "rolID");
-            ps.setString(1, "voornaam");
-            ps.setString(2, "achternaam");
-            ps.setString(3, "geboorteDatum");
-            ps.setString(4, "email");
-            ps.executeQuery();
+
+            ps.setInt(4, rolId);
+            ps.setString(3, gebruiker.getLogin());
+            ps.setString(1, gebruiker.getVoorNaam());
+            ps.setString(2, gebruiker.getAchternaam());
+            ps.setDate(6, gebruiker.getGeboorteDatum());
+            ps.setString(5, gebruiker.getEmail());
+            ps.setInt(7, gebruikerID);
+           
+            ps.executeUpdate();
 
         } catch (SQLException ex) {
 
@@ -530,7 +550,6 @@ public class GebruikerDAO {
 
     }
 
-   
     public void gebruikerVerwijderen(int gebruikerID) {
 
         Connection currentCon = null;
@@ -542,15 +561,14 @@ public class GebruikerDAO {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
-            ps.setInt(1,gebruikerID);
+            ps.setInt(1, gebruikerID);
             ps.executeQuery();
 
         } catch (SQLException ex) {
-            
+
             System.out.println(ex.getMessage());
 
         } finally {
-            
 
             if (ps != null) {
                 try {

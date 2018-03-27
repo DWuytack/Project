@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -126,6 +125,7 @@ public class GebruikersServlet extends HttpServlet {
             if (deleteID != null) {
                 actie = "Delete gebruiker";
             }
+       
 
             Gebruiker gebruiker = new Gebruiker();
 
@@ -135,11 +135,8 @@ public class GebruikersServlet extends HttpServlet {
                     session.setAttribute("editID", editID);
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
-
-                    gebruikerDAO.gebruikerAanpassen(Integer.parseInt(editID), gebruiker);
                     int bladzd = (int) session.getAttribute("bladzijde");
                     gebruikers = gebruikerDAO.gebruikersLaden(bladzd);
-
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                     break;
@@ -168,35 +165,28 @@ public class GebruikersServlet extends HttpServlet {
                 case "Save gebruiker":
                     session = request.getSession(true);
                     session.removeAttribute("editID");
-                    session.removeAttribute("deleteID");
+                    int id = Integer.parseInt(saveID);
+                    gebruiker.setVoorNaam(request.getParameter("voornaam"));
+                    gebruiker.setAchternaam(request.getParameter("achternaam"));
+                    gebruiker.setRol(request.getParameter("rol"));
+                    java.sql.Date datum=java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
+                    gebruiker.setGeboorteDatum(datum);
+                    gebruiker.setEmail(request.getParameter("email"));
+                    gebruiker.setLogin(request.getParameter("login"));
+                    gebruikerDAO.gebruikerAanpassen(id, gebruiker);
+                    bladzd = (int) session.getAttribute("bladzijde");
+                    gebruikers = gebruikerDAO.gebruikersLaden(bladzd);
+                    aantalGebruikers = gebruikerDAO.geefAantalGebruikers();
+                    session.setAttribute("aantalRecords", aantalGebruikers);
+                    session.setAttribute("lijstGebruikers", gebruikers);
+                    response.sendRedirect("GebruikersOverzicht.jsp");
                     session.removeAttribute("saveID");
-                    response.sendRedirect("GebruikersOverzicht.jsp"); //logged-in page 
                     break;
 
                 case "Gebruiker toevoegen":
 
                     break;
 
-                case "toevoegen":
-
-                    gebruiker.setVoorNaam(request.getParameter("voornaam"));
-                    gebruiker.setAchternaam(request.getParameter("achternaam"));
-                    gebruiker.setRol(request.getParameter("rol"));
-
-                    String dateString = request.getParameter("geboorteDatum");
-                    DateFormat df = new java.text.SimpleDateFormat("yyyy/mm/dd");
-
-                    java.util.Date datum = df.parse(dateString);
-                    java.sql.Date sqlDate = new java.sql.Date(datum.getTime());
-                    gebruiker.setGeboorteDatum(sqlDate);
-                    gebruiker.setEmail(request.getParameter("email"));
-                    gebruiker.setLogin(request.getParameter("login"));
-                    gebruiker.setPaswoord(request.getParameter("wachtwoord"));
-
-                    gebruikerDAO.cursistAanmaken(gebruiker);
-
-                    response.sendRedirect("GebruikersOverzicht.jsp");
-                    break;
             }
 
         } catch (Throwable theException) {
