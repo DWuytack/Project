@@ -14,13 +14,14 @@
         <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+          <link rel="stylesheet" href="css/formulier.css">
         <title>Gebruikers overzicht</title>
     </head>
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
-               <h1 align="center"> GebruikersOverzicht </h1>
+               <h1 align="center" class="kleur"> GebruikersOverzicht </h1>
                 <hr>
 
             <form action="GebruikersServlet">
