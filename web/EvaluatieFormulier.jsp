@@ -14,12 +14,12 @@
         <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+
         <title>EvaluatieFormulier</title>
     </head>
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
-        <section>
             <form method="post" action="EvaluatieFormulierServlet" >
                 <h1 align="center"> EvaluatieFormulier </h1>
                 <hr>
@@ -37,15 +37,15 @@
                         <th></th>
                         <th><a>Module</a></th>
                         <th></th>
-                         <th><a>Cursist</a></th>
+                        <th><a>Cursist</a></th>
                         <th></th>
-                         <th><a>Lesnr</a></th>
+                        <th><a>Lesnr</a></th>
                         <th></th>
 
                     </tr>
                     <tr>
-                        
-                       <td width="10px"></td>
+
+                        <td width="10px"></td>
 
                         <td> <input type="date" name="datum" style="font-size: 0.9rem"   > </td>
 
@@ -147,48 +147,139 @@
                             </select> </td>
 
                         <td width="10px"></td>
-                        
-                           <td>  <select name="cursist">
+
+                        <td>  <select name="cursist">
                                 <option value="Banket AA">Piet Rademakers</option>
                                 <option value="Beslag en cakes AA">Leo Vertongen</option>
                                 <option value="Stukgebak AA">Jeroen Meus</option>
                                 <option value="Beslagen A">Peter Goossens</option>
                                 <option value="Beslagen">Maak een cursist aan...</option>
-                        </select> </td>
+                            </select> </td>
 
                         <td width="10px"></td>
-                        
-                         <td>  <select name="les">
+
+                        <td>  <select name="les">
                                 <option value="Banket AA">1</option>
                                 <option value="Beslag en cakes AA">2</option>
                                 <option value="Stukgebak AA">3</option>
                                 <option value="Beslagen A">4</option>
                                 <option value="Beslagen">5</option>
-                        </select> </td>
+                            </select> </td>
 
                         <td width="10px"></td>
                     </tr>
                 </table>
-                
-                <table>
+                <br>
+                <table style="width:90%">
+                    <thead>
+
+                        <tr>
+                            <th align="left" width="25%"><b>Doelstellingen</th>                      
+                            <th align="left" width="5"><b>Kern</b></th>               
+                            <th align="left" width="30%"><b>Taken</b></th>
+                            <th align="left" width="5%"><b>Score</b></th>
+                            <th align="left" width="10%"><b>Waarde</b></th>
+                            <th align="left" width="25%"><b>Commentaar</b></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Zelfstandig werken</td>
+                            <td></td>
+                            <td>Samenstellen grondstoffen</td>
+                            <td>A+</td>
+                            <td>10</td>
+                            <td>Fantastisch gedaan!</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Instructies geven</td>
+                            <td>B+</td>
+                            <td>8</td>
+                            <td>ne goeien baas</td>
+                        </tr>
+
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><select name="cursist">
+                                    <option value="Banket AA">Taak 1</option>
+                                    <option value="Banket AA">Taak 2</option>
+                                    <option value="Banket AA">Taak 3</option>
+                                    <option value="Banket AA">Taak 4</option>
+                                    <option value="Banket AA">Maak een nieuwe taak aan...</option>
+                                </select></td></td>
+                            <td>B+</td>
+                            <td>8</td>
+                            <td>ne goeien baas</td>
+                        </tr>
+
+                        <tr>
+                            <td>Hygienisch werken</td>
+                            <td>x</td>
+                            <td>Bestellen schoonmaakprodukten</td>
+                            <td>C</td>
+                            <td>6</td>
+                            <td>Hier en daar wat vergeten!</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>x</td>
+                            <td>Opstelling plan</td>
+                            <td>A</td>
+                            <td>9</td>
+                            <td>Redelijk goed gestructureerd</td>
+                        </tr>
+                    </tbody>
+                    <tfoot></tfoot>
+
                     <tr>
-                        <th>Doelstellingen</th>
-                        
-                        
+                        <td><select name="cursist">
+                                <option value="Banket AA">Doelstelling 1</option>
+                                <option value="Banket AA">Doelstelling 2</option>
+                                <option value="Banket AA">Doelstelling 3</option>
+                                <option value="Banket AA">Doelstelling 4</option>
+                                <option value="Banket AA">Maak een nieuwe doelstelling aan...</option>
+                            </select></td>
+                        <td></td>
+                        <td><select name="cursist">
+                                <option value="Banket AA">Taak 1</option>
+                                <option value="Banket AA">Taak 2</option>
+                                <option value="Banket AA">Taak 3</option>
+                                <option value="Banket AA">Taak 4</option>
+                                <option value="Banket AA">Maak een nieuwe taak aan...</option>
+                            </select></td></td>
+                        <td><select name="cursist">
+                                <option value="Banket AA">A+</option>
+                                <option value="Banket AA">A</option>
+                                <option value="Banket AA">B+</option>
+                                <option value="Banket AA">B</option>
+                                <option value="Banket AA">C+</option>
+                                <option value="Banket AA">C</option>
+                                <option value="Banket AA">D+</option>
+                                <option value="Banket AA">D</option>                              
+                            </select></td>
+                        <td></td>
+                        <td><textarea name="textarea"
+                                      rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
                     </tr>
-                    
-                    
-                    
-                    
+
+
+
+
+
                 </table>
-                
-                
-                
-                
-                
-                
+
+
+
+
+
+
             </form>
-        </section>
+        
     </body>
 </html>
 
