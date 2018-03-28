@@ -20,6 +20,9 @@
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
+               <h1 align="center"> GebruikersOverzicht </h1>
+                <hr>
+
             <form action="GebruikersServlet">
                 <div class="table-container">
                     
