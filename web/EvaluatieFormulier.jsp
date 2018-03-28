@@ -23,9 +23,30 @@
             <form method="post" action="EvaluatieFormulierServlet" >
                 <h1 align="center"> EvaluatieFormulier </h1>
                 <hr>
-                
-                 <table>
+
+                <table class="datatable">
+                    <thead>
                         <tr>
+                             <th><a>Datum</a></th>
+                            <th></th>
+                            <th><a>Jaar</a></th>
+                            <th></th>
+                            <th ><a>Semester</a</th>
+                            <th></th>
+                            <th><a>Opleiding</a></th>
+                            <th></th>
+                            <th><a>Module</a></th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            
+                            <td> <input type="date" name="datum" > </td>
+                            
+                             <td width="10px"></td>
+                            
                             <td> <select name="Schooljaar">
                                     <option value="2018-2019">2018-2019</option>
                                     <option value="2019-2020">2019-2020</option>
@@ -40,13 +61,15 @@
                                     <option value="2028-2029">2028-2029</option>
                                     <option value="2029-2030">2029-2030</option>
                                 </select> </td>
+                            <td width="10px"></td>
 
-                                
                             <td> <select name="Semester">
                                     <option value="Eerste Semester">Eerste Semester</option>
                                     <option value="Tweede Semester">Tweede Semester</option> 
                                 </select> </td>
-                                
+
+                              <td width="10px"></td>
+
                             <td><select name="Opleiding">
                                     <option value="Banketbakker">Banketbakker</option>
                                     <option value="Hotelbedrijf">Hotelbedrijf</option>
@@ -58,6 +81,8 @@
                                     <option value="Traiteurkok">Traiteurkok</option>
                                     <option value="Chocoladebewerker">Chocoladebewerker</option>
                                 </select> </TD>
+
+                             <td width="10px"></td>
 
                             <td>  <select name="Module">
                                     <option value="Banket AA">Banket AA</option>
@@ -117,9 +142,14 @@
                                     <option value="Eenvoudige chocoladeproducten">Eenvoudige chocoladeproducten</option>
                                 </select> </td>
 
+                             <td width="10px"></td>
+                             
+                              
+
                         </tr>
-                    </table>
-              
+                    </tbody>
+                </table>
+
             </form>
         </section>
     </body>
