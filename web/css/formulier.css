@@ -9,10 +9,46 @@ and open the template in the editor.
 */
 
 
-.doelstelling{
-   border: 1px solid black;
-   width: 90%;
+.doelstelling1{
+
+    width: 90%;
+    margin-left:auto; 
+    margin-right:auto;
 }
+.doelstelling2{
+    border: 1px solid black;
+    width: 90%;
+    margin-left:auto; 
+    margin-right:auto;
+
+}
+
+
+input[type="submit"]{
+
+  background-color :#AAAA00;
+  border: 1px;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+}
+
+
+
+.formcell {
+
+}
+
+.formrow {
+    height: 30px;
+}
+
+
+
 
 
 .kleur {
@@ -20,13 +56,13 @@ and open the template in the editor.
 }
 
 .links{
-     text-align: left;
+    text-align: left;
 }
 
 .center{
-     text-align: center;
+    text-align: center;
 }
 
 .rechts{
-     text-align: right;
+    text-align: right;
 }

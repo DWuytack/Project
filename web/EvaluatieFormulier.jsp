@@ -25,7 +25,7 @@
             <h1 align="center" class="kleur"> EvaluatieFormulier </h1>
             <hr>
 
-            <table align="center">
+            <table class="doelstelling1">
                 <tr>
                     <th> </th>
                     <th><a>Datum</a></th>
@@ -170,10 +170,10 @@
                 </tr>
             </table>
             <br>
-            <table class="doelstelling">
+            <table class="doelstelling2">
                 <thead>
 
-                    <tr class="lijn">
+                    <tr class="lijn" bgcolor="#AAAA00" height="50" >
                         <th  class="links" width="25%"><b>Doelstellingen</th>                      
                         <th><b>Kern</b></th>               
                         <th  class="links" ><b>Taken</b></th>
@@ -187,7 +187,7 @@
                 <tbody>
 
 
-                    <tr>
+                    <tr class="formrow">
                         <td class="lijn">Zelfstandig werken</td>
                         <td class="center"></td>
                         <td>Samenstellen grondstoffen</td>
@@ -195,7 +195,7 @@
                         <td class="center">10</td>
                         <td>Fantastisch gedaan!</td>
                     </tr>
-                    <tr>
+                    <tr class="formrow">
                         <td></td>
                         <td></td>
                         <td>Instructies geven</td>
@@ -204,22 +204,16 @@
                         <td>ne goeien baas</td>
                     </tr>
 
-                    <tr>
+                    <tr class="formrow">
                         <td></td>
                         <td></td>
-                        <td><select name="cursist">
-                                <option value="Banket AA">Taak 1</option>
-                                <option value="Banket AA">Taak 2</option>
-                                <option value="Banket AA">Taak 3</option>
-                                <option value="Banket AA">Taak 4</option>
-                                <option value="Banket AA">Maak een nieuwe taak aan...</option>
-                            </select></td></td>
+                        <td>Afwassen</td>
                         <td class="center">B+</td>
                         <td class="center">8</td>
-                        <td>ne goeien baas</td>
+                        <td>nog vuile taloren</td>
                     </tr>
 
-                    <tr >
+                    <tr class="formrow">
                         <td class="lijn" >Hygienisch werken</td>
                         <td class="center">x</td>
                         <td>Bestellen schoonmaakprodukten</td>
@@ -227,7 +221,7 @@
                         <td class="center">6</td>
                         <td>Hier en daar wat vergeten!</td>
                     </tr>
-                    <tr>
+                    <tr class="formrow">
                         <td></td>
                         <td></td>
                         <td>Opstelling plan</td>
@@ -238,7 +232,7 @@
                 </tbody>
                 <tfoot></tfoot>
 
-                <tr>
+                <tr class="formrow">
                     <td><select name="cursist">
                             <option value="Banket AA">Doelstelling 1</option>
                             <option value="Banket AA">Doelstelling 2</option>
@@ -254,7 +248,8 @@
                             <option value="Banket AA">Taak 4</option>
                             <option value="Banket AA">Maak een nieuwe taak aan...</option>
                         </select></td></td>
-                    <td class="center"><select name="cursist">
+                    <td class="center"><select name="cursist" value="">
+                            
                             <option value="Banket AA">A+</option>
                             <option value="Banket AA">A</option>
                             <option value="Banket AA">B+</option>
@@ -262,12 +257,35 @@
                             <option value="Banket AA">C+</option>
                             <option value="Banket AA">C</option>
                             <option value="Banket AA">D+</option>
-                            <option value="Banket AA">D</option>                              
+                            <option value="Banket AA">D</option>
+                            
                         </select></td>
                     <td></td>
                     <td><textarea name="textarea"
                                   rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
                 </tr>
+            </table>
+            <br>
+            
+            <table class="doelstelling1">
+                
+                <tr >
+                    
+                    <td align="center" >Totale Score: 80% </td>
+                </tr>
+           
+            </table>
+            <br>
+            
+            <table class="doelstelling1" >
+                
+                <tr >
+                    
+                    <td > <input type="submit"  value=" Print Formulier "  class="button"></td>
+                     <td > <input type="submit"  value=" Bewaar Formuier " class="button"></td>
+                      <td > <input type="submit"  value=" Laad Formulier " class="button"></td>
+                </tr>
+           
             </table>
         </form>
 
