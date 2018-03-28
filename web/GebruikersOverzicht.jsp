@@ -78,7 +78,7 @@
                                 <td> ${cursist.achternaam} </td>
                                 <td> ${cursist.voorNaam} </td>
                                 <td> ${cursist.login} </td>
-                                <td > ${cursist.rol} </td>
+                                <td> ${cursist.rol} </td>
                                 <td> <fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yyyy" /> </td>
                                 <td> ${cursist.email} </td>
 
@@ -142,7 +142,7 @@
                         <label>Wachtwoord: </label>
                         <br>
                         <input type="password" name="wachtwoord" size="16" maxlength="20">
-
+                        <br>
                     </fieldset>
                     <input type="submit" name="actie" value="toevoegen">
                 </div>
