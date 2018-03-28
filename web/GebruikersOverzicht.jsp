@@ -111,7 +111,7 @@
                     <br><br>
                     <div class="table-nav-footer">
                         <!-- WIP -->
-                        <center>Totaal aantal gebruikers: <br><br> ${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</center>
+                        <center>Totaal aantal gebruikers: <b>${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</b></center>
                     </div>
                 </div>
                 <div id="gebruiker_toevoegen">
