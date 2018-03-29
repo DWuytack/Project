@@ -59,3 +59,11 @@ input[type="submit"]{
 .rechts{
     text-align: right;
 }
+
+#taak_toevoegen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}

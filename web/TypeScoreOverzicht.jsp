@@ -20,11 +20,19 @@
 
     <body>
         <%@include file="Bovenbalk.jsp"%>
+        
+        <section id="pagename">
+            <h1> Type scores </h1> 
+        </section>
+        
         <section>
-            <h1 align="center" class="kleur"> Type scores </h1>
-            <hr>
             <form action="ScoreServlet">
                 <div class="table-container">
+                    
+                    <div class="table-nav-header" style="min-height: 20px;">
+                        
+                    </div>
+                    
                     <table class="datatable">
                         <thead>
                             <tr>
