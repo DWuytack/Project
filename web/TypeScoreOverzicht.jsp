@@ -14,15 +14,20 @@
         <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/formulier.css">
         <title>Type score</title>
     </head>
 
     <body>
-        <%@include file="Bovenbalk.jsp" %>
+        <%@include file="Bovenbalk.jsp"%>
         <section>
+            <h1 align="center" class="kleur"> Type scores </h1>
+            <hr>
+                    
             <form action="ScoreServlet">
                 <div class="table-container">
-                    <table>
+                    
+                    <table class="datatable">
                         <thead>
                             <tr>
                                 <th align="center" width="12%" onclick="sortTable(0)">naam</a</th>
@@ -49,22 +54,25 @@
                                     </c:if>
 
                             <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                <td class="actie" width="10%">
+                                <td class="actie">
                                     <c:if test="${typeScore.beoordelingssoortID != sessionScope.editID}" >
-                                        <input type="image"  name="idEdit" value="${typeScore.beoordelingssoortID}" src='images/pencil.png'>
-                                        
+                                        <div class="actie-images">
+                                            <span> <input type="image"  name="idEdit" value="${typeScore.beoordelingssoortID}" src='images/pencil.png'> </span>
+                                            <span> <input type="image"  name="idDelete" value="${typeScore.beoordelingssoortID}" src='images/vuilbak.png'> </span>
+                                        </div>
                                     </c:if>
                                     <c:if test="${typeScore.beoordelingssoortID == sessionScope.editID}" >
-                                        <input type="image"  name="idSave" value="${typeScore.beoordelingssoortID}" src='images/green.png'>
-                                        <input type="image"  name="idCancel" value="${typeScore.beoordelingssoortID}" src='images/cancel.png'>
+                                        <div class="actie-images">
+                                            <span> <input type="image"  name="idSave" value="${typeScore.beoordelingssoortID}" src='images/green.png'> </span>
+                                            <span> <input type="image"  name="idCancel" value="${typeScore.beoordelingssoortID}" src='images/cancel.png'> </span>
+                                        </div>
                                     </c:if>
                                 </td>
                             </c:if>
                             </tr>
                         </c:forEach>
-
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
             </form>
         </section>
     </body>
