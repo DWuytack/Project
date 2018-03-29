@@ -71,7 +71,7 @@ public class ScoreDAO {
     }
     
     // methode die het type score aanpast
-    public void typeScoreAanpassen(int id, Score typeScore) {
+    public void typeScoreAanpassen(int beoordelingssoortID, Score typeScore) {
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -86,7 +86,7 @@ public class ScoreDAO {
             ps.setString(1, typeScore.getNaam());
             ps.setString(2, typeScore.getBeschrijving());
             ps.setInt(3, typeScore.getWaarde());
-            ps.setInt(4, id);
+            ps.setInt(4, beoordelingssoortID);
             ps.executeUpdate();
 
         } catch (SQLException ex) {
@@ -129,7 +129,7 @@ public class ScoreDAO {
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        String sql = "DELETE FROM Beoordelingsoort Where Beoordelingsoort.beoordelingssoortID = ?";
+        String sql = "DELETE FROM Beoordelingssoorten Where Beoordelingssoorten.beoordelingssoortID = ?";
 
         try {
             currentCon = ConnectionManager.getConnection();

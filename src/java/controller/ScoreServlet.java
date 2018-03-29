@@ -83,6 +83,8 @@ public class ScoreServlet extends HttpServlet {
                     typeScore.setBeschrijving(request.getParameter("beschrijving"));
                     typeScore.setWaarde(Integer.parseInt(request.getParameter("waarde")));
                     scoreDAO.typeScoreAanpassen(id, typeScore);
+                    beoordelingssoorten = scoreDAO.typeScoreLaden();
+                    session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
                     response.sendRedirect("TypeScoreOverzicht.jsp");
                     session.removeAttribute("saveID");
                     break;
@@ -92,6 +94,7 @@ public class ScoreServlet extends HttpServlet {
                     session.removeAttribute("editID");
                     session.removeAttribute("saveID");
                     scoreDAO.typeScoreVerwijderen(Integer.parseInt(deleteID));
+                    beoordelingssoorten = scoreDAO.typeScoreLaden();
                     session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
                     response.sendRedirect("TypeScoreOverzicht.jsp");
                     break;
