@@ -80,7 +80,7 @@ public class MenuServlet extends HttpServlet {
                 case "Overzicht doelstellingen":
 
                     DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
-                    ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(1);
+                    ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(1,1);
 
                     int aantalDoelstellingen = doelstellingDAO.geefAantalDoelstellingen();
                     session.setAttribute("aantalRecords", aantalDoelstellingen);
