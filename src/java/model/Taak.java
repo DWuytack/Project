@@ -13,6 +13,15 @@ public class Taak {
     private int taakID;
     private String naam;
     private String beschrijving;
+    private boolean geldig;
+
+    public boolean isGeldig() {
+        return geldig;
+    }
+
+    public void setGeldig(boolean geldig) {
+        this.geldig = geldig;
+    }
 
     public int getTaakID() {
         return taakID;
