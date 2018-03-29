@@ -71,24 +71,23 @@ public class ScoreDAO {
     }
     
     // methode die het type score aanpast
-    public void typeScoreAanpassen(int beoordelingssoortID, Score typeScore) {
+    public void typeScoreAanpassen(int id, Score typeScore) {
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
 
         String sql = "UPDATE Beoordelingssoorten SET Beoordelingssoorten.naam = ? , Beoordelingssoorten.beschrijving = ? ,"
-                + " Beoordelingssoorten.waarde WHERE Beoordelingssoorten.beoordelingssoortID = ?";
+                    + " Beoordelingssoorten.waarde = ? WHERE Beoordelingssoorten.beoordelingssoortID = ?";
 
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
             
-            
             ps.setString(1, typeScore.getNaam());
             ps.setString(2, typeScore.getBeschrijving());
             ps.setInt(3, typeScore.getWaarde());
-            ps.setInt(4, beoordelingssoortID);
-            ps.executeQuery();
+            ps.setInt(4, id);
+            ps.executeUpdate();
 
         } catch (SQLException ex) {
 
