@@ -32,13 +32,13 @@
                                 <th align="center" onclick="sortTable(1)">beschrijving</a</th>
                                 <th align="center" onclick="sortTable(2)">waarde</th>
                                 <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <th>Acties</th>
+                                    <th>acties</th>
                                 </c:if>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${lijstBeoordelingssoorten}" var="typeScore">
-                                <tr>
+                                <tr <c:if test="${typeScore.beoordelingssoortID == sessionScope.editID}" >style="background-color: rgba(255,255,0,.5);"</c:if>>
                                     <c:if test="${typeScore.beoordelingssoortID == sessionScope.editID}" >
                                         <td> <input type="text" name="naam"  value="${typeScore.naam}"> </td>
                                         <td> <input type="text" name="beschrijving" value="${typeScore.beschrijving}"> </td>

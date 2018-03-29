@@ -76,8 +76,8 @@ public class ScoreDAO {
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        String sql = "UPDATE beoordelingssoorten SET beoordelingssoorten.naam = ?, beoordelingssoorten.beschrijving = ?,"
-                +"beoordelingssoorten.waarde WHERE beoordelingssoorten.beoordelingssoortID = ?";
+        String sql = "UPDATE Beoordelingssoorten SET Beoordelingssoorten.naam = ? , Beoordelingssoorten.beschrijving = ? ,"
+                + " Beoordelingssoorten.waarde WHERE Beoordelingssoorten.beoordelingssoortID = ?";
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -88,7 +88,7 @@ public class ScoreDAO {
             ps.setString(2, typeScore.getBeschrijving());
             ps.setInt(3, typeScore.getWaarde());
             ps.setInt(4, beoordelingssoortID);
-            ps.executeUpdate();
+            ps.executeQuery();
 
         } catch (SQLException ex) {
 
