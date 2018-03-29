@@ -69,8 +69,7 @@ public class ScoreDAO {
         }
         return typeScores;
     }
-    
-    
+
     // methode die het type score aanpast
     public void typeScoreAanpassen(int beoordelingssoortID, Score typeScore) {
         Connection currentCon = null;
@@ -130,7 +129,7 @@ public class ScoreDAO {
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        String sql = "DELETE FROM Beoordelingssoorten Where Beoordelingssoorten.beoordelingssoortID = ?";
+        String sql = "DELETE FROM Beoordelingssoorten WHERE Beoordelingssoorten.beoordelingssoortID = ?";
 
         try {
             currentCon = ConnectionManager.getConnection();

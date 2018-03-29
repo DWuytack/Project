@@ -20,7 +20,6 @@
 
     <body>
         <%@include file="Bovenbalk.jsp"%>
-        
         <section id="pagename">
             <h1> Type scores </h1> 
         </section>

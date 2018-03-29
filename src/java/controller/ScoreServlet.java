@@ -56,7 +56,6 @@ public class ScoreServlet extends HttpServlet {
                 actie = "Delete typeScore";
             }
             
-            
             Score typeScore = new Score();
 
             switch (actie) {
@@ -99,7 +98,6 @@ public class ScoreServlet extends HttpServlet {
                     session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
                     response.sendRedirect("TypeScoreOverzicht.jsp");
                     break;
-     
             }
 
         } catch (Throwable theException) {}
