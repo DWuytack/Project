@@ -25,11 +25,15 @@
 
         <body>
             <%@include file="Bovenbalk.jsp" %>
-
+            
+            <section id="pagename">
+                <h1> DoelstellingenOverzicht </h1>
+            </section>
+            
             <section>
                 <form action="DoelstellingenServlet">
                     <div class="table-container">
-                        <div id="side-nav">
+                        <div class="table-nav-header">
                             <div id="zoeken">
                                 <a id="zoeken">
                                     <i class="material-icons">search</i>

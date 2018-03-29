@@ -24,6 +24,11 @@
     </head>
     <body>
         <%@include file="Bovenbalk.jsp" %>
+        
+        <section id="pagename">
+            <h1> ScoreOverzicht </h1> 
+        </section>
+        
         <section>
             <form action="ScoreServlet">
                 <br>

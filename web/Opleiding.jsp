@@ -25,36 +25,55 @@
     
     <body> 
         <%@include file="Bovenbalk.jsp" %>
+        
+        <section id="pagename">
+            <h1> Opleidingen </h1> 
+        </section>
+        
         <section>
             <form action="OpleidingServlet">
-                <h2>Opleidingen</h2>
-                <br>
-                <% ArrayList<Opleiding> lijstOpleidingen = (ArrayList<Opleiding>) (session.getAttribute("lijstOpleidingen"));%>
+                <div class="table-container">
+                    <% ArrayList<Opleiding> lijstOpleidingen = (ArrayList<Opleiding>) (session.getAttribute("lijstOpleidingen"));%>
+                    <br>
 
-                 <table class="datatable">
+                    <div class="table-nav-header">
+                        <div id="zoeken">
+                            <a id="bt-zoeken">
+                                <i class="material-icons">search</i>
+                            </a>
+                            <input type="text" name="zoekterm" value="" size="15">
+                        </div>
+                        <div>
+                            <a id="bt-opleidingen_toevoegen" name="Opleiding Toevoegen" >
+                                <i class="material-icons">add</i>
+                            </a>
+                            <input type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
+                            <input type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
+                            <input type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
+                            <input type="image" name="Laatste" value="skip_next" src='images/skip_next.png'>
+                        </div>
+                    </div>
+                
+                    <table class="datatable">
                         <thead>
                             <tr>
-                              
                                 <th onclick="sortTable(0)"><a>naam</a></th>
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                     <th>Actions</th>
                                     </c:if>
-
                             </tr>
                         </thead>
                         <tbody>
-                             <c:forEach items="${lijstOpleidingen}" var="opleiding">
+                            <c:forEach items="${lijstOpleidingen}" var="opleiding">
                                 <tr>
                                     <c:if test="${opleiding.opleidingID == sessionScope.editID}" >
-                                  
                                         <td> <input type="text" name="modulenaam" size="15" maxlength="25" value="${opleiding.naam}"> </td>
-                                        </c:if>
-
+                                    </c:if>
+                                        
                                     <c:if test="${opleiding.opleidingID != sessionScope.editID}" >
-                                   
                                         <td> ${opleiding.naam} </td>
                                     </c:if>
-
+                                        
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                         <td>
                                             <c:if test="${opleiding.opleidingID != sessionScope.editID}" >
@@ -67,25 +86,12 @@
                                             </c:if>
                                         </td>
                                     </c:if>
-                         </c:forEach>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
-                 <table>
-                        <tr style="background-color:rgba(0, 0, 0, 0);"> 
-                            <td style="text-align:center;">   
-                                <input type="image"  name="Eerste" value="Eerste 10" src='images/eerste.png'> 
-                                <input type="image"  name="Vorige" value="Eerste 10" src='images/terug.png'>  
-                                <input type="image"  name="Volgende" value="Volgende 10" src='images/volgende.png'> 
-                                <input type="image"  name="Laatste" value="Laatste 10" src='images/laatste.png'> 
-                            </td> 
-                        </tr>
-                        <tr> 
-                            <td colspan="3" style="text-align:center;">   
-                                <input type="image"  name="Opleiding Toevoegen" value="Opleiding Toevoegen" src='images/adduser.png'> 
-                            </td> 
-                        </tr>
-                    </table>
-                </div> 
+                    <div class="table-nav-footer"></div>
+                </div>
             </form>   
         </section>    
     </body>
