@@ -189,7 +189,7 @@ public class TakenServlet extends HttpServlet {
                     session.removeAttribute("saveID");
                     break;
 
-                case "Add gebruiker":
+                case "Add taak":
 
                     break;
             }
