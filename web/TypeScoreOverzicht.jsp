@@ -23,28 +23,26 @@
         <section>
             <h1 align="center" class="kleur"> Type scores </h1>
             <hr>
-                    
             <form action="ScoreServlet">
                 <div class="table-container">
-                    
                     <table class="datatable">
                         <thead>
                             <tr>
-                                <th align="center" width="12%" onclick="sortTable(0)">naam</a</th>
-                                <th align="center" width="12%" onclick="sortTable(1)">beschrijving</a</th>
-                                <th align="center" width="12%" onclick="sortTable(2)">waarde</th>
-                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <th width="15%">Acties</th>
-                                    </c:if>
+                                <th align="center" onclick="sortTable(0)">naam</a</th>
+                                <th align="center" onclick="sortTable(1)">beschrijving</a</th>
+                                <th align="center" onclick="sortTable(2)">waarde</th>
+                                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                    <th>Acties</th>
+                                </c:if>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${lijstBeoordelingssoorten}" var="typeScore">
                                 <tr>
                                     <c:if test="${typeScore.beoordelingssoortID == sessionScope.editID}" >
-                                        <td width="12%"> <input type="text" name="naam"  value="${typeScore.naam}"> </td>
-                                        <td width="12%"> <input type="text" name="beschrijving" value="${typeScore.beschrijving}"> </td>
-                                        <td width="12%"> <input type="text" name="waarde"  value="${typeScore.waarde}"> </td>
+                                        <td> <input type="text" name="naam"  value="${typeScore.naam}"> </td>
+                                        <td> <input type="text" name="beschrijving" value="${typeScore.beschrijving}"> </td>
+                                        <td> <input type="text" name="waarde"  value="${typeScore.waarde}"> </td>
                                     </c:if>
                                         
                                     <c:if test="${typeScore.beoordelingssoortID != sessionScope.editID}" >
@@ -70,9 +68,10 @@
                                 </td>
                             </c:if>
                             </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </form>
         </section>
     </body>

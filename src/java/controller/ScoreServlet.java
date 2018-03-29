@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Score;
-import model.ScoreDAO;
+import model.ScoreDAO; 
 
 /**
  *  Deze klasse bevat de aanpassing van het scoretype.
@@ -31,7 +31,7 @@ public class ScoreServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+           throws ServletException, IOException {
         
         HttpSession session = request.getSession(true);
         ArrayList<Score> beoordelingssoorten = null;
@@ -41,6 +41,7 @@ public class ScoreServlet extends HttpServlet {
             String editID = request.getParameter("idEdit");
             String cancelID = request.getParameter("idCancel");
             String saveID = request.getParameter("idSave");
+            String deleteID = request.getParameter("idDelete");
             
              if (editID != null) {
                 actie = "Edit typeScore";
@@ -51,43 +52,56 @@ public class ScoreServlet extends HttpServlet {
             if (saveID != null) {
                 actie = "Save typeScore";
             }
+            if (deleteID != null) {
+                actie = "Delete typeScore";
+            }
             
-            Score scoreType = new Score();
+            Score typeScore = new Score();
 
             switch (actie) {
 
                 case "Edit typeScore":
                     session.setAttribute("editID", editID);
-                    session.removeAttribute("deleteID");
-                    session.removeAttribute("saveID");
-                    
-                    
-                    scoreDAO.typeScoreAanpassen(Integer.parseInt(editID), scoreType);
+                    session.removeAttribute("saveID");                  
                     beoordelingssoorten = scoreDAO.typeScoreLaden();
                     session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
-                    response.sendRedirect("typeScoreOverzicht.jsp");
+                    response.sendRedirect("TypeScoreOverzicht.jsp");
                     break;
                     
                 case "Cancel typeScore":
                     session = request.getSession(true);
                     session.removeAttribute("editID");
-                    session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
-                    response.sendRedirect("typeScoreOverzicht.jsp");
+                    response.sendRedirect("TypeScoreOverzicht.jsp");
                     break;
 
                 case "Save typeScore":
                     session = request.getSession(true);
                     session.removeAttribute("editID");
-                    session.removeAttribute("deleteID");
-                    response.sendRedirect("typeScoreOverzicht.jsp");
+                    int id = Integer.parseInt(saveID);
+                    typeScore.setNaam(request.getParameter("naam"));
+                    typeScore.setBeschrijving(request.getParameter("beschrijving"));
+                    typeScore.setWaarde(Integer.parseInt(request.getParameter("waarde")));
+                    scoreDAO.typeScoreAanpassen(id, typeScore);
+                    response.sendRedirect("TypeScoreOverzicht.jsp");
+                    session.removeAttribute("saveID");
                     break;
                     
+                case "Delete typeScore":
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    session.removeAttribute("saveID");
+                    scoreDAO.typeScoreVerwijderen(Integer.parseInt(deleteID));
+                    session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
+                    response.sendRedirect("TypeScoreOverzicht.jsp");
+                    break;
+     
             }
 
         } catch (Throwable theException) {}
     }
-      // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
+     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -9,10 +9,11 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Keanu hier komen sql query's
+ * @author Keanu hier komen sql query's 
  */
 public class ScoreDAO {
-
+    
+    //laadt alle verschillende type scores.
     public ArrayList<Score> typeScoreLaden() {
         ArrayList<Score> typeScores = new ArrayList<>();
         Connection currentCon = null;
@@ -31,7 +32,7 @@ public class ScoreDAO {
                 typeScore.setNaam(rs.getString("naam"));
                 typeScore.setBeschrijving(rs.getString("beschrijving"));
                 typeScore.setWaarde(rs.getInt("waarde"));
-                System.out.println(typeScore);
+                
                 typeScores.add(typeScore);
             }
         } catch (SQLException e) {
@@ -69,22 +70,75 @@ public class ScoreDAO {
         return typeScores;
     }
     
-    public void typeScoreAanpassen(int beoordelingssoortID, Score score) {
+    // methode die het type score aanpast
+    public void typeScoreAanpassen(int beoordelingssoortID, Score typeScore) {
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        String sql = "UPDATE beoordelingssoorten(beoordelingssoortID, naam, beschrijving, waarde) VALUES(?,?,?,?)";
+        String sql = "UPDATE beoordelingssoorten SET beoordelingssoorten.naam = ?, beoordelingssoorten.beschrijving = ?,"
+                +"beoordelingssoorten.waarde WHERE beoordelingssoorten.beoordelingssoortID = ?";
 
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
+            
+            
+            ps.setString(1, typeScore.getNaam());
+            ps.setString(2, typeScore.getBeschrijving());
+            ps.setInt(3, typeScore.getWaarde());
+            ps.setInt(4, beoordelingssoortID);
+            ps.executeUpdate();
 
-            ps.setString(1, "naam");
-            ps.setString(2, "beschrijving");
-            ps.setString(3, "waarde");
-            ps.executeQuery();
+        } catch (SQLException ex) {
 
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+
+                }
+
+                currentCon = null;
+            }
+        }
+
+    }
+    
+    // methode die een type score verwijderd
+    public void typeScoreVerwijderen(int beoordelingssoortID) {
+        Connection currentCon = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        String sql = "DELETE FROM Beoordelingsoort Where Beoordelingsoort.beoordelingssoortID = ?";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+            
+            ps.setInt(1, beoordelingssoortID);
+            ps.executeUpdate();
+        
         } catch (SQLException ex) {
 
         } finally {
