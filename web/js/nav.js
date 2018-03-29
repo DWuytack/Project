@@ -11,14 +11,16 @@ document.addEventListener("click", function(e){
     if(e.target.id === "bt-profiel") {
         
     }
+    /*
     if(e.target.id === "bt-zoeken") {
         e.target.blur();
-        var loc = document.querySelector("#side-nav");
+        var loc = document.querySelector(".table-nav-header");
         if(!loc.className.includes("search"))
             loc.className += " search";
         else
             loc.classList.remove("search");
     }
+    */
     if(e.target.id === "bt-gebruiker_toevoegen") {
         e.target.blur();
         var loc = document.querySelector("#gebruiker_toevoegen");

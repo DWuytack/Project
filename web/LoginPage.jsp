@@ -16,16 +16,13 @@
     </head>
 
     <body>  
-        <header>
-            <h1 class="titel">Score On Web</h1><br>
-        </header>
         <main>
+            <h1>Score On Web</h1>
             <form action="LoginServlet" method="post">
                 
                 <input type="text" name="un">
                 <input type="password"  name="pw">
-                <br><br>
-                <input type="submit" name="submit" value="Log in">	
+                <input id="bt-login" type="submit" name="submit" value="Log in">	
             </form>
         </main>
     </body>

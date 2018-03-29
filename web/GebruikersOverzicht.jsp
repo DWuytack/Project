@@ -11,10 +11,11 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="js/jquery.js"></script>
         <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
-          <link rel="stylesheet" href="css/formulier.css">
+        <link rel="stylesheet" href="css/formulier.css">
         <title>Gebruikers overzicht</title>
     </head>
 
@@ -27,7 +28,7 @@
             <form action="GebruikersServlet">
                 <div class="table-container">
                     
-                    <div id="side-nav">
+                    <div class="table-nav-header" id="side-nav">
                         <div id="zoeken">
                             <a id="bt-zoeken">
                                 <i class="material-icons">search</i>
@@ -38,7 +39,6 @@
                             <a id="bt-gebruiker_toevoegen" name="gebruiker toevoegen">
                                 <i class="material-icons">person_add</i>
                             </a>
-                            <!-- <input type="image" name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/person_add.png'> -->
                             <input type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
                             <input type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
                             <input type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
@@ -110,8 +110,7 @@
                     </table>
                     <br><br>
                     <div class="table-nav-footer">
-                        <!-- WIP -->
-                        <center>Totaal aantal gebruikers: <b>${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</b></center>
+                        <p>Totaal aantal gebruikers: <span id="gebruikers">${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</span></p>
                     </div>
                 </div>
                 <div id="gebruiker_toevoegen">
