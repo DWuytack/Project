@@ -29,7 +29,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="LoginPage.jsp">
                     <i class="material-icons">exit_to_app</i><span>Afmelden</span>
                 </a>
             </li>
