@@ -42,9 +42,11 @@ public class MenuServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
-
+                 
             String actie = request.getParameter("actie");
             HttpSession session = request.getSession(true);
+            session.setAttribute("zoekterm", null);
+            
             switch (actie) {
 
                 case "Overzicht cursisten":
@@ -95,7 +97,7 @@ public class MenuServlet extends HttpServlet {
                 case "Overzicht taken":
                     TaakDAO taakDAO = new TaakDAO();
                     ArrayList<Taak> taken = taakDAO.takenLaden(1);
-                    
+
                     int aantalTaken = taakDAO.geefAantalTaken();
                     session.setAttribute("aantalRecords", aantalTaken);
                     session.setAttribute("bladzijde", 1);
@@ -115,40 +117,45 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("Opleiding.jsp");
                     break;
                 case "Overzicht modules":
+
                     ModuleDAO moduleDAO = new ModuleDAO();
                     ArrayList<Module> modules = moduleDAO.modulesLaden(1);
-                    
-                    int  aantalModules=moduleDAO.geefAantalModules();
-                    session.setAttribute("aantalRecords", aantalModules );
+
+                    int aantalModules = moduleDAO.geefAantalModules();
+                    session.setAttribute("aantalRecords", aantalModules);
                     session.setAttribute("bladzijde", 1);
-                    int getoondeModules= Instellingen.AANTAL_RECORDS_PER_PAGE;
-                    if (getoondeModules > aantalModules) getoondeModules=aantalModules;
+                    int getoondeModules = Instellingen.AANTAL_RECORDS_PER_PAGE;
+                    if (getoondeModules > aantalModules) {
+                        getoondeModules = aantalModules;
+                    }
                     session.setAttribute("getoondeModules", getoondeModules);
-                    
+
                     session.setAttribute("lijstModules", modules);
                     response.sendRedirect("Module.jsp");
                     break;
+
                 case "Overzicht scores":
 
                     //laden schooljaren uit database en in het geheugen plaatsen
-                    
-
                     //laden semester uit database en in het geheugen plaatsen
                     //laden modules uit database en in het geheugen plaatsen
                     response.sendRedirect("Score.jsp");
                     break;
                 case "Evaluatieformulieren":
+                    doelstellingDAO = new DoelstellingDAO();
+                    doelstellingen = doelstellingDAO.doelstellingenLaden(1);
+                    session.setAttribute("doelstellingen", doelstellingen);
                     response.sendRedirect("EvaluatieFormulier.jsp");
                     break;
                 case "Rapport":
                     response.sendRedirect("Rapport.jsp");
                     break;
-                    
+
                 case "Type score aanpassen":
                     //laden van de types scores
                     ScoreDAO scoreDAO = new ScoreDAO();
                     ArrayList<Score> typeScores = scoreDAO.typeScoreLaden();
-                    session.setAttribute("lijstBeoordelingssoorten", typeScores );
+                    session.setAttribute("lijstBeoordelingssoorten", typeScores);
                     response.sendRedirect("TypeScoreOverzicht.jsp");
                     break;
             }

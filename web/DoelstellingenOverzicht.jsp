@@ -35,7 +35,7 @@
                                     <i class="material-icons">search</i>
                                 </a>
 
-                                <input type="text" name="zoekterm" value="" size="25">
+                                <input type="text" name="zoekterm" value="${zoekterm}" size="25">
                             </div>
 
                             <div>
@@ -134,7 +134,7 @@
                                     <i class="material-icons">search</i>
                                 </a>
 
-                                <input type="text" name="zoekterm" value="" size="25">
+                                <input type="text" name="zoekterm" value="${zoekterm}" size="25">
                             </div>
 
                             <div>
