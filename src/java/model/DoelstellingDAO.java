@@ -23,9 +23,9 @@ public class DoelstellingDAO {
         ResultSet rs = null;
 
         try {
-            String sql = "select * from doelstellingen\n"
-                    + "inner join modules on doelstellingen.moduleID=modules.moduleID\n"
-                    + "where doelstellingen.moduleID=?";
+            String sql = "select * from Doelstellingen\n"
+                    + " inner join Modules on Doelstellingen.moduleID=Modules.moduleID\n"
+                    + " where Doelstellingen.moduleID=?";
             
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
@@ -34,7 +34,6 @@ public class DoelstellingDAO {
             rs=ps.executeQuery();
 
             while (rs.next()) {
-
                 Doelstelling doelstelling = new Doelstelling();
                 doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
                 doelstelling.setNaam(rs.getString("naam"));
@@ -60,7 +59,7 @@ public class DoelstellingDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM doelstellingen";
+            String sql = "SELECT * FROM Doelstellingen";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
             int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE - 1);
@@ -201,7 +200,7 @@ public class DoelstellingDAO {
         
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM doelstellingen WHERE doelstellingen.naam LIKE ? OR doelstellingen.beschrijving LIKE ?";
+            String sql = "SELECT * FROM Doelstellingen WHERE Doelstellingen.naam LIKE ? OR Doelstellingen.beschrijving LIKE ?";
 
             ps = currentCon.prepareStatement(sql);
             ps.setString(1, "%" + zoekterm + "%");

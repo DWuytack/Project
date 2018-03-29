@@ -24,7 +24,7 @@ public class TaakDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM taken";
+            String sql = "SELECT * FROM Taken";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
 
@@ -79,7 +79,7 @@ public class TaakDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "select COUNT(*) from taken";
+            String sql = "select COUNT(*) from Taken";
             statement = currentCon.createStatement();
 
             rs = statement.executeQuery(sql);
