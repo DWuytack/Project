@@ -82,7 +82,6 @@ public class ScoreServlet extends HttpServlet {
                     session.removeAttribute("deleteID");
                     response.sendRedirect("typeScoreOverzicht.jsp");
                     break;
-     
             }
 
         } catch (Throwable theException) {}
