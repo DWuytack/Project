@@ -234,12 +234,13 @@
 
                 <tr class="formrow">
                     <td><select name="cursist">
-                            <option value="Banket AA">Doelstelling 1</option>
-                            <option value="Banket AA">Doelstelling 2</option>
-                            <option value="Banket AA">Doelstelling 3</option>
-                            <option value="Banket AA">Doelstelling 4</option>
+                            <c:forEach items="${doelstellingen}" var="doelstelling">
+                                <option value="Banket AA">${doelstelling.naam}</option>
+                            </c:forEach>
                             <option value="Banket AA">Maak een nieuwe doelstelling aan...</option>
+
                         </select></td>
+
                     <td></td>
                     <td><select name="cursist">
                             <option value="Banket AA">Taak 1</option>
@@ -249,7 +250,7 @@
                             <option value="Banket AA">Maak een nieuwe taak aan...</option>
                         </select></td></td>
                     <td class="center"><select name="cursist" value="">
-                            
+
                             <option value="Banket AA">A+</option>
                             <option value="Banket AA">A</option>
                             <option value="Banket AA">B+</option>
@@ -258,7 +259,7 @@
                             <option value="Banket AA">C</option>
                             <option value="Banket AA">D+</option>
                             <option value="Banket AA">D</option>
-                            
+
                         </select></td>
                     <td></td>
                     <td><textarea name="textarea"
@@ -266,26 +267,26 @@
                 </tr>
             </table>
             <br>
-            
+
             <table class="doelstelling1">
-                
+
                 <tr >
-                    
+
                     <td align="center" >Totale Score: 80% </td>
                 </tr>
-           
+
             </table>
             <br>
-            
+
             <table class="doelstelling1" >
-                
+
                 <tr >
-                    
+
                     <td > <input type="submit"  value=" Print Formulier "  class="button"></td>
-                     <td > <input type="submit"  value=" Bewaar Formuier " class="button"></td>
-                      <td > <input type="submit"  value=" Laad Formulier " class="button"></td>
+                    <td > <input type="submit"  value=" Bewaar Formuier " class="button"></td>
+                    <td > <input type="submit"  value=" Laad Formulier " class="button"></td>
                 </tr>
-           
+
             </table>
         </form>
 

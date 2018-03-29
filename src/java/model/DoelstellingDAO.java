@@ -15,8 +15,43 @@ import java.util.ArrayList;
  */
 public class DoelstellingDAO {
 
+    public ArrayList<Doelstelling> doelstellingenLaden(int moduleID) {
+
+        ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select * from doelstellingen\n"
+                    + "inner join modules on doelstellingen.moduleID=modules.moduleID\n"
+                    + "where doelstellingen.moduleID=?";
+            
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setInt(1, moduleID);
+            rs=ps.executeQuery();
+
+            while (rs.next()) {
+
+                Doelstelling doelstelling = new Doelstelling();
+                doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
+                doelstelling.setNaam(rs.getString("naam"));
+                doelstelling.setBeschrijving(rs.getString("beschrijving"));
+                doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
+                doelstellingen.add(doelstelling);
+            }
+
+        } catch (Exception e) {
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+        }
+        return doelstellingen;
+    }
+
     //Laad alle Doelstellingen uit de Database.
-    public ArrayList<Doelstelling> doelstellingenLaden(int bladz) {
+    public ArrayList<Doelstelling> doelstellingenLaden(int bladz, int moduleID) {
 
         ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
         Connection currentCon = null;
@@ -45,46 +80,18 @@ public class DoelstellingDAO {
                 }
             }
 
-        } catch (SQLException e) {
-
+        } catch (Exception e) {
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-                rs = null;
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (Exception e) {
-
-                }
-
-                statement = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-
-                }
-
-                currentCon = null;
-            }
-
+            sluitVariabelen(rs, statement, null, currentCon);
         }
         return doelstellingen;
     }
 
-    //Geeft het aantal Doelstelligen weer.
+    /* Geeft het aantal Doelstelligen weer. */
     public int geefAantalDoelstellingen() {
 
         Connection currentCon = null;
-        Statement statement = null;     
+        Statement statement = null;
         ResultSet rs = null;
         int aantalDoelstellingen = 0;
 
@@ -101,39 +108,12 @@ public class DoelstellingDAO {
         } catch (SQLException e) {
 
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-                rs = null;
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (Exception e) {
-
-                }
-
-                statement = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-
-                }
-
-                currentCon = null;
-            }
-
+            sluitVariabelen(rs, statement, null, currentCon);
         }
         return aantalDoelstellingen;
     }
 
-    //Creër een nieuwe doelstelling.
+    /* Creër een nieuwe doelstelling. */
     public void doelstellingAanmaken(Doelstelling doelstelling) {
         Connection currentCon = null;
         PreparedStatement ps = null;
@@ -146,51 +126,24 @@ public class DoelstellingDAO {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
-            ps.setString(1, doelstelling.getNaam());
-            ps.setString(2, doelstelling.getBeschrijving());
+            ps.setString(1, "naam");
+            ps.setString(2, "beschrijving");
             if (doelstelling.getKerndoelstelling()) {
                 ps.setInt(3, 1);
             } else {
                 ps.setInt(3, 0);
             }
-            ps.executeQuery(sql);
+            ps.executeQuery();
 
         } catch (SQLException ex) {
-
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (Exception e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(rs, null, ps, currentCon);
         }
-
     }
 
-    //Pas een doelstelling aan.
+    /* Pas een doelstelling aan. */
     public void doelstellingAanpassen(Doelstelling doelstelling) {
+
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -212,80 +165,106 @@ public class DoelstellingDAO {
             ps.executeQuery(sql);
 
         } catch (SQLException ex) {
-
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-                rs = null;
-            }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                }
-                ps = null;
-            }
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-                }
-                currentCon = null;
-            }
+            sluitVariabelen(rs, null, ps, currentCon);
         }
-
     }
 
-    //Verwijdert een doelstelling.
+    /* Verwijdert een doelstelling. */
     public void doelstellingVerwijderen(int doelstellingID) {
+
         Connection currentCon = null;
-        ResultSet rs = null;
         PreparedStatement ps = null;
 
         String sql
-                = "DELETE FROM doelstellingen WHERE doelstellingID = ?";
+                = "DELETE FROM Doelstellingen WHERE Doelstellingen.doelstellingID = ?";
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
             ps.setInt(1, doelstellingID);
-            ps.executeQuery(sql);
+            ps.executeQuery();
 
         } catch (SQLException ex) {
-
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(null, null, ps, currentCon);
         }
-
     }
 
+    /* Geeft doelstellingen weer waar een bepaalde string in zit. */
+    public ArrayList<Doelstelling> doelstellingenZoeken(String zoekterm) {
+
+        ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "SELECT * FROM doelstellingen WHERE doelstellingen.naam LIKE ? OR doelstellingen.beschrijving LIKE ?";
+
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, "%" + zoekterm + "%");
+            ps.setString(2, "%" + zoekterm + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Doelstelling doelstelling = new Doelstelling();
+                doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
+                doelstelling.setNaam(rs.getString("naam"));
+                doelstelling.setBeschrijving(rs.getString("beschrijving"));
+                doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
+                doelstellingen.add(doelstelling);
+            }
+        } catch (Exception e) {
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+        }
+        return doelstellingen;
+    }
+
+    /* Sluit enkele variabelen en zet ze op null */
+    private void sluitVariabelen(ResultSet rs, Statement statement, PreparedStatement ps, Connection currentCon) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            try {
+                rs = null;
+            } catch (Exception e) {
+            }
+        }
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+            }
+            try {
+                statement = null;
+            } catch (Exception e) {
+            }
+        }
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (Exception e) {
+            }
+            try {
+                ps = null;
+            } catch (Exception e) {
+            }
+        }
+        if (currentCon != null) {
+            try {
+                currentCon.close();
+            } catch (Exception e) {
+            }
+            try {
+                currentCon = null;
+            } catch (Exception e) {
+            }
+        }
+    }
 }
