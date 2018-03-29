@@ -39,6 +39,7 @@ public class DoelstellingenServlet extends HttpServlet {
 
         try {
             String actie = "";
+            String zoekterm = request.getParameter("zoekterm");
             String editID = request.getParameter("idEdit");
             String cancelID = request.getParameter("idCancel");
             String saveID = request.getParameter("idSave");
@@ -111,6 +112,9 @@ public class DoelstellingenServlet extends HttpServlet {
                 response.sendRedirect("DoelstellingenOverzicht.jsp");
             }
 
+            if (zoekterm != null) {
+                actie = "Zoeken";
+            }
             if (editID != null) {
                 actie = "Edit doelstelling";
             }
@@ -127,12 +131,19 @@ public class DoelstellingenServlet extends HttpServlet {
             Doelstelling doelstelling = new Doelstelling();
 
             switch (actie) {
-
+                case "Zoeken":
+                    session.setAttribute("zoekterm", zoekterm);
+                    doelstellingen = doelstellingDAO.doelstellingenZoeken(zoekterm);
+                    session.setAttribute("lijstDoelstellingen", doelstellingen);
+                    response.sendRedirect("DoelstellingenOverzicht.jsp");
+                    
+                    break;
+                    
                 case "Edit doelstelling":
                     session.setAttribute("editID", editID);
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
-                    
+
                     doelstellingDAO.doelstellingAanpassen(doelstelling);
                     doelstellingen = doelstellingDAO.doelstellingenLaden(1);
                     session.setAttribute("lijstDoelstellingen", doelstellingen);

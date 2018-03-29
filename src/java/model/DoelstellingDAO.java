@@ -98,7 +98,7 @@ public class DoelstellingDAO {
             } else {
                 ps.setInt(3, 0);
             }
-            ps.executeQuery(sql);
+            ps.executeQuery();
 
         } catch (SQLException ex) {
         } finally {
@@ -154,6 +154,39 @@ public class DoelstellingDAO {
         } finally {
             sluitVariabelen(null, null, ps, currentCon);
         }
+    }
+
+    /* Geeft doelstellingen weer waar een bepaalde string in zit. */
+    public ArrayList<Doelstelling> doelstellingenZoeken(String zoekterm) {
+
+        ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "SELECT * FROM doelstellingen WHERE doelstellingen.naam LIKE ? OR doelstellingen.beschrijving LIKE ?";
+
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, "%" + zoekterm + "%");
+            ps.setString(2, "%" + zoekterm + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Doelstelling doelstelling = new Doelstelling();
+                doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
+                doelstelling.setNaam(rs.getString("naam"));
+                doelstelling.setBeschrijving(rs.getString("beschrijving"));
+                doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
+                doelstellingen.add(doelstelling);
+            }
+        } catch (Exception e) {
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+        }
+        return doelstellingen;
     }
 
     /* Sluit enkele variabelen en zet ze op null */

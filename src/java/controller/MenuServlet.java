@@ -42,9 +42,11 @@ public class MenuServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
-
+                 
             String actie = request.getParameter("actie");
             HttpSession session = request.getSession(true);
+            session.setAttribute("zoekterm", null);
+            
             switch (actie) {
 
                 case "Overzicht cursisten":
