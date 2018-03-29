@@ -135,7 +135,7 @@ nav {
 header {
     position: relative;
     z-index: 300;
-    min-height: 60px;
+    min-height: 105px; /* old 60px */
     display: flex;
 }
 section {
@@ -256,6 +256,31 @@ div.active > #bt-profiel:after { transform: scaleY(1.3) rotate(0deg); }
 div.active > .dropdown { display: flex; }
 #bt-naam { cursor: default; }
 
+/* SUBNAV */
+#pagename {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    z-index: 200;
+    background-image: url(../images/noise.png);
+    border-bottom: 1px solid silver;
+}
+#pagename h1 {
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 0;
+    padding: 10px;
+}
 
 /* TABLE */
 .table-container input[type="text"]{

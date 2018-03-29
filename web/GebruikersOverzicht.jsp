@@ -21,10 +21,14 @@
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
+        <!-- styling verplaatst naar theme.css "SUBNAV" -->
+        <section id="pagename">
+            <h1> GebruikersOverzicht </h1>
+            <!-- <h1 align="center" class="kleur" style="display: inherit;"> GebruikersOverzicht </h1> -->
+            
+        </section>
+        <!-- <hr> -->
         <section>
-               <h1 align="center" class="kleur"> GebruikersOverzicht </h1>
-                <hr>
-
             <form action="GebruikersServlet">
                 <div class="table-container">
                     
