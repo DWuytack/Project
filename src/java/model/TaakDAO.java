@@ -27,22 +27,14 @@ public class TaakDAO {
             String sql = "SELECT * FROM taken";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
-            int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE - 1);
-            int recordEinde = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
-            int recordTeller = 0;
 
             while (rs.next()) {
-                recordTeller++;
-
-                if (recordTeller >= recordStart && recordTeller <= recordEinde) {
-                    Taak taak = new Taak();
-                    taak.setTaakID(rs.getInt("taakID"));
-                    taak.setNaam(rs.getString("naam"));
-                    taak.setBeschrijving(rs.getString("beschrijving"));
-                    taken.add(taak);
-                }
+                Taak taak = new Taak();
+                taak.setTaakID(rs.getInt("taakID"));
+                taak.setNaam(rs.getString("naam"));
+                taak.setBeschrijving(rs.getString("beschrijving"));
+                taken.add(taak);
             }
-
         } catch (SQLException e) {
 
         } finally {
@@ -178,12 +170,12 @@ public class TaakDAO {
         }
     }
 
-    public void taakAanpassen(Taak taak) {
+    public void taakAanpassen(int taakID,Taak taak) {
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        String sql = "UPDATE Taken set naam =taak.getNaam(), beschrijving = taak.getBeschrijving()where taakID = taak.getTaakID()";
+        String sql = "UPDATE Taken(taakID, naam, beschrijving) VALUES(?,?,?)";
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -225,6 +217,47 @@ public class TaakDAO {
             }
         }
 
+    }
+    
+     public void takenVerwijderen(int taakID) {
+
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+
+        String sql
+                = "DELETE from Taken where Taken.taakID = ?";
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setInt(1, taakID);
+            ps.executeQuery();
+
+        } catch (SQLException ex) {
+
+            System.out.println(ex.getMessage());
+
+        } finally {
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+
+                }
+
+                currentCon = null;
+            }
+        }
     }
 
 }
