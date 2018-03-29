@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.io.IOException;
@@ -26,7 +21,7 @@ import model.Instellingen;
 public class DoelstellingenServlet extends HttpServlet {
 
     DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,7 +36,7 @@ public class DoelstellingenServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         ArrayList<Doelstelling> doelstellingen = null;
-        
+
         try {
             String actie = "";
             String editID = request.getParameter("idEdit");
@@ -54,7 +49,7 @@ public class DoelstellingenServlet extends HttpServlet {
             String laatste = request.getParameter("Laatste");
             int bladz = (int) session.getAttribute("bladzijde");
             int aantalDoelstellingen = (int) session.getAttribute("aantalRecords");
-            
+
             if (eerste != null) {
                 bladz = 1;
                 session.setAttribute("bladzijde", bladz);
@@ -67,7 +62,7 @@ public class DoelstellingenServlet extends HttpServlet {
                 session.setAttribute("lijstDoelstellingen", doelstellingen);
                 response.sendRedirect("DoelstellingenOverzicht.jsp");
             }
-            
+
             if (vorige != null) {
                 bladz--;
                 if (bladz < 1) {
@@ -83,10 +78,10 @@ public class DoelstellingenServlet extends HttpServlet {
                 session.setAttribute("lijstDoelstellingen", doelstellingen);
                 response.sendRedirect("DoelstellingenOverzicht.jsp");
             }
-            
+
             if (volgende != null) {
                 bladz++;
-                if (bladz > ((aantalDoelstellingen / 5) + 1)) {
+                if (((aantalDoelstellingen / Instellingen.AANTAL_RECORDS_PER_PAGE) + 1) < bladz) {
                     bladz--;
                 }
                 int getoondeDoelstellingen = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
@@ -99,21 +94,23 @@ public class DoelstellingenServlet extends HttpServlet {
                 session.setAttribute("lijstDoelstellingen", doelstellingen);
                 response.sendRedirect("DoelstellingenOverzicht.jsp");
             }
-            
+
             if (laatste != null) {
-                bladz = (aantalDoelstellingen / 5) + 1;
+                bladz = aantalDoelstellingen / Instellingen.AANTAL_RECORDS_PER_PAGE;
+                if (aantalDoelstellingen % Instellingen.AANTAL_RECORDS_PER_PAGE != 0) {
+                    bladz++;
+                }
                 int getoondeDoelstellingen = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
                 if (getoondeDoelstellingen > aantalDoelstellingen) {
                     getoondeDoelstellingen = aantalDoelstellingen;
                 }
                 session.setAttribute("getoondeDoelstellingen", getoondeDoelstellingen);
-                System.out.println("bladz: " + bladz);
                 session.setAttribute("bladzijde", bladz);
                 doelstellingen = doelstellingDAO.doelstellingenLaden(bladz);
                 session.setAttribute("lijstDoelstellingen", doelstellingen);
                 response.sendRedirect("DoelstellingenOverzicht.jsp");
             }
-            
+
             if (editID != null) {
                 actie = "Edit doelstelling";
             }
@@ -132,22 +129,24 @@ public class DoelstellingenServlet extends HttpServlet {
             switch (actie) {
 
                 case "Edit doelstelling":
-                    //doelstelling met id moet aangepast worden in database 
                     session.setAttribute("editID", editID);
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
-                    response.sendRedirect("DoelstellingenOverzicht.jsp"); //logged-in page 
+                    
+                    doelstellingDAO.doelstellingAanpassen(doelstelling);
+                    doelstellingen = doelstellingDAO.doelstellingenLaden(1);
+                    session.setAttribute("lijstDoelstellingen", doelstellingen);
+                    response.sendRedirect("DoelstellingenOverzicht.jsp");
                     break;
 
                 case "Delete doelstelling":
                     session = request.getSession(true);
                     session.removeAttribute("editID");
                     session.removeAttribute("saveID");
-                    session.removeAttribute("lijstDoelstellingen");
-
                     doelstellingDAO.doelstellingVerwijderen(Integer.parseInt(deleteID));
                     doelstellingen = doelstellingDAO.doelstellingenLaden(1);
-
+                    aantalDoelstellingen = doelstellingDAO.geefAantalDoelstellingen();
+                    session.setAttribute("aantalRecords", aantalDoelstellingen);
                     session.setAttribute("lijstDoelstellingen", doelstellingen);
                     response.sendRedirect("DoelstellingenOverzicht.jsp");
                     break;
@@ -157,7 +156,7 @@ public class DoelstellingenServlet extends HttpServlet {
                     session.removeAttribute("editID");
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
-                    response.sendRedirect("DoelstellingenOverzicht.jsp"); //logged-in page 
+                    response.sendRedirect("DoelstellingenOverzicht.jsp");
                     break;
 
                 case "Save doelstelling":
@@ -165,7 +164,7 @@ public class DoelstellingenServlet extends HttpServlet {
                     session.removeAttribute("editID");
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
-                    response.sendRedirect("DoelstellingenOverzicht.jsp"); //logged-in page 
+                    response.sendRedirect("DoelstellingenOverzicht.jsp");
                     break;
 
             }
