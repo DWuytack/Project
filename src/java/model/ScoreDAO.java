@@ -70,6 +70,7 @@ public class ScoreDAO {
         return typeScores;
     }
     
+    
     // methode die het type score aanpast
     public void typeScoreAanpassen(int beoordelingssoortID, Score typeScore) {
         Connection currentCon = null;

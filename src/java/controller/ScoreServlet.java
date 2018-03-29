@@ -56,6 +56,7 @@ public class ScoreServlet extends HttpServlet {
                 actie = "Delete typeScore";
             }
             
+            
             Score typeScore = new Score();
 
             switch (actie) {
