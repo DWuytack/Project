@@ -15,8 +15,42 @@ import java.util.ArrayList;
  */
 public class DoelstellingDAO {
 
-    /* Laad alle Doelstellingen uit de Database. */
-    public ArrayList<Doelstelling> doelstellingenLaden(int bladz) {
+    public ArrayList<Doelstelling> doelstellingenLaden(int moduleID) {
+
+        ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select * from doelstellingen\n"
+                    + "inner join modules on doelstellingen.moduleID=modules.moduleID\n"
+                    + "where doelstellingen.moduleID=?";
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setInt(1, moduleID);
+            ps.executeQuery(sql);
+
+            while (rs.next()) {
+
+                Doelstelling doelstelling = new Doelstelling();
+                doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
+                doelstelling.setNaam(rs.getString("naam"));
+                doelstelling.setBeschrijving(rs.getString("beschrijving"));
+                doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
+                doelstellingen.add(doelstelling);
+            }
+
+        } catch (Exception e) {
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+        }
+        return doelstellingen;
+    }
+
+    //Laad alle Doelstellingen uit de Database.
+    public ArrayList<Doelstelling> doelstellingenLaden(int bladz, int moduleID) {
 
         ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
         Connection currentCon = null;
