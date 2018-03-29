@@ -26,11 +26,12 @@ public class DoelstellingDAO {
             String sql = "select * from doelstellingen\n"
                     + "inner join modules on doelstellingen.moduleID=modules.moduleID\n"
                     + "where doelstellingen.moduleID=?";
+            
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
             ps.setInt(1, moduleID);
-            ps.executeQuery(sql);
+            rs=ps.executeQuery();
 
             while (rs.next()) {
 
