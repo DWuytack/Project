@@ -549,7 +549,95 @@ public class GebruikerDAO {
         }
 
     }
+    
+    
+     public ArrayList<Gebruiker> gebruikerZoeken(String zoekterm) {
 
+        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "SELECT * FROM Gebruiker WHERE Gebruiker.voornaam LIKE ? OR Gebruiker.achternaam LIKE ?";
+
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, "%" + zoekterm + "%");
+            ps.setString(2, "%" + zoekterm + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                 Gebruiker gebruiker = new Gebruiker();
+                    gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
+                    gebruiker.setVoorNaam(rs.getString("voornaam"));
+                    gebruiker.setAchternaam(rs.getString("achternaam"));
+                    gebruiker.setLogin(rs.getString("login"));
+                    gebruiker.setRol(rs.getString("rol"));
+                    gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
+                    gebruiker.setEmail(rs.getString("email"));
+                    gebruikers.add(gebruiker);
+            }
+        } catch (Exception e) {
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+        }
+        return gebruikers;
+    }
+
+
+    /* Sluit enkele variabelen en zet ze op null */
+    private void sluitVariabelen(ResultSet rs, Statement statement, PreparedStatement ps, Connection currentCon) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            try {
+                rs = null;
+            } catch (Exception e) {
+            }
+        }
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+            }
+            try {
+                statement = null;
+            } catch (Exception e) {
+            }
+        }
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (Exception e) {
+            }
+            try {
+                ps = null;
+            } catch (Exception e) {
+            }
+        }
+        if (currentCon != null) {
+            try {
+                currentCon.close();
+            } catch (Exception e) {
+            }
+            try {
+                currentCon = null;
+            } catch (Exception e) {
+            }
+        }
+    } 
+     
+     
+     
+     
+     
+     
+     
+     
     public void gebruikerVerwijderen(int gebruikerID) {
 
         Connection currentCon = null;

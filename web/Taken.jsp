@@ -51,8 +51,8 @@
                     <table class="datatable">
                         <thead>
                             <tr>
-                                <th width="15%" onclick="sortTable(0)"><a>naam</a</th>
-                                <th width="15%" onclick="sortTable(1)"><a>beschrijving</a</th>
+                                <th onclick="sortTable(0)"><a>naam</a</th>
+                                <th onclick="sortTable(1)"><a>beschrijving</a</th>
 
                                 <c:if test="${sessionScope.currentSessionUser.rol == 'admin' || sessionScope.currentSessionUser.rol == 'leerkracht' }" >
                                     <th class="actie">Acties</th>

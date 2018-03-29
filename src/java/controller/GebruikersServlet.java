@@ -41,7 +41,7 @@ public class GebruikersServlet extends HttpServlet {
         try {
             String actie = "";
             String editID = request.getParameter("idEdit");
-            String addID=request.getParameter("addID");
+            String addID = request.getParameter("addID");
             String cancelID = request.getParameter("idCancel");
             String saveID = request.getParameter("idSave");
             String deleteID = request.getParameter("idDelete");
@@ -127,8 +127,9 @@ public class GebruikersServlet extends HttpServlet {
                 actie = "Delete gebruiker";
             }
             if (addID != null) {
-                actie="Add gebruiker";
+                actie = "Add gebruiker";
             }
+         
 
             Gebruiker gebruiker = new Gebruiker();
 
@@ -189,17 +190,6 @@ public class GebruikersServlet extends HttpServlet {
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     session.removeAttribute("saveID");
-                    break;
-
-                case "Add gebruiker":
-
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     break;
 
             }
