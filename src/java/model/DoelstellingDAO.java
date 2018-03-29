@@ -15,8 +15,20 @@ import java.util.ArrayList;
  */
 public class DoelstellingDAO {
 
+    
+     public ArrayList<Doelstelling> doelstellingenLaden(int moduleID) {
+         
+         ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
+         
+         
+         return doelstellingen;
+     }
+    
+    
+    
+    
     //Laad alle Doelstellingen uit de Database.
-    public ArrayList<Doelstelling> doelstellingenLaden(int bladz) {
+    public ArrayList<Doelstelling> doelstellingenLaden(int bladz, int moduleID) {
 
         ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
         Connection currentCon = null;
