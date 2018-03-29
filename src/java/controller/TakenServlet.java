@@ -40,6 +40,7 @@ public class TakenServlet extends HttpServlet {
         try {
             String actie = "";
             String editID = request.getParameter("idEdit");
+            String addID = request.getParameter("addID");
             String cancelID = request.getParameter("idCancel");
             String saveID = request.getParameter("idSave");
             String deleteID = request.getParameter("idDelete");
@@ -81,7 +82,7 @@ public class TakenServlet extends HttpServlet {
 
             if (volgende != null) {
                 bladz++;
-                if (bladz > ((aantalTaken / 5) + 1)) {
+                if (((aantalTaken / Instellingen.AANTAL_RECORDS_PER_PAGE) + 1) < bladz) {
                     bladz--;
                 }
                 int getoondeTaken = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
@@ -96,12 +97,16 @@ public class TakenServlet extends HttpServlet {
             }
 
             if (laatste != null) {
-                bladz = (aantalTaken / 5) + 1;
+                bladz = aantalTaken / Instellingen.AANTAL_RECORDS_PER_PAGE;
+                if (aantalTaken % Instellingen.AANTAL_RECORDS_PER_PAGE != 0) {
+                    bladz++;
+                }
                 int getoondeTaken = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
                 if (getoondeTaken > aantalTaken) {
                     getoondeTaken = aantalTaken;
                 }
                 session.setAttribute("getoondeTaken", getoondeTaken);
+                System.out.println("bladz: " + bladz);
                 session.setAttribute("bladzijde", bladz);
                 taken = taakDAO.takenLaden(bladz);
                 session.setAttribute("lijstTaken", taken);
@@ -111,14 +116,21 @@ public class TakenServlet extends HttpServlet {
             if (editID != null) {
                 actie = "Edit taak";
             }
+
             if (cancelID != null) {
                 actie = "Cancel taak";
             }
+
             if (saveID != null) {
                 actie = "Save taak";
             }
+
             if (deleteID != null) {
                 actie = "Delete taak";
+            }
+
+            if (addID != null) {
+                actie = "Add taak";
             }
 
             Taak taak = new Taak();
@@ -126,31 +138,59 @@ public class TakenServlet extends HttpServlet {
             switch (actie) {
 
                 case "Edit taak":
+                    session.setAttribute("editID", editID);
+                    session.removeAttribute("deleteID");
+                    session.removeAttribute("saveID");
+                    int bladzd = (int) session.getAttribute("bladzijde");
+                    taken = taakDAO.takenLaden(bladzd);
+                    session.setAttribute("lijstTaken", taken);
                     response.sendRedirect("Taken.jsp");
                     break;
 
                 case "Delete taak":
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    session.removeAttribute("saveID");
+                    taakDAO.takenVerwijderen(Integer.parseInt(deleteID));
+                    bladzd = (int) session.getAttribute("bladzijde");
+                    taken = taakDAO.takenLaden(bladzd);
+                    aantalTaken = taakDAO.geefAantalTaken();
+                    session.setAttribute("aantalRecords", aantalTaken);
+                    session.setAttribute("lijstTaken", taken);
+                    int getoondeTaken = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+                    if (getoondeTaken > aantalTaken) {
+                        getoondeTaken = aantalTaken;
+                    }
+                    session.setAttribute("getoondeTaken", getoondeTaken);
                     response.sendRedirect("Taken.jsp");
                     break;
 
                 case "Cancel taak":
-                    response.sendRedirect("Taken.jsp");
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    session.removeAttribute("deleteID");
+                    session.removeAttribute("saveID");
+                    response.sendRedirect("Taken.jsp"); //logged-in page 
                     break;
 
                 case "Save taak":
+                    session = request.getSession(true);
+                    session.removeAttribute("editID");
+                    int id = Integer.parseInt(saveID);
+                    taak.setNaam(request.getParameter("naam"));
+                    taak.setBeschrijving(request.getParameter("beschrijving"));
+                    taakDAO.taakAanpassen(id, taak);
+                    bladzd = (int) session.getAttribute("bladzijde");
+                    taken = taakDAO.takenLaden(bladzd);
+                    aantalTaken = taakDAO.geefAantalTaken();
+                    session.setAttribute("aantalRecords", aantalTaken);
+                    session.setAttribute("lijstTaken", taken);
                     response.sendRedirect("Taken.jsp");
+                    session.removeAttribute("saveID");
                     break;
 
-                case "taak toevoegen":
-                    response.sendRedirect("Taken.jsp");
-                    break;
+                case "Add gebruiker":
 
-                case "taak aanpassen":
-                    response.sendRedirect("Taken.jsp");
-                    break;
-
-                case "taak verwijderen":
-                    response.sendRedirect("Taken.jsp");
                     break;
             }
 
@@ -160,43 +200,5 @@ public class TakenServlet extends HttpServlet {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
+
