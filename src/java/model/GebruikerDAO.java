@@ -63,33 +63,7 @@ public class GebruikerDAO {
             System.out.println("Inloggen niet gelukt! : Volgende fout heeft zich voorgedaan: " + ex);
         } //some exception handling
         finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (Exception e) {
-
-                }
-                stmt = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(rs, null, null, currentCon);
         }
 
         return gebruiker;
@@ -97,214 +71,36 @@ public class GebruikerDAO {
     }
 
     public ArrayList<Gebruiker> cursistenLaden() {
-
-        ArrayList<Gebruiker> cursisten = new ArrayList<>();
+        ArrayList<Gebruiker> cursistenLijst = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
         ResultSet rs = null;
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Gebruiker WHERE Gebruiker.rolID = 3";
+            String sql = "SELECT gebruikerID, voornaam, achternaam, login, email, geboortedatum, rol from Gebruiker WHERE Gebruiker.rolID = 3";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
                 Gebruiker gebruiker = new Gebruiker();
+                gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
                 gebruiker.setVoorNaam(rs.getString("voornaam"));
                 gebruiker.setAchternaam(rs.getString("achternaam"));
+                gebruiker.setLogin(rs.getString("login"));
+                gebruiker.setRol(rs.getString("rol"));
                 gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
                 gebruiker.setEmail(rs.getString("email"));
-
-                cursisten.add(gebruiker);
+                cursistenLijst.add(gebruiker);
+                
             }
         } catch (SQLException e) {
 
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-                rs = null;
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (Exception e) {
-
-                }
-
-                statement = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(rs, statement, null, currentCon);
 
         }
-        return cursisten;
-    }
-
-    public void cursistAanmaken(Gebruiker gebruiker) {
-        Connection currentCon = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        String sql = "INSERT INTO gebruiker(rolID, voornaam, achternaam, geboortedatum, email, login, paswoord) VALUES(3,?,?,?,?,?,MD5(?));";
-
-        try {
-            currentCon = ConnectionManager.getConnection();
-            ps = currentCon.prepareStatement(sql);
-
-            ps.setString(1, "voornaam");
-            ps.setString(2, "achternaam");
-            ps.setString(3, "geboortedatum");
-            ps.setString(4, "email");
-            ps.setString(5, "login");
-            ps.setString(6, "paswoord");
-            ps.executeQuery(sql);
-
-        } catch (SQLException ex) {
-
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (Exception e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
-        }
-
-    }
-
-    public void cursistAanpassen(Gebruiker gebruiker) {
-        Connection currentCon = null;
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-
-        String sql = "UPDATE gebruiker(rolID, voornaam, achternaam, geboortedatum, email) VALUES(3,?,?,?,?)";
-
-        try {
-            currentCon = ConnectionManager.getConnection();
-            ps = currentCon.prepareStatement(sql);
-
-            ps.setString(1, "voornaam");
-            ps.setString(2, "achternaam");
-            ps.setString(3, "geboorteDatum");
-            ps.setString(4, "email");
-            ps.executeQuery(sql);
-
-        } catch (SQLException ex) {
-
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
-        }
-
-    }
-
-    public void cursistVerwijderen(Gebruiker gebruiker) {
-        Connection currentCon = null;
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-
-        String sql
-                = "DELETE g FROM gebruiker g inner join rol on g.rolID = rol.rolID WHERE rol = 'cursist' AND voornaam = ? AND achternaam = ?;";
-
-        try {
-            currentCon = ConnectionManager.getConnection();
-            ps = currentCon.prepareStatement(sql);
-
-            ps.setString(1, "voornaam");
-            ps.setString(2, "achternaam");
-            ps.executeQuery(sql);
-
-        } catch (SQLException ex) {
-
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
-        }
-
+        return cursistenLijst;
     }
 
     public ArrayList<Gebruiker> gebruikersLaden(int bladz) {
@@ -316,7 +112,7 @@ public class GebruikerDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "select gebruikerID,voornaam, achternaam, login,  email, geboortedatum, rol from Gebruiker inner join Rol  on Gebruiker.rolID= Rol.rolID order by achternaam";
+            String sql = "select gebruikerID, voornaam, achternaam, login, email, geboortedatum, rol from Gebruiker inner join Rol  on Gebruiker.rolID= Rol.rolID order by achternaam";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
             int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE - 1);
@@ -342,33 +138,7 @@ public class GebruikerDAO {
         } catch (SQLException e) {
 
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-                rs = null;
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (Exception e) {
-
-                }
-
-                statement = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(rs, statement, null, currentCon);
 
         }
         return gebruikers;
@@ -393,39 +163,13 @@ public class GebruikerDAO {
 
         } catch (SQLException e) {
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-                rs = null;
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (Exception e) {
-
-                }
-
-                statement = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(rs, statement, null, currentCon);
 
         }
         return aantalGebruikers;
     }
 
-    public void gebruikerAanmaken() {
+    public void gebruikerAanmaken(Gebruiker gebruiker) {
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -436,45 +180,20 @@ public class GebruikerDAO {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
-            ps.setString(1, "voornaam");
-            ps.setString(2, "achternaam");
-            ps.setString(3, "rol");
-            ps.setString(4, "geboortedatum");
-            ps.setString(5, "email");
-            ps.setString(6, "login");
-            ps.setString(7, "wachtwoord");
-            ps.executeQuery(sql);
+            ps.setString(1, gebruiker.getVoorNaam());
+            ps.setString(2, gebruiker.getAchternaam());
+            ps.setString(3, gebruiker.getRol());
+            ps.setDate(4, gebruiker.getGeboorteDatum());
+            ps.setString(5, gebruiker.getEmail());
+            ps.setString(6, gebruiker.getLogin());
+            ps.setString(7, gebruiker.getPaswoord());
+            ps.executeUpdate();
 
         } catch (SQLException ex) {
 
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (Exception e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(rs, null, ps, currentCon);
+            
         }
     }
 
@@ -519,37 +238,10 @@ public class GebruikerDAO {
         } catch (SQLException ex) {
 
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(rs, null, ps, currentCon);
         }
 
     }
-    
     
      public ArrayList<Gebruiker> gebruikerZoeken(String zoekterm) {
 

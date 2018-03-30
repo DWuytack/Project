@@ -42,6 +42,7 @@ public class ScoreServlet extends HttpServlet {
             String cancelID = request.getParameter("idCancel");
             String saveID = request.getParameter("idSave");
             String deleteID = request.getParameter("idDelete");
+            String addID = request.getParameter("addID");
             
              if (editID != null) {
                 actie = "Edit typeScore";
@@ -54,6 +55,9 @@ public class ScoreServlet extends HttpServlet {
             }
             if (deleteID != null) {
                 actie = "Delete typeScore";
+            }
+            if (addID != null) {
+                actie = "Add typeScore";
             }
             
             Score typeScore = new Score();
@@ -94,6 +98,17 @@ public class ScoreServlet extends HttpServlet {
                     session.removeAttribute("editID");
                     session.removeAttribute("saveID");
                     scoreDAO.typeScoreVerwijderen(Integer.parseInt(deleteID));
+                    beoordelingssoorten = scoreDAO.typeScoreLaden();
+                    session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
+                    response.sendRedirect("TypeScoreOverzicht.jsp");
+                    break;
+                    
+                case "Add typeScore":
+                    session.setAttribute("addID", addID);
+                    typeScore.setNaam(request.getParameter("naam"));
+                    typeScore.setBeschrijving(request.getParameter("beschrijving"));
+                    typeScore.setWaarde(Integer.parseInt(request.getParameter("waarde")));
+                    scoreDAO.typeScoreToevoegen(typeScore);                 
                     beoordelingssoorten = scoreDAO.typeScoreLaden();
                     session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
                     response.sendRedirect("TypeScoreOverzicht.jsp");

@@ -26,12 +26,9 @@
         
         <section>
             <form action="ScoreServlet">
-                <div class="table-container">
-                    
-                    <div class="table-nav-header" style="min-height: 20px;">
-                        
-                    </div>
-                    
+                <div class="table-container">                   
+                    <div class="table-nav-header" style="min-height: 20px;">                       
+                    </div>                   
                     <table class="datatable">
                         <thead>
                             <tr>
@@ -78,6 +75,22 @@
                             </c:forEach>
                         </tbody>
                     </table>
+                    <div id="typeScore_toevoegen">
+                    <fieldset>
+                        <legend>typeScore Toevoegen: </legend><br>
+                        <label>Naam: </label>
+                        <br>
+                        <input type="text" name="naam" size="16" maxlength="30">
+                        <br><br>
+                        <label>Beschrijving: </label>
+                        <br>
+                        <input type="text" name="beschrijving" size="16" maxlength="30">
+                        <br><br>
+                        <label>Waarde: </label>                       
+                        <br>
+                    </fieldset>
+                    <input type="submit" name="actie" value="toevoegen">
+                </div>
                 </div>
             </form>
         </section>

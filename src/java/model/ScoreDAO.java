@@ -38,38 +38,12 @@ public class ScoreDAO {
         } catch (SQLException e) {
 
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-                rs = null;
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (Exception e) {
-
-                }
-
-                statement = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(rs, statement, null, currentCon);
 
         }
         return typeScores;
     }
-
+    
     // methode die het type score aanpast
     public void typeScoreAanpassen(int beoordelingssoortID, Score typeScore) {
         Connection currentCon = null;
@@ -91,24 +65,7 @@ public class ScoreDAO {
         } catch (SQLException ex) {
 
         } finally {            
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(null, null, ps, currentCon);
         }
 
     }
@@ -130,29 +87,13 @@ public class ScoreDAO {
         } catch (SQLException ex) {
 
         } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(null, null, ps, currentCon);
         }
 
     }
+    
     // methode die een type score toevoegt
-    public void typeScoreToevoegen() {
+    public void typeScoreToevoegen(Score typeScore) {
         Connection currentCon = null;        
         PreparedStatement ps = null;
 
@@ -162,32 +103,17 @@ public class ScoreDAO {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
             
-            ps.setString(1, "naam");
-            ps.setString(2, "beschrijving");
-            ps.setString(3, "waarde");
-            ps.executeQuery(sql);
+            ps.setString(1, typeScore.getNaam());
+            ps.setString(2, typeScore.getBeschrijving());
+            ps.setInt(3, typeScore.getWaarde());
+            ps.executeUpdate();
         
         } catch (SQLException ex) {
 
         } finally {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
+            sluitVariabelen(null, null, ps, currentCon);
         }
+    }
 
     public void schooljarenLaden(Gebruiker gebruiker) {
         throw new UnsupportedOperationException("Schrijf code.");
@@ -199,5 +125,49 @@ public class ScoreDAO {
 
     public void scoreVerwijderen(Gebruiker gebruiker) {
         throw new UnsupportedOperationException("Schrijf code.");
+    }
+    
+    /* Sluit enkele variabelen en zet ze op null */
+    private void sluitVariabelen(ResultSet rs, Statement statement, PreparedStatement ps, Connection currentCon) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            try {
+                rs = null;
+            } catch (Exception e) {
+            }
+        }
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+            }
+            try {
+                statement = null;
+            } catch (Exception e) {
+            }
+        }
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (Exception e) {
+            }
+            try {
+                ps = null;
+            } catch (Exception e) {
+            }
+        }
+        if (currentCon != null) {
+            try {
+                currentCon.close();
+            } catch (Exception e) {
+            }
+            try {
+                currentCon = null;
+            } catch (Exception e) {
+            }
+        }
     }
 }
