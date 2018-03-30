@@ -113,7 +113,7 @@ public class ScoreDAO {
 
     }
     
-    // methode die een type score verwijderd
+    // methode die een type score verwijdert
     public void typeScoreVerwijderen(int beoordelingssoortID) {
         Connection currentCon = null;
         PreparedStatement ps = null;
@@ -151,7 +151,7 @@ public class ScoreDAO {
         }
 
     }
-    // methode die een type score toevoegd
+    // methode die een type score toevoegt
     public void typeScoreToevoegen() {
         Connection currentCon = null;        
         PreparedStatement ps = null;
