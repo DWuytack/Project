@@ -27,12 +27,12 @@
             <!-- <h1 align="center" class="kleur" style="display: inherit;"> GebruikersOverzicht </h1> -->
             
         </section>
-        <!-- <hr> -->
+        
         <section>
             <form action="GebruikersServlet">
                 <div class="table-container">
                     
-                    <div class="table-nav-header" id="side-nav">
+                    <div class="table-nav-header">
                         <div id="zoeken">
                             <a id="bt-zoeken">
                                 <i class="material-icons">search</i>

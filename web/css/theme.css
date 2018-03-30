@@ -176,9 +176,8 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
-*:focus {
-    outline: none;
+*:focus:not([type="checkbox"]) {
+    outline: 0;
     box-shadow: none;
     -webkit-appearance: none;
 }

@@ -15,6 +15,96 @@
     </head>
     <body>
         <!-- Dit is een test pagina -->
+        
+        
+        <div id="tabel-gebruikers"></div>
+        <script>
+            var test = "<%= session %>";
+            var test1 = '@Request.RequestContext.HttpContext.Session["lijstGebruikers"]';
+            var test2 = '@Session["gebruikers"]';
+            var myMap = {  
+                <c:forEach items="${lijstGebruikers}" var="cursist" varStatus="loop">  
+                  ${cursist.login}: '${cursist.achternaam}' ${not loop.last ? ',' : ''}  
+                </c:forEach>  
+            };  
+            
+            alert("${lijstGebruikers}");
+            
+            var gebruikers = {
+                <c:forEach items="${lijstGebruikers}" var="cursist">
+                "${cursist.login}": {
+                  name:"${cursist.achternaam}",
+                  voornaam:"${cursist.voorNaam}",
+                },
+                </c:forEach>
+            };
+            
+            
+            $(document).ready(function() {
+                $.get('GebruikersServlet', {
+                        userName : name
+                }, function(responseText) {
+                        $('#ajaxGetUserServletResponse').text(responseText);
+                });
+            });
+
+            
+            $("#tabel-gebruikers tbody").append( function(){
+                
+            });
+            
+            function arrayToTable(tableData) {
+                var table = $('<table></table>');
+                $(tableData).each(function (i, rowData) {
+                    var row = $('<tr></tr>');
+                    $(rowData).each(function (j, cellData) {
+                        row.append($('<td>'+cellData+'</td>'));
+                    });
+                    table.append(row);
+                });
+                return table;
+            }
+
+            $('body').append(arrayToTable([
+                ["John","Slegers",34],
+                ["Tom","Stevens",25],
+                ["An","Davies",28],
+                ["Miet","Hansen",42],
+                ["Eli","Morris",18]
+            ]));
+            
+            <c:if test="${cursist.gebruikerID == sessionScope.editID}">
+                $('body').append(arrayToTable([
+                    "${cursist.achternaam}",
+                    "${cursist.voorNaam}",
+                    "${cursist.login}",
+                    "${cursist.rol}",
+                    "${cursist.geboorteDatum}",
+                    "${cursist.email}"
+                ]));
+            </c:if>
+            
+            /*
+            $("#tabel-gebruikers thead").add(function(){
+                this.
+            });
+            $("#tabel-gebruikers thead tr").each(function( index ) {
+                console.log( index + ": " + $( this ).text() );
+            });
+            $("#tabel-gebruikers tbody").add(function(){
+                
+            });
+            */
+        </script>
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <div id="lol"></div>
         <form action="GebruikersServlet">
             <c:forEach items="${lijstGebruikers}" var="cursist">
