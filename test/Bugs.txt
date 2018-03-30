@@ -1,2 +1,11 @@
 Doelstellingen en Gebruikers: Zoeken leeg laten toont alle data uit die tabel.
 Doelstellingen: Klikken op een checkbox van kerndoelstelling maakt het onzichtbaar.
+GebruikersOverzicht: als je op edit klikt, en dan sorteert staat de persoon die je edit als eerste of laatste en niet op de juiste plaats
+GebruikersOverzicht: klikken op volgende/vorige/laatste/eerste toont alle mensen
+GebruikersOverzicht: indien je probeert een nieuwe gebruiker toe te voegen kan je de rol niet kiezen
+GebruikersOverzicht: als je alle 30 gebruikers ziet en een extra probeert toe te voegen is de knop "toevoegen" te ver weg
+Modules: toont alle modules en zegt 8/55
+Doelstelling: proberen te editten toont niets meer, indien je terug naar de pagina gaat toont hij de edit versie maar toont geen gele lijn
+Doelstelling: volgende pagina knop werkt niet goed
+kijken of alle atributen verwijderd worden uit de sessie
+Type Score: kan geen waarde invullen
