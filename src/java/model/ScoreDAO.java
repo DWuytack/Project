@@ -73,7 +73,6 @@ public class ScoreDAO {
     // methode die het type score aanpast
     public void typeScoreAanpassen(int beoordelingssoortID, Score typeScore) {
         Connection currentCon = null;
-        ResultSet rs = null;
         PreparedStatement ps = null;
 
         String sql = "UPDATE Beoordelingssoorten SET Beoordelingssoorten.naam = ? , Beoordelingssoorten.beschrijving = ? ,"
@@ -91,16 +90,7 @@ public class ScoreDAO {
 
         } catch (SQLException ex) {
 
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
+        } finally {            
             if (ps != null) {
                 try {
                     ps.close();
@@ -126,7 +116,6 @@ public class ScoreDAO {
     // methode die een type score verwijderd
     public void typeScoreVerwijderen(int beoordelingssoortID) {
         Connection currentCon = null;
-        ResultSet rs = null;
         PreparedStatement ps = null;
 
         String sql = "DELETE FROM Beoordelingssoorten WHERE Beoordelingssoorten.beoordelingssoortID = ?";
@@ -141,15 +130,6 @@ public class ScoreDAO {
         } catch (SQLException ex) {
 
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
             if (ps != null) {
                 try {
                     ps.close();
@@ -171,6 +151,43 @@ public class ScoreDAO {
         }
 
     }
+    // methode die een type score toevoegd
+    public void typeScoreToevoegen() {
+        Connection currentCon = null;        
+        PreparedStatement ps = null;
+
+        String sql = "INSERT INTO Beoordelingssoorten(naam, beschrijving, waarde) VALUES(?,?,?)";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+            
+            ps.setString(1, "naam");
+            ps.setString(2, "beschrijving");
+            ps.setString(3, "waarde");
+            ps.executeQuery(sql);
+        
+        } catch (SQLException ex) {
+
+        } finally {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+
+                }
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (SQLException e) {
+
+                }
+
+                currentCon = null;
+            }
+        }
 
     public void schooljarenLaden(Gebruiker gebruiker) {
         throw new UnsupportedOperationException("Schrijf code.");
