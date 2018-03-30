@@ -243,7 +243,7 @@ public class GebruikerDAO {
 
     }
     
-     public ArrayList<Gebruiker> gebruikerZoeken(String zoekterm) {
+     public ArrayList<Gebruiker> gebruikersZoeken(String zoekterm) {
 
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
         Connection currentCon = null;
@@ -252,23 +252,23 @@ public class GebruikerDAO {
         
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Gebruiker WHERE Gebruiker.voornaam LIKE ? OR Gebruiker.achternaam LIKE ?";
+            String sql = "SELECT * FROM Gebruiker INNER JOIN Rol on Gebruiker.rolID = Rol.rolID WHERE Gebruiker.voornaam LIKE ? OR Gebruiker.achternaam LIKE ?";
 
             ps = currentCon.prepareStatement(sql);
             ps.setString(1, "%" + zoekterm + "%");
             ps.setString(2, "%" + zoekterm + "%");
-
+            
             rs = ps.executeQuery();
-
+            
             while (rs.next()) {
                  Gebruiker gebruiker = new Gebruiker();
                     gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
+                    gebruiker.setRol(rs.getString("rol")); 
                     gebruiker.setVoorNaam(rs.getString("voornaam"));
                     gebruiker.setAchternaam(rs.getString("achternaam"));
-                    gebruiker.setLogin(rs.getString("login"));
-                    gebruiker.setRol(rs.getString("rol"));
                     gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
                     gebruiker.setEmail(rs.getString("email"));
+                    gebruiker.setLogin(rs.getString("login"));
                     gebruikers.add(gebruiker);
             }
         } catch (Exception e) {
@@ -277,8 +277,7 @@ public class GebruikerDAO {
         }
         return gebruikers;
     }
-
-
+     
     /* Sluit enkele variabelen en zet ze op null */
     private void sluitVariabelen(ResultSet rs, Statement statement, PreparedStatement ps, Connection currentCon) {
         if (rs != null) {
@@ -322,13 +321,6 @@ public class GebruikerDAO {
             }
         }
     } 
-     
-     
-     
-     
-     
-     
-     
      
     public void gebruikerVerwijderen(int gebruikerID) {
 

@@ -43,7 +43,7 @@
                             </div>
 
                             <div>
-                                <input type="image" name="gebruiker toevoegen" value="gebruiker toevoegen" src='images/person_add.png'> 
+                                <input type="image" name="doelstelling toevoegen" value="doelstelling toevoegen" src='images/person_add.png'> 
                                 <input type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
                                 <input type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
                                 <input type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
