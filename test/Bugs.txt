@@ -1,0 +1,2 @@
+Doelstellingen en Gebruikers: Zoeken leeg laten toont alle data uit die tabel.
+Doelstellingen: Klikken op een checkbox van kerndoelstelling maakt het onzichtbaar.

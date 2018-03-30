@@ -27,6 +27,7 @@
 
                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                         <input type="submit" value="Overzicht gebruikers" name="actie"><br>
+                        <input type="submit" value="Overzicht Studiegebieden" name="actie"><br>
                         <input type="submit" value="Overzicht doelstellingen" name="actie"><br>
                         <input type="submit" value="Overzicht taken"  name="actie"><br>
                         <input type="submit" value="Overzicht opleidingen" name="actie"><br>
@@ -38,6 +39,7 @@
                     <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
                         <input type="submit" value="Evaluatieformulieren" name="actie"><br> 
                         <input type="submit" value="Overzicht cursisten" name="actie"><br>
+                        <input type="submit" value="Overzicht Studiegebieden" name="actie"><br>
                         <input type="submit" value="Overzicht doelstellingen" name="actie"><br>
                         <input type="submit" value="Overzicht taken"  name="actie"><br>
                         <input type="submit" value="Overzicht opleidingen" name="actie"><br>
@@ -51,6 +53,7 @@
                     <c:if test="${sessionScope.currentSessionUser.rol == 'secretariaat'}" >
                         <input type="submit" value="Overzicht scores" name="actie"><br>
                         <input type="submit" value="Overzicht gebruikers" name="actie"><br>
+                        <input type="submit" value="Overzicht Studiegebieden" name="actie"><br>
                     </c:if>
 
                 </div>
