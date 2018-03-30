@@ -210,11 +210,11 @@ public class DoelstellingDAO {
 
             while (rs.next()) {
                 Doelstelling doelstelling = new Doelstelling();
-                doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
-                doelstelling.setNaam(rs.getString("naam"));
-                doelstelling.setBeschrijving(rs.getString("beschrijving"));
-                doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
-                doelstellingen.add(doelstelling);
+                    doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
+                    doelstelling.setNaam(rs.getString("naam"));
+                    doelstelling.setBeschrijving(rs.getString("beschrijving"));
+                    doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
+                    doelstellingen.add(doelstelling);
             }
         } catch (Exception e) {
         } finally {

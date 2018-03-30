@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="js/jquery.js"></script>
         <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
@@ -20,11 +21,11 @@
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
-        
-         <section id="pagename">
+
+        <section id="pagename">
             <h1> TakenOverzicht </h1>
         </section>
-         
+
         <section>
             <form action="TakenServlet">
                 <div class="table-container">
@@ -65,7 +66,7 @@
                                 <tr  <c:if test="${taak.taakID == sessionScope.editID}" >style="background-color: rgba(255,255,0,.5);"</c:if>>
                                     <c:if test="${taak.taakID == sessionScope.editID}" >
                                         <td> <input type="text" name="naam"  value="${taak.naam}"> </td>
-                                        <td> <input type="text" name="beschrijving" value="${cursist.beschrijving}"> </td>
+                                        <td> <input type="text" name="beschrijving" value="${taak.beschrijving}"> </td>
                                         </c:if>
                                         <c:if test="${taak.taakID != sessionScope.editID}" >
                                         <td> ${taak.naam} </td>

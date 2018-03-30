@@ -39,6 +39,7 @@ public class TakenServlet extends HttpServlet {
 
         try {
             String actie = "";
+            String zoekterm = request.getParameter("zoekterm");
             String editID = request.getParameter("idEdit");
             String addID = request.getParameter("addID");
             String cancelID = request.getParameter("idCancel");
@@ -113,6 +114,10 @@ public class TakenServlet extends HttpServlet {
                 response.sendRedirect("Taken.jsp");
             }
 
+            if (zoekterm != null) {
+                actie = "Zoeken";
+            }
+
             if (editID != null) {
                 actie = "Edit taak";
             }
@@ -136,6 +141,13 @@ public class TakenServlet extends HttpServlet {
             Taak taak = new Taak();
 
             switch (actie) {
+
+                case "Zoeken":
+                    session.setAttribute("zoekterm", zoekterm);
+                    taken = taakDAO.takenZoeken(zoekterm);
+                    session.setAttribute("lijstTaken", taken);
+                    response.sendRedirect("Taken.jsp");
+                    break;
 
                 case "Edit taak":
                     session.setAttribute("editID", editID);
@@ -189,9 +201,6 @@ public class TakenServlet extends HttpServlet {
                     session.removeAttribute("saveID");
                     break;
 
-                case "Add taak":
-
-                    break;
             }
 
         } catch (Throwable theException) {
@@ -201,4 +210,3 @@ public class TakenServlet extends HttpServlet {
     }
 
 }
-

@@ -40,6 +40,7 @@ public class GebruikersServlet extends HttpServlet {
 
         try {
             String actie = "";
+            String zoekterm = request.getParameter("zoekterm");
             String editID = request.getParameter("idEdit");
             String addID = request.getParameter("addID");
             String cancelID = request.getParameter("idCancel");
@@ -113,7 +114,10 @@ public class GebruikersServlet extends HttpServlet {
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
-
+            
+            if (zoekterm != null) {
+                actie = "Zoeken";
+            }
             if (editID != null) {
                 actie = "Edit gebruiker";
             }
@@ -129,12 +133,17 @@ public class GebruikersServlet extends HttpServlet {
             if (addID != null) {
                 actie = "Add gebruiker";
             }
-         
-
+            
             Gebruiker gebruiker = new Gebruiker();
 
             switch (actie) {
-
+                case "Zoeken":
+                    session.setAttribute("zoekterm", zoekterm);
+                    gebruikers = gebruikerDAO.gebruikersZoeken(zoekterm);
+                    session.setAttribute("lijstGebruikers", gebruikers);
+                    response.sendRedirect("GebruikersOverzicht.jsp");
+                    break;
+                    
                 case "Edit gebruiker":
                     session.setAttribute("editID", editID);
                     session.removeAttribute("deleteID");

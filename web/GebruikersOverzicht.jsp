@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="css/formulier.css">
         <title>Gebruikers overzicht</title>
     </head>
-
+    
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <!-- styling verplaatst naar theme.css "SUBNAV" -->
@@ -37,7 +37,7 @@
                             <a id="bt-zoeken">
                                 <i class="material-icons">search</i>
                             </a>
-                            <input type="text" name="zoekterm" value="" size="15">
+                            <input type="text" name="zoekterm" value="${zoekterm}" size="15">
                         </div>
                         <div>
                             <a id="bt-gebruiker_toevoegen" name="gebruiker toevoegen">
