@@ -122,7 +122,7 @@ public class TaakDAO {
         return aantalTaken;
     }
 
-    public void taakAanmaken() {
+    public void taakAanmaken(Taak taak) {
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -133,8 +133,8 @@ public class TaakDAO {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
-            ps.setString(1, "naam");
-            ps.setString(2, "beschrijving");
+            ps.setString(1, taak.getNaam());
+            ps.setString(2, taak.getBeschrijving());
             ps.executeQuery(sql);
 
         } catch (SQLException ex) {
@@ -170,7 +170,7 @@ public class TaakDAO {
         }
     }
 
-    public void taakAanpassen(int taakID,Taak taak) {
+    public void taakAanpassen(int taakID, Taak taak) {
         Connection currentCon = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -181,8 +181,8 @@ public class TaakDAO {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
 
-            ps.setString(1, "naam");
-            ps.setString(2, "beschrijving");
+            ps.setString(1, taak.getNaam());
+            ps.setString(2, taak.getBeschrijving());
             ps.executeQuery(sql);
 
         } catch (SQLException ex) {
@@ -218,8 +218,82 @@ public class TaakDAO {
         }
 
     }
-    
-     public void takenVerwijderen(int taakID) {
+
+    public ArrayList<Taak> takenZoeken(String zoekterm) {
+
+        ArrayList<Taak> taken = new ArrayList<>();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "SELECT * FROM Taken  WHERE Taken.naam LIKE ? OR Taken.beschrijving LIKE ?";
+
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, "%" + zoekterm + "%");
+            ps.setString(2, "%" + zoekterm + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Taak taak = new Taak();
+                taak.setTaakID(rs.getInt("taakID"));
+                taak.setBeschrijving(rs.getString("beschrijving"));
+                taak.setNaam(rs.getString("naam"));
+                taken.add(taak);
+            }
+        } catch (Exception e) {
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+        }
+        return taken;
+    }
+
+    private void sluitVariabelen(ResultSet rs, Statement statement, PreparedStatement ps, Connection currentCon) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            try {
+                rs = null;
+            } catch (Exception e) {
+            }
+        }
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+            }
+            try {
+                statement = null;
+            } catch (Exception e) {
+            }
+        }
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (Exception e) {
+            }
+            try {
+                ps = null;
+            } catch (Exception e) {
+            }
+        }
+        if (currentCon != null) {
+            try {
+                currentCon.close();
+            } catch (Exception e) {
+            }
+            try {
+                currentCon = null;
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    public void takenVerwijderen(int taakID) {
 
         Connection currentCon = null;
         PreparedStatement ps = null;
