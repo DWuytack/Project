@@ -35,9 +35,11 @@
              *    */
             var pageCounter = 1;
 
+            /*
             var getData = function(page) {
                 var xhttp = new XMLHttpRequest();
                 var data = "";
+                params = 'page=' + page;
                 xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                        // Typical action to be performed when the document is ready:
@@ -47,6 +49,28 @@
                 };
                 xhttp.open("GET", "someservlet", true);
                 xhttp.send();
+            };
+    */
+            
+            var requestData = function(page) {
+                var xhttp = new XMLHttpRequest();
+                var data = "";
+                params = 'page=' + page;
+                /*xhttp.setRequestHeader('Content-type', 'application/x-www.form.urlencoded');
+                xhttp.setRequestHeader('Content-length', params.length );*/
+        
+                xhttp.open("POST", "someservlet", true);
+                
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
+                       // Typical action to be performed when the document is ready:
+                       data = JSON.parse(xhttp.responseText);
+                       renderHTML(data);
+                    }
+                };
+                xhttp.send(params);
             };
 
             var renderHTML = function(data) {
@@ -84,13 +108,14 @@
             };
 
             document.addEventListener("click", function(e){
-                if(e.id="somebutton" && pageCounter < 3) {
+                if( e.target.id === "somebutton" ) {
                     pageCounter++;
-                    getData(pageCounter);
+                    requestData(pageCounter);
                 }
             });
-
-            getData(1);
+            //&& pageCounter < 3
+            //getData(1);
+            requestData(pageCounter);
     </script>
     </head>
     <body>

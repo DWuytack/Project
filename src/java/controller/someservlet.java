@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Gebruiker;
 import model.GebruikerDAO;
@@ -38,6 +39,10 @@ public class someservlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*
+        HttpSession session = request.getSession(true);  
+        
+        ArrayList<Gebruiker> gebruikers = null;
         
         ArrayList<Gebruiker> cursisten = gebruikerDAO.gebruikersLaden(1);
         String json = new Gson().toJson(cursisten);
@@ -45,5 +50,18 @@ public class someservlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json); 
+        */
     }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String page = request.getParameter("page");
+        int p = Integer.parseInt(page);
+        
+        ArrayList<Gebruiker> cursisten = gebruikerDAO.gebruikersLaden(p);
+        String json = new Gson().toJson(cursisten);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }	
 }
