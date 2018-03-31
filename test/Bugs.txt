@@ -9,3 +9,28 @@ Doelstelling: proberen te editten toont niets meer, indien je terug naar de pagi
 Doelstelling: volgende pagina knop werkt niet goed
 kijken of alle atributen verwijderd worden uit de sessie
 Type Score: kan geen waarde invullen
+
+
+
+/**
+* OPMERKINGEN 
+**/
+
+*** probleem 1 ***
+
+    #vaststelling
+    .99 Opacity op alle elementen is een manier om de z-index te manupuleren.
+
+    #voor-na-delen
+    + z-index werkt via de stapel logical en de waarde bepaald welk element eerst staat
+    - Het verbruikt veel CPU
+
+    #alternatieven
+    flex/grid design met order styling
+    beperkingen toevoegen en meer elementen scheiden en laten zien als frames
+
+    #besluit
+    CPU verbruik moet worden gecontroleerd om te zien of een alternatief noodzakelijk wordt.
+
+
+    
