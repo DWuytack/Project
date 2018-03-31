@@ -160,7 +160,7 @@ body > ::-webkit-scrollbar { display: none; } /* Chrome Only */
 
 /* PRESET MODIFICATION */
 * {
-    opacity: .99; /* Z-INDEX TRICK */
+    /*opacity: .99;  Z-INDEX TRICK */
     box-sizing: border-box;
     line-height: 1;
 }
