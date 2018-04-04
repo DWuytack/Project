@@ -27,7 +27,7 @@
             <%@include file="Bovenbalk.jsp" %>
             
             <section id="pagename">
-                <h1> DoelstellingenOverzicht </h1>
+                <h2> DoelstellingenOverzicht </h2>
             </section>
             
             <section>

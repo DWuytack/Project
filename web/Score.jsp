@@ -26,7 +26,7 @@
         <%@include file="Bovenbalk.jsp" %>
         
         <section id="pagename">
-            <h1> ScoreOverzicht </h1> 
+            <h2> ScoreOverzicht </h2> 
         </section>
         
         <section>

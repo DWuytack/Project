@@ -16,7 +16,7 @@
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
-            <h1>Mijn profiel</h1>
+            <h2>Mijn profiel</h2>
             <hr>
             <table>
                 <tr>

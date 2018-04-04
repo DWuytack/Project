@@ -271,7 +271,7 @@ nav {
 header {
     position: relative;
     z-index: 300;
-    min-height: 118px; /* 105px; old 60px !! MOET KLEINER!!!*/
+    min-height: 108px; /* 105px; old 60px !! MOET KLEINER!!!*/
     display: flex;
 }
 section {
@@ -409,7 +409,7 @@ div.active > .dropdown { display: flex; }
     background-image: url(../images/noise.png);
     border-bottom: 1px solid silver;
 }
-#pagename h1 {
+#pagename h2 {
     display: inherit;
     justify-content: center;
     align-items: center;

@@ -23,7 +23,7 @@
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
-            <h1>Module Aanmaken</h1>
+            <h2>Module Aanmaken</h2>
             
               <form action="ModuleServlet" method="post">
                 <table>

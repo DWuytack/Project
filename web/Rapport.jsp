@@ -24,7 +24,7 @@
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section>
-            <h1>Hier komt het rapport van een individuele cursist!</h1>
+            <h2>Hier komt het rapport van een individuele cursist!</h2>
         </section>
     </body>
 </html>

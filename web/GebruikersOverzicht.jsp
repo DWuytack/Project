@@ -23,7 +23,7 @@
         <%@include file="Bovenbalk.jsp" %>
         <!-- styling verplaatst naar theme.css "SUBNAV" -->
         <section id="pagename">
-            <h1> GebruikersOverzicht </h1>
+            <h2> GebruikersOverzicht </h2>
             <!-- <h1 align="center" class="kleur" style="display: inherit;"> GebruikersOverzicht </h1> -->
             
         </section>

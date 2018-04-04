@@ -22,7 +22,7 @@
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <form method="post" action="EvaluatieFormulierServlet" >
-            <h1 align="center" class="kleur"> EvaluatieFormulier </h1>
+            <h2 align="center" class="kleur"> EvaluatieFormulier </h2>
             <hr>
 
             <table class="doelstelling1">

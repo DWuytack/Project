@@ -23,7 +23,7 @@
         <%@include file="Bovenbalk.jsp" %>
 
         <section id="pagename">
-            <h1> TakenOverzicht </h1>
+            <h2> TakenOverzicht </h2>
         </section>
 
         <section>
