@@ -447,7 +447,6 @@ div.active > .dropdown { display: flex; }
     border: none;
     font-size: 50px;
     display: flex;
-    line-height: 1;
     padding: 10px;
     opacity: .2;
 }
@@ -501,7 +500,6 @@ div.active > .dropdown { display: flex; }
 .table-container table th {
     font-size: 18px;
     color: #fff;
-    line-height: 1;
     background-color: #ec6e24;
     font-weight: bold;
     padding-top: 10px;
@@ -512,7 +510,6 @@ div.active > .dropdown { display: flex; }
 .table-container table td {
     font-size: 15px;
     color: #404040;
-    line-height: 1;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 12px;
@@ -540,7 +537,6 @@ div.active > .dropdown { display: flex; }
 }
 a[name="gebruiker toevoegen"] {
     display: flex;
-    line-height: 1;
 }
 a[name="gebruiker toevoegen"] i {
     font-size: 50px;

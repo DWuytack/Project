@@ -63,6 +63,9 @@
                             padding: 0px;
                             vertical-align: baseline;
                         }
+                        #somediv input[type="date"] {
+                            width: 120px;
+                        }
                     </style>
                     <div id="somediv" role="wrapper"></div>
                     <div style="overflow-x: auto; pointer-events: all;">   
