@@ -32,5 +32,6 @@ Type Score: kan geen waarde invullen
     #besluit
     CPU verbruik moet worden gecontroleerd om te zien of een alternatief noodzakelijk wordt.
 
+ //opemrking aaron: kan het zijn dat het cpu verbruik zo hoog is omdat we chrome gebruiken?
 
     
