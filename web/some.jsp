@@ -3,6 +3,8 @@
     Created on : 30-mrt-2018, 18:55:36
     Author     : Jens
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,6 +27,7 @@
             });
         </script>
         -->
+        <script>sessionStorage.setItem('json', '${sessionScope.json}');</script>
         <script>
             /*
              * Test met success, servlet moet enkel nog worden geupdate zodat hij json doorstuurt bij het opvragen van een andere pagina.
@@ -113,9 +116,11 @@
                     requestData(pageCounter);
                 }
             });
-            //&& pageCounter < 3
-            //getData(1);
-            requestData(pageCounter);
+            
+            //Load first page (error doesn't work when the page is refreshed!!!!
+            document.addEventListener("DOMContentLoaded", function(event) {
+                renderHTML(JSON.parse(sessionStorage.getItem('json')));
+            });
     </script>
     </head>
     <body>

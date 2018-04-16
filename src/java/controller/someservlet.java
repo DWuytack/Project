@@ -54,12 +54,15 @@ public class someservlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
         String page = request.getParameter("page");
         int p = Integer.parseInt(page);
         
         ArrayList<Gebruiker> cursisten = gebruikerDAO.gebruikersLaden(p);
         String json = new Gson().toJson(cursisten);
 
+        session.setAttribute("json",  json);
+        
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json);
