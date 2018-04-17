@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 /**
- *
+ *  Deze klasse bevat alle variabelen + getters en setters die een schooljaar bezit.
  * @author CURSIST
  */
 public class Schooljaar {
     
-    int schooljaarID=0;
-    String schooljaar="";
+    private int schooljaarID;
+    private String schooljaar;
 
     public int getSchooljaarID() {
         return schooljaarID;
@@ -29,6 +24,5 @@ public class Schooljaar {
     public void setSchooljaar(String schooljaar) {
         this.schooljaar = schooljaar;
     }
-    
-    
+
 }
