@@ -8,7 +8,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="nl">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/jquery.js"></script>
@@ -209,28 +209,56 @@
                     var thead = '<thead><tr>' + h + '</tr></thead>';
 
                     data.forEach(function(e) {
+                        console.log(e);
                         var options = function(e, keuzes) {
                             da = "";
                             for(option of keuzes) {
                                 da += '<option value="' + option + '"' + selected(e, option) + '>' + option + '</option>';
                             }
                             return da;
-                        }
+                        };
                         var selected = function(rol, d){
                             if(rol === d)
                                 return " selected";
                             else
                                 return "";
                         };
-                        console.log(e.geboorteDatum);
                         temp += '<td><input type="text" name="achternaam" value="' + e.achternaam + '"></td>';
                         temp += '<td><input type="text" name="voornaam" value="' + e.voorNaam + '"></td>'; 
                         temp += '<td> <input type="text" name="login"  value="' + e.login + '"></td>';
                         temp += '<td> <select name="rol" value="' + e.rol + '">' + options(e.rol, keuzes) + '</select></td>';
-                        var date = new Date(e.geboorteDatum).toJSON();
+                        var date = new Date();
+                        var dateFormat = function(d) {
+                            var t = d;
+                            var list = {
+                                jan : 1,
+                                feb : 2,
+                                mrt : 3,
+                                apr : 4,
+                                mei : 5,
+                                jun : 6,
+                                jul : 7,
+                                aug : 8,
+                                sep : 9,
+                                okt : 10,
+                                nov : 11,
+                                dec : 12
+                            };
+                            var key = Object.keys(list);
+                            t = t.replace(',','','g');
+                            t = t.split(' ');
+                            for(month of key) {
+                                if(month === t[0]) t[0] = list[month];
+                            }
+                            if(t[0].length !== 2) t[0] = '0' + t[0];
+                            if(t[1].length !== 2) t[1] = '0' + t[1];
+                            t = t[2] + '-' + t[0] + '-' + t[1];
+                            console.log(t);
+                            return t;
+                        };
                         console.log("Date = ");
                         console.log(date);
-                        temp += '<td> <input type="date" name="geboorteDatum" value="' + date + '"> </td>';
+                        temp += '<td> <input type="date" name="geboorteDatum" value="' + dateFormat(e.geboorteDatum) + '"> </td>';
                         temp += '<td> <input type="text" name="email" value="' + e.email + '"> </td>';
                         temp += '<td><div class="actie-images">';
                         temp += '<span> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src="images/pencil.png"> </span>';
