@@ -18,6 +18,8 @@ import model.Opleiding;
 import model.OpleidingDAO;
 import model.Score;
 import model.ScoreDAO;
+import model.Studiegebied;
+import model.StudiegebiedDAO;
 import model.Taak;
 import model.TaakDAO;
 
@@ -141,6 +143,14 @@ public class MenuServlet extends HttpServlet {
                     //laden semester uit database en in het geheugen plaatsen
                     //laden modules uit database en in het geheugen plaatsen
                     response.sendRedirect("Score.jsp");
+                    break;
+                case "Overzicht studiegebieden":
+                    StudiegebiedDAO studiegebiedDAO = new StudiegebiedDAO();
+                    ArrayList<Studiegebied> studiegebieden = studiegebiedDAO.studiegebiedenLaden();
+                    session.setAttribute("lijstStudiegebieden", studiegebieden);
+                    
+                    response.sendRedirect("OverzichtStudiegebiedenTest.jsp");
+                    
                     break;
                 case "Evaluatieformulieren":
                     doelstellingDAO = new DoelstellingDAO();

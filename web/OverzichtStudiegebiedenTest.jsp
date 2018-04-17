@@ -12,8 +12,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/studiegebieden.css">
         <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/studiegebieden.css">
         <title>JSP Page</title>
     </head>
     <body>
@@ -29,24 +29,18 @@
             <div style="flex-grow: 1">
                 <table id="Table">
                     <tr><th>Studiegebieden</th></tr>
-                    <tr><td>Testgebied 1</td></tr>
-                    <tr><td>Testgebied 1</td></tr>
-                    <tr><td>Testgebied 1</td></tr>
-                    <tr><td>Testgebied 1</td></tr>
-                    <tr><td>Testgebied 1</td></tr>
-                    <tr><td>Testgebied 1</td></tr>
+                    <c:forEach items="${lijstStudiegebieden}" var="studiegebied">
+                        <tr><td><input type="submit" value="${studiegebied.naam}" name="selectStudiegebied" ></td></tr>
+                    </c:forEach>
                 </table>
             </div>
             
             <div style="flex-grow: 1">
                 <table id="Table">
                     <tr><th>Opleidingen</th></tr>
-                    <tr><td>Opleiding 1</td></tr>
-                    <tr><td>Opleiding 1</td></tr>
-                    <tr><td>Opleiding 1</td></tr>
-                    <tr><td>Opleiding 1</td></tr>
-                    <tr><td>Opleiding 1</td></tr>
-                    <tr><td>Opleiding 1</td></tr>
+                    <c:forEach items="${lijstOpleidingen}" var="opleiding">
+                    <tr><td>${opleiding.naam}</td></tr>
+                    </c:forEach>
                 </table>
             </div>
             
