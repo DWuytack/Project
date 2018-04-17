@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 
 public class SemesterDAO {
-    public ArrayList<Semester> semesterLaden() {
+    public ArrayList<Semester> semestersLaden() {
          
         ArrayList<Semester> semesters = new ArrayList<>();
         Connection currentCon = null;

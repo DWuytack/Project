@@ -140,6 +140,7 @@ public class MenuServlet extends HttpServlet {
                 case "Overzicht scores":
 
                     //laden schooljaren uit database en in het geheugen plaatsen
+                    
                     //laden semester uit database en in het geheugen plaatsen
                     //laden modules uit database en in het geheugen plaatsen
                     response.sendRedirect("Score.jsp");
