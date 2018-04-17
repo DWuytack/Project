@@ -52,17 +52,16 @@
                     <td width="10px"></td>
 
                     <td> <select name="Schooljaar">
-                            <c:forEach items="${schooljaren}" var="schooljaar">
-                                
-                                <option value="schooljaar"> ${schooljaar.schooljaar} </option>
-                                
+                            <c:forEach items="${schooljaren}" var="schooljaar">                  
+                                <option value="schooljaar"> ${schooljaar.schooljaar} </option>                     
                             </c:forEach>
                         </select> </td>
                     <td width="10px"></td>
 
                     <td> <select name="Semester">
-                            <option value="Eerste Semester">Eerste Semester</option>
-                            <option value="Tweede Semester">Tweede Semester</option> 
+                            <c:forEach items="${semester}" var="semester">                  
+                                <option value="semester"> ${semester.semester} </option>                     
+                            </c:forEach>
                         </select> </td>
 
                     <td width="10px"></td>
