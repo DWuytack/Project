@@ -61,37 +61,57 @@
                     <br><br>
                     <table>
                         <tr>
-                            <td> <select name="Schooljaar">
-                                    <c:forEach var="auctionDO" items="${auctionDOListServlet}">
-                                    <option value="2019-2020">2019-2020</option>
-                                    <option value="2020-2021">2020-2021</option>
-                                    <option value="2021-2022">2021-2022</option>
-                                    <option value="2022-2023">2022-2023</option>
-                                    <option value="2023-2024">2023-2024</option>
-                                    <option value="2024-2025">2024-2025</option>
-                                    <option value="2025-2026">2025-2026</option>
-                                    <option value="2026-2027">2026-2027</option>
-                                    <option value="2027-2028">2027-2028</option>
-                                    <option value="2028-2029">2028-2029</option>
-                                    <option value="2029-2030">2029-2030</option>
-                                </select> </td>
+                           <td>
 
-                            <td><select name="Opleiding">
-                                   <c:forEach var="lijstOpleiding" items="${lijstOpleiding}">
-                                       
-                                       </c:forEach>
-                                </select> </TD>
+                                <select name="Schooljaar">
 
-                            <td>  <select name="Module">
-                                    <c:forEach var="lijstModules" items="${lijstModules}">
-                                        
-                                        </c:forEach>
-                                </select> </td>
+                                    <c:forEach items="${schooljaren}" var="schooljaar">
 
-                            <td> <select name="Semester">
+                                        <option value="${schooljaar.schooljaar}" </option>
+
+                                    </c:forEach>                                 
+
+                                </select>
+
+                            </td>
+
+ 
+
+                            <td>
+
+                                <select name="Opleiding">
+
+                                    <option value="Banketbakker">Banketbakker</option>                                  
+
+                                </select>
+
+                            </td>
+
+ 
+
+                            <td>
+
+                                <select name="Module">
+
+                                    <option value="Banket AA">Banket AA</option>
+
+                                </select>
+
+                            </td>
+
+ 
+
+                            <td>
+
+                                <select name="Semester">
+
                                     <option value="Eerste Semester">Eerste Semester</option>
-                                    <option value="Tweede Semester">Tweede Semester</option> 
-                                </select> </td>
+
+                                    <option value="Tweede Semester">Tweede Semester</option>
+
+                                </select>
+
+                            </td>
                         </tr>
                     </table>
                     <br> <br>
