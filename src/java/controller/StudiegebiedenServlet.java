@@ -5,10 +5,11 @@
  */
 package controller;
 
+
 /**
  *
  * @author CURSIST
  */
 public class StudiegebiedenServlet {
-    
+
 }

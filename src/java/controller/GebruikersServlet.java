@@ -139,7 +139,7 @@ public class GebruikersServlet extends HttpServlet {
             switch (actie) {
                 case "Zoeken":
                     session.setAttribute("zoekterm", zoekterm);
-                    gebruikers = gebruikerDAO.gebruikersZoeken(zoekterm);
+                    gebruikers = gebruikerDAO.gebruikersZoeken(zoekterm,bladz);
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;

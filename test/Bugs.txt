@@ -1,25 +1,22 @@
-Doelstellingen en Gebruikers: Zoeken leeg laten toont alle data uit die tabel.
-Doelstellingen: Klikken op een checkbox van kerndoelstelling maakt het onzichtbaar.
-
 GebruikersOverzicht: als je op edit klikt, en dan sorteert staat de persoon die je edit als eerste of laatste en niet op de juiste plaats
-
-GebruikersOverzicht: klikken op volgende/vorige/laatste/eerste toont alle mensen
 GebruikersOverzicht: indien je probeert een nieuwe gebruiker toe te voegen kan je de rol niet kiezen
 GebruikersOverzicht: als je alle 30 gebruikers ziet en een extra probeert toe te voegen is de knop "toevoegen" te ver weg
 Gebruikersoverzicht: bij edit staat de rol altijd op admin en niet op de rol van de persoon
 Gebruikersoverzicht: als je een op edit klikt en verwisseld van persoon onthoud het de geboortedatum van de personen, indien je dan klikt op vorige/volgende pagina verandert de geboortedatum van de persoon dat je edit.
 Gebruikersoverzicht: sorteren op geboortedatum word gedaan op dag en niet op jaar.
 Gebruikersoverzicht: als je op edit klikt word je terug naar de eerste X aantal mensen, als je iemand van de 2de/3de pagina wilt editten moet je terug naar pagine 2/3
-Gebruikersoverzicht: zoekveld moet leeg zijn na je volgende pagina klikt
+Gebruikersoverzicht: zoekveld moet leeg zijn na je volgende pagina klikt.
+Gebruikersoverzicht: als je op de eerste pagina staat en klikt op de eerste pagina knop verander je de mensen op de eerste pagina (het sorteert op rol)
 
-Modules: toont alle modules en zegt 8/55
+Modules: toont alle modules en zegt 8/55.
 
-Doelstelling: proberen te editten toont niets meer, indien je terug naar de pagina gaat toont hij de edit versie maar toont geen gele lijn
-Doelstelling: volgende pagina knop werkt niet goed
+Doelstelling: proberen te editten toont niets meer, indien je terug naar de pagina gaat toont hij de edit versie maar toont geen gele lijn.
+Doelstelling: volgende pagina knop werkt niet goed.
+Doelstellingen: Klikken op een checkbox van kerndoelstelling maakt het onzichtbaar. doestellingen is niet meer belangrijk.
 
 kijken of alle atributen verwijderd worden uit de sessie
 
-Type Score: kan geen waarde invullen
+Type Score: kan geen waarde invullen.
 
 
 
@@ -45,4 +42,7 @@ Type Score: kan geen waarde invullen
 
  //opemrking aaron: kan het zijn dat het cpu verbruik zo hoog is omdat we chrome gebruiken?
 
-    
+*** probleem 2 ***
+
+    #vaststelling
+    als je een value aanpast met java (zoals zoekterm) word deze waarde op de pagina niet aangepast, enig idee hoe we dit oplossen?

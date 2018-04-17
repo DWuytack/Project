@@ -144,5 +144,60 @@ public class OpleidingDAO {
         return opleidingen;
     }
     
-    
+    public ArrayList<Opleiding> opleidingenLaden(int studiegebiedID) {
+         
+        ArrayList<Opleiding> opleidingen = new ArrayList<>();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "SELECT studiegebieden_opleidingen.opleidingID, opleidingen.naam FROM studiegebieden_opleidingen Inner join opleidingen on studiegebieden_opleidingen.opleidingID = opleidingen.opleidingID Where studiegebiedID = ? ";
+            ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, studiegebiedID);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Opleiding opleiding = new Opleiding();
+                opleiding.setopleidingID(rs.getInt("opleidingID"));
+                opleiding.setnaam(rs.getString("naam"));
+              
+                
+                opleidingen.add(opleiding);
+            }
+        } catch (SQLException e) {
+            
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {  
+                }
+                rs = null;
+            }
+            
+             if (ps != null) {
+                try {
+                    ps.close();
+                } catch (Exception e) {
+                    
+                }
+
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+                    
+                }
+
+                currentCon = null;
+            }
+            
+        }
+        return opleidingen;
+    }
 }

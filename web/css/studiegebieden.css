@@ -7,6 +7,14 @@ and open the template in the editor.
     Created on : Apr 16, 2018, 11:11:56 PM
     Author     : EwoutPhlips
 */
+.btn {
+    border: none;
+    background-color: inherit;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
 
 .flex-container {
   display: flex;
