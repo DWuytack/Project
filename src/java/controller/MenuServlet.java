@@ -16,6 +16,8 @@ import model.Module;
 import model.ModuleDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
+import model.Schooljaar;
+import model.SchooljarenDAO;
 import model.Score;
 import model.ScoreDAO;
 import model.Taak;
@@ -42,11 +44,11 @@ public class MenuServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
-                 
+
             String actie = request.getParameter("actie");
             HttpSession session = request.getSession(true);
             session.setAttribute("zoekterm", null);
-            
+
             switch (actie) {
 
                 case "Overzicht cursisten":
@@ -59,7 +61,7 @@ public class MenuServlet extends HttpServlet {
 
                     response.sendRedirect("CursistenOverzicht.jsp");
                     break;
-                    
+
                 case "Overzicht gebruikers":
 
                     //laden van gebruikers uit database
@@ -81,7 +83,7 @@ public class MenuServlet extends HttpServlet {
                 case "Overzicht doelstellingen":
 
                     DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
-                    ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(1,1);
+                    ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(1, 1);
 
                     int aantalDoelstellingen = doelstellingDAO.geefAantalDoelstellingen();
                     session.setAttribute("aantalRecords", aantalDoelstellingen);
@@ -143,9 +145,17 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("Score.jsp");
                     break;
                 case "Evaluatieformulieren":
-                    doelstellingDAO = new DoelstellingDAO();
-                    doelstellingen = doelstellingDAO.doelstellingenLaden(1);
-                    session.setAttribute("doelstellingen", doelstellingen);
+
+                    //laden schooljaren
+                    SchooljarenDAO schooljaarDAO = new SchooljarenDAO();
+                    ArrayList<Schooljaar> schooljaren = schooljaarDAO.schooljarenLaden();
+                    session.setAttribute("schooljaren", schooljaren);
+
+                    //laden studiegebieden
+                    // laden opleidingen
+                    // laden modules
+                    // laden cursisten
+                    // laden lesnr
                     response.sendRedirect("EvaluatieFormulier.jsp");
                     break;
                 case "Rapport":
