@@ -80,63 +80,6 @@ public class MenuServlet extends HttpServlet {
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
 
-                case "Overzicht doelstellingen":
-
-                    DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
-                    ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(1, 1);
-
-                    int aantalDoelstellingen = doelstellingDAO.geefAantalDoelstellingen();
-                    session.setAttribute("aantalRecords", aantalDoelstellingen);
-                    session.setAttribute("bladzijde", 1);
-                    int getoondeDoelstellingen = Instellingen.AANTAL_RECORDS_PER_PAGE;
-                    if (getoondeDoelstellingen > aantalDoelstellingen) {
-                        getoondeDoelstellingen = aantalDoelstellingen;
-                    }
-                    session.setAttribute("getoondeDoelstellingen", getoondeDoelstellingen);
-                    session.setAttribute("lijstDoelstellingen", doelstellingen);
-                    response.sendRedirect("DoelstellingenOverzicht.jsp");
-                    break;
-
-                case "Overzicht taken":
-                    TaakDAO taakDAO = new TaakDAO();
-                    ArrayList<Taak> taken = taakDAO.takenLaden(1);
-
-                    int aantalTaken = taakDAO.geefAantalTaken();
-                    session.setAttribute("aantalRecords", aantalTaken);
-                    session.setAttribute("bladzijde", 1);
-                    int getoondeTaken = Instellingen.AANTAL_RECORDS_PER_PAGE;
-                    if (getoondeTaken > aantalTaken) {
-                        getoondeTaken = aantalTaken;
-                    }
-                    session.setAttribute("getoondeTaken", getoondeTaken);
-                    session.setAttribute("lijstTaken", taken);
-                    response.sendRedirect("Taken.jsp");
-                    break;
-
-                case "Overzicht opleidingen":
-                    OpleidingDAO opleidingDAO = new OpleidingDAO();
-                    ArrayList<Opleiding> opleidingen = opleidingDAO.opleidingenLaden();
-                    session.setAttribute("lijstOpleidingen", opleidingen);
-                    response.sendRedirect("Opleiding.jsp");
-                    break;
-                case "Overzicht modules":
-
-                    ModuleDAO moduleDAO = new ModuleDAO();
-                    ArrayList<Module> modules = moduleDAO.modulesLaden(1);
-
-                    int aantalModules = moduleDAO.geefAantalModules();
-                    session.setAttribute("aantalRecords", aantalModules);
-                    session.setAttribute("bladzijde", 1);
-                    int getoondeModules = Instellingen.AANTAL_RECORDS_PER_PAGE;
-                    if (getoondeModules > aantalModules) {
-                        getoondeModules = aantalModules;
-                    }
-                    session.setAttribute("getoondeModules", getoondeModules);
-
-                    session.setAttribute("lijstModules", modules);
-                    response.sendRedirect("Module.jsp");
-                    break;
-
                 case "Overzicht scores":
 
                     //laden schooljaren uit database en in het geheugen plaatsen
