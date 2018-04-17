@@ -45,4 +45,7 @@ Type Score: kan geen waarde invullen
 
  //opemrking aaron: kan het zijn dat het cpu verbruik zo hoog is omdat we chrome gebruiken?
 
-    
+*** probleem 2 ***
+
+    #vaststelling
+    als je een value aanpast met java (zoals zoekterm) word deze waarde op de pagina niet aangepast, enig idee hoe we dit oplossen?

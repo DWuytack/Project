@@ -92,7 +92,7 @@ public class GebruikerDAO {
                 gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
                 gebruiker.setEmail(rs.getString("email"));
                 cursistenLijst.add(gebruiker);
-                
+
             }
         } catch (SQLException e) {
 
@@ -193,7 +193,7 @@ public class GebruikerDAO {
 
         } finally {
             sluitVariabelen(rs, null, ps, currentCon);
-            
+
         }
     }
 
@@ -232,7 +232,7 @@ public class GebruikerDAO {
             ps.setDate(6, gebruiker.getGeboorteDatum());
             ps.setString(5, gebruiker.getEmail());
             ps.setInt(7, gebruikerID);
-           
+
             ps.executeUpdate();
 
         } catch (SQLException ex) {
@@ -242,14 +242,17 @@ public class GebruikerDAO {
         }
 
     }
-    
-     public ArrayList<Gebruiker> gebruikersZoeken(String zoekterm) {
+
+    public ArrayList<Gebruiker> gebruikersZoeken(String zoekterm, int bladz) {
 
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+        int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE - 1);
+        int recordEinde = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+        int recordTeller = 0;
+
         try {
             currentCon = ConnectionManager.getConnection();
             String sql = "SELECT * FROM Gebruiker INNER JOIN Rol on Gebruiker.rolID = Rol.rolID WHERE Gebruiker.voornaam LIKE ? OR Gebruiker.achternaam LIKE ?";
@@ -257,19 +260,23 @@ public class GebruikerDAO {
             ps = currentCon.prepareStatement(sql);
             ps.setString(1, "%" + zoekterm + "%");
             ps.setString(2, "%" + zoekterm + "%");
-            
+
             rs = ps.executeQuery();
-            
+
             while (rs.next()) {
-                 Gebruiker gebruiker = new Gebruiker();
+                recordTeller++;
+
+                if (recordTeller >= recordStart && recordTeller <= recordEinde) {
+                    Gebruiker gebruiker = new Gebruiker();
                     gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
-                    gebruiker.setRol(rs.getString("rol")); 
                     gebruiker.setVoorNaam(rs.getString("voornaam"));
                     gebruiker.setAchternaam(rs.getString("achternaam"));
+                    gebruiker.setLogin(rs.getString("login"));
+                    gebruiker.setRol(rs.getString("rol"));
                     gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
                     gebruiker.setEmail(rs.getString("email"));
-                    gebruiker.setLogin(rs.getString("login"));
                     gebruikers.add(gebruiker);
+                }
             }
         } catch (Exception e) {
         } finally {
@@ -277,7 +284,7 @@ public class GebruikerDAO {
         }
         return gebruikers;
     }
-     
+
     /* Sluit enkele variabelen en zet ze op null */
     private void sluitVariabelen(ResultSet rs, Statement statement, PreparedStatement ps, Connection currentCon) {
         if (rs != null) {
@@ -320,8 +327,8 @@ public class GebruikerDAO {
             } catch (Exception e) {
             }
         }
-    } 
-     
+    }
+
     public void gebruikerVerwijderen(int gebruikerID) {
 
         Connection currentCon = null;
