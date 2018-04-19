@@ -75,39 +75,57 @@
 
                             </td>
 
- 
-
                             <td>
 
                                 <select name="Opleiding">
 
-                                    <option value="Banketbakker">Banketbakker</option>                                  
+                                    <c:forEach items="${opleidingen}" var="opleiding">
+
+                                        <option value="${opleiding.opleiding}" </option>
+
+                                    </c:forEach>                                      
 
                                 </select>
 
                             </td>
-
- 
 
                             <td>
 
                                 <select name="Module">
 
-                                    <option value="Banket AA">Banket AA</option>
+                                    <c:forEach items="${modules}" var="module">
+
+                                        <option value="${module.module}" </option>
+
+                                    </c:forEach> 
 
                                 </select>
 
                             </td>
 
- 
-
                             <td>
 
                                 <select name="Semester">
 
-                                    <option value="Eerste Semester">Eerste Semester</option>
+                                    <c:forEach items="${semesters}" var="semester">
 
-                                    <option value="Tweede Semester">Tweede Semester</option>
+                                        <option value="${semester.semester}" </option>
+
+                                    </c:forEach> 
+
+                                </select>
+
+                            </td>
+                            
+                            <td>
+
+                                <select name="studiegebied">
+
+                                    <c:forEach items="${studiegebieden}" var="studiegebied">
+
+                                        <option value="${studiegebied.studiegebied}" </option>
+
+                                    </c:forEach> 
 
                                 </select>
 

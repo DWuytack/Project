@@ -339,4 +339,60 @@ public class ModuleDAO {
         
     }
 
+    public ArrayList<Module> modulesLaden() {
+         ArrayList<Module> modules = new ArrayList<>();
+        Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "SELECT * FROM Modules;";
+            statement = currentCon.createStatement();
+            rs = statement.executeQuery(sql);
+            
+            while (rs.next()) {
+                Module module = new Module();
+                module.setmoduleID(rs.getInt("moduleID"));
+                module.setopleidingID(rs.getInt("opleidingID"));
+                module.setnaam(rs.getString("naam"));
+              
+                
+                modules.add(module);
+            }
+        } catch (SQLException e) {
+            
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {  
+                }
+                rs = null;
+            }
+            
+             if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception e) {
+                    
+                }
+
+                statement = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+                    
+                }
+
+                currentCon = null;
+            }
+            
+        }
+        return modules;
+    }
+
 }
