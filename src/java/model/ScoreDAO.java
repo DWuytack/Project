@@ -49,8 +49,8 @@ public class ScoreDAO {
         Connection currentCon = null;
         PreparedStatement ps = null;
 
-        String sql = "UPDATE Beoordelingssoorten SET Beoordelingssoorten.naam = ? , Beoordelingssoorten.beschrijving = ? ,"
-                    + " Beoordelingssoorten.waarde = ? WHERE Beoordelingssoorten.beoordelingssoortID = ?";
+        String sql = "UPDATE beoordelingssoorten SET beoordelingssoorten.naam = ? , beoordelingssoorten.beschrijving = ? ,"
+                    + " beoordelingssoorten.waarde = ? WHERE beoordelingssoorten.beoordelingssoortID = ?";
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -75,7 +75,7 @@ public class ScoreDAO {
         Connection currentCon = null;
         PreparedStatement ps = null;
 
-        String sql = "DELETE FROM Beoordelingssoorten WHERE Beoordelingssoorten.beoordelingssoortID = ?";
+        String sql = "DELETE FROM beoordelingssoorten WHERE beoordelingssoorten.beoordelingssoortID = ?";
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -97,7 +97,7 @@ public class ScoreDAO {
         Connection currentCon = null;        
         PreparedStatement ps = null;
 
-        String sql = "INSERT INTO Beoordelingssoorten(naam, beschrijving, waarde) VALUES(?,?,?)";
+        String sql = "INSERT INTO beoordelingssoorten(naam, beschrijving, waarde) VALUES(?,?,?)";
 
         try {
             currentCon = ConnectionManager.getConnection();

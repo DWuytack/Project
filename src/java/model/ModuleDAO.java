@@ -24,7 +24,7 @@ public class ModuleDAO {
         Connection connectie = null;
 
         //insertquery
-        String sql = "INSERT INTO Modules "
+        String sql = "INSERT INTO modules "
                 + "(moduleID,opleidingID,naam) VALUES (?,?,?)";
 
         //opslaan in database
@@ -49,7 +49,7 @@ public class ModuleDAO {
         connectie = ConnectionManager.getConnection();
 
         //insertquery
-        String sql = "UPDATE Modules "
+        String sql = "UPDATE modules "
                 + " set naam =  " + module.getnaam() + ", opleidingID= "
                 + module.getopleidingID() + " where moduleID= "
                 + module.getmoduleID();
@@ -73,7 +73,7 @@ public class ModuleDAO {
         Connection connectie = null;
 
         //insertquery
-        String sql = "DELETE FROM Modules "
+        String sql = "DELETE FROM modules "
                 + " where moduleID= " + module.getmoduleID();
 
         //opslaan in database
@@ -98,7 +98,7 @@ public class ModuleDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Modules;";
+            String sql = "SELECT * FROM modules;";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
             
@@ -155,7 +155,7 @@ public class ModuleDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "select * from Modules";
+            String sql = "select * from modules";
             statement = currentCon.createStatement();
 
             rs = statement.executeQuery(sql);

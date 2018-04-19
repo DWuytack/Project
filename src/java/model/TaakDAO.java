@@ -24,7 +24,7 @@ public class TaakDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Taken";
+            String sql = "SELECT * FROM taken";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
 
@@ -79,7 +79,7 @@ public class TaakDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "select COUNT(*) from Taken";
+            String sql = "select COUNT(*) from taken";
             statement = currentCon.createStatement();
 
             rs = statement.executeQuery(sql);
@@ -127,7 +127,7 @@ public class TaakDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "INSERT INTO Taken (naam,beschrijving) VALUES (?,?)";
+        String sql = "INSERT INTO taken (naam,beschrijving) VALUES (?,?)";
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -175,7 +175,7 @@ public class TaakDAO {
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        String sql = "UPDATE Taken(taakID, naam, beschrijving) VALUES(?,?,?)";
+        String sql = "UPDATE taken(taakID, naam, beschrijving) VALUES(?,?,?)";
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -228,7 +228,7 @@ public class TaakDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Taken  WHERE Taken.naam LIKE ? OR Taken.beschrijving LIKE ?";
+            String sql = "SELECT * FROM taken  WHERE taken.naam LIKE ? OR taken.beschrijving LIKE ?";
 
             ps = currentCon.prepareStatement(sql);
             ps.setString(1, "%" + zoekterm + "%");
@@ -299,7 +299,7 @@ public class TaakDAO {
         PreparedStatement ps = null;
 
         String sql
-                = "DELETE from Taken where Taken.taakID = ?";
+                = "DELETE from taken where taken.taakID = ?";
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
