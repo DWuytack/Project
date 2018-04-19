@@ -26,17 +26,15 @@
         <%@include file="Bovenbalk.jsp" %>
         
         <section id="pagename">
-            <h2> ScoreOverzicht </h2> 
-        </section>
-        
+            <h2> Score overzicht </h2> 
+        </section>       
         <section>
             <form action="ScoreServlet">
                 <br>
                 <div class="table-container">
                     <div class="table-nav-header">
-
-                        <table >
-                            <tr >
+                        <table>
+                            <tr>
                                 <td style="background-color: rgba(0,0,0,0);" width="5%"> <img src='images/searchUser.png' > </td>
 
                                 <!-- béta -->
@@ -48,13 +46,8 @@
                                        ">search</i>
                                 </div>
                                 -->
-                                <td> <input type="text" name="zoekterm" value="" size="15"> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td  align="right"> <center> Totaal aantal gebruikers: <br><br> ${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords} </center></td>
-
+                                <td> <input type="text" name="zoekterm" value="" size="10"> </td>
+                                </td>
                             <tr>
                         </table>
                     </div>
@@ -62,73 +55,43 @@
                     <table>
                         <tr>
                            <td>
-
                                 <select name="Schooljaar">
-
                                     <c:forEach items="${schooljaren}" var="schooljaar">
-
-                                        <option value="${schooljaar.schooljaar}" </option>
-
+                                        <option value="schooljaar"> ${schooljaar.schooljaar} </option>   
                                     </c:forEach>                                 
-
                                 </select>
-
                             </td>
-
+                            <td width="10px"></td>
                             <td>
-
                                 <select name="Opleiding">
-
                                     <c:forEach items="${opleidingen}" var="opleiding">
-
-                                        <option value="${opleiding.opleiding}" </option>
-
+                                        <option value="opleiding"> ${opleiding.naam} </option>  
                                     </c:forEach>                                      
-
                                 </select>
-
                             </td>
-
+                            <td width="10px"></td>
                             <td>
-
                                 <select name="Module">
-
                                     <c:forEach items="${modules}" var="module">
-
-                                        <option value="${module.module}" </option>
-
+                                       <option value="module"> ${module.naam} </option> 
                                     </c:forEach> 
-
                                 </select>
-
                             </td>
-
+                            <td width="10px"></td>
                             <td>
-
                                 <select name="Semester">
-
                                     <c:forEach items="${semesters}" var="semester">
-
-                                        <option value="${semester.semester}" </option>
-
+                                        <option value="semester"> ${semester.semester} </option> 
                                     </c:forEach> 
-
                                 </select>
-
                             </td>
-                            
+                            <td width="10px"></td>
                             <td>
-
                                 <select name="studiegebied">
-
                                     <c:forEach items="${studiegebieden}" var="studiegebied">
-
-                                        <option value="${studiegebied.studiegebied}" </option>
-
+                                        <option value="studiegebied"> ${studiegebied.naam} </option> 
                                     </c:forEach> 
-
                                 </select>
-
                             </td>
                         </tr>
                     </table>
@@ -207,12 +170,8 @@
                                 </div>
                             </td> 
                         </tr>
-                        <tr> 
-                            <td colspan="3" style="text-align:center;">   
-                                <input type="image"  name="score toevoegen" value="score toevoegen" src='images/adduser.png'> 
-                            </td> 
-                        </tr>
                     </table>
+                </div>
             </form>    
         </section>
     </body>

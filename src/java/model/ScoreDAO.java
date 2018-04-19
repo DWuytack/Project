@@ -22,7 +22,7 @@ public class ScoreDAO {
         
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT beoordelingssoortID, naam, beschrijving, waarde FROM Beoordelingssoorten";
+            String sql = "SELECT beoordelingssoortID, naam, beschrijving, waarde FROM beoordelingssoorten";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
 
@@ -114,17 +114,13 @@ public class ScoreDAO {
             sluitVariabelen(null, null, ps, currentCon);
         }
     }
-
-    public void schooljarenLaden(Gebruiker gebruiker) {
-        throw new UnsupportedOperationException("Schrijf code.");
-    }
-    
+ 
     public void scoreAanmaken(Gebruiker gebruiker) {
-        throw new UnsupportedOperationException("Schrijf code.");
+        
     }
 
     public void scoreVerwijderen(Gebruiker gebruiker) {
-        throw new UnsupportedOperationException("Schrijf code.");
+        
     }
     
     /* Sluit enkele variabelen en zet ze op null */

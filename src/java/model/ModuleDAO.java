@@ -347,7 +347,7 @@ public class ModuleDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Modules;";
+            String sql = "SELECT * FROM modules;";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
             
