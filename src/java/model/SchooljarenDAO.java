@@ -26,7 +26,7 @@ public class SchooljarenDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Schooljaren;";
+            String sql = "SELECT * FROM schooljaren;";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
             

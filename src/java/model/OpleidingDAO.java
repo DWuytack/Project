@@ -24,7 +24,7 @@ public class OpleidingDAO {
         Connection connectie = null;
 
         //insertquery
-        String sql = "INSERT INTO Opleidingen "
+        String sql = "INSERT INTO opleidingen "
                 + "(opleidingID,naam) VALUES (?,?)";
 
         //opslaan in database
@@ -48,7 +48,7 @@ public class OpleidingDAO {
         connectie = ConnectionManager.getConnection();
 
         //insertquery
-        String sql = "UPDATE Opleidingen "
+        String sql = "UPDATE opleidingen "
                 + " set naam =  " + opleiding.getnaam() 
                 + " where opleidingID= "
                 + opleiding.getopleidingID();
@@ -72,7 +72,7 @@ public class OpleidingDAO {
         Connection connectie = null;
 
         //insertquery
-        String sql = "DELETE FROM Opleidingen "
+        String sql = "DELETE FROM opleidingen "
                 + " where opleidingID= " + opleiding.getopleidingID();
 
         //opslaan in database
@@ -97,7 +97,7 @@ public class OpleidingDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Opleidingen;";
+            String sql = "SELECT * FROM opleidingen;";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
             

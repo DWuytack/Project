@@ -23,9 +23,9 @@ public class DoelstellingDAO {
         ResultSet rs = null;
 
         try {
-            String sql = "select * from Doelstellingen\n"
-                    + " inner join Modules on Doelstellingen.moduleID=Modules.moduleID\n"
-                    + " where Doelstellingen.moduleID=?";
+            String sql = "select * from doelstellingen\n"
+                    + " inner join Modules on doelstellingen.moduleID=modules.moduleID\n"
+                    + " where doelstellingen.moduleID=?";
             
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
@@ -59,7 +59,7 @@ public class DoelstellingDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Doelstellingen";
+            String sql = "SELECT * FROM doelstellingen";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
             int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE - 1);
@@ -176,7 +176,7 @@ public class DoelstellingDAO {
         PreparedStatement ps = null;
 
         String sql
-                = "DELETE FROM Doelstellingen WHERE Doelstellingen.doelstellingID = ?";
+                = "DELETE FROM doelstellingen WHERE Doelstellingen.doelstellingID = ?";
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
@@ -200,7 +200,7 @@ public class DoelstellingDAO {
         
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM Doelstellingen WHERE Doelstellingen.naam LIKE ? OR Doelstellingen.beschrijving LIKE ?";
+            String sql = "SELECT * FROM doelstellingen WHERE doelstellingen.naam LIKE ? OR doelstellingen.beschrijving LIKE ?";
 
             ps = currentCon.prepareStatement(sql);
             ps.setString(1, "%" + zoekterm + "%");
