@@ -56,6 +56,7 @@
                         <tr>
                            <td>
                                 <select name="Schooljaar">
+                                    <option value="schooljaar" selected disabled> Kies schooljaar... </option>
                                     <c:forEach items="${schooljaren}" var="schooljaar">
                                         <option value="schooljaar"> ${schooljaar.schooljaar} </option>   
                                     </c:forEach>                                 
@@ -64,6 +65,7 @@
                             <td width="10px"></td>
                             <td>
                                 <select name="Opleiding">
+                                    <option   value="opleiding" selected disabled> Kies opleiding... </option>
                                     <c:forEach items="${opleidingen}" var="opleiding">
                                         <option value="opleiding"> ${opleiding.naam} </option>  
                                     </c:forEach>                                      
@@ -71,7 +73,8 @@
                             </td>
                             <td width="10px"></td>
                             <td>
-                                <select name="Module">
+                                <select name="Module" value="module" selected disabled>
+                                    <option   value="module" selected disabled> Kies module... </option>
                                     <c:forEach items="${modules}" var="module">
                                        <option value="module"> ${module.naam} </option> 
                                     </c:forEach> 
@@ -79,7 +82,8 @@
                             </td>
                             <td width="10px"></td>
                             <td>
-                                <select name="Semester">
+                                <select name="Semester" >
+                                    <option   value="semester" selected disabled> Kies semester... </option>
                                     <c:forEach items="${semesters}" var="semester">
                                         <option value="semester"> ${semester.semester} </option> 
                                     </c:forEach> 
@@ -88,6 +92,7 @@
                             <td width="10px"></td>
                             <td>
                                 <select name="studiegebied">
+                                    <option   value="studiegebied" selected disabled> Kies studiegebied... </option>
                                     <c:forEach items="${studiegebieden}" var="studiegebied">
                                         <option value="studiegebied"> ${studiegebied.naam} </option> 
                                     </c:forEach> 
@@ -154,7 +159,6 @@
 
                                 </tr>
                             </c:forEach>
-
 
                         </tbody>
                     </table>
