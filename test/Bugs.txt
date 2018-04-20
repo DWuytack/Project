@@ -19,6 +19,8 @@ kijken of alle atributen verwijderd worden uit de sessie
 Type Score: kan geen waarde invullen.
 
 
+https://www.chromestatus.com/feature/5636954674692096
+
 
 /**
 * OPMERKINGEN 
