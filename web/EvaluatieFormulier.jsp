@@ -28,7 +28,7 @@
             <hr>
 
             <table class="doelstelling1" >
-              
+
                 <tr>
                     <td width="10px"></td>
 
@@ -37,11 +37,11 @@
                     <td width="10px"></td>
 
                     <td> <select name="Schooljaar" >
-                             <option value="schooljaar" selected disabled> Schooljaar... </option>
+                            <option value="schooljaar" selected disabled> Schooljaar... </option>
                             <c:forEach items="${schooljaren}" var="schooljaar">                  
                                 <option value="schooljaar"> ${schooljaar.schooljaar} </option>                     
                             </c:forEach>
-                                 <option value="schooljaar" > Voeg schooljaar toe... </option>
+                            <option value="schooljaar" > Voeg schooljaar toe... </option>
                         </select> </td>
                     <td width="10px"></td>
 
@@ -50,28 +50,28 @@
                             <c:forEach items="${semesters}" var="semester">                  
                                 <option value="semester"> ${semester.semester} </option>                     
                             </c:forEach>
-                          
+
                         </select> </td>
 
                     <td width="10px"></td>
 
-                     <td><select name="Studiegebied" style="max-width:130px;">
-                             <option value="studiegebied" selected disabled> Studiegebied... </option>
+                    <td><select name="Studiegebied" style="max-width:130px;">
+                            <option value="studiegebied" selected disabled> Studiegebied... </option>
                             <c:forEach items="${studiegebieden}" var="studiegebied">                  
                                 <option value="studiegebied"> ${studiegebied.naam} </option>                     
                             </c:forEach>
-                         <option value="studiegebied" > Voeg studiegebied toe... </option>
-                 
+                            <option value="studiegebied" > Voeg studiegebied toe... </option>
+
                         </select> </td>
 
                     <td width="10px"></td>
-                    
+
                     <td><select name="Opleiding" style="max-width:130px;">
                             <option value="opleiding" selected disabled> Opleiding... </option>
                             <c:forEach items="${opleidingen}" var="opleiding">                  
                                 <option value="opleiding"> ${opleiding.naam} </option>                     
                             </c:forEach>
-                                 <option value="opleiding" > Voeg opleiding toe... </option>
+                            <option value="opleiding" > Voeg opleiding toe... </option>
                         </select> </TD>
 
                     <td width="10px"></td>
@@ -81,22 +81,22 @@
                             <c:forEach items="${modules}" var="module">                  
                                 <option value="module"> ${module.naam} </option>                     
                             </c:forEach>
-                                 <option value="module" > Voeg module toe... </option>
+                            <option value="module" > Voeg module toe... </option>
                         </select> </td>
 
                     <td width="10px"></td>
 
                     <td>  <select name="cursist" style="max-width:100px;">
                             <option value="cursist" selected disabled> Cursist... </option>
-                             <option value="cursist" > Voeg cursist toe... </option>
+                            <option value="cursist" > Voeg cursist toe... </option>
                         </select> </td>
-                        
+
 
                     <td width="10px"></td>
 
                     <td>  <select name="les">
                             <option value="les" selected disabled> Lesnr... </option>
-                             <option value="les" > Voeg lesnr toe... </option>
+                            <option value="les" > Voeg lesnr toe... </option>
                         </select> </td>
 
                     <td width="10px"></td>
@@ -120,41 +120,40 @@
                 <tbody>
 
 
-                   
 
-                <tr class="formrow">
-                    <td><select name="cursist" style="max-width:100px;">
-                            <c:forEach items="${doelstellingen}" var="doelstelling">
-                                <option value="Banket AA">${doelstelling.naam}</option>
-                            </c:forEach>
-                            <option value="Banket AA">Maak een nieuwe doelstelling aan...</option>
 
-                        </select></td>
+                    <tr class="formrow">
+                        <td><select name="cursist" style="max-width:300px;">
+                                <option value="doelstelling" selected disabled> Kies doelstelling... </option>
+                                <c:forEach items="${doelstellingen}" var="doelstelling">
+                                    <option value="doelstelling">${doelstelling.naam}</option>
+                                </c:forEach>
+                                <option value="doelstelling">Maak een nieuwe doelstelling aan...</option>
 
-                    <td></td>
-                    <td><select name="cursist" style="max-width:100px;">
-                            <option value="Banket AA">Taak 1</option>
-                            <option value="Banket AA">Taak 2</option>
-                            <option value="Banket AA">Taak 3</option>
-                            <option value="Banket AA">Taak 4</option>
-                            <option value="Banket AA">Maak een nieuwe taak aan...</option>
-                        </select></td></td>
-                    <td class="center"><select name="cursist" value="" style="max-width:100px;">
+                            </select></td>
 
-                            <option value="Banket AA">A+</option>
-                            <option value="Banket AA">A</option>
-                            <option value="Banket AA">B+</option>
-                            <option value="Banket AA">B</option>
-                            <option value="Banket AA">C+</option>
-                            <option value="Banket AA">C</option>
-                            <option value="Banket AA">D+</option>
-                            <option value="Banket AA">D</option>
+                        <td></td>
+                        <td><select name="taak" style="max-width:300px;">
+                                <option value="taak" selected disabled> Kies taak... </option>
+                                <c:forEach items="${taken}" var="taak">
+                                    <option value="taak">${taak.naam}</option>
+                                </c:forEach>
+                                <option value="taak">Maak een nieuwe taak aan...</option>
 
-                        </select></td>
-                    <td></td>
-                    <td><textarea name="textarea"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
-                </tr>
+                            </select></td></td>
+                        <td class="center">
+                            <select name="score" value="">
+                                <option value="score" selected disabled> Kies score... </option>
+                                <c:forEach items="${scores}" var="score">
+                                    <option value="score">${score.naam}</option>
+                                </c:forEach>
+
+
+                            </select></td>
+                        <td></td>
+                        <td><textarea name="textarea"
+                                      rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    </tr>
             </table>
             <br>
 
