@@ -135,7 +135,7 @@ public class MenuServlet extends HttpServlet {
                     //laden studiegebieden
                     studiegebiedDAO = new StudiegebiedDAO();
                     studiegebieden = studiegebiedDAO.studiegebiedenLaden();
-                    session.setAttribute("lijstStudiegebieden", studiegebieden);
+                    session.setAttribute("studiegebieden", studiegebieden);
                     
                     // laden opleidingen
                     opleidingDAO = new OpleidingDAO();
