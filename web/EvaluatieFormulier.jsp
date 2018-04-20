@@ -22,92 +22,81 @@
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <form method="post" action="EvaluatieFormulierServlet" >
-            <h2 align="center" class="kleur"> EvaluatieFormulier </h2>
+            <section id="pagename">
+                <h2> EvaluatieFormulier </h2>
+            </section>
             <hr>
 
             <table class="doelstelling1" >
-                <tr>
-                    <th> </th>
-                    <th><a>Datum</a></th>
-                    <th></th>
-                    <th><a>Jaar</a></th>
-                    <th></th>
-                    <th ><a>Semester</a</th>
-                    <th></th>
-                    <th ><a>Studiegebied</a</th>
-                    <th></th>
-                    <th><a>Opleiding</a></th>
-                    <th></th>
-                    <th><a>Module</a></th>
-                    <th></th>
-                    <th><a>Cursist</a></th>
-                    <th></th>
-                    <th><a>Lesnr</a></th>
-                    <th></th>
-
-                </tr>
+              
                 <tr>
                     <td width="10px"></td>
 
-                    <td> <input type="date" name="datum" style="font-size: 0.9rem; max-width:120px;"  > </td>
+                    <td> <input type="date" name="datum" style="font-size: 0.9rem"  > </td>
 
                     <td width="10px"></td>
 
                     <td> <select name="Schooljaar" >
+                             <option value="schooljaar" selected disabled> Schooljaar... </option>
                             <c:forEach items="${schooljaren}" var="schooljaar">                  
                                 <option value="schooljaar"> ${schooljaar.schooljaar} </option>                     
                             </c:forEach>
+                                 <option value="schooljaar" > Voeg schooljaar toe... </option>
                         </select> </td>
                     <td width="10px"></td>
 
                     <td> <select name="Semester">
+                            <option value="semester" selected disabled> Semester... </option>
                             <c:forEach items="${semesters}" var="semester">                  
                                 <option value="semester"> ${semester.semester} </option>                     
                             </c:forEach>
+                          
                         </select> </td>
 
                     <td width="10px"></td>
 
                      <td><select name="Studiegebied" style="max-width:130px;">
+                             <option value="studiegebied" selected disabled> Studiegebied... </option>
                             <c:forEach items="${studiegebieden}" var="studiegebied">                  
                                 <option value="studiegebied"> ${studiegebied.naam} </option>                     
                             </c:forEach>
+                         <option value="studiegebied" > Voeg studiegebied toe... </option>
+                 
                         </select> </td>
 
                     <td width="10px"></td>
                     
                     <td><select name="Opleiding" style="max-width:130px;">
+                            <option value="opleiding" selected disabled> Opleiding... </option>
                             <c:forEach items="${opleidingen}" var="opleiding">                  
                                 <option value="opleiding"> ${opleiding.naam} </option>                     
                             </c:forEach>
+                                 <option value="opleiding" > Voeg opleiding toe... </option>
                         </select> </TD>
 
                     <td width="10px"></td>
 
                     <td>  <select name="Module" style="max-width:100px;">
+                            <option value="module" selected disabled> Module... </option>
                             <c:forEach items="${modules}" var="module">                  
                                 <option value="module"> ${module.naam} </option>                     
                             </c:forEach>
+                                 <option value="module" > Voeg module toe... </option>
                         </select> </td>
 
                     <td width="10px"></td>
 
                     <td>  <select name="cursist" style="max-width:100px;">
-                            <option value="Banket AA">Piet Rademakers</option>
-                            <option value="Beslag en cakes AA">Leo Vertongen</option>
-                            <option value="Stukgebak AA">Jeroen Meus</option>
-                            <option value="Beslagen A">Peter Goossens</option>
-                            <option value="Beslagen">Maak een cursist aan...</option>
+                            <option value="cursist" selected disabled> Cursist... </option>
+                             <option value="cursist" > Voeg cursist toe... </option>
                         </select> </td>
+                        
 
                     <td width="10px"></td>
 
                     <td>  <select name="les">
-                            <option value="Banket AA">1</option>
-                            <option value="Beslag en cakes AA">2</option>
-                            <option value="Stukgebak AA">3</option>
-                            <option value="Beslagen A">4</option>
-                            <option value="Beslagen">5</option>
+                            <option value="les" selected disabled> Lesnr... </option>
+                             <option value="les" > Voeg lesnr toe... </option>
                         </select> </td>
 
                     <td width="10px"></td>
@@ -131,50 +120,7 @@
                 <tbody>
 
 
-                    <tr class="formrow">
-                        <td class="lijn">Zelfstandig werken</td>
-                        <td class="center"></td>
-                        <td>Samenstellen grondstoffen</td>
-                        <td class="center">A+</td>
-                        <td class="center">10</td>
-                        <td>Fantastisch gedaan!</td>
-                    </tr>
-                    <tr class="formrow">
-                        <td></td>
-                        <td></td>
-                        <td>Instructies geven</td>
-                        <td class="center">B+</td>
-                        <td class="center">8</td>
-                        <td>ne goeien baas</td>
-                    </tr>
-
-                    <tr class="formrow">
-                        <td></td>
-                        <td></td>
-                        <td>Afwassen</td>
-                        <td class="center">B+</td>
-                        <td class="center">8</td>
-                        <td>nog vuile taloren</td>
-                    </tr>
-
-                    <tr class="formrow">
-                        <td class="lijn" >Hygienisch werken</td>
-                        <td class="center">x</td>
-                        <td>Bestellen schoonmaakprodukten</td>
-                        <td class="center">C</td>
-                        <td class="center">6</td>
-                        <td>Hier en daar wat vergeten!</td>
-                    </tr>
-                    <tr class="formrow">
-                        <td></td>
-                        <td></td>
-                        <td>Opstelling plan</td>
-                        <td class="center">A</td>
-                        <td class="center">9</td>
-                        <td>Redelijk goed gestructureerd</td>
-                    </tr>
-                </tbody>
-                <tfoot></tfoot>
+                   
 
                 <tr class="formrow">
                     <td><select name="cursist" style="max-width:100px;">
