@@ -107,8 +107,8 @@ public class MenuServlet extends HttpServlet {
                     
                     //laden studiegebieden
                     StudiegebiedDAO studiegebiedDAO = new StudiegebiedDAO();
-                    //ArrayList<Studiegebied> studiegebieden = StudiegebiedDAO.studiegebiedenLaden();
-                    //session.setAttribute("lijstStudiegebieden", studiegebieden);
+                    ArrayList<Studiegebied> studiegebieden = studiegebiedDAO.studiegebiedenLaden();
+                    session.setAttribute("lijstStudiegebieden", studiegebieden);
                     response.sendRedirect("Score.jsp");
                     break;
                     
@@ -126,12 +126,31 @@ public class MenuServlet extends HttpServlet {
                     schooljaarDAO = new SchooljarenDAO();
                     ArrayList<Schooljaar> schooljaren2 = schooljaarDAO.schooljarenLaden();
                     session.setAttribute("schooljaren", schooljaren2);
-
+                    
+                    //laden semesters
+                    semesterDAO = new SemesterDAO();
+                    semesters = semesterDAO.semestersLaden();
+                    session.setAttribute("semesters", semesters);
+                    
                     //laden studiegebieden
+                    studiegebiedDAO = new StudiegebiedDAO();
+                    studiegebieden = studiegebiedDAO.studiegebiedenLaden();
+                    session.setAttribute("studiegebieden", studiegebieden);
+                    
                     // laden opleidingen
+                    opleidingDAO = new OpleidingDAO();
+                    opleidingen = opleidingDAO.opleidingenLaden();
+                    session.setAttribute("opleidingen", opleidingen);
+                    
                     // laden modules
+                    moduleDAO = new ModuleDAO();
+                    modules = moduleDAO.modulesLaden();
+                    session.setAttribute("modules", modules);
+                    
                     // laden cursisten
                     // laden lesnr
+                    
+                    
                     response.sendRedirect("EvaluatieFormulier.jsp");
                     break;
                 case "Rapport":
