@@ -25,7 +25,7 @@
             <h2 align="center" class="kleur"> EvaluatieFormulier </h2>
             <hr>
 
-            <table class="doelstelling1">
+            <table class="doelstelling1" >
                 <tr>
                     <th> </th>
                     <th><a>Datum</a></th>
@@ -47,11 +47,11 @@
                 <tr>
                     <td width="10px"></td>
 
-                    <td> <input type="date" name="datum" style="font-size: 0.9rem"   > </td>
+                    <td> <input type="date" name="datum" style="font-size: 0.9rem; max-width:120px;"  > </td>
 
                     <td width="10px"></td>
 
-                    <td> <select name="Schooljaar">
+                    <td> <select name="Schooljaar" >
                             <c:forEach items="${schooljaren}" var="schooljaar">                  
                                 <option value="schooljaar"> ${schooljaar.schooljaar} </option>                     
                             </c:forEach>
@@ -59,14 +59,14 @@
                     <td width="10px"></td>
 
                     <td> <select name="Semester">
-                            <c:forEach items="${semester}" var="semester">                  
+                            <c:forEach items="${semesters}" var="semester">                  
                                 <option value="semester"> ${semester.semester} </option>                     
                             </c:forEach>
                         </select> </td>
 
                     <td width="10px"></td>
 
-                    <td><select name="Opleiding">
+                    <td><select name="Opleiding" style="max-width:100px;">
                             <option value="Banketbakker">Banketbakker</option>
                             <option value="Hotelbedrijf">Hotelbedrijf</option>
                             <option value="Hulpkok">Hulpkok</option>
@@ -80,7 +80,7 @@
 
                     <td width="10px"></td>
 
-                    <td>  <select name="Module">
+                    <td>  <select name="Module" style="max-width:100px;">
                             <option value="Banket AA">Banket AA</option>
                             <option value="Beslag en cakes AA">Beslag en cakes AA</option>
                             <option value="Stukgebak AA">Stukgebak AA</option>
@@ -140,7 +140,7 @@
 
                     <td width="10px"></td>
 
-                    <td>  <select name="cursist">
+                    <td>  <select name="cursist" style="max-width:100px;">
                             <option value="Banket AA">Piet Rademakers</option>
                             <option value="Beslag en cakes AA">Leo Vertongen</option>
                             <option value="Stukgebak AA">Jeroen Meus</option>
@@ -225,7 +225,7 @@
                 <tfoot></tfoot>
 
                 <tr class="formrow">
-                    <td><select name="cursist">
+                    <td><select name="cursist" style="max-width:100px;">
                             <c:forEach items="${doelstellingen}" var="doelstelling">
                                 <option value="Banket AA">${doelstelling.naam}</option>
                             </c:forEach>
@@ -234,14 +234,14 @@
                         </select></td>
 
                     <td></td>
-                    <td><select name="cursist">
+                    <td><select name="cursist" style="max-width:100px;">
                             <option value="Banket AA">Taak 1</option>
                             <option value="Banket AA">Taak 2</option>
                             <option value="Banket AA">Taak 3</option>
                             <option value="Banket AA">Taak 4</option>
                             <option value="Banket AA">Maak een nieuwe taak aan...</option>
                         </select></td></td>
-                    <td class="center"><select name="cursist" value="">
+                    <td class="center"><select name="cursist" value="" style="max-width:100px;">
 
                             <option value="Banket AA">A+</option>
                             <option value="Banket AA">A</option>
