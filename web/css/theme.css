@@ -140,6 +140,28 @@
 body > ::-webkit-scrollbar { display: none; } /* Chrome Only */
 input[type="date"]::-webkit-inner-spin-button { display: none; } /* Chrome Only */
 input[type="date"]::-webkit-clear-button { display: none; } /* Chrome Only */
+input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0; background: none; color: transparent; cursor: pointer; }
+input[type="date"] { position: relative; padding-right: 10px; /*z-index: 1 */ }
+input[type="date"]::before {
+    color: #333;
+    background: none;
+    display: block;
+    font-family: 'Material Icons';
+    content: '\e916';
+    opacity: .8;
+    
+    /* Special Styling */
+    font-weight: normal; font-style: normal; font-size: inherit; line-height: 1; letter-spacing: normal;text-transform: none;
+    display: inline-block;white-space: nowrap;word-wrap: normal; direction: ltr;-webkit-font-feature-settings: 'liga';-webkit-font-smoothing: antialiased;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
 
 /* Special Classes
    ========================================================================== */
@@ -574,6 +596,8 @@ i[name="gebruiker zoeken"] {
                                
 /* Resize Support
    ========================================================================== */
+
+/*
 @media screen and (max-width: 800px) {
     header { visibility: hidden; }
     .table-container table th, .table-container table td {
@@ -588,7 +612,7 @@ i[name="gebruiker zoeken"] {
         text-align: center;
     }
 }
-
+*/
 
 /* Other
    ========================================================================== */

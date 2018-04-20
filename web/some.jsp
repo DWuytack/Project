@@ -54,7 +54,7 @@
                 xhttp.send();
             };
     */
-            
+            var myData = "";
             var requestData = function(page) {
                 var xhttp = new XMLHttpRequest();
                 var data = "";
@@ -71,6 +71,7 @@
                        // Typical action to be performed when the document is ready:
                        data = JSON.parse(xhttp.responseText);
                        renderHTML(data);
+                       myData = data;
                     }
                 };
                 xhttp.send(params);

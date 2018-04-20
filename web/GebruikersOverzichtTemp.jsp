@@ -50,15 +50,22 @@
                         </div>
                     </div>
                     <style>
-                        /*
-                        [role="wrapper"] {
-                            overflow-x: auto;
-                            pointer-events: all;
-                            
+                        .table-container {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
                         }
-                        */
+                        #gebruikersOverzicht {
+                            max-width: 1200px;
+                            display: flex;
+                            justify-content: center;
+                            width: 100%;
+                        }
+                        #gebruikersOverzicht table {
+                            width: 100%;
+                            table-layout: auto;
+                        }
                         #gebruikersOverzicht table td,  #somediv table th {
-                            padding: 10px;
                             line-height: 1.15;
                         }
                         #gebruikersOverzicht table td:last-child {
@@ -71,7 +78,77 @@
                         }
                         #gebruikersOverzicht table th > a {
                             display: flex;
-                            width: 100%;
+                            width: 100%; /* Beter voor herberekening */
+                        }
+                        #gebruikersOverzicht table td > input[type="text"]:not([name="email"]) {
+                            max-width: 100px;
+                        }
+                        #gebruikersOverzicht table td > input[type="date"], select {
+                            max-width: 100px;
+                        }         
+                        #gebruikersOverzicht table th[title="Rol"] > a {
+                            min-width: 100px;
+                        }
+                        #gebruikersOverzicht table th[title="Email"] > a {
+                            min-width: 180px;
+                        }
+                        #gebruikersOverzicht table th[title="Acties"] > a {
+                            width: 70px;
+                            margin: auto;
+                        }
+                        
+                        /*RESIZE SUPPORT */
+                        @media screen and (max-width: 600px) {
+                            .table-container table tbody tr {
+                                background-color: #f8f6ff;
+                            }
+                            #gebruikersOverzicht table {
+                                border: 0;
+                                table-layout: fixed;
+                            }
+
+                            #gebruikersOverzicht table thead {
+                                border: none;
+                                clip: rect(0 0 0 0);
+                                height: 1px;
+                                margin: -1px;
+                                overflow: hidden;
+                                padding: 0;
+                                position: absolute;
+                                width: 1px;
+                            }
+
+                            #gebruikersOverzicht table tr {
+                                border-bottom: 3px solid #ddd;
+                                display: block;
+                                margin-bottom: .625em;
+                            }
+
+                            #gebruikersOverzicht table td {
+                                border-bottom: 1px solid #ddd;
+                                display: block;
+                                font-size: .8em;
+                                text-align: right;
+                                display: flex;
+                                justify-content: flex-start;
+                                align-items: center;
+                            }
+
+                            #gebruikersOverzicht table td::before {
+                                content: attr(data-label);
+                                font-weight: bold;
+                                text-transform: uppercase;
+                                display: flex;
+                                min-width: 120px;
+                                padding: 10px;
+                            }
+
+                            #gebruikersOverzicht table td:last-child {
+                                border-bottom: 0;
+                                padding-top: 5px;
+                                padding-bottom: 5px;
+                                padding-left: 12px;
+                            }
                         }
                         
                     </style>
@@ -213,9 +290,16 @@
                     var h = "";
                     
                     for(titel of titels) {
-                        var style;
-                        if (titel === "Email") style = 'style="min-width: 180px;"'; else style = '';
-                        h += '<th '+ style +'><a>' + titel + '</a</th>';
+                        var style = '';
+                        var style2 = '';
+                        /*if (titel === "Rol")
+                            style2 = 'style="min-width: 100px;"';
+                        else if (titel === "Email")
+                            style2 = 'style="min-width: 180px;"';
+                        else if (titel === "Acties")
+                            style2 = 'style="width: 70px; margin: auto;"';*/
+                        
+                        h += '<th scope="col" title="' + titel + '" '+ style +'><a '+ style2 +'>' + titel + '</a</th>';
                     }
                     var thead = '<thead><tr>' + h + '</tr></thead>';
 
