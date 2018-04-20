@@ -138,6 +138,8 @@
 /* Special Styling
    ========================================================================== */
 body > ::-webkit-scrollbar { display: none; } /* Chrome Only */
+input[type="date"]::-webkit-inner-spin-button { display: none; } /* Chrome Only */
+input[type="date"]::-webkit-clear-button { display: none; } /* Chrome Only */
 
 /* Special Classes
    ========================================================================== */

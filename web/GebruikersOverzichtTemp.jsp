@@ -50,24 +50,33 @@
                         </div>
                     </div>
                     <style>
+                        /*
                         [role="wrapper"] {
                             overflow-x: auto;
                             pointer-events: all;
                             
                         }
-                        #somediv table td,  #somediv table th {
+                        */
+                        #gebruikersOverzicht table td,  #somediv table th {
                             padding: 10px;
                             line-height: 1.15;
                         }
-                        #somediv table td:last-child {
+                        #gebruikersOverzicht table td:last-child {
                             padding: 0px;
                             vertical-align: baseline;
                         }
-                        #somediv input[type="date"] {
-                            width: 120px;
+                        #gebruikersOverzicht table td > input, select {
+                            display: flex;
+                            width: 100%;
                         }
+                        #gebruikersOverzicht table th > a {
+                            display: flex;
+                            width: 100%;
+                        }
+                        
                     </style>
-                    <div id="somediv" role="wrapper"></div>
+                    <div id="gebruikersOverzicht" role="wrapper"></div>
+                    <!--
                     <div style="overflow-x: auto; pointer-events: all;">   
                         <table class="datatable">
                             <thead>
@@ -131,6 +140,7 @@
                             </c:forEach>
                             </tbody>
                         </table>
+                        -->
                     </div>
                     <br><br>
                     <div class="table-nav-footer">
@@ -176,11 +186,12 @@
             </form>
             <script>
                 var pageCounter = 1;
+                var params = 'page=' + pageCounter;
 
-                var requestData = function(page) {
+                var requestData = function(params) {
                     var xhttp = new XMLHttpRequest();
                     var data = "";
-                    params = 'page=' + page;
+                    //params = 'page=1';
 
                     xhttp.open("POST", "someservlet", true);
                     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -223,10 +234,10 @@
                             else
                                 return "";
                         };
-                        temp += '<td><input type="text" name="achternaam" value="' + e.achternaam + '"></td>';
-                        temp += '<td><input type="text" name="voornaam" value="' + e.voorNaam + '"></td>'; 
-                        temp += '<td> <input type="text" name="login"  value="' + e.login + '"></td>';
-                        temp += '<td> <select name="rol" value="' + e.rol + '">' + options(e.rol, keuzes) + '</select></td>';
+                        temp += '<td data-label="' + titels[0] + '"><input type="text" name="achternaam" value="' + e.achternaam + '"></td>';
+                        temp += '<td data-label="' + titels[1] + '"><input type="text" name="voornaam" value="' + e.voorNaam + '"></td>'; 
+                        temp += '<td data-label="' + titels[2] + '"> <input type="text" name="login"  value="' + e.login + '"></td>';
+                        temp += '<td data-label="' + titels[3] + '"> <select name="rol" value="' + e.rol + '">' + options(e.rol, keuzes) + '</select></td>';
                         var date = new Date();
                         var dateFormat = function(d) {
                             var t = d;
@@ -258,9 +269,9 @@
                         };
                         console.log("Date = ");
                         console.log(date);
-                        temp += '<td> <input type="date" name="geboorteDatum" value="' + dateFormat(e.geboorteDatum) + '"> </td>';
-                        temp += '<td> <input type="text" name="email" value="' + e.email + '"> </td>';
-                        temp += '<td><div class="actie-images">';
+                        temp += '<td data-label="' + titels[4] + '"> <input type="date" name="geboorteDatum" value="' + dateFormat(e.geboorteDatum) + '"> </td>';
+                        temp += '<td data-label="' + titels[5] + '"> <input type="text" name="email" value="' + e.email + '"> </td>';
+                        temp += '<td data-label="' + titels[6] + '"><div class="actie-images">';
                         temp += '<span> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src="images/pencil.png"> </span>';
                         temp += '<span> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src="images/vuilbak.png"> </span>';
                         temp += '</div></td>';
@@ -269,16 +280,17 @@
                     });
                     htmlString = thead + '<tbody>' + htmlString + '</tbody>';
                     htmlString = '<table>' + htmlString + '</table>';
-                    document.getElementById("somediv").innerHTML = htmlString;
+                    document.getElementById("gebruikersOverzicht").innerHTML = htmlString;
                 };
 
                 document.addEventListener("click", function(e){
                     if( e.target.id === "somebutton" ) {
                         pageCounter++;
-                        requestData(pageCounter);
+                        params = 'page=' + pageCounter;
+                        requestData(params);
                     }
                 });
-                requestData(pageCounter);
+                requestData(params);
         </script>
         </section>
     </body>
