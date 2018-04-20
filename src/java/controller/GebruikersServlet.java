@@ -115,7 +115,7 @@ public class GebruikersServlet extends HttpServlet {
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
             
-            if (zoekterm != null) {
+            if (zoekterm != null && !zoekterm.equals("")) {
                 actie = "Zoeken";
             }
             if (editID != null) {
