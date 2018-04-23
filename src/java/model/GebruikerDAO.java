@@ -70,7 +70,7 @@ public class GebruikerDAO {
 
     }
 
-    public ArrayList<Gebruiker> cursistenLaden() {
+    public ArrayList<Gebruiker> cursistenLaden(int bladz) {
         ArrayList<Gebruiker> cursistenLijst = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
@@ -78,21 +78,28 @@ public class GebruikerDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT gebruikerID, voornaam, achternaam, login, email, geboortedatum, rol from gebruiker WHERE gebruiker.rolID = 3";
+            String sql = "select gebruikerID, voornaam, achternaam, login, email, geboortedatum, rol from gebruiker inner join rol  on gebruiker.rolID= rol.rolID order by achternaam";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
+            int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE - 1);
+            int recordEinde = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+            int recordTeller = 0;
 
             while (rs.next()) {
-                Gebruiker gebruiker = new Gebruiker();
-                gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
-                gebruiker.setVoorNaam(rs.getString("voornaam"));
-                gebruiker.setAchternaam(rs.getString("achternaam"));
-                gebruiker.setLogin(rs.getString("login"));
-                gebruiker.setRol(rs.getString("rol"));
-                gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
-                gebruiker.setEmail(rs.getString("email"));
-                cursistenLijst.add(gebruiker);
+                recordTeller++;
 
+                if (recordTeller >= recordStart && recordTeller <= recordEinde) {
+                    Gebruiker gebruiker = new Gebruiker();
+                    gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
+                    gebruiker.setVoorNaam(rs.getString("voornaam"));
+                    gebruiker.setAchternaam(rs.getString("achternaam"));
+                    gebruiker.setLogin(rs.getString("login"));
+                    gebruiker.setRol(rs.getString("rol"));
+                    gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
+                    gebruiker.setEmail(rs.getString("email"));
+                    cursistenLijst.add(gebruiker);
+
+                }
             }
         } catch (SQLException e) {
 

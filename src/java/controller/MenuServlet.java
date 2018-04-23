@@ -58,10 +58,17 @@ public class MenuServlet extends HttpServlet {
 
                     //laden van cursisten uit database
                     GebruikerDAO gebruikerDAO = new GebruikerDAO();
-                    ArrayList<Gebruiker> cursisten = gebruikerDAO.cursistenLaden();
-
+                    ArrayList<Gebruiker> cursisten = gebruikerDAO.cursistenLaden(1);
+                    
+                    int aantalCursisten = gebruikerDAO.geefAantalGebruikers();
+                    session.setAttribute("aantalRecords", aantalCursisten);
+                    session.setAttribute("bladzijde", 1);
+                    int getoondeCursisten = Instellingen.AANTAL_RECORDS_PER_PAGE;
+                    if (getoondeCursisten > aantalCursisten) {
+                        getoondeCursisten = aantalCursisten;
+                    }
+                    session.setAttribute("getoondeGebruikers", getoondeCursisten);
                     session.setAttribute("lijstCursisten", cursisten);
-
                     response.sendRedirect("CursistenOverzicht.jsp");
                     break;
 
@@ -85,17 +92,17 @@ public class MenuServlet extends HttpServlet {
 
                 case "Overzicht scores":
                     
-                    //laden van schooljaren uit database en in het geheugen plaatsen
+                    // laden van schooljaren uit database en in het geheugen plaatsen
                     SchooljarenDAO schooljaarDAO = new SchooljarenDAO();
                     ArrayList<Schooljaar> schooljaren = schooljaarDAO.schooljarenLaden();
                     session.setAttribute("schooljaren", schooljaren);
                                         
-                    //laden semester uit database en in het geheugen plaatsen
+                    // laden semester uit database en in het geheugen plaatsen
                     SemesterDAO semesterDAO = new SemesterDAO();
                     ArrayList<Semester> semesters = semesterDAO.semestersLaden();
                     session.setAttribute("semesters", semesters);
                     
-                    //laden modules uit database en in het geheugen plaatsen
+                    // laden modules uit database en in het geheugen plaatsen
                     ModuleDAO moduleDAO = new ModuleDAO();
                     ArrayList<Module> modules = moduleDAO.modulesLaden();
                     session.setAttribute("modules", modules);
@@ -105,21 +112,20 @@ public class MenuServlet extends HttpServlet {
                     ArrayList<Opleiding> opleidingen = opleidingDAO.opleidingenLaden();
                     session.setAttribute("opleidingen", opleidingen);
                     
-                    //laden studiegebieden
+                    // laden studiegebieden
                     StudiegebiedDAO studiegebiedDAO = new StudiegebiedDAO();
                     ArrayList<Studiegebied> studiegebieden = studiegebiedDAO.studiegebiedenLaden();
-                    session.setAttribute("lijstStudiegebieden", studiegebieden);
+                    session.setAttribute("studiegebieden", studiegebieden);
                     response.sendRedirect("Score.jsp");
                     break;
                     
                 case "Overzicht studiegebieden":
                     studiegebiedDAO = new StudiegebiedDAO();
                     ArrayList<Studiegebied> studiegebieden2 = studiegebiedDAO.studiegebiedenLaden();
-                    session.setAttribute("lijstStudiegebieden", studiegebieden2);
-                    
-                    response.sendRedirect("OverzichtStudiegebiedenTest.jsp");
-                    
+                    session.setAttribute("studiegebieden", studiegebieden2);                   
+                    response.sendRedirect("OverzichtStudiegebiedenTest.jsp");                   
                     break;
+                    
                 case "Evaluatieformulieren":
 
                     //laden schooljaren
