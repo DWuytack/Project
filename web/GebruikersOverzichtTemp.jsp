@@ -29,9 +29,7 @@
         </section>
         
         <section>
-            <form action="GebruikersServlet">
-                <div class="table-container">
-                    
+                <div class="table-container">   
                     <div class="table-nav-header">
                         <div id="zoeken">
                             <a id="bt-zoeken">
@@ -260,7 +258,6 @@
                     </fieldset>
                     <input type="submit" name="actie" value="toevoegen">
                 </div>
-            </form>
             <script>
                 var pageCounter = 1;
                 var params = 'page=' + pageCounter;
@@ -318,10 +315,10 @@
                             else
                                 return "";
                         };
-                        temp += '<td data-label="' + titels[0] + '"><input type="text" name="achternaam" value="' + e.achternaam + '"></td>';
-                        temp += '<td data-label="' + titels[1] + '"><input type="text" name="voornaam" value="' + e.voorNaam + '"></td>'; 
-                        temp += '<td data-label="' + titels[2] + '"> <input type="text" name="login"  value="' + e.login + '"></td>';
-                        temp += '<td data-label="' + titels[3] + '"> <select name="rol" value="' + e.rol + '">' + options(e.rol, keuzes) + '</select></td>';
+                        temp += '<td data-label="' + titels[0] + '"><input type="text" name="achternaam" value="' + e.achternaam + '"><span style="display: none">' + e.achternaam + '</span></td>';
+                        temp += '<td data-label="' + titels[1] + '"><input type="text" name="voornaam" value="' + e.voorNaam + '"><span style="display: none">' + e.voorNaam + '</span></td>'; 
+                        temp += '<td data-label="' + titels[2] + '"> <input type="text" name="login"  value="' + e.login + '"><span style="display: none">' + e.login + '</span></td>';
+                        temp += '<td data-label="' + titels[3] + '"> <select name="rol" value="' + e.rol + '">' + options(e.rol, keuzes) + '</select><span style="display: none">' + e.rol + '</span></td>';
                         var date = new Date();
                         var dateFormat = function(d) {
                             var t = d;
@@ -353,8 +350,8 @@
                         };
                         console.log("Date = ");
                         console.log(date);
-                        temp += '<td data-label="' + titels[4] + '"> <input type="date" name="geboorteDatum" value="' + dateFormat(e.geboorteDatum) + '"> </td>';
-                        temp += '<td data-label="' + titels[5] + '"> <input type="text" name="email" value="' + e.email + '"> </td>';
+                        temp += '<td data-label="' + titels[4] + '"> <input type="date" name="geboorteDatum" value="' + dateFormat(e.geboorteDatum) + '"><span style="display: none">' + dateFormat(e.geboorteDatum) + '</span></td>';
+                        temp += '<td data-label="' + titels[5] + '"> <input type="text" name="email" value="' + e.email + '"><span style="display: none">' + e.email + '</span></td>';
                         temp += '<td data-label="' + titels[6] + '"><div class="actie-images">';
                         temp += '<span> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src="images/pencil.png"> </span>';
                         temp += '<span> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src="images/vuilbak.png"> </span>';
