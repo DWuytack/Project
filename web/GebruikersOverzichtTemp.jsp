@@ -150,6 +150,7 @@
                         }
                         
                     </style>
+                    <pre>${sessionScope.test}</pre>
                     <div id="gebruikersOverzicht" role="wrapper"></div>
                     <!--
                     <div style="overflow-x: auto; pointer-events: all;">   
@@ -319,38 +320,16 @@
                         temp += '<td data-label="' + titels[1] + '"><input type="text" name="voornaam" value="' + e.voorNaam + '"><span style="display: none">' + e.voorNaam + '</span></td>'; 
                         temp += '<td data-label="' + titels[2] + '"> <input type="text" name="login"  value="' + e.login + '"><span style="display: none">' + e.login + '</span></td>';
                         temp += '<td data-label="' + titels[3] + '"> <select name="rol" value="' + e.rol + '">' + options(e.rol, keuzes) + '</select><span style="display: none">' + e.rol + '</span></td>';
-                        var date = new Date();
-                        var dateFormat = function(d) {
-                            var t = d;
-                            var list = {
-                                jan : 1,
-                                feb : 2,
-                                mrt : 3,
-                                apr : 4,
-                                mei : 5,
-                                jun : 6,
-                                jul : 7,
-                                aug : 8,
-                                sep : 9,
-                                okt : 10,
-                                nov : 11,
-                                dec : 12
-                            };
-                            var key = Object.keys(list);
-                            t = t.replace(',','','g');
-                            t = t.split(' ');
-                            for(month of key) {
-                                if(month === t[0]) t[0] = list[month];
+                        var date = new Date();  
+                        var dateFormat = function(d) { 
+                            var t = new Date(d);
+                            return {
+                                date: t,
+                                local: t.toLocaleDateString('sgn-NL', {day: '2-digit', month: '2-digit', year: 'numeric'}).replace(new RegExp('-', 'g'), '\/')
                             }
-                            if(t[0].length !== 2) t[0] = '0' + t[0];
-                            if(t[1].length !== 2) t[1] = '0' + t[1];
-                            t = t[2] + '-' + t[0] + '-' + t[1];
-                            console.log(t);
-                            return t;
                         };
-                        console.log("Date = ");
-                        console.log(date);
-                        temp += '<td data-label="' + titels[4] + '"> <input type="date" name="geboorteDatum" value="' + dateFormat(e.geboorteDatum) + '"><span style="display: none">' + dateFormat(e.geboorteDatum) + '</span></td>';
+                        //Opmerking: Automatische aanvulling vind waarde niet!!!! "e.geboorteDatumValue"
+                        temp += '<td data-label="' + titels[4] + '"> <input type="date" name="geboorteDatum" value="' + e.geboorteDatumValue + '"><span style="display: none">' + dateFormat(e.geboorteDatumValue).local + '</span></td>';
                         temp += '<td data-label="' + titels[5] + '"> <input type="text" name="email" value="' + e.email + '"><span style="display: none">' + e.email + '</span></td>';
                         temp += '<td data-label="' + titels[6] + '"><div class="actie-images">';
                         temp += '<span> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src="images/pencil.png"> </span>';

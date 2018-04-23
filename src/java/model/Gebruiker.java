@@ -1,6 +1,8 @@
 package model;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -13,6 +15,7 @@ public class Gebruiker {
     private String voorNaam;
     private String achternaam;
     private Date geboorteDatum;
+    private String geboorteDatumValue;
     private String email;
     private String login;
     private String paswoord;
@@ -57,6 +60,17 @@ public class Gebruiker {
 
     public void setGeboorteDatum(Date geboorteDatum) {
         this.geboorteDatum = geboorteDatum;
+        setGeboorteDatumValue();
+    }
+    
+    public void setGeboorteDatumValue() {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        this.geboorteDatumValue = df.format(geboorteDatum);
+    }
+    
+    public String getGeboorteDatumValue() {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(geboorteDatum);
     }
 
     public String getEmail() {

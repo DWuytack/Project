@@ -6,7 +6,10 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,9 +62,27 @@ public class someservlet extends HttpServlet {
         int p = Integer.parseInt(page);
         
         ArrayList<Gebruiker> cursisten = gebruikerDAO.gebruikersLaden(p);
+        
+        //date
+        
+        String test = null;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        for(Gebruiker cursist : cursisten) {
+            //test = df.format(cursist.getGeboorteDatum());
+            test = cursist.getGeboorteDatumValue();
+        }
+        
         String json = new Gson().toJson(cursisten);
+        
+        //Gson gson = new Gson();
+        //JsonElement jsonElement = gson.toJsonTree(cursisten);
+        //jsonElement.getAsJsonObject().addProperty("formatDate", "test");
+        //gson.toJson(jsonElement);
+        
+        //gson.toJson(jsonElement.getAsJsonObject())
 
         session.setAttribute("json",  json);
+        session.setAttribute("test",  test);
         
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
