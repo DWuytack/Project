@@ -27,8 +27,88 @@
             <!-- <h1 align="center" class="kleur" style="display: inherit;"> GebruikersOverzicht </h1> -->
             
         </section>
-        
+        <!--<pre>${sessionScope.test}</pre>-->
         <section>
+                <style>
+                    #gebruikersOverzicht {
+                        max-width: 1200px;
+                        min-width: 760px;
+                    }
+                    #gebruikersOverzicht table th[title="Rol"] > a {
+                        min-width: 100px;
+                    }
+                    #gebruikersOverzicht table th[title="Email"] > a {
+                        min-width: 180px;
+                    }
+                    #gebruikersOverzicht table td > input[type="text"]:not([name="email"]) {
+                        max-width: 100px;
+                    }
+                    #gebruikersOverzicht table td > input[type="date"], select[name="rol"] {
+                        max-width: 100px;
+                    }         
+
+                    /*RESIZE SUPPORT */
+                    @media screen and (max-width: 600px) {
+                        #gebruikersOverzicht table tbody tr {
+                            background-color: #f8f6ff;
+                        }
+                        #gebruikersOverzicht {
+                            max-width: none;
+                            min-width: auto;
+                            display: flex;
+                            justify-content: space-around;
+                            width: 100%;
+                            margin: auto;
+                        }
+                        #gebruikersOverzicht table {
+                            border: 0;
+                            table-layout: fixed;
+                        }
+
+                        #gebruikersOverzicht table thead {
+                            border: none;
+                            clip: rect(0 0 0 0);
+                            height: 1px;
+                            margin: -1px;
+                            overflow: hidden;
+                            padding: 0;
+                            position: absolute;
+                            width: 1px;
+                        }
+
+                        #gebruikersOverzicht table tr {
+                            border-bottom: 3px solid #ddd;
+                            display: block;
+                            margin-bottom: .625em;
+                        }
+
+                        #gebruikersOverzicht table td {
+                            border-bottom: 1px solid #ddd;
+                            display: block;
+                            font-size: .8em;
+                            text-align: right;
+                            display: flex;
+                            justify-content: flex-start;
+                            align-items: center;
+                        }
+
+                        #gebruikersOverzicht table td::before {
+                            content: attr(data-label);
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            display: flex;
+                            min-width: 120px;
+                            padding: 10px;
+                        }
+
+                        #gebruikersOverzicht table td:last-child {
+                            border-bottom: 0;
+                            padding-top: 5px;
+                            padding-bottom: 5px;
+                            padding-left: 12px;
+                        }
+                    }
+                </style>
                 <div class="table-container">   
                     <div class="table-nav-header">
                         <div id="zoeken">
@@ -47,218 +127,12 @@
                             <input type="image" name="Laatste" value="skip_next" src='images/skip_next.png'>
                         </div>
                     </div>
-                    <style>
-                        .table-container {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                        }
-                        #gebruikersOverzicht {
-                            max-width: 1200px;
-                            display: flex;
-                            justify-content: center;
-                            width: 100%;
-                        }
-                        #gebruikersOverzicht table {
-                            width: 100%;
-                            table-layout: auto;
-                        }
-                        #gebruikersOverzicht table td,  #somediv table th {
-                            line-height: 1.15;
-                        }
-                        #gebruikersOverzicht table td:last-child {
-                            padding: 0px;
-                            vertical-align: baseline;
-                        }
-                        #gebruikersOverzicht table td > input, select {
-                            display: flex;
-                            width: 100%;
-                        }
-                        #gebruikersOverzicht table th > a {
-                            display: flex;
-                            width: 100%; /* Beter voor herberekening */
-                        }
-                        #gebruikersOverzicht table td > input[type="text"]:not([name="email"]) {
-                            max-width: 100px;
-                        }
-                        #gebruikersOverzicht table td > input[type="date"], select {
-                            max-width: 100px;
-                        }         
-                        #gebruikersOverzicht table th[title="Rol"] > a {
-                            min-width: 100px;
-                        }
-                        #gebruikersOverzicht table th[title="Email"] > a {
-                            min-width: 180px;
-                        }
-                        #gebruikersOverzicht table th[title="Acties"] > a {
-                            width: 70px;
-                            margin: auto;
-                        }
-                        
-                        /*RESIZE SUPPORT */
-                        @media screen and (max-width: 600px) {
-                            .table-container table tbody tr {
-                                background-color: #f8f6ff;
-                            }
-                            #gebruikersOverzicht table {
-                                border: 0;
-                                table-layout: fixed;
-                            }
-
-                            #gebruikersOverzicht table thead {
-                                border: none;
-                                clip: rect(0 0 0 0);
-                                height: 1px;
-                                margin: -1px;
-                                overflow: hidden;
-                                padding: 0;
-                                position: absolute;
-                                width: 1px;
-                            }
-
-                            #gebruikersOverzicht table tr {
-                                border-bottom: 3px solid #ddd;
-                                display: block;
-                                margin-bottom: .625em;
-                            }
-
-                            #gebruikersOverzicht table td {
-                                border-bottom: 1px solid #ddd;
-                                display: block;
-                                font-size: .8em;
-                                text-align: right;
-                                display: flex;
-                                justify-content: flex-start;
-                                align-items: center;
-                            }
-
-                            #gebruikersOverzicht table td::before {
-                                content: attr(data-label);
-                                font-weight: bold;
-                                text-transform: uppercase;
-                                display: flex;
-                                min-width: 120px;
-                                padding: 10px;
-                            }
-
-                            #gebruikersOverzicht table td:last-child {
-                                border-bottom: 0;
-                                padding-top: 5px;
-                                padding-bottom: 5px;
-                                padding-left: 12px;
-                            }
-                        }
-                        
-                    </style>
-                    <pre>${sessionScope.test}</pre>
                     <div id="gebruikersOverzicht" role="wrapper"></div>
-                    <!--
-                    <div style="overflow-x: auto; pointer-events: all;">   
-                        <table class="datatable">
-                            <thead>
-                                <tr>
-                                    <th width="15%" onclick="sortTable(0)"><a>Achternaam</a</th>
-                                    <th width="15%" onclick="sortTable(1)"><a>Voornaam</a</th>
-                                    <th width="15%" onclick="sortTable(2)"><a>Login</a></th>
-                                    <th width="15%" onclick="sortTable(3)"><a>Rol</a></th>
-                                    <th width="15%" onclick="sortTable(4)"><a>GebtDatum</a></th>
-                                    <th width="25%" onclick="sortTable(5)"><a>E-mail</a></th>
-                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                        <th class="actie">Acties</th>
-                                    </c:if>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${lijstGebruikers}" var="cursist">
-                                    <tr  <c:if test="${cursist.gebruikerID == sessionScope.editID}" >style="background-color: rgba(255,255,0,.5);"</c:if>>
-                                        <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
-                                            <td> <input type="text" name="achternaam"  value="${cursist.achternaam}"> </td>
-                                            <td> <input type="text" name="voornaam" value="${cursist.voorNaam}"> </td>
-                                            <td> <input type="text" name="login"  value="${cursist.login}"> </td>
-                                            <td> 
-                                    <select name="rol" value="${cursist.rol}">
-                                        <option value="admin">admin</option>
-                                        <option value="leerkracht">leerkracht</option>
-                                        <option value="cursist">cursist</option>
-                                        <option value="secretariaat">secretariaat</option></td>
-                                    </select>
-                                    <td> <input type="date" name="geboorteDatum" value="${cursist.geboorteDatum}"> </td>
-                                    <td> <input type="text" name="email"  value="${cursist.email}"/> </td>
-                                    </c:if>
-
-                                <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
-                                    <td> ${cursist.achternaam} </td>
-                                    <td> ${cursist.voorNaam} </td>
-                                    <td> ${cursist.login} </td>
-                                    <td> ${cursist.rol} </td>
-                                    <td> <fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yyyy" /> </td>
-                                    <td> ${cursist.email} </td>
-
-                                </c:if>
-
-                                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <td class="actie">
-                                        <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
-                                            <div class="actie-images">
-                                                <span> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'> </span>
-                                                <span> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'> </span>
-                                            </div>
-                                        </c:if>
-                                        <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
-                                            <div class="actie-images">
-                                                <span> <input type="image"  name="idSave" value="${cursist.gebruikerID}" src='images/green.png'> </span>
-                                                <span> <input type="image"  name="idCancel" value="${cursist.gebruikerID}" src='images/cancel.png'> </span>
-                                            </div>
-                                        </c:if>
-                                    </td>
-                                </c:if>
-                                </tr> 
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                        -->
-                    </div>
                     <br><br>
                     <div class="table-nav-footer">
                         <p>Totaal aantal gebruikers: <span id="gebruikers">${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</span></p>
                     </div>
-                </div>
-                <div id="gebruiker_toevoegen">
-                    <fieldset>
-                        <legend>Gebruiker Toevoegen: </legend><br>
-                        <label>Voornaam: </label>
-                        <br>
-                        <input type="text" name="voornaam" size="16" maxlength="30">
-                        <br><br>
-                        <label>Achternaam: </label>
-                        <br>
-                        <input type="text" name="achternaam" size="16" maxlength="30">
-                        <br><br>
-                        <label>Rol: </label>
-                        <br>
-                        <input type="radio" name="rol" value="3"> <span>Cursist</span>
-                        <br>
-                        <input type="radio" name="rol" value="2"> <span>Leerkracht</span>
-                        <br><br>
-                        <label>GeboorteDatum: </label>
-                        <br>
-                        <input type="date" name="geboortedatum" size="16" maxlength="20">
-                        <br><br>
-                        <label>Email: </label>
-                        <br>
-                        <input type="text" name="email" size="16" maxlength="30">
-                        <br><br>
-                        <label>Login: </label>
-                        <br>
-                        <input type="text" name="login" size="16" maxlength="30">
-                        <br><br>
-                        <label>Wachtwoord: </label>
-                        <br>
-                        <input type="password" name="wachtwoord" size="16" maxlength="20">
-                        <br>
-                    </fieldset>
-                    <input type="submit" name="actie" value="toevoegen">
-                </div>
+                </div>    
             <script>
                 var pageCounter = 1;
                 var params = 'page=' + pageCounter;
@@ -352,6 +226,44 @@
                 });
                 requestData(params);
         </script>
+        </section>
+        <section id="popup">
+            <div id="gebruiker_toevoegen">
+                <fieldset>
+                    <legend>Gebruiker Toevoegen: </legend><br>
+                    <label>Voornaam: </label>
+                    <br>
+                    <input type="text" name="voornaam" size="16" maxlength="30">
+                    <br><br>
+                    <label>Achternaam: </label>
+                    <br>
+                    <input type="text" name="achternaam" size="16" maxlength="30">
+                    <br><br>
+                    <label>Rol: </label>
+                    <br>
+                    <input type="radio" name="rol" value="3"> <span>Cursist</span>
+                    <br>
+                    <input type="radio" name="rol" value="2"> <span>Leerkracht</span>
+                    <br><br>
+                    <label>GeboorteDatum: </label>
+                    <br>
+                    <input type="date" name="geboortedatum" size="16" maxlength="20">
+                    <br><br>
+                    <label>Email: </label>
+                    <br>
+                    <input type="text" name="email" size="16" maxlength="30">
+                    <br><br>
+                    <label>Login: </label>
+                    <br>
+                    <input type="text" name="login" size="16" maxlength="30">
+                    <br><br>
+                    <label>Wachtwoord: </label>
+                    <br>
+                    <input type="password" name="wachtwoord" size="16" maxlength="20">
+                    <br>
+                </fieldset>
+                <input type="submit" name="actie" value="toevoegen">
+            </div>
         </section>
     </body>
 </html>
