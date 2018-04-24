@@ -100,16 +100,11 @@
                     <table class="datatable">
                         <thead> 
                             <tr>
-                                <th onclick="sortTable(0)"><a>Taak</a></th>
-                                <th onclick="sortTable(1)"><a>Beschrijving</a></th>
-                                <th onclick="sortTable(2)"><a>Score</a></th>
-                                <th onclick="sortTable(3)"><a>Module</a></th>
-                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <th>Actions</th>
-                                    </c:if>
-                                    <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
-                                    <th>Actions</th>
-                                    </c:if>
+                                <th onclick="sortTable(0)"><a>Achternaam</a></th>
+                                <th onclick="sortTable(1)"><a>Voornaam</a></th>
+                                <th onclick="sortTable(2)"><a>Typescore</a></th>
+                                <th onclick="sortTable(3)"><a>Score</a></th>
+                                <th onclick="sortTable(4)"><a>Geslaagd</a></th>                                
                             </tr>
                         </thead>
                         <tbody>
