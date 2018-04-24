@@ -27,7 +27,7 @@ public class StudiegebiedDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "select * from studiegebied";
+            String sql = "select * from studiegebieden";
 
             statement = currentCon.createStatement();
 
