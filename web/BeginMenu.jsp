@@ -34,7 +34,7 @@
 
                     <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
                         <input type="submit" value="Evaluatieformulieren" name="actie"><br> 
-                        <input type="submit" value="Overzicht cursisten" name="actie"><br>
+                        <input type="submit" value="Cursisten inschrijven" name="actie"><br>
                         <input type="submit" value="Overzicht studiegebieden" name="actie"><br>
                     </c:if>
 
