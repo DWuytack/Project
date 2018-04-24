@@ -262,7 +262,7 @@ public class GebruikerDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM gebruikers INNER JOIN rollen on gebruiker.rolID = rollen.rolID WHERE gebruikers.voornaam LIKE ? OR gebruikers.achternaam LIKE ? order by achternaam";
+            String sql = "SELECT * FROM gebruikers INNER JOIN rollen on gebruikers.rolID = rollen.rolID WHERE gebruikers.voornaam LIKE ? OR gebruikers.achternaam LIKE ? order by achternaam";
 
             ps = currentCon.prepareStatement(sql);
             ps.setString(1, "%" + zoekterm + "%");
