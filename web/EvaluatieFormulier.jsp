@@ -36,14 +36,7 @@
 
                     <td width="10px"></td>
 
-                    <td> <select name="Schooljaar" >
-                            <option value="schooljaar" selected disabled> Schooljaar... </option>
-                            <c:forEach items="${schooljaren}" var="schooljaar">                  
-                                <option value="schooljaar"> ${schooljaar.schooljaar} </option>                     
-                            </c:forEach>
-                            <option value="schooljaar" > Voeg schooljaar toe... </option>
-                        </select> </td>
-                    <td width="10px"></td>
+
 
                     <td> <select name="Semester">
                             <option value="semester" selected disabled> Semester... </option>
@@ -55,14 +48,16 @@
 
                     <td width="10px"></td>
 
-                    <td><select name="Studiegebied" style="max-width:130px;">
+                    <td>
+                        <select name="Studiegebied" style="max-width:130px;">
                             <option value="studiegebied" selected disabled> Studiegebied... </option>
                             <c:forEach items="${studiegebieden}" var="studiegebied">                  
                                 <option value="studiegebied"> ${studiegebied.naam} </option>                     
                             </c:forEach>
                             <option value="studiegebied" > Voeg studiegebied toe... </option>
 
-                        </select> </td>
+                        </select> 
+                    </td>
 
                     <td width="10px"></td>
 

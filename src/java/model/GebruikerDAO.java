@@ -27,9 +27,9 @@ public class GebruikerDAO {
         String paswoord = gebruiker.getPaswoord();
 
         String searchQuery
-                = "select gebruiker.*, rol.rol from gebruiker"
-                + " inner join rol on gebruiker.rolID= rol.rolID "
-                + "where login='" + login + "' AND wachtwoord=md5('" + paswoord + "') order by gebruiker.achternaam;";
+                = "select gebruikers.*, rollen.rol from gebruikers"
+                + " inner join rollen on gebruikers.rolID= rollen.rolID "
+                + "where login='" + login + "' AND wachtwoord=md5('" + paswoord + "') order by gebruikers.achternaam;";
         try {
             //connectie met onze database
             currentCon = ConnectionManager.getConnection();
@@ -70,7 +70,7 @@ public class GebruikerDAO {
 
     }
 
-    public ArrayList<Gebruiker> cursistenLaden() {
+    public ArrayList<Gebruiker> cursistenLaden(int bladz) {
         ArrayList<Gebruiker> cursistenLijst = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
@@ -78,21 +78,28 @@ public class GebruikerDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT gebruikerID, voornaam, achternaam, login, email, geboortedatum, rol from gebruiker WHERE gebruiker.rolID = 3";
+            String sql = "select gebruikerID, voornaam, achternaam, login, email, geboortedatum, rol from gebruikers inner join rollen  on gebruikers.rolID= rollen.rolID order by achternaam";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
+            int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE - 1);
+            int recordEinde = bladz * Instellingen.AANTAL_RECORDS_PER_PAGE;
+            int recordTeller = 0;
 
             while (rs.next()) {
-                Gebruiker gebruiker = new Gebruiker();
-                gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
-                gebruiker.setVoorNaam(rs.getString("voornaam"));
-                gebruiker.setAchternaam(rs.getString("achternaam"));
-                gebruiker.setLogin(rs.getString("login"));
-                gebruiker.setRol(rs.getString("rol"));
-                gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
-                gebruiker.setEmail(rs.getString("email"));
-                cursistenLijst.add(gebruiker);
+                recordTeller++;
 
+                if (recordTeller >= recordStart && recordTeller <= recordEinde) {
+                    Gebruiker gebruiker = new Gebruiker();
+                    gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
+                    gebruiker.setVoorNaam(rs.getString("voornaam"));
+                    gebruiker.setAchternaam(rs.getString("achternaam"));
+                    gebruiker.setLogin(rs.getString("login"));
+                    gebruiker.setRol(rs.getString("rol"));
+                    gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
+                    gebruiker.setEmail(rs.getString("email"));
+                    cursistenLijst.add(gebruiker);
+
+                }
             }
         } catch (SQLException e) {
 
@@ -112,7 +119,7 @@ public class GebruikerDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "select gebruikerID, voornaam, achternaam, login, email, geboortedatum, rol from gebruiker inner join rol  on gebruiker.rolID= rol.rolID order by achternaam";
+            String sql = "select gebruikerID, voornaam, achternaam, login, email, geboortedatum, rol from gebruikers inner join rollen  on gebruikers.rolID= rollen.rolID order by achternaam";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
             int recordStart = (bladz * Instellingen.AANTAL_RECORDS_PER_PAGE) - (Instellingen.AANTAL_RECORDS_PER_PAGE - 1);
@@ -153,7 +160,7 @@ public class GebruikerDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT COUNT(*) FROM gebruiker";
+            String sql = "SELECT COUNT(*) FROM gebruikers";
             statement = currentCon.createStatement();
 
             rs = statement.executeQuery(sql);
@@ -174,7 +181,7 @@ public class GebruikerDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "INSERT INTO gebruiker(voornaam, achternaam, rolID , geboortedatum, email, login, wachtwoord) VALUES(?,?,?,?,?,?,MD5(?))";
+        String sql = "INSERT INTO gebruikers(voornaam, achternaam, rolID , geboortedatum, email, login, wachtwoord) VALUES(?,?,?,?,?,?,MD5(?))";
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -202,10 +209,10 @@ public class GebruikerDAO {
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        String sql = "UPDATE gebruiker set gebruiker.voornaam=?,"
+        String sql = "UPDATE gebruikers set gebruiker.voornaam=?,"
                 + "gebruiker.achternaam=?, gebruiker.login=?, "
                 + "gebruiker.rolID=?, gebruiker.email=?,"
-                + "gebruiker.geboortedatum=? where gebruiker.gebruikerID=?";
+                + "gebruiker.geboortedatum=? where gebruikers.gebruikerID=?";
 
         int rolId = 0;
         if (gebruiker.getRol().equals("admin")) {
@@ -255,7 +262,7 @@ public class GebruikerDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM gebruiker INNER JOIN rol on gebruiker.rolID = rol.rolID WHERE gebruiker.voornaam LIKE ? OR gebruiker.achternaam LIKE ? order by achternaam";
+            String sql = "SELECT * FROM gebruikers INNER JOIN rollen on gebruikers.rolID = rollen.rolID WHERE gebruikers.voornaam LIKE ? OR gebruikers.achternaam LIKE ? order by achternaam";
 
             ps = currentCon.prepareStatement(sql);
             ps.setString(1, "%" + zoekterm + "%");
@@ -335,7 +342,7 @@ public class GebruikerDAO {
         PreparedStatement ps = null;
 
         String sql
-                = "DELETE from gebruiker where gebruiker.gebruikerID = ?";
+                = "DELETE from gebruikers where gebruikers.gebruikerID = ?";
         try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
