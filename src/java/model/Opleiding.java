@@ -10,24 +10,24 @@ package model;
  * @author Davino
  */
 public class Opleiding {
-    
+
     private int opleidingID;
     private String naam;
 
-    public int getopleidingID() {
+    public int getOpleidingID() {
         return opleidingID;
     }
 
-    public void setopleidingID(int opleidingID) {
+    public void setOpleidingID(int opleidingID) {
         this.opleidingID = opleidingID;
     }
 
-    public String getnaam() {
+    public String getNaam() {
         return naam;
     }
 
-    public void setnaam(String naam) {
+    public void setNaam(String naam) {
         this.naam = naam;
     }
-    
+
 }

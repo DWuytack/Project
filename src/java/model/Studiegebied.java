@@ -13,7 +13,8 @@ public class Studiegebied {
 
     private int studiegebiedID;
     private String naam;
-    
+    private String beschrijving;
+
     public int getStudiegebiedID() {
         return studiegebiedID;
     }
@@ -28,6 +29,14 @@ public class Studiegebied {
 
     public void setNaam(String naam) {
         this.naam = naam;
+    }
+    
+    public String getBeschrijving() {
+        return beschrijving;
+    }
+
+    public void setBeschrijving(String beschrijving) {
+        this.beschrijving = beschrijving;
     }
     
 }

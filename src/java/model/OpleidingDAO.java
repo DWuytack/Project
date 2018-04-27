@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.Connection;
@@ -13,83 +8,102 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
+ * OpleidingDAO(Opleiding Data Access Object) is een klasse voor alle
+ * handelingen in de database betreffend Opleidingen.
  *
- * @author Davino
+ * @author Davino & Ewout Phlips
  */
 public class OpleidingDAO {
-    
-     private void OpleidingToevoegen(Opleiding opleiding) {
 
-        //connectie maken met database
-        Connection connectie = null;
+    public void opleidingToevoegen(Opleiding opleiding) {
 
-        //insertquery
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+
         String sql = "INSERT INTO opleidingen "
-                + "(opleidingID,naam) VALUES (?,?)";
+                + "(naam) VALUES (?);";
 
-        //opslaan in database
         try {
-            PreparedStatement statement = connectie.prepareStatement(sql);
-            statement.setInt(1, opleiding.getopleidingID());
-            statement.setString(2, opleiding.getnaam());
-            statement.execute();
-            statement.close();
-            connectie.close();
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, opleiding.getNaam());
+            ps.execute();
 
         } catch (SQLException e) {
 
+        } finally {
+            sluitVariabelen(null, null, ps, currentCon);
         }
     }
 
-    private void OpleidingAanpassen(Opleiding opleiding) {
+    public void opleidingAanpassen(Opleiding opleiding) {
 
-        //connectie maken met database
-        Connection connectie = null;
-        connectie = ConnectionManager.getConnection();
+        Connection currentCon = null;
+        Statement statement = null;
 
-        //insertquery
         String sql = "UPDATE opleidingen "
-                + " set naam =  " + opleiding.getnaam() 
-                + " where opleidingID= "
-                + opleiding.getopleidingID();
+                + " SET naam =  " + opleiding.getNaam()
+                + " WHERE opleidingID= "
+                + opleiding.getOpleidingID();
 
-        //opslaan in database
         try {
-            Statement statement = connectie.createStatement();
+            currentCon = ConnectionManager.getConnection();
+            statement = currentCon.createStatement();
             statement.executeUpdate(sql);
-            statement.close();
-            connectie.close();
-
         } catch (SQLException e) {
 
+        } finally {
+            sluitVariabelen(null, statement, null, currentCon);
         }
-
     }
 
-    private void OpleidingVerwijderen(Opleiding opleiding) {
+    public void opleidingVerwijderen(Opleiding opleiding) {
 
-        //connectie maken met database
-        Connection connectie = null;
+        Connection currentCon = null;
+        Statement statement = null;
 
-        //insertquery
         String sql = "DELETE FROM opleidingen "
-                + " where opleidingID= " + opleiding.getopleidingID();
+                + " WHERE opleidingID= " + opleiding.getOpleidingID();
 
-        //opslaan in database
         try {
-            PreparedStatement statement = connectie.prepareStatement(sql);
-            statement.execute();
-            statement.close();
-            connectie.close();
-
+            currentCon = ConnectionManager.getConnection();
+            statement = currentCon.createStatement();
+            statement.executeUpdate(sql);
         } catch (SQLException e) {
 
+        } finally {
+            sluitVariabelen(null, statement, null, currentCon);
         }
-
     }
-    
-     public ArrayList<Opleiding> opleidingenLaden() {
-         
+
+    public Opleiding opleidingLaden(int opleidingID) {
+
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT * FROM opleidingen WHERE opleidingen.opleidingID = ?;";
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, opleidingID);
+            rs = ps.executeQuery();
+
+            Opleiding opleiding = new Opleiding();
+            opleiding.setOpleidingID(rs.getInt("opleidingID"));
+            opleiding.setNaam(rs.getString("naam"));
+
+            return opleiding;
+        } catch (Exception e) {
+
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+        }
+        return null;
+    }
+
+    public ArrayList<Opleiding> opleidingenLaden() {
+
         ArrayList<Opleiding> opleidingen = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
@@ -100,31 +114,30 @@ public class OpleidingDAO {
             String sql = "SELECT * FROM opleidingen;";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
-            
+
             while (rs.next()) {
                 Opleiding opleiding = new Opleiding();
-                opleiding.setopleidingID(rs.getInt("opleidingID"));
-                opleiding.setnaam(rs.getString("naam"));
-              
-                
+                opleiding.setOpleidingID(rs.getInt("opleidingID"));
+                opleiding.setNaam(rs.getString("naam"));
+
                 opleidingen.add(opleiding);
             }
         } catch (SQLException e) {
-            
+
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException e) {  
+                } catch (SQLException e) {
                 }
                 rs = null;
             }
-            
-             if (statement != null) {
+
+            if (statement != null) {
                 try {
                     statement.close();
                 } catch (Exception e) {
-                    
+
                 }
 
                 statement = null;
@@ -134,18 +147,18 @@ public class OpleidingDAO {
                 try {
                     currentCon.close();
                 } catch (Exception e) {
-                    
+
                 }
 
                 currentCon = null;
             }
-            
+
         }
         return opleidingen;
     }
-    
+
     public ArrayList<Opleiding> opleidingenLaden(int studiegebiedID) {
-         
+
         ArrayList<Opleiding> opleidingen = new ArrayList<>();
         Connection currentCon = null;
         PreparedStatement ps = null;
@@ -157,31 +170,30 @@ public class OpleidingDAO {
             ps = currentCon.prepareStatement(sql);
             ps.setInt(1, studiegebiedID);
             rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 Opleiding opleiding = new Opleiding();
-                opleiding.setopleidingID(rs.getInt("opleidingID"));
-                opleiding.setnaam(rs.getString("naam"));
-              
-                
+                opleiding.setOpleidingID(rs.getInt("opleidingID"));
+                opleiding.setNaam(rs.getString("naam"));
+
                 opleidingen.add(opleiding);
             }
         } catch (SQLException e) {
-            
+
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException e) {  
+                } catch (SQLException e) {
                 }
                 rs = null;
             }
-            
-             if (ps != null) {
+
+            if (ps != null) {
                 try {
                     ps.close();
                 } catch (Exception e) {
-                    
+
                 }
 
                 ps = null;
@@ -191,13 +203,57 @@ public class OpleidingDAO {
                 try {
                     currentCon.close();
                 } catch (Exception e) {
-                    
+
                 }
 
                 currentCon = null;
             }
-            
+
         }
         return opleidingen;
+    }
+
+    /* Sluit enkele variabelen en zet ze op null */
+    private void sluitVariabelen(ResultSet rs, Statement statement, PreparedStatement ps, Connection currentCon) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            try {
+                rs = null;
+            } catch (Exception e) {
+            }
+        }
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+            }
+            try {
+                statement = null;
+            } catch (Exception e) {
+            }
+        }
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (Exception e) {
+            }
+            try {
+                ps = null;
+            } catch (Exception e) {
+            }
+        }
+        if (currentCon != null) {
+            try {
+                currentCon.close();
+            } catch (Exception e) {
+            }
+            try {
+                currentCon = null;
+            } catch (Exception e) {
+            }
+        }
     }
 }
