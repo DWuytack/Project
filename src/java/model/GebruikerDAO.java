@@ -209,10 +209,10 @@ public class GebruikerDAO {
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        String sql = "UPDATE gebruikers set gebruiker.voornaam=?,"
-                + "gebruiker.achternaam=?, gebruiker.login=?, "
-                + "gebruiker.rolID=?, gebruiker.email=?,"
-                + "gebruiker.geboortedatum=? where gebruikers.gebruikerID=?";
+        String sql = "UPDATE gebruikers set gebruikers.voornaam=?,"
+                + "gebruikers.achternaam=?, gebruikers.login=?, "
+                + "gebruikers.rolID=?, gebruikers.email=?,"
+                + "gebruikers.geboortedatum=? where gebruikers.gebruikerID=?";
 
         int rolId = 0;
         if (gebruiker.getRol().equals("admin")) {

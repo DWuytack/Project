@@ -305,6 +305,10 @@ section {
     position: relative;
     z-index: 50;
 }
+section::before, section::after {
+    clear: both;
+    content: '';
+}
 
 /* NAV
    -------------------------------------------------------------------------- */
@@ -453,13 +457,21 @@ div.active > .dropdown { display: flex; }
     margin: auto 5%;
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: inherit;
+    min-width: 400px;
 }
 .table-container > div {
     display: flex;
     justify-content: space-around;
     width: 100%;
     margin: auto;
+}
+.table-container > * {
+    min-width: inherit;
+}
+.table-container div::before, .table-container div::after {
+    clear: both;
+    content: '';
 }
 /* Table Header */
 .table-nav-header {
