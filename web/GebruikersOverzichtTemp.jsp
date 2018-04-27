@@ -16,6 +16,7 @@
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/formulier.css">
+        <link rel="stylesheet" href="css/gebruikersOverzicht">
         <title>Gebruikers overzicht</title>
     </head>
     
@@ -29,110 +30,30 @@
         </section>
         <!--<pre>${sessionScope.test}</pre>-->
         <section>
-                <style>
-                    #gebruikersOverzicht {
-                        max-width: 1200px;
-                        min-width: 760px;
-                    }
-                    #gebruikersOverzicht table th[title="Rol"] > a {
-                        min-width: 100px;
-                    }
-                    #gebruikersOverzicht table th[title="Email"] > a {
-                        min-width: 180px;
-                    }
-                    #gebruikersOverzicht table td > input[type="text"]:not([name="email"]) {
-                        max-width: 100px;
-                    }
-                    #gebruikersOverzicht table td > input[type="date"], select[name="rol"] {
-                        max-width: 100px;
-                    }         
-
-                    /*RESIZE SUPPORT */
-                    @media screen and (max-width: 600px) {
-                        #gebruikersOverzicht table tbody tr {
-                            background-color: #f8f6ff;
-                        }
-                        #gebruikersOverzicht {
-                            max-width: none;
-                            min-width: auto;
-                            display: flex;
-                            justify-content: space-around;
-                            width: 100%;
-                            margin: auto;
-                        }
-                        #gebruikersOverzicht table {
-                            border: 0;
-                            table-layout: fixed;
-                        }
-
-                        #gebruikersOverzicht table thead {
-                            border: none;
-                            clip: rect(0 0 0 0);
-                            height: 1px;
-                            margin: -1px;
-                            overflow: hidden;
-                            padding: 0;
-                            position: absolute;
-                            width: 1px;
-                        }
-
-                        #gebruikersOverzicht table tr {
-                            border-bottom: 3px solid #ddd;
-                            display: block;
-                            margin-bottom: .625em;
-                        }
-
-                        #gebruikersOverzicht table td {
-                            border-bottom: 1px solid #ddd;
-                            display: block;
-                            font-size: .8em;
-                            text-align: right;
-                            display: flex;
-                            justify-content: flex-start;
-                            align-items: center;
-                        }
-
-                        #gebruikersOverzicht table td::before {
-                            content: attr(data-label);
-                            font-weight: bold;
-                            text-transform: uppercase;
-                            display: flex;
-                            min-width: 120px;
-                            padding: 10px;
-                        }
-
-                        #gebruikersOverzicht table td:last-child {
-                            border-bottom: 0;
-                            padding-top: 5px;
-                            padding-bottom: 5px;
-                            padding-left: 12px;
-                        }
-                    }
-                </style>
-                <div class="table-container">   
-                    <div class="table-nav-header">
-                        <div id="zoeken">
-                            <a id="bt-zoeken">
-                                <i class="material-icons">search</i>
-                            </a>
-                            <input type="text" name="zoekterm" value="${zoekterm}" size="15">
-                        </div>
-                        <div>
-                            <a id="bt-gebruiker_toevoegen" name="gebruiker toevoegen">
-                                <i class="material-icons">person_add</i>
-                            </a>
-                            <input type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
-                            <input type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
-                            <input type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
-                            <input type="image" name="Laatste" value="skip_next" src='images/skip_next.png'>
-                        </div>
+            <div class="table-container">   
+                <div class="table-nav-header">
+                    <div id="zoeken">
+                        <a id="bt-zoeken">
+                            <i class="material-icons">search</i>
+                        </a>
+                        <input type="text" name="zoekterm" value="${zoekterm}" size="15">
                     </div>
-                    <div id="gebruikersOverzicht" role="wrapper"></div>
-                    <br><br>
-                    <div class="table-nav-footer">
-                        <p>Totaal aantal gebruikers: <span id="gebruikers">${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</span></p>
+                    <div>
+                        <a id="bt-gebruiker_toevoegen" name="gebruiker toevoegen">
+                            <i class="material-icons">person_add</i>
+                        </a>
+                        <input type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
+                        <input type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
+                        <input type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
+                        <input type="image" name="Laatste" value="skip_next" src='images/skip_next.png'>
                     </div>
-                </div>    
+                </div>
+                <div id="gebruikersOverzicht" role="wrapper"></div>
+                <br><br>
+                <div class="table-nav-footer">
+                    <p>Totaal aantal gebruikers: <span id="gebruikers">${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</span></p>
+                </div>
+            </div>    
             <script>
                 var pageCounter = 1;
                 var params = 'page=' + pageCounter;
