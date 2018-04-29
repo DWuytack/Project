@@ -166,7 +166,10 @@ public class OpleidingDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT studiegebieden_opleidingen.opleidingID, opleidingen.naam FROM studiegebieden_opleidingen Inner join opleidingen on studiegebieden_opleidingen.opleidingID = opleidingen.opleidingID Where studiegebiedID = ? ";
+            String sql = "SELECT opleidingen.naam FROM opleidingen"
+                    + " inner join studiegebied_opleidingen on studiegebied_opleidingen.opleidingID = opleidingen.opleidingID "
+                    + " inner join studiegebieden on studiegebieden.studiegebiedID = studiegebied_opleidingen.studiegebiedID "
+                    + " where studiegebied_opleidingen.studiegebiedID = ? ";
             ps = currentCon.prepareStatement(sql);
             ps.setInt(1, studiegebiedID);
             rs = ps.executeQuery();
@@ -175,7 +178,6 @@ public class OpleidingDAO {
                 Opleiding opleiding = new Opleiding();
                 opleiding.setOpleidingID(rs.getInt("opleidingID"));
                 opleiding.setNaam(rs.getString("naam"));
-
                 opleidingen.add(opleiding);
             }
         } catch (SQLException e) {

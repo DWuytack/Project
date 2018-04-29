@@ -178,4 +178,8 @@ public class StudiegebiedDAO {
             }
         }
     }
+
+    public int geefStudieGebied(String studiegebied) {
+        return 1;
+    }
 }

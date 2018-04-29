@@ -24,7 +24,7 @@ import model.SemesterDAO;
 import model.Studiegebied;
 import model.StudiegebiedDAO;
 import model.Semester;
-import model.TaakDAO;
+
 
 /**
  *
