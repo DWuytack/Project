@@ -31,6 +31,10 @@
         <servlet-name>someservlet</servlet-name>
         <url-pattern>/someservlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>someservlet</servlet-name>
+        <servlet-class>controller.someservlet</servlet-class>
+    </servlet>
     <session-config>
         <session-timeout>
             30

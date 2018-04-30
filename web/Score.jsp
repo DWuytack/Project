@@ -18,18 +18,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
+        <script src="js/score.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/gebruikers.css">
         <title>Score overzicht</title>
     </head>
+    
     <body>
         <%@include file="Bovenbalk.jsp" %>
-
+        <form method ="POST" action="ScoreServlet">
         <section id="pagename">
             <h2> Score overzicht </h2> 
         </section>       
-        <section>
-            <form action="ScoreServlet">
+        <section>            
                 <br>
                 <div class="table-container">
                     <div class="table-nav-header">
@@ -69,7 +70,7 @@
                             </td>                           
                             <td width="10px"></td>
                             <td>
-                                <select name="Studiegebied" style="max-width:150px;">
+                                <select name="Studiegebied" id ="studiegebied" onchange="laadOpleidingen()" style="max-width:150px;">
                                     <option value="studiegebied" selected disabled> Kies studiegebied.. </option>
                                     <c:forEach items="${studiegebieden}" var="studiegebied">                  
                                         <option value="studiegebied"> ${studiegebied.naam} </option>                     
@@ -123,7 +124,8 @@
                                 </tr>
                             </c:forEach>
                         </tbody>
-                    </table>                   
+                    </table>
+                    <h2 id="demo"> </h2>
                 </div>
             </form>    
         </section>
