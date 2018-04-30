@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Opleiding;
+import model.OpleidingDAO;
 import model.Score;
 import model.ScoreDAO; 
+import model.StudiegebiedDAO;
 
 /**
  *  Deze klasse bevat de aanpassing van het scoretype.
@@ -30,94 +33,29 @@ public class ScoreServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-           throws ServletException, IOException {
-        
-        HttpSession session = request.getSession(true);
-        ArrayList<Score> beoordelingssoorten = null;
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        try {
-            String actie = "";
-            String editID = request.getParameter("idEdit");
-            String cancelID = request.getParameter("idCancel");
-            String saveID = request.getParameter("idSave");
-            String deleteID = request.getParameter("idDelete");
-            String addID = request.getParameter("addID");
+        String keuze = request.getParameter("studiegebied");
+
+        if (keuze != null) {
             
-             if (editID != null) {
-                actie = "Edit typeScore";
-            }
-            if (cancelID != null) {
-                actie = "Cancel typeScore";
-            }
-            if (saveID != null) {
-                actie = "Save typeScore";
-            }
-            if (deleteID != null) {
-                actie = "Delete typeScore";
-            }
-            if (addID != null) {
-                actie = "Add typeScore";
+            String boodschap = "U zit in de scoreServlet! U heeft gekozen: " + keuze + ". De "
+                    + "opleidingen van de " + keuze + " zijn nu geladen!: ";
+            
+            OpleidingDAO opleidingDAO=new OpleidingDAO();
+            StudiegebiedDAO studieGebiedDAO=new StudiegebiedDAO();
+            ArrayList<Opleiding> opleidingen=opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudieGebied(keuze));
+
+            for (Opleiding opleiding: opleidingen){
+                boodschap=boodschap+ opleiding.getNaam() + "<BR>";
             }
             
-            Score typeScore = new Score();
-
-            switch (actie) {
-
-                case "Edit typeScore":
-                    session.setAttribute("editID", editID);
-                    session.removeAttribute("saveID");                  
-                    beoordelingssoorten = scoreDAO.typeScoreLaden();
-                    session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
-                    response.sendRedirect("TypeScoreOverzicht.jsp");
-                    break;
-                    
-                case "Cancel typeScore":
-                    session = request.getSession(true);
-                    session.removeAttribute("editID");
-                    session.removeAttribute("saveID");
-                    response.sendRedirect("TypeScoreOverzicht.jsp");
-                    break;
-
-                case "Save typeScore":
-                    session = request.getSession(true);
-                    session.removeAttribute("editID");
-                    int id = Integer.parseInt(saveID);
-                    typeScore.setNaam(request.getParameter("naam"));
-                    typeScore.setBeschrijving(request.getParameter("beschrijving"));
-                    typeScore.setWaarde(Integer.parseInt(request.getParameter("waarde")));
-                    scoreDAO.typeScoreAanpassen(id, typeScore);
-                    beoordelingssoorten = scoreDAO.typeScoreLaden();
-                    session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
-                    response.sendRedirect("TypeScoreOverzicht.jsp");
-                    session.removeAttribute("saveID");
-                    break;
-                    
-                case "Delete typeScore":
-                    session = request.getSession(true);
-                    session.removeAttribute("editID");
-                    session.removeAttribute("saveID");
-                    scoreDAO.typeScoreVerwijderen(Integer.parseInt(deleteID));
-                    beoordelingssoorten = scoreDAO.typeScoreLaden();
-                    session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
-                    response.sendRedirect("TypeScoreOverzicht.jsp");
-                    break;
-                    
-                case "Add typeScore":
-                    session.setAttribute("addID", addID);
-                    typeScore.setNaam(request.getParameter("naam"));
-                    typeScore.setBeschrijving(request.getParameter("beschrijving"));
-                    typeScore.setWaarde(Integer.parseInt(request.getParameter("waarde")));
-                    scoreDAO.typeScoreToevoegen(typeScore);                 
-                    beoordelingssoorten = scoreDAO.typeScoreLaden();
-                    session.setAttribute("lijstBeoordelingssoorten", beoordelingssoorten);
-                    response.sendRedirect("TypeScoreOverzicht.jsp");
-                    break;
-            }
-
-        } catch (Throwable theException) {}
+            response.setContentType("application/html");
+            response.getWriter().write(boodschap);
+        }
     }
-    
+
      // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

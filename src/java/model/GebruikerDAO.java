@@ -175,7 +175,7 @@ public class GebruikerDAO {
         }
         return aantalGebruikers;
     }
-
+//oi ewout kan je ervoor zorgen dat er bij gebruikerservlet een case us voor gebruikerAanmaken?
     public void gebruikerAanmaken(Gebruiker gebruiker) {
         Connection currentCon = null;
         PreparedStatement ps = null;

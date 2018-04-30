@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 function laadOpleidingen() {
 
     var keuze = document.getElementById('studiegebied').value;
@@ -19,7 +18,7 @@ function laadOpleidingen() {
     }
     
     //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?studiegebied="+keuze, true);
+    xhttp.open("POST", "ScoreServlet?studiegebied="+keuze, true);
     xhttp.send();
     
     xhttp.onreadystatechange = function () {
@@ -40,4 +39,3 @@ function laadOpleidingen() {
         
     };
 }
-
