@@ -170,13 +170,13 @@ public class OpleidingDAO {
                     + " inner join studiegebied_opleidingen on studiegebied_opleidingen.opleidingID = opleidingen.opleidingID "
                     + " inner join studiegebieden on studiegebieden.studiegebiedID = studiegebied_opleidingen.studiegebiedID "
                     + " where studiegebied_opleidingen.studiegebiedID = ? ";
+            
             ps = currentCon.prepareStatement(sql);
             ps.setInt(1, studiegebiedID);
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 Opleiding opleiding = new Opleiding();
-                opleiding.setOpleidingID(rs.getInt("opleidingID"));
                 opleiding.setNaam(rs.getString("naam"));
                 opleidingen.add(opleiding);
             }

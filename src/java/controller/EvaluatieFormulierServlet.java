@@ -46,10 +46,10 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             ArrayList<Opleiding> opleidingen=opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudieGebied(keuze));
 
             for (Opleiding opleiding: opleidingen){
-                keuze=keuze+ opleiding.getNaam() + "<BR>";
+                boodschap=boodschap+ opleiding.getNaam() + "<BR>";
             }
             
-            response.setContentType("text/plain");
+            response.setContentType("application/html");
             response.getWriter().write(boodschap);
         }
     }

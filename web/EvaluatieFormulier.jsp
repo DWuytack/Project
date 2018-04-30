@@ -48,7 +48,7 @@
                     <td width="10px"></td>
 
                     <td>
-                        <select name="studiegebied" id="studiegebied"  onchange="getSelectedValue()"  style="max-width:130px;">
+                        <select name="studiegebied" id="studiegebied"  onchange="laadOpleidingen()"  style="max-width:130px;">
                             <option selected disabled> Studiegebied... </option>
                             <c:forEach items="${studiegebieden}" var="studiegebied">                  
                                 <option> ${studiegebied.naam} </option>                     

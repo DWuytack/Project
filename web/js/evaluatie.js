@@ -5,7 +5,7 @@
  */
 
 
-function getSelectedValue() {
+function laadOpleidingen() {
 
     var keuze = document.getElementById('studiegebied').value;
     var xhttp = new XMLHttpRequest();
