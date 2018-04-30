@@ -166,7 +166,7 @@ public class OpleidingDAO {
 
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT opleidingen.naam FROM opleidingen"
+            String sql = "SELECT opleidingen.naam, opleidingen.opleidingID FROM opleidingen"
                     + " inner join studiegebied_opleidingen on studiegebied_opleidingen.opleidingID = opleidingen.opleidingID "
                     + " inner join studiegebieden on studiegebieden.studiegebiedID = studiegebied_opleidingen.studiegebiedID "
                     + " where studiegebied_opleidingen.studiegebiedID = ? ";
@@ -178,6 +178,7 @@ public class OpleidingDAO {
             while (rs.next()) {
                 Opleiding opleiding = new Opleiding();
                 opleiding.setNaam(rs.getString("naam"));
+                 opleiding.setOpleidingID(rs.getInt("opleidingID"));
                 opleidingen.add(opleiding);
             }
         } catch (SQLException e) {
