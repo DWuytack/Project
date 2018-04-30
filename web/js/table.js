@@ -52,3 +52,13 @@ function sortTable(n) {
       }
     }
 }
+
+document.addEventListener("click", function(e){
+    var target = e.target;
+    if(target.name === "idEdit")
+        var row;
+        for(row of e.path) {
+            if(row.tagName === "TR") break;
+        }
+        row.classList.add("edit");
+});
