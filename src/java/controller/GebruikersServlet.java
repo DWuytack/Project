@@ -114,7 +114,7 @@ public class GebruikersServlet extends HttpServlet {
                 session.setAttribute("lijstGebruikers", gebruikers);
                 response.sendRedirect("GebruikersOverzicht.jsp");
             }
-            
+
             if (zoekterm != null && !zoekterm.equals("")) {
                 actie = "Zoeken";
             }
@@ -133,17 +133,17 @@ public class GebruikersServlet extends HttpServlet {
             if (addID != null) {
                 actie = "Add gebruiker";
             }
-            
+
             Gebruiker gebruiker = new Gebruiker();
 
             switch (actie) {
                 case "Zoeken":
                     session.setAttribute("zoekterm", zoekterm);
-                    gebruikers = gebruikerDAO.gebruikersZoeken(zoekterm,bladz);
+                    gebruikers = gebruikerDAO.gebruikersZoeken(zoekterm, bladz);
                     session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
-                    
+
                 case "Edit gebruiker":
                     session.setAttribute("editID", editID);
                     session.removeAttribute("deleteID");
@@ -201,6 +201,12 @@ public class GebruikersServlet extends HttpServlet {
                     session.removeAttribute("saveID");
                     break;
 
+                case "add gebruiker":
+                    session.setAttribute("addId", addID);
+                    gebruikerDAO.gebruikerAanmaken(gebruiker);
+                    gebruikers = gebruikerDAO.gebruikersLaden(bladz);
+                    session.setAttribute("lijstGebruikers", gebruikers);
+                    response.sendRedirect("GebruikersOverzicht.jsp");
             }
 
         } catch (Throwable theException) {
