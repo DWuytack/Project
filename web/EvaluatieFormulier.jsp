@@ -58,47 +58,38 @@
                         </select> 
                     </td>
 
-               
+
+                    <td width="10px"></td>
+
+                    <td><select id="opleidingen" >
+                        </select></TD>
+
+                    <td width="10px"></td>
+
+                    <td>  <select name="Module" style="max-width:100px;">
+                            <option value="module" selected disabled> Module... </option>
+                            <c:forEach items="${modules}" var="module">                  
+                                <option value="module"> ${module.naam} </option>                     
+                            </c:forEach>
+                            <option value="module" > Voeg module toe... </option>
+                        </select> </td>
+
+                    <td width="10px"></td>
+
+                    <td>  <select name="cursist" style="max-width:100px;">
+                            <option value="cursist" selected disabled> Cursist... </option>
+                            <option value="cursist" > Voeg cursist toe... </option>
+                        </select> </td>
 
 
+                    <td width="10px"></td>
 
+                    <td>  <select name="les">
+                            <option value="les" selected disabled> Lesnr... </option>
+                            <option value="les" > Voeg lesnr toe... </option>
+                        </select> </td>
 
-                <td width="10px"></td>
-
-                <td><select name="Opleiding" style="max-width:130px;">
-                        <option value="opleiding" selected disabled> Opleiding... </option>
-                        <c:forEach items="${opleidingen}" var="opleiding">                  
-                            <option value="opleiding"> ${opleiding.naam} </option>                     
-                        </c:forEach>
-                        <option value="opleiding" > Voeg opleiding toe... </option>
-                    </select> </TD>
-
-                <td width="10px"></td>
-
-                <td>  <select name="Module" style="max-width:100px;">
-                        <option value="module" selected disabled> Module... </option>
-                        <c:forEach items="${modules}" var="module">                  
-                            <option value="module"> ${module.naam} </option>                     
-                        </c:forEach>
-                        <option value="module" > Voeg module toe... </option>
-                    </select> </td>
-
-                <td width="10px"></td>
-
-                <td>  <select name="cursist" style="max-width:100px;">
-                        <option value="cursist" selected disabled> Cursist... </option>
-                        <option value="cursist" > Voeg cursist toe... </option>
-                    </select> </td>
-
-
-                <td width="10px"></td>
-
-                <td>  <select name="les">
-                        <option value="les" selected disabled> Lesnr... </option>
-                        <option value="les" > Voeg lesnr toe... </option>
-                    </select> </td>
-
-                <td width="10px"></td>
+                    <td width="10px"></td>
                 </tr>
             </table>
             <br>
@@ -173,11 +164,11 @@
                 </tr>
 
             </table>
-                            
-            <h2 id="demo"> </h2>
-             </p>
-        </form>
 
-    </body>
+            <h2 id="demo"> </h2>
+        </p>
+    </form>
+
+</body>
 </html>
 
