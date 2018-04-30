@@ -5,87 +5,89 @@
  */
 package controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import model.Gebruiker;
 import model.GebruikerDAO;
 
 /**
  *
- * @author Jens
+ * @author Jens & D
  */
-
-
-@WebServlet(name = "someservlet", urlPatterns = {"/someservlet"})
 public class someservlet extends HttpServlet {
-    
-    GebruikerDAO gebruikerDAO = new GebruikerDAO();
 
     /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
-    
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*
-        HttpSession session = request.getSession(true);  
-        
-        ArrayList<Gebruiker> gebruikers = null;
-        
-        ArrayList<Gebruiker> cursisten = gebruikerDAO.gebruikersLaden(1);
-        String json = new Gson().toJson(cursisten);
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json); 
-        */
-    }
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
         String page = request.getParameter("page");
-        int p = Integer.parseInt(page);
-        
-        ArrayList<Gebruiker> cursisten = gebruikerDAO.gebruikersLaden(p);
-        
-        //date
-        
-        String test = null;
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        for(Gebruiker cursist : cursisten) {
-            //test = df.format(cursist.getGeboorteDatum());
-            test = cursist.getGeboorteDatumValue();
-        }
-        
-        String json = new Gson().toJson(cursisten);
-        
-        //Gson gson = new Gson();
-        //JsonElement jsonElement = gson.toJsonTree(cursisten);
-        //jsonElement.getAsJsonObject().addProperty("formatDate", "test");
-        //gson.toJson(jsonElement);
-        
-        //gson.toJson(jsonElement.getAsJsonObject())
 
-        session.setAttribute("json",  json);
-        session.setAttribute("test",  test);
-        
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json);
-    }	
+        if (page != null) {
+            int p = Integer.parseInt(page);
+            GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            ArrayList<Gebruiker> cursisten = gebruikerDAO.gebruikersLaden(p);
+            
+            //omzetten naar json
+            String json = new Gson().toJson(cursisten);
+            
+            //session.setAttribute("json",  json);
+            
+            response.setContentType("application/json");
+            //response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Dit is de someServlet!";
+    }
+
 }

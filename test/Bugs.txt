@@ -45,3 +45,7 @@ https://www.chromestatus.com/feature/5636954674692096
 
     #vaststelling
     als je een value aanpast met java (zoals zoekterm) word deze waarde op de pagina niet aangepast, enig idee hoe we dit oplossen?
+
+
+
+<!--<pre>${sessionScope.test}</pre>-->

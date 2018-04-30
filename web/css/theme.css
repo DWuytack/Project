@@ -141,7 +141,7 @@ body > ::-webkit-scrollbar { display: none; } /* Chrome Only */
 input[type="date"]::-webkit-inner-spin-button { display: none; } /* Chrome Only */
 input[type="date"]::-webkit-clear-button { display: none; } /* Chrome Only */
 input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0; background: none; color: transparent; cursor: pointer; }
-input[type="date"] { position: relative; padding-right: 10px; /*z-index: 1 */ }
+input[type="date"] { position: relative; margin-right: 10px; /*z-index: 1 */ }
 input[type="date"]::before {
     color: #333;
     background: none;
