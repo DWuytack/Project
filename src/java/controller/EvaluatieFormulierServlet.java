@@ -7,7 +7,6 @@ package controller;
 
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +41,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
                    
             OpleidingDAO opleidingDAO=new OpleidingDAO();
             StudiegebiedDAO studieGebiedDAO=new StudiegebiedDAO();
-            ArrayList<Opleiding> opleidingen=opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudieGebied(keuze));
+            ArrayList<Opleiding> opleidingen=opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudieGebiedID(keuze));
 
             String json = gson.toJson(opleidingen);
             

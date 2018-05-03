@@ -36,6 +36,7 @@ function laadOpleidingen() {
         if (this.readyState === 4 && this.status === 200) {
 
             let dropdown = document.getElementById('opleidingen');
+            dropdown.hidden=false;
             dropdown.length = 0;
             
             let defaultOption = document.createElement('option');

@@ -179,7 +179,32 @@ public class StudiegebiedDAO {
         }
     }
 
-    public int geefStudieGebied(String studiegebied) {
-        return 1;
+    public int geefStudieGebiedID(String studiegebied) {
+
+        int studieGebiedID = 0;
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "select studiegebiedID from studiegebieden where "
+                    + "studiegebieden.naam= ?";
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, studiegebied);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                studieGebiedID = rs.getInt("studiegebiedID");
+            }
+
+        } catch (Exception e) {
+
+        } finally {
+            sluitVariabelen(rs, ps, null, currentCon);
+        }
+
+        return studieGebiedID;
     }
 }

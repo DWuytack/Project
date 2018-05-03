@@ -9,10 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.Opleiding;
 import model.OpleidingDAO;
-import model.Score;
 import model.ScoreDAO; 
 import model.StudiegebiedDAO;
 
@@ -44,7 +42,7 @@ public class ScoreServlet extends HttpServlet {
                    
             OpleidingDAO opleidingDAO=new OpleidingDAO();
             StudiegebiedDAO studieGebiedDAO=new StudiegebiedDAO();
-            ArrayList<Opleiding> opleidingen=opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudieGebied(keuze));
+            ArrayList<Opleiding> opleidingen=opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudieGebiedID(keuze));
 
             String json = gson.toJson(opleidingen);
             

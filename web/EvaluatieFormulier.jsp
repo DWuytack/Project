@@ -37,7 +37,7 @@
 
                     <td width="10px"></td>
 
-                    <td> <select name="Semester">
+                    <td> <select name="Semester"  style="max-width:110px;">
                             <option value="semester" selected disabled> Semester... </option>
                             <c:forEach items="${semesters}" var="semester">                  
                                 <option value="semester"> ${semester.semester} </option>                     
@@ -61,33 +61,27 @@
 
                     <td width="10px"></td>
 
-                    <td><select id="opleidingen" >
+                    <td><select id="opleidingen"  hidden  style="max-width:130px;">
+
                         </select></TD>
 
                     <td width="10px"></td>
 
-                    <td>  <select name="Module" style="max-width:100px;">
-                            <option value="module" selected disabled> Module... </option>
-                            <c:forEach items="${modules}" var="module">                  
-                                <option value="module"> ${module.naam} </option>                     
-                            </c:forEach>
-                            <option value="module" > Voeg module toe... </option>
+                    <td>  <select id="modules" hidden  style="max-width:130px;">
+
                         </select> </td>
 
                     <td width="10px"></td>
 
-                    <td>  <select name="cursist" style="max-width:100px;">
-                            <option value="cursist" selected disabled> Cursist... </option>
-                            <option value="cursist" > Voeg cursist toe... </option>
+                    <td>  <select id="cursist"  hidden  style="max-width:130px;">
+
                         </select> </td>
 
 
                     <td width="10px"></td>
 
-                    <td>  <select name="les">
-                            <option value="les" selected disabled> Lesnr... </option>
-                            <option value="les" > Voeg lesnr toe... </option>
-                        </select> </td>
+                    <td>  <select id="les" hidden  style="max-width:50px;">
+                       </select> </td>
 
                     <td width="10px"></td>
                 </tr>
