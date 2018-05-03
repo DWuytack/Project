@@ -34,8 +34,22 @@ function laadOpleidingen() {
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
             
-            document.getElementById("demo").innerHTML= xhttp.responseText;
-        }
-        
-    };
+         let dropdown = document.getElementById('opleidingen');
+            dropdown.length = 0;
+            
+            let defaultOption = document.createElement('option');
+            defaultOption.text = 'Kies opleiding...';
+
+            dropdown.add(defaultOption);
+            dropdown.selectedIndex = 0;
+
+            const data = JSON.parse(xhttp.responseText);
+            let option;
+            for (let i = 0; i < data.length; i++) {
+                option = document.createElement('option');
+                option.text = data[i].naam;
+                dropdown.add(option);
+            }
+        } 
+    };        
 }

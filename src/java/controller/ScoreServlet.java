@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -37,25 +38,20 @@ public class ScoreServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String keuze = request.getParameter("studiegebied");
+        Gson gson = new Gson();
 
         if (keuze != null) {
-            
-            String boodschap = "U zit in de scoreServlet! U heeft gekozen: " + keuze + ". De "
-                    + "opleidingen van de " + keuze + " zijn nu geladen!: ";
-            
+                   
             OpleidingDAO opleidingDAO=new OpleidingDAO();
             StudiegebiedDAO studieGebiedDAO=new StudiegebiedDAO();
             ArrayList<Opleiding> opleidingen=opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudieGebied(keuze));
 
-            for (Opleiding opleiding: opleidingen){
-                boodschap=boodschap+ opleiding.getNaam() + "<BR>";
-            }
+            String json = gson.toJson(opleidingen);
             
-            response.setContentType("application/html");
-            response.getWriter().write(boodschap);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
         }
     }
-
      // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

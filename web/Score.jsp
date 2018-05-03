@@ -73,17 +73,14 @@
                                 <select name="Studiegebied" id ="studiegebied" onchange="laadOpleidingen()" style="max-width:150px;">
                                     <option value="studiegebied" selected disabled> Kies studiegebied.. </option>
                                     <c:forEach items="${studiegebieden}" var="studiegebied">                  
-                                        <option value="studiegebied"> ${studiegebied.naam} </option>                     
-                                    </c:forEach>                                    
-                                </select>
+                                     <option> ${studiegebied.naam} </option>                     
+                                    </c:forEach>
+                                    <option> Voeg studiegebied toe... </option>
+                                </select> 
                             </td>
                             <td width="10px"></td>
                             <td>
-                                <select name="Opleiding" style="max-width:122px;">
-                                    <option   value="opleiding" selected disabled> Kies opleiding.. </option>
-                                    <c:forEach items="${opleidingen}" var="opleiding">
-                                        <option value="opleiding"> ${opleiding.naam} </option>  
-                                    </c:forEach>                                      
+                                <select id="opleidingen">
                                 </select>
                             </td>
                             <td width="10px"></td>
@@ -125,7 +122,7 @@
                             </c:forEach>
                         </tbody>
                     </table>
-                    <h2 id="demo"> </h2>
+                    
                 </div>
             </form>    
         </section>
