@@ -23,14 +23,14 @@
         <link rel="stylesheet" href="css/gebruikers.css">
         <title>Score overzicht</title>
     </head>
-    
+
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <form method ="POST" action="ScoreServlet">
-        <section id="pagename">
-            <h2> Score overzicht </h2> 
-        </section>       
-        <section>            
+            <section id="pagename">
+                <h2> Score overzicht </h2> 
+            </section>       
+            <section>            
                 <br>
                 <div class="table-container">
                     <div class="table-nav-header">
@@ -73,17 +73,17 @@
                                 <select name="Studiegebied" id ="studiegebied" onchange="laadOpleidingen()" style="max-width:150px;">
                                     <option value="studiegebied" selected disabled> Kies studiegebied.. </option>
                                     <c:forEach items="${studiegebieden}" var="studiegebied">                  
-                                     <option> ${studiegebied.naam} </option>                     
+                                        <option> ${studiegebied.naam} </option>                     
                                     </c:forEach>
                                     <option> Voeg studiegebied toe... </option>
                                 </select> 
                             </td>
                             <td width="10px"></td>
                             <td>
-                               <select name="Opleidingen" id ="Opleidingen" onchange="laadModule()" style="max-width:150px;" style="max-width:112px;">
-                                    <option   value="Opleidingen" selected disabled> Kies opleiding.. </option>
-                                    <c:forEach items="${opleidingen}" var="module">
-                                        <option value="opleidingen"> ${opleidingen.naam} </option> 
+                                <select name="Opleiding" id ="Opleiding" onchange="laadModule()" style="max-width:150px;" style="max-width:112px;">
+                                    <option   value="Opleiding" selected disabled> Kies opleiding.. </option>
+                                    <c:forEach items="${opleidingen}" var="opleiding">
+                                        <option value="opleiding"> ${opleiding.naam} </option> 
                                     </c:forEach> 
                                 </select>
                             </td>
@@ -126,9 +126,9 @@
                             </c:forEach>
                         </tbody>
                     </table>
-                    
+
                 </div>
-            </form>    
-        </section>
-    </body>
+        </form>    
+    </section>
+</body>
 </html>
