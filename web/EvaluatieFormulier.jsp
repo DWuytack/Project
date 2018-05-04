@@ -28,17 +28,16 @@
             </section>
             <hr>
 
-            <table class="doelstelling1" >
+            <table >
 
                 <tr>
-                    <td width="10px"></td>
+                    <td width="70px"></td>
 
-                    <td> <input type="date" name="datum" style="font-size: 0.9rem"  > </td>
-
-                    <td width="10px"></td>
-
-                    <td> <select name="Semester"  style="max-width:110px;">
-                            <option value="semester" selected disabled> Semester... </option>
+                    <td> <input type="date" id="datum" 
+                       required style="font-size: 0.9rem"  > </td>
+                    
+                    <td> <select name="Semester" id="Semester" onchange="checkDate()" style="max-width:110px;" >
+                            <option value="semester" selected > Semester... </option>
                             <c:forEach items="${semesters}" var="semester">                  
                                 <option value="semester"> ${semester.semester} </option>                     
                             </c:forEach>
@@ -48,7 +47,7 @@
                     <td width="10px"></td>
 
                     <td>
-                        <select name="studiegebied" id="studiegebied"  onchange="laadOpleidingen()"  style="max-width:130px;">
+                        <select name="studiegebied" id="studiegebied" hidden  onchange="laadOpleidingen()"  style="max-width:130px;">
                             <option selected disabled> Studiegebied... </option>
                             <c:forEach items="${studiegebieden}" var="studiegebied">                  
                                 <option> ${studiegebied.naam} </option>                     
@@ -61,7 +60,7 @@
 
                     <td width="10px"></td>
 
-                    <td><select id="opleidingen"  hidden  style="max-width:130px;">
+                    <td><select id="opleidingen" onchange="laadModules()" hidden  style="max-width:130px;">
 
                         </select></TD>
 

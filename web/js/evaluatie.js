@@ -4,9 +4,32 @@
  * and open the template in the editor.
  */
 
+function laadModules(){
+    
+}
+
+function checkDate() {
+
+    var datum = document.getElementById("datum").value;
+
+    if (datum === '') {
+        alert("Selecteer eerst een datum!");
+        document.getElementById("Semester").selectedIndex = 0;
+    } else {
+        if (document.getElementById("Semester").selectedIndex === 0) {
+             document.getElementById("studiegebied").hidden = true;
+        } else {
+            document.getElementById("studiegebied").hidden = false;
+        }
+    }
+
+}
 
 function laadOpleidingen() {
 
+    if (document.getElementById("studiegebied").selectedIndex == 0){
+        return;
+    }
     var keuze = document.getElementById('studiegebied').value;
     var xhttp = new XMLHttpRequest();
 
@@ -36,12 +59,12 @@ function laadOpleidingen() {
         if (this.readyState === 4 && this.status === 200) {
 
             let dropdown = document.getElementById('opleidingen');
-            dropdown.hidden=false;
+            dropdown.hidden = false;
             dropdown.length = 0;
-            
-            let defaultOption = document.createElement('option');
-            defaultOption.text = 'Kies opleiding...';
 
+            let defaultOption = document.createElement('option');
+            defaultOption.text = 'Opleiding...';
+            defaultOption.disabled = true;
             dropdown.add(defaultOption);
             dropdown.selectedIndex = 0;
 
@@ -52,7 +75,9 @@ function laadOpleidingen() {
                 option.text = data[i].naam;
                 dropdown.add(option);
             }
-        } 
+            option.text = "Voeg Opleiding toe..."
+            dropdown.add(option);
+        }
     };
 }
 
