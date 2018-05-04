@@ -28,7 +28,7 @@
             </section>
             <hr>
 
-            <table >
+            <table>
 
                 <tr>
                     <td width="70px"></td>
