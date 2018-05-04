@@ -61,7 +61,7 @@
                             </td>
                             <td width="10px"></td>
                             <td>
-                                <select name="Semester" >
+                                <select name="Semester" id ="Semester" onchange="laadStudiegebied()" style="max-width:150px;" >
                                     <option value="semester" selected disabled> Kies semester.. </option>
                                     <c:forEach items="${semesters}" var="semester">
                                         <option value="semester"> ${semester.semester} </option> 
@@ -80,7 +80,11 @@
                             </td>
                             <td width="10px"></td>
                             <td>
-                                <select id="opleidingen">
+                               <select name="Opleidingen" id ="Opleidingen" onchange="laadModule()" style="max-width:150px;" style="max-width:112px;">
+                                    <option   value="Opleidingen" selected disabled> Kies opleiding.. </option>
+                                    <c:forEach items="${opleidingen}" var="module">
+                                        <option value="opleidingen"> ${opleidingen.naam} </option> 
+                                    </c:forEach> 
                                 </select>
                             </td>
                             <td width="10px"></td>
