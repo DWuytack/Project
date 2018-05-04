@@ -135,6 +135,34 @@ public class StudiegebiedDAO {
         return studiegebieden;
     }
 
+    public int geefStudiegebiedID(String studiegebiedNaam) {
+
+        int studieGebiedID = 0;
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select studiegebiedID from studiegebieden where "
+                    + "studiegebieden.naam= ?";
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, studiegebiedNaam);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                studieGebiedID = rs.getInt("studiegebiedID");
+            }
+
+        } catch (Exception e) {
+
+        } finally {
+            sluitVariabelen(rs, ps, null, currentCon);
+        }
+
+        return studieGebiedID;
+    }
+
     /* Sluit enkele variabelen en zet ze op null */
     private void sluitVariabelen(ResultSet rs, Statement statement, PreparedStatement ps, Connection currentCon) {
         if (rs != null) {
@@ -177,34 +205,5 @@ public class StudiegebiedDAO {
             } catch (Exception e) {
             }
         }
-    }
-
-    public int geefStudieGebiedID(String studiegebied) {
-
-        int studieGebiedID = 0;
-        Connection currentCon = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        try {
-            currentCon = ConnectionManager.getConnection();
-            String sql = "select studiegebiedID from studiegebieden where "
-                    + "studiegebieden.naam= ?";
-            currentCon = ConnectionManager.getConnection();
-            ps = currentCon.prepareStatement(sql);
-            ps.setString(1, studiegebied);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                studieGebiedID = rs.getInt("studiegebiedID");
-            }
-
-        } catch (Exception e) {
-
-        } finally {
-            sluitVariabelen(rs, ps, null, currentCon);
-        }
-
-        return studieGebiedID;
     }
 }

@@ -140,7 +140,7 @@ public class ModuleServlet extends HttpServlet {
                     session.removeAttribute("saveID");
                     
                     
-                    moduleDAO.moduleAanpassen(Integer.parseInt(editID),module);
+                    moduleDAO.moduleAanpassen(module);
                     modules = moduleDAO.modulesLaden(1);
                     session.setAttribute("lijstModules", modules);
                     response.sendRedirect("Module.jsp"); //logged-in page 
@@ -151,10 +151,8 @@ public class ModuleServlet extends HttpServlet {
                     session.removeAttribute("editID");
                     session.removeAttribute("saveID");
 
-                    moduleDAO.moduleVerwijderen(Integer.parseInt(deleteID));
+                    moduleDAO.moduleVerwijderen(module);
                     modules = moduleDAO.modulesLaden(1);
-                    aantalModules = moduleDAO.geefAantalModules();
-                    session.setAttribute("aantalRecords", aantalModules);
 
                     session.setAttribute("lijstModules", modules);
                     response.sendRedirect("Module.jsp");

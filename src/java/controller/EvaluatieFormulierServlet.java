@@ -41,7 +41,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
                    
             OpleidingDAO opleidingDAO=new OpleidingDAO();
             StudiegebiedDAO studieGebiedDAO=new StudiegebiedDAO();
-            ArrayList<Opleiding> opleidingen=opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudieGebiedID(keuze));
+            ArrayList<Opleiding> opleidingen=opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudiegebiedID(keuze));
 
             String json = gson.toJson(opleidingen);
             

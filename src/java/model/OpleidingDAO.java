@@ -170,7 +170,7 @@ public class OpleidingDAO {
                     + " inner join studiegebied_opleidingen on studiegebied_opleidingen.opleidingID = opleidingen.opleidingID "
                     + " inner join studiegebieden on studiegebieden.studiegebiedID = studiegebied_opleidingen.studiegebiedID "
                     + " where studiegebied_opleidingen.studiegebiedID = ? ";
-            
+
             ps = currentCon.prepareStatement(sql);
             ps.setInt(1, studiegebiedID);
             rs = ps.executeQuery();
@@ -178,7 +178,7 @@ public class OpleidingDAO {
             while (rs.next()) {
                 Opleiding opleiding = new Opleiding();
                 opleiding.setNaam(rs.getString("naam"));
-                 opleiding.setOpleidingID(rs.getInt("opleidingID"));
+                opleiding.setOpleidingID(rs.getInt("opleidingID"));
                 opleidingen.add(opleiding);
             }
         } catch (SQLException e) {
@@ -214,6 +214,40 @@ public class OpleidingDAO {
 
         }
         return opleidingen;
+    }
+    
+    public ArrayList<Opleiding> opleidingenLaden(String studiegebiedNaam) {
+        StudiegebiedDAO studiegebiedDAO = new StudiegebiedDAO();
+        
+        return opleidingenLaden(studiegebiedDAO.geefStudiegebiedID(studiegebiedNaam));
+    }
+
+    public int geefOpleidingID(String opleidingNaam) {
+
+        int opleidingID = 0;
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select opleidingID from opleidingen where "
+                    + "opleidingen.naam= ?";
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, opleidingNaam);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                opleidingID = rs.getInt("opleidingID");
+            }
+
+        } catch (Exception e) {
+
+        } finally {
+            sluitVariabelen(rs, ps, null, currentCon);
+        }
+
+        return opleidingID;
     }
 
     /* Sluit enkele variabelen en zet ze op null */

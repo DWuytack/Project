@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.Connection;
@@ -13,26 +8,27 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
+ * ModuleDAO(Module Data Access Object) is een klasse voor alle
+ * handelingen in de database betreffend Modules.
  *
- * @author Davino
+ * @author Ewout Phlips
  */
 public class ModuleDAO {
-    
-     private void ModuleAanmaken(Module module) {
+
+    public void moduleToevoegen(Module module) {
 
         //connectie maken met database
         Connection connectie = null;
 
         //insertquery
         String sql = "INSERT INTO modules "
-                + "(moduleID,opleidingID,naam) VALUES (?,?,?)";
+                + "(moduleID,naam) VALUES (?,?)";
 
         //opslaan in database
         try {
             PreparedStatement statement = connectie.prepareStatement(sql);
-            statement.setInt(1, module.getmoduleID());
-            statement.setInt(2, module.getopleidingID());
-            statement.setString(3, module.getnaam());
+            statement.setInt(1, module.getModuleID());
+            statement.setString(2, module.getNaam());
             statement.execute();
             statement.close();
             connectie.close();
@@ -42,7 +38,7 @@ public class ModuleDAO {
         }
     }
 
-    private void ModuleAanpassen(Module module) {
+    public void moduleAanpassen(Module module) {
 
         //connectie maken met database
         Connection connectie = null;
@@ -50,9 +46,8 @@ public class ModuleDAO {
 
         //insertquery
         String sql = "UPDATE modules "
-                + " set naam =  " + module.getnaam() + ", opleidingID= "
-                + module.getopleidingID() + " where moduleID= "
-                + module.getmoduleID();
+                + " set naam =  " + module.getNaam() + " where moduleID= "
+                + module.getModuleID();
 
         //opslaan in database
         try {
@@ -67,30 +62,52 @@ public class ModuleDAO {
 
     }
 
-    private void ModuleVerwijderen(Module module) {
+    public void moduleVerwijderen(Module module) {
 
-        //connectie maken met database
-        Connection connectie = null;
+        Connection currentCon = null;
+        Statement statement = null;
 
-        //insertquery
         String sql = "DELETE FROM modules "
-                + " where moduleID= " + module.getmoduleID();
+                + " WHERE moduleID= " + module.getModuleID();
 
-        //opslaan in database
         try {
-            PreparedStatement statement = connectie.prepareStatement(sql);
-            statement.execute();
-            statement.close();
-            connectie.close();
-
+            currentCon = ConnectionManager.getConnection();
+            statement = currentCon.createStatement();
+            statement.executeUpdate(sql);
         } catch (SQLException e) {
 
+        } finally {
+            sluitVariabelen(null, statement, null, currentCon);
         }
-
     }
-    
-     public ArrayList<Module> modulesLaden( int bladz) {
-         
+
+    public Module moduleLaden(int moduleID) {
+
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT * FROM modules WHERE modules.moduleID = ?;";
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, moduleID);
+            rs = ps.executeQuery();
+
+            Module module = new Module();
+            module.setModuleID(rs.getInt("opleidingID"));
+            module.setNaam(rs.getString("naam"));
+
+            return module;
+        } catch (Exception e) {
+
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+        }
+        return null;
+    }
+
+    public ArrayList<Module> modulesLaden() {
         ArrayList<Module> modules = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
@@ -101,69 +118,14 @@ public class ModuleDAO {
             String sql = "SELECT * FROM modules;";
             statement = currentCon.createStatement();
             rs = statement.executeQuery(sql);
-            
+
             while (rs.next()) {
                 Module module = new Module();
-                module.setmoduleID(rs.getInt("moduleID"));
-                module.setopleidingID(rs.getInt("opleidingID"));
-                module.setnaam(rs.getString("naam"));
-              
-                
+                module.setModuleID(rs.getInt("moduleID"));
+                module.setNaam(rs.getString("naam"));
+
                 modules.add(module);
             }
-        } catch (SQLException e) {
-            
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {  
-                }
-                rs = null;
-            }
-            
-             if (statement != null) {
-                try {
-                    statement.close();
-                } catch (Exception e) {
-                    
-                }
-
-                statement = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-                    
-                }
-
-                currentCon = null;
-            }
-            
-        }
-        return modules;
-    }
-
-    public int geefAantalModules() {
-        
-         Connection currentCon = null;
-        Statement statement = null;
-        ResultSet rs = null;
-        int aantalModules = 0;
-
-        try {
-            currentCon = ConnectionManager.getConnection();
-            String sql = "select * from modules";
-            statement = currentCon.createStatement();
-
-            rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                aantalModules++;
-                rs.getString(2);
-            }
-
         } catch (SQLException e) {
 
         } finally {
@@ -196,203 +158,116 @@ public class ModuleDAO {
             }
 
         }
-        return aantalModules;
-        
+        return modules;
     }
-    
-     public void moduleAanmaken() {
+
+    public ArrayList<Module> modulesLaden(int opleidingID) {
+
+        ArrayList<Module> modules = new ArrayList<>();
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "INSERT INTO modules(naam) VALUES((?))";
-
         try {
             currentCon = ConnectionManager.getConnection();
+            String sql = "SELECT modules.naam, modules.moduleID FROM modules"
+                    + " inner join opleidingen_modules on opleidingen_modules.moduleID = modules.moduleID "
+                    + " inner join opleidingen on opleidingen_modules.opleidingID = opleidingen.opleidingID "
+                    + " where opleidingen_modules.opleidingID = ? ";
+
             ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, opleidingID);
+            rs = ps.executeQuery();
 
-            ps.setString(1, "naam");
-            ps.executeQuery(sql);
-
-        } catch (SQLException ex) {
-
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (Exception e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
-        }
-    }
-
-    public void moduleAanpassen(int parseInt, Module module) {
-        
-         Connection currentCon = null;
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-
-        String sql = "UPDATE modules(naam) VALUES(?)";
-
-        try {
-            currentCon = ConnectionManager.getConnection();
-            ps = currentCon.prepareStatement(sql);
-
-            ps.setString(1, "naam");
-            ps.executeQuery(sql);
-
-        } catch (SQLException ex) {
-
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
-        }
-        
-    }
-
-    public void moduleVerwijderen(int moduleID) {
-        
-          Connection currentCon = null;
-        PreparedStatement ps = null;
-
-        String sql
-                = "DELETE from modules where module.moduleID = ?";
-        try {
-            currentCon = ConnectionManager.getConnection();
-            ps = currentCon.prepareStatement(sql);
-
-            ps.setInt(1,moduleID);
-            ps.executeQuery();
-
-        } catch (SQLException ex) {
-            
-            System.out.println(ex.getMessage());
-
-        } finally {
-            
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-
-                }
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (SQLException e) {
-
-                }
-
-                currentCon = null;
-            }
-        }
-        
-    }
-
-    public ArrayList<Module> modulesLaden() {
-         ArrayList<Module> modules = new ArrayList<>();
-        Connection currentCon = null;
-        Statement statement = null;
-        ResultSet rs = null;
-
-        try {
-            currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM modules;";
-            statement = currentCon.createStatement();
-            rs = statement.executeQuery(sql);
-            
             while (rs.next()) {
                 Module module = new Module();
-                module.setmoduleID(rs.getInt("moduleID"));
-                module.setopleidingID(rs.getInt("opleidingID"));
-                module.setnaam(rs.getString("naam"));
-              
-                
+                module.setNaam(rs.getString("naam"));
+                module.setModuleID(rs.getInt("moduleID"));
                 modules.add(module);
             }
         } catch (SQLException e) {
-            
+
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {  
-                }
-                rs = null;
-            }
-            
-             if (statement != null) {
-                try {
-                    statement.close();
-                } catch (Exception e) {
-                    
-                }
-
-                statement = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-                    
-                }
-
-                currentCon = null;
-            }
-            
+            sluitVariabelen(rs, null, ps, currentCon);
         }
         return modules;
     }
 
+    public ArrayList<Module> modulesLaden(String opleidingNaam) {
+        OpleidingDAO opleidingDAO = new OpleidingDAO();
+
+        return modulesLaden(opleidingDAO.geefOpleidingID(opleidingNaam));
+    }
+
+    public int geefModuleID(String moduleNaam) {
+
+        int moduleID = 0;
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select moduleID from modules where "
+                    + "modules.naam= ?";
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, moduleNaam);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                moduleID = rs.getInt("moduleID");
+            }
+
+        } catch (Exception e) {
+
+        } finally {
+            sluitVariabelen(rs, ps, null, currentCon);
+        }
+
+        return moduleID;
+    }
+
+    /* Sluit enkele variabelen en zet ze op null */
+    private void sluitVariabelen(ResultSet rs, Statement statement, PreparedStatement ps, Connection currentCon) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            try {
+                rs = null;
+            } catch (Exception e) {
+            }
+        }
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+            }
+            try {
+                statement = null;
+            } catch (Exception e) {
+            }
+        }
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (Exception e) {
+            }
+            try {
+                ps = null;
+            } catch (Exception e) {
+            }
+        }
+        if (currentCon != null) {
+            try {
+                currentCon.close();
+            } catch (Exception e) {
+            }
+            try {
+                currentCon = null;
+            } catch (Exception e) {
+            }
+        }
+    }
 }
