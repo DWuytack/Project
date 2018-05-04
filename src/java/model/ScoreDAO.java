@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
- * @author Keanu hier komen sql query's 
+ * @author Keanu Pestka, Gil van Beveren
+ * hier komen sql query's 
  */
 public class ScoreDAO {
     
