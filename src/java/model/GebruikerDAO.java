@@ -176,6 +176,7 @@ public class GebruikerDAO {
         return aantalGebruikers;
     }
 //oi ewout kan je ervoor zorgen dat er bij gebruikerservlet een case us voor gebruikerAanmaken?
+
     public void gebruikerAanmaken(Gebruiker gebruiker) {
         Connection currentCon = null;
         PreparedStatement ps = null;
@@ -376,4 +377,43 @@ public class GebruikerDAO {
             }
         }
     }
+
+    public ArrayList<Gebruiker> gebruikersLaden (int schooljaarID, int semesterID, int moduleID) {
+        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "SELECT * from gebruikers"
+                + "INNER JOIN inschrijvingen on gebruikers.gebruikerID = inschrijvingen.inschrijvingID"
+                + "WHERE inschrijvingen.moduleID = ?"
+                + "AND inschrijvingen.semesterID = ?"
+                + "AND inschrijvingen.schooljaarID = ?";
+        try {
+            currentCon = ConnectionManager.getConnection();
+
+            ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, moduleID);
+            ps.setInt(2, semesterID);
+            ps.setInt(3, schooljaarID);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Gebruiker gebruiker = new Gebruiker();
+                gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
+                gebruiker.setVoorNaam(rs.getString("voornaam"));
+                gebruiker.setAchternaam(rs.getString("achternaam"));
+                gebruiker.setLogin(rs.getString("login"));
+                gebruiker.setRol(rs.getString("rol"));
+                gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
+                gebruiker.setEmail(rs.getString("email"));
+                gebruikers.add(gebruiker);
+            }
+        } catch (SQLException e) {
+
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+        }
+        return gebruikers;
+    }
+
 }
