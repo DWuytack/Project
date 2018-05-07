@@ -123,7 +123,7 @@ public class MenuServlet extends HttpServlet {
                     studiegebiedDAO = new StudiegebiedDAO();
                     ArrayList<Studiegebied> studiegebieden2 = studiegebiedDAO.studiegebiedenLaden();
                     session.setAttribute("studiegebieden", studiegebieden2);                   
-                    response.sendRedirect("OverzichtStudiegebiedenTest.jsp");                   
+                    response.sendRedirect("OverzichtStudieGebieden.jsp");                   
                     break;
                     
                 case "Evaluatieformulieren":

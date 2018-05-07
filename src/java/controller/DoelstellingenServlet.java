@@ -131,13 +131,13 @@ public class DoelstellingenServlet extends HttpServlet {
             Doelstelling doelstelling = new Doelstelling();
 
             switch (actie) {
-                case "Zoeken":
-                    session.setAttribute("zoekterm", zoekterm);
-                    doelstellingen = doelstellingDAO.doelstellingenZoeken(zoekterm);
-                    session.setAttribute("lijstDoelstellingen", doelstellingen);
-                    response.sendRedirect("DoelstellingenOverzicht.jsp");
+                //case "Zoeken":
+                    //session.setAttribute("zoekterm", zoekterm);
+                    //doelstellingen = doelstellingDAO.doelstellingenZoeken(zoekterm);
+                    //session.setAttribute("lijstDoelstellingen", doelstellingen);
+                    //response.sendRedirect("DoelstellingenOverzicht.jsp");
                     
-                    break;
+                    //break;
                     
                 case "Edit doelstelling":
                     session.setAttribute("editID", editID);
@@ -154,7 +154,7 @@ public class DoelstellingenServlet extends HttpServlet {
                     session = request.getSession(true);
                     session.removeAttribute("editID");
                     session.removeAttribute("saveID");
-                    doelstellingDAO.doelstellingVerwijderen(Integer.parseInt(deleteID));
+                    doelstellingDAO.doelstellingVerwijderen(doelstellingDAO.doelstellingLaden(Integer.parseInt(deleteID)));
                     doelstellingen = doelstellingDAO.doelstellingenLaden(1);
                     aantalDoelstellingen = doelstellingDAO.geefAantalDoelstellingen();
                     session.setAttribute("aantalRecords", aantalDoelstellingen);
