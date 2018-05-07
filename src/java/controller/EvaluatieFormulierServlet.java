@@ -78,7 +78,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             String semesterNr = semester.substring(0, 1);
 
-            int schooljaarID = Integer.valueOf(schooljaar);
+            int schooljaarID = Integer.valueOf(schooljaar.substring(0,4));
             int semesterNummer = Integer.valueOf(semesterNr);
             String volSchooljaar="";
             String volgendSchooljaar=String.valueOf(schooljaarID +1);
@@ -86,11 +86,11 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             switch (semesterNummer) {
                 case 1:
-                    volSchooljaar=schooljaar+"-"+ volgendSchooljaar;
+                    volSchooljaar=schooljaar.substring(0,4)+" - "+ volgendSchooljaar;
                     break;
                     
                 case 2:
-                      volSchooljaar=vorigSchooljaar + "-" + schooljaar;
+                      volSchooljaar=vorigSchooljaar + " - " + schooljaar.substring(0,4);
                     break;  
             }
 
@@ -98,7 +98,10 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             SchooljarenDAO schooljarenDAO=new SchooljarenDAO();
             SemesterDAO semesterDAO=new SemesterDAO();
             ModuleDAO moduleDAO = new ModuleDAO();
-            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(schooljarenDAO.laadSchooljaarID(schooljaar), semesterDAO.laadSemesterID(semester), moduleDAO.laadModuleID(module));
+            int param1=schooljarenDAO.laadSchooljaarID(volSchooljaar);
+            int param2=semesterDAO.laadSemesterID(semester);
+            int param3= moduleDAO.laadModuleID(module);
+            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(param1,param2 ,param3);
 
             String json = gson.toJson(gebruikers);
 

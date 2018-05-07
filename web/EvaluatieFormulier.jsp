@@ -36,7 +36,7 @@
                     <td> <input type="date" id="datum" 
                        required style="font-size: 0.9rem"  > </td>
                     
-                    <td> <select name="Semester" id="Semester" onchange="checkDate()" style="max-width:110px;" >
+                    <td> <select name="Semester" id="Semester" onchange="checkDate()" style="max-width:140px;" >
                             <option selected > Semester... </option>
                             <c:forEach items="${semesters}" var="semester">                  
                                 <option> ${semester.semester} </option>                     
@@ -47,7 +47,7 @@
                     <td width="10px"></td>
 
                     <td>
-                        <select name="studiegebied" id="studiegebied" hidden  onchange="laadOpleidingen()"  style="max-width:130px;">
+                        <select name="studiegebied" id="studiegebied" hidden  onchange="laadOpleidingen()"  style="max-width:170px;">
                             <option selected disabled> Studiegebied... </option>
                             <c:forEach items="${studiegebieden}" var="studiegebied">                  
                                 <option> ${studiegebied.naam} </option>                     
@@ -60,19 +60,19 @@
 
                     <td width="10px"></td>
 
-                    <td><select id="opleidingen" onchange="laadModules()" hidden  style="max-width:130px;">
+                    <td><select id="opleidingen" onchange="laadModules()" hidden  style="max-width:170px;">
 
                         </select></TD>
 
                     <td width="10px"></td>
 
-                    <td>  <select id="modules" hidden onchange="laadCursisten()" style="max-width:130px;">
+                    <td>  <select id="modules" hidden onchange="laadCursisten()" style="max-width:170px;">
 
                         </select> </td>
 
                     <td width="10px"></td>
 
-                    <td>  <select id="cursisten"  hidden  style="max-width:130px;">
+                    <td>  <select id="cursisten"  hidden  style="max-width:170px;">
 
                         </select> </td>
 
