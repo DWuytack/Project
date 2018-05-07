@@ -4,42 +4,51 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Apr 16, 2018, 11:11:56 PM
-    Author     : EwoutPhlips
+    Created on : 7-mei-2018, 9:51:43
+    Author     : Davino & Ewout & Jens
 */
-.btn {
-    border: none;
-    background-color: inherit;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
-    display: inline-block;
+
+* {
+  box-sizing: border-box;
+  font-family: verdana;
 }
 
-.flex-container {
+a {
+  user-select: none;
+  cursor: pointer;
+}
+
+section {
   display: flex;
-  flex-wrap: wrap;
 }
 
-#Table {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+section * {
+  /* background-color: rgba(0, 0, 0, .1); */
 }
 
-#Table td, #Table th {
-    border: 1px solid #ddd;
-    padding: 8px;
+#menu {
+  display: flex;
+  flex-direction: column;
 }
 
-#Table tr:nth-child(even){background-color: #f2f2f2;}
-
-#Table tr:hover {background-color: #ddd;}
-
-#Table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: rgba(224, 64, 6, 0.99);
-    color: white;
+[role="menu-header"] {
+  display: flex;
 }
+
+[role="menu-content"] {
+  display: none;
+  flex-direction: column;
+  padding-left: 10%;
+}
+
+[role="menu-content"].active {
+  display: flex;
+}
+
+[role="menu-header"] a {
+  background-color: red;
+  padding: 5px;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
