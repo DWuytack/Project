@@ -18,26 +18,26 @@
         <link rel="stylesheet" href="css/formulier.css">
         <title>Gebruikers overzicht</title>
     </head>
-    
+
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <!-- styling verplaatst naar theme.css "SUBNAV" -->
         <section id="pagename">
             <h2> GebruikersOverzicht </h2>
             <!-- <h1 align="center" class="kleur" style="display: inherit;"> GebruikersOverzicht </h1> -->
-            
+
         </section>
-        
+
         <section>
             <form action="GebruikersServlet">
                 <div class="table-container">
-                    
+
                     <div class="table-nav-header">
                         <div id="zoeken">
                             <a id="bt-zoeken">
                                 <i class="material-icons">search</i>
                             </a>
-                            <input type="text" name="zoekterm" value="${zoekterm}" onfocus="this.value=''" size="15">
+                            <input type="text" name="zoekterm" value="${zoekterm}" onfocus="this.value = ''" size="15">
                         </div>
                         <div>
                             <a id="bt-gebruiker_toevoegen" name="gebruiker toevoegen">
@@ -59,9 +59,9 @@
                                     <th width="15%" onclick="sortTable(3)" style="min-width: 100px;"><a>Rol</a></th>
                                     <th width="15%" onclick="sortTable(4)"><a>GebtDatum</a></th>
                                     <th width="25%" onclick="sortTable(5)"><a>E-mail</a></th>
-                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                        <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                         <th class="actie">Acties</th>
-                                    </c:if>
+                                        </c:if>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,44 +72,44 @@
                                             <td> <input type="text" name="voornaam" value="${cursist.voorNaam}"> </td>
                                             <td> <input type="text" name="login"  value="${cursist.login}"> </td>
                                             <td> 
-                                    <select name="rol" value="${cursist.rol}">
-                                        <option value="admin">admin</option>
-                                        <option value="leerkracht">leerkracht</option>
-                                        <option value="cursist">cursist</option>
-                                        <option value="secretariaat">secretariaat</option></td>
-                                    </select>
-                                    <td> <input type="date" name="geboorteDatum" value="${cursist.geboorteDatum}"> </td>
-                                    <td> <input type="text" name="email"  value="${cursist.email}"/> </td>
-                                    </c:if>
+                                                <select name="rol" value="${cursist.rol}">
+                                                    <option value="admin">admin</option>
+                                                    <option value="leerkracht">leerkracht</option>
+                                                    <option value="cursist">cursist</option>
+                                                    <option value="secretariaat">secretariaat</option></td>
+                                            </select>
+                                            <td> <input type="date" name="geboorteDatum" value="${cursist.geboorteDatum}"> </td>
+                                            <td> <input type="text" name="email"  value="${cursist.email}"/> </td>
+                                            </c:if>
 
-                                <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
-                                    <td> ${cursist.achternaam} </td>
-                                    <td> ${cursist.voorNaam} </td>
-                                    <td> ${cursist.login} </td>
-                                    <td> ${cursist.rol} </td>
-                                    <td> <fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yyyy" /> </td>
-                                    <td> ${cursist.email} </td>
-
-                                </c:if>
-
-                                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                    <td class="actie">
                                         <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
-                                            <div class="actie-images">
-                                                <span> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'> </span>
-                                                <span> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'> </span>
-                                            </div>
+                                            <td> ${cursist.achternaam} </td>
+                                            <td> ${cursist.voorNaam} </td>
+                                            <td> ${cursist.login} </td>
+                                            <td> ${cursist.rol} </td>
+                                            <td> <fmt:formatDate value = "${cursist.geboorteDatum}" pattern="dd-MM-yyyy" /> </td>
+                                            <td> ${cursist.email} </td>
+
                                         </c:if>
-                                        <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
-                                            <div class="actie-images">
-                                                <span> <input type="image"  name="idSave" value="${cursist.gebruikerID}" src='images/green.png'> </span>
-                                                <span> <input type="image"  name="idCancel" value="${cursist.gebruikerID}" src='images/cancel.png'> </span>
-                                            </div>
+
+                                        <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                            <td class="actie">
+                                                <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
+                                                    <div class="actie-images">
+                                                        <span> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'> </span>
+                                                        <span> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'> </span>
+                                                    </div>
+                                                </c:if>
+                                                <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
+                                                    <div class="actie-images">
+                                                        <span> <input type="image"  name="idSave" value="${cursist.gebruikerID}" src='images/green.png'> </span>
+                                                        <span> <input type="image"  name="idCancel" value="${cursist.gebruikerID}" src='images/cancel.png'> </span>
+                                                    </div>
+                                                </c:if>
+                                            </td>
                                         </c:if>
-                                    </td>
-                                </c:if>
-                                </tr> 
-                            </c:forEach>
+                                    </tr> 
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -118,42 +118,44 @@
                         <p>Totaal aantal gebruikers: <span id="gebruikers">${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</span></p>
                     </div>
                 </div>
-                <div id="gebruiker_toevoegen">
-                    <fieldset>
-                        <legend>Gebruiker Toevoegen: </legend><br>
-                        <label>Voornaam: </label>
-                        <br>
-                        <input type="text" name="voornaam" size="16" maxlength="30">
-                        <br><br>
-                        <label>Achternaam: </label>
-                        <br>
-                        <input type="text" name="achternaam" size="16" maxlength="30">
-                        <br><br>
-                        <label>Rol: </label>
-                        <br>
-                        <input type="radio" name="rol" value="3"> <span>Cursist</span>
-                        <br>
-                        <input type="radio" name="rol" value="2"> <span>Leerkracht</span>
-                        <br><br>
-                        <label>GeboorteDatum: </label>
-                        <br>
-                        <input type="date" name="geboortedatum" size="16" maxlength="20">
-                        <br><br>
-                        <label>Email: </label>
-                        <br>
-                        <input type="text" name="email" size="16" maxlength="30">
-                        <br><br>
-                        <label>Login: </label>
-                        <br>
-                        <input type="text" name="login" size="16" maxlength="30">
-                        <br><br>
-                        <label>Wachtwoord: </label>
-                        <br>
-                        <input type="password" name="wachtwoord" size="16" maxlength="20">
-                        <br>
-                    </fieldset>
-                    <input type="submit" name="actie" value="toevoegen">
-                </div>
+                <section id="popup">
+                    <div id="gebruiker_toevoegen">
+                        <fieldset>
+                            <legend>Gebruiker Toevoegen: </legend><br>
+                            <label>Voornaam: </label>
+                            <br>
+                            <input type="text" name="voornaam" size="16" maxlength="30">
+                            <br><br>
+                            <label>Achternaam: </label>
+                            <br>
+                            <input type="text" name="achternaam" size="16" maxlength="30">
+                            <br><br>
+                            <label>Rol: </label>
+                            <br>
+                            <input type="radio" name="rol" value="3"> <span>Cursist</span>
+                            <br>
+                            <input type="radio" name="rol" value="2"> <span>Leerkracht</span>
+                            <br><br>
+                            <label>GeboorteDatum: </label>
+                            <br>
+                            <input type="date" name="geboortedatum" size="16" maxlength="20">
+                            <br><br>
+                            <label>Email: </label>
+                            <br>
+                            <input type="text" name="email" size="16" maxlength="30">
+                            <br><br>
+                            <label>Login: </label>
+                            <br>
+                            <input type="text" name="login" size="16" maxlength="30">
+                            <br><br>
+                            <label>Wachtwoord: </label>
+                            <br>
+                            <input type="password" name="wachtwoord" size="16" maxlength="20">
+                            <br>
+                        </fieldset>
+                        <input type="submit" name="actie" value="toevoegen">
+                    </div>
+                </section> 
             </form>
         </section>
     </body>
