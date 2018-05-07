@@ -81,14 +81,16 @@ document.addEventListener("click", function(e){
             rij = utilities.vindRij(target);
             rij.classList.remove("edit");
             console.log(backup);
-            var cellen = rij.childNodes;
+            utilities.rijHerstellen(rij);
+            /* var cellen = rij.childNodes;
             i2 = -1;
             cellen.forEach(function(cell){
                 i2++;
                 cell.innerHTML = backup[i2];
-                console.log(cell);
                 console.log(backup[i2]);
-            });
+                //console.log(cell);
+                //console.log(backup[i2]);
+            });*/
         }
     }
     

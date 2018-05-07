@@ -99,17 +99,20 @@ var utilities = {
     var cellen = e.childNodes;
     var i = -1;
     backup = [];
+    cellData = {};
     cellen.forEach(function(loc) {
-      i++;
-      var titel = loc.getAttribute("data-label");
-      var value = loc.innerText;
-      while(loc.firstChild)
-        loc.removeChild(loc.firstChild);
-      var elem = utilities.celAanpassen(value, titel, meta);
-      loc.appendChild(elem);
-      backup.push(loc.innerHTML);
+        i++;
+        var titel = loc.getAttribute("data-label");
+        var value = loc.innerHTML;
+        while(loc.firstChild)
+            loc.removeChild(loc.firstChild);
+        var elem = utilities.celAanpassen(value, titel, meta);
+        loc.appendChild(elem);
     });
     console.log(backup);
+  },
+  rijBewerken : function() {
+      
   },
   vindRij : function(e) {
     var row = e.parentElement;
