@@ -37,9 +37,9 @@
                        required style="font-size: 0.9rem"  > </td>
                     
                     <td> <select name="Semester" id="Semester" onchange="checkDate()" style="max-width:110px;" >
-                            <option value="semester" selected > Semester... </option>
+                            <option selected > Semester... </option>
                             <c:forEach items="${semesters}" var="semester">                  
-                                <option value="semester"> ${semester.semester} </option>                     
+                                <option> ${semester.semester} </option>                     
                             </c:forEach>
 
                         </select> </td>
