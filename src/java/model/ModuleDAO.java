@@ -243,7 +243,36 @@ public class ModuleDAO {
         } catch (Exception e) {
 
         } finally {
-            sluitVariabelen(rs, ps, null, currentCon);
+              if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                }
+                rs = null;
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (Exception e) {
+
+                }
+
+                ps = null;
+            }
+
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+
+                }
+
+                currentCon = null;
+            }
+
+        
+           
         }
 
         return moduleID;
