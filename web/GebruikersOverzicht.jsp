@@ -37,7 +37,7 @@
                             <a id="bt-zoeken">
                                 <i class="material-icons">search</i>
                             </a>
-                            <input type="text" name="zoekterm" value="${zoekterm}" onfocus="this.value = ''" size="15">
+                            <input type="text" name="zoekterm" onfocus="this.value = ''" size="15">
                         </div>
                         <div>
                             <a id="bt-gebruiker_toevoegen" name="gebruiker toevoegen">
