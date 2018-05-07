@@ -221,4 +221,31 @@ public class ModuleDAO {
     public int geefAantalModules(int opleidingID) {
         return modulesLaden(opleidingID).size();
     }
+
+    public int laadModuleID(String module) {
+        int moduleID = 0;
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select moduleID from modules where "
+                    + "modules.naam= ?";
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, module);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+               moduleID = rs.getInt("moduleID");
+            }
+
+        } catch (Exception e) {
+
+        } finally {
+            sluitVariabelen(rs, ps, null, currentCon);
+        }
+
+        return moduleID;
+    }
 }
