@@ -73,9 +73,12 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             String schooljaar = request.getParameter("schooljaar");
             String semester = request.getParameter("semester");
-            
+         
             int schooljaarID=Integer.valueOf(schooljaar);
             int semesterID=Integer.valueOf(semester);
+            
+            
+            
    
             GebruikerDAO gebruikerDAO = new GebruikerDAO();
             ModuleDAO moduleDAO = new ModuleDAO();

@@ -20,6 +20,9 @@ function laadCursisten(){
         xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
 
+     var schooljaar = document.getElementById("datum").value;
+     var semester= document.getElementById("Semester").value;
+   
     //open(method,url,async)
     xhttp.open("POST", "EvaluatieFormulierServlet?module=" + keuze + "&schooljaar=" + schooljaar + "&semester=" + semester , true);
     xhttp.send();
