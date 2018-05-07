@@ -1,5 +1,8 @@
 var pageCounter = 1;
 var params = 'page=' + pageCounter;
+var titels;
+var meta;
+var backup = [];
 
 var requestData = function(params) {
     var xhttp = new XMLHttpRequest();
@@ -19,79 +22,78 @@ var requestData = function(params) {
 };
 
 var renderHTML = function(data) {
-    htmlString = "";
-    var temp = "";
-    var keuzes = ["admin", "leerkracht", "cursist", "secretariaat"];
-    var titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email", "Acties"];
-    var h = "";
-
-    for(titel of titels) {
-
-        h += '<th scope="col" title="' + titel + '"><a>' + titel + '</a></th>';
+    titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email", "Acties"];
+    meta = {
+        rol : ["admin", "leerkracht", "cursist", "secretariaat"]
+    };
+    var parameters = ["voorNaam", "achternaam", "login", "rol", "geboorteDatumValue", "email"];
+    var tabel = utilities.tabelAanmaken(data, parameters, titels);
+    var inhoud = document.getElementById("gebruikersOverzicht");
+    console.log(inhoud);
+    if(!inhoud.contains(tabel)) {
+    while(inhoud.firstChild)
+        inhoud.removeChild(inhoud.firstChild);
+    inhoud.appendChild(tabel);
+    } else {
+        inhoud = document.querySelector("#gebruikersOverzicht tbody");
+        data.forEach(function(e){
+            var tr = utilities.rijAanmaken(e, parameters, titels);
+            inhoud.appendChild(tr);
+        });
     }
-    var thead = '<thead><tr>' + h + '</tr></thead>';
-
-    data.forEach(function(e) {
-        console.log(e);
-        /*
-        var td = document.createElement("TD");
-        var input = document.createElement("INPUT");
-        var span = document.createElement("SPAN");
-        td.setAttribute("data-label", titels[0]);
-        input.type = "text";
-        input.name = "achternaam";
-        input.value = "" + e.achternaam + "";
-        */
-        
-        var options = function(e, keuzes) {
-            da = "";
-            for(option of keuzes) {
-                da += '<option value="' + option + '"' + selected(e, option) + '>' + option + '</option>';
-            }
-            return da;
-        };
-        var selected = function(rol, d){
-            if(rol === d)
-                return " selected";
-            else
-                return "";
-        };
-        temp += '<td data-label="' + titels[0] + '"><input type="text" name="achternaam" value="' + e.achternaam + '"><span style="display: none">' + e.achternaam + '</span></td>';
-        temp += '<td data-label="' + titels[1] + '"><input type="text" name="voornaam" value="' + e.voorNaam + '"><span style="display: none">' + e.voorNaam + '</span></td>'; 
-        temp += '<td data-label="' + titels[2] + '"> <input type="text" name="login"  value="' + e.login + '"><span style="display: none">' + e.login + '</span></td>';
-        temp += '<td data-label="' + titels[3] + '"> <select name="rol" value="' + e.rol + '">' + options(e.rol, keuzes) + '</select><span style="display: none">' + e.rol + '</span></td>';
-        var date = new Date();  
-        var dateFormat = function(d) { 
-            var t = new Date(d);
-            return {
-                date: t,
-                local: t.toLocaleDateString('sgn-NL', {day: '2-digit', month: '2-digit', year: 'numeric'}).replace(new RegExp('-', 'g'), '\/')
-            }
-        };
-        //Opmerking: Automatische aanvulling vind waarde niet!!!! "e.geboorteDatumValue"
-        temp += '<td data-label="' + titels[4] + '"> <input type="date" name="geboorteDatum" value="' + e.geboorteDatumValue + '"><span style="display: none">' + dateFormat(e.geboorteDatumValue).local + '</span></td>';
-        temp += '<td data-label="' + titels[5] + '"> <input type="text" name="email" value="' + e.email + '"><span style="display: none">' + e.email + '</span></td>';
-        temp += '<td data-label="' + titels[6] + '"><div class="actie-images">';
-        temp += '<span> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src="images/pencil.png"> </span>';
-        temp += '<span> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src="images/vuilbak.png"> </span>';
-        temp += '</div></td>';
-        htmlString += '<tr>' + temp + '</tr>';
-        temp = "";
-    });
-    htmlString = thead + '<tbody>' + htmlString + '</tbody>';
-    htmlString = '<table>' + htmlString + '</table>';
-    document.getElementById("gebruikersOverzicht").innerHTML = htmlString;
 };
 
 document.addEventListener("click", function(e){
+    var target = e.target;
+    var rij = "";
+    
+    if( e.target.name === "Volgende") {
+        pageCounter++;
+        params = 'page=' + pageCounter;
+        requestData(params);
+    }
+    
+    if( e.target.name === "Vorige") {
+        pageCounter--;
+        params = 'page=' + pageCounter;
+        requestData(params);
+    }
+    
     if( e.target.id === "somebutton" ) {
         pageCounter++;
         params = 'page=' + pageCounter;
         requestData(params);
     }
+
+    if(target.hasAttribute("role")) {
+        var role = target.getAttribute("role");
+        if(role === "aanpassen") {
+            rij = utilities.vindRij(target);
+            rij.classList.add("edit");
+            utilities.rijAanpassen(rij, meta);
+        }
+        if(role === "opslaan") {
+            rij = utilities.vindRij(target);
+            rij.classList.remove("edit");
+            //rijOpslaan();
+        }
+        if(role === "annuleren") {
+            rij = utilities.vindRij(target);
+            rij.classList.remove("edit");
+            console.log(backup);
+            var cellen = rij.childNodes;
+            i2 = -1;
+            cellen.forEach(function(cell){
+                i2++;
+                cell.innerHTML = backup[i2];
+                console.log(cell);
+                console.log(backup[i2]);
+            });
+        }
+    }
+    
 });
 //Load
 (function() {
     requestData(params);
 })();
-

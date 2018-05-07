@@ -1,20 +1,20 @@
 var utilities = {
-  tabelAanmaken : function(){
+  tabelAanmaken : function(data, parameters, titel){
     var tabel = document.createElement("TABLE");
     var thead = document.createElement("THEAD");
     var tbody = document.createElement("TBODY");
     var tr = "";
-    tr = utilities.rijAanmaken("kolom");
+    tr = utilities.rijAanmaken("kolom", parameters, titel);
     thead.appendChild(tr);
     tabel.appendChild(thead);
     data.forEach(function(e) {
-      tr = utilities.rijAanmaken(e);
+      tr = utilities.rijAanmaken(e, parameters, titel);
       tbody.appendChild(tr);
     });
     tabel.appendChild(tbody);
     return tabel;
   },
-  rijAanmaken : function(e) {
+  rijAanmaken : function(e, parameters, titels) {
     var tr = document.createElement("TR");
     var teller = -1;
     parameters.forEach(function(t){
@@ -22,26 +22,32 @@ var utilities = {
       teller++;
       if(e === "kolom") {
         var th = document.createElement("TH");
+        var a = document.createElement("A");
         text = "";
         th.scope = "col";
         th.title = t;
-        th.innerHTML = titels[teller];
+        a.innerHTML = titels[teller];
+        th.appendChild(a);
         tr.appendChild(th);
       } else {
         var td = document.createElement("TD");
+        var span = document.createElement("SPAN");
         text = "";
         td.setAttribute("data-label", titels[teller]);
         text = document.createTextNode(e[t]);
-        td.appendChild(text);
+        span.appendChild(text);
+        td.appendChild(span);
         tr.appendChild(td);
       }
     });
     if(e === "kolom") {
         var th = document.createElement("TH");
+        var a = document.createElement("A");
         text = "";
         th.scope = "col";
         th.title = "Acties";
-        th.innerHTML = "Acties";
+        a.innerHTML = "Acties";
+        th.appendChild(a);
         tr.appendChild(th);
     } else {
     var td = document.createElement("TD");
@@ -52,7 +58,7 @@ var utilities = {
     }
     return tr;
   },
-  tagDetectie : function (titel) {
+  tagDetectie : function (titel, meta) {
     if(Object.keys(meta).includes(titel.toLowerCase()))
       return "SELECT";
     else if(titel === "Acties")
@@ -60,8 +66,8 @@ var utilities = {
     else
       return "INPUT";
   },
-  celAanpassen : function(e, titel) {
-    var tag = utilities.tagDetectie (titel);
+  celAanpassen : function(e, titel, meta) {
+    var tag = utilities.tagDetectie(titel, meta);
     var div, input, span;
     if(tag === "SELECT") {
       var select = document.createElement("SELECT");
@@ -89,20 +95,21 @@ var utilities = {
       return input;
     }
   },
-  rijAanpassen : function(e) {
+  rijAanpassen : function(e, meta) {
     var cellen = e.childNodes;
     var i = -1;
     backup = [];
     cellen.forEach(function(loc) {
       i++;
       var titel = loc.getAttribute("data-label");
-      var value = loc.innerHTML;
+      var value = loc.innerText;
       while(loc.firstChild)
         loc.removeChild(loc.firstChild);
-      var elem = utilities.celAanpassen(value, titel);
+      var elem = utilities.celAanpassen(value, titel, meta);
       loc.appendChild(elem);
-      backup.push(value);
+      backup.push(loc.innerHTML);
     });
+    console.log(backup);
   },
   vindRij : function(e) {
     var row = e.parentElement;

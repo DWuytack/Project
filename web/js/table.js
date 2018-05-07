@@ -53,6 +53,7 @@ function sortTable(n) {
     }
 }
 
+/*
 document.addEventListener("click", function(e){
     var target = e.target;
     if(target.name === "idEdit")
@@ -62,3 +63,4 @@ document.addEventListener("click", function(e){
         }
         row.classList.add("edit");
 });
+*/
