@@ -18,6 +18,8 @@ import model.Module;
 import model.ModuleDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
+import model.SchooljarenDAO;
+import model.SemesterDAO;
 import model.StudiegebiedDAO;
 
 /**
@@ -73,16 +75,30 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             String schooljaar = request.getParameter("schooljaar");
             String semester = request.getParameter("semester");
-         
-            int schooljaarID=Integer.valueOf(schooljaar);
-            int semesterID=Integer.valueOf(semester);
-            
-            
-            
-   
+
+            String semesterNr = semester.substring(0, 1);
+
+            int schooljaarID = Integer.valueOf(schooljaar);
+            int semesterNummer = Integer.valueOf(semesterNr);
+            String volSchooljaar="";
+            String volgendSchooljaar=String.valueOf(schooljaarID +1);
+            String vorigSchooljaar=String.valueOf(schooljaarID -1);
+
+            switch (semesterNummer) {
+                case 1:
+                    volSchooljaar=schooljaar+"-"+ volgendSchooljaar;
+                    break;
+                    
+                case 2:
+                      volSchooljaar=vorigSchooljaar + "-" + schooljaar;
+                    break;  
+            }
+
             GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            SchooljarenDAO schooljarenDAO=new SchooljarenDAO();
+            SemesterDAO semesterDAO=new SemesterDAO();
             ModuleDAO moduleDAO = new ModuleDAO();
-            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(schooljaarID, semesterID, moduleDAO.laadModuleID(module));
+            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(schooljarenDAO.laadSchooljaarID(schooljaar), semesterDAO.laadSemesterID(semester), moduleDAO.laadModuleID(module));
 
             String json = gson.toJson(gebruikers);
 
