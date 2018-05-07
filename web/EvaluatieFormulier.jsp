@@ -66,13 +66,13 @@
 
                     <td width="10px"></td>
 
-                    <td>  <select id="modules" hidden  style="max-width:130px;">
+                    <td>  <select id="modules" hidden onchange="laadCursisten()" style="max-width:130px;">
 
                         </select> </td>
 
                     <td width="10px"></td>
 
-                    <td>  <select id="cursist"  hidden  style="max-width:130px;">
+                    <td>  <select id="cursisten"  hidden  style="max-width:130px;">
 
                         </select> </td>
 

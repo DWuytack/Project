@@ -231,11 +231,11 @@ table {
     border-spacing: 0;
 }
 
-input:focus:not([type="checkbox"]), select, [tabindex] {
+input:focus:not([type="checkbox"]):not([type="radio"]), select, [tabindex] {
     outline: 0;
     box-shadow: none;
 }
-*:focus:not([type="checkbox"]):not(select) {
+*:focus:not([type="checkbox"]):not([type="radio"]):not(select) {
     -webkit-appearance: none;
 }
 

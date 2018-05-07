@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/jquery.js"></script>
         <script src="js/nav.js"></script>
+        <script src="js/utilities.js"></script>
         <script src="js/table.js"></script>
         <script src="js/gebruikersOverzicht.js"></script>
         <link rel="stylesheet" href="css/theme.css">
