@@ -21,7 +21,7 @@ function laadCursisten(){
     }
 
     //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?module=" + keuze , true);
+    xhttp.open("POST", "EvaluatieFormulierServlet?module=" + keuze + "&schooljaar=" + schooljaar + "&semester=" + semester , true);
     xhttp.send();
 
     xhttp.onreadystatechange = function () {
