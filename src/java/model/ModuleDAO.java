@@ -195,7 +195,7 @@ public class ModuleDAO {
 
             while (rs.next()) {
                 Module module = new Module();
-                module.setModuleID(rs.getInt("doelstellingID"));
+                module.setModuleID(rs.getInt("moduleID"));
                 module.setNaam(rs.getString("naam"));
                 modules.add(module);
             }
