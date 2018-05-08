@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Klasse Doelstelling DataBase Access Object: Alles handeling in verband met
- * doelstellingen in de Database.
+ * DoelstellingDAO(Doelstelling Data Access Object) is een klasse voor alle
+ * handelingen in de database betreffend Doelstellingen.
  *
  * @author Ewout Phlips
  */
@@ -37,9 +37,7 @@ public class DoelstellingDAO {
     }
 
     public void doelstellingenToevoegen(ArrayList<Doelstelling> doelstellingen) {
-        doelstellingen.forEach((doelstelling) -> {
-            doelstellingToevoegen(doelstelling);
-        });
+        doelstellingen.forEach((doelstelling) -> this.doelstellingToevoegen(doelstelling));
     }
 
     public void doelstellingAanpassen(Doelstelling doelstelling) {
@@ -65,9 +63,7 @@ public class DoelstellingDAO {
     }
 
     public void doelstellingenAanpassen(ArrayList<Doelstelling> doelstellingen) {
-        doelstellingen.forEach((doelstelling) -> {
-            doelstellingAanpassen(doelstelling);
-        });
+        doelstellingen.forEach((doelstelling) -> this.doelstellingAanpassen(doelstelling));
     }
 
     public void doelstellingVerwijderen(Doelstelling doelstelling) {
@@ -90,9 +86,7 @@ public class DoelstellingDAO {
     }
 
     public void doelstellingenVerwijderen(ArrayList<Doelstelling> doelstellingen) {
-        doelstellingen.forEach((doelstelling) -> {
-            doelstellingVerwijderen(doelstelling);
-        });
+        doelstellingen.forEach((doelstelling) -> this.doelstellingVerwijderen(doelstelling));
     }
 
     public Doelstelling doelstellingLaden(String doelstellingNaam) {
@@ -178,7 +172,7 @@ public class DoelstellingDAO {
                 doelstellingen.add(doelstelling);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
         } finally {
             Utilities.sluitVariabelen(statement, rs, currentCon);
         }
@@ -212,8 +206,7 @@ public class DoelstellingDAO {
                 doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
                 doelstellingen.add(doelstelling);
             }
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
         } finally {
             Utilities.sluitVariabelen(ps, rs, currentCon);
         }
@@ -228,11 +221,11 @@ public class DoelstellingDAO {
     public int geefDoelstellingID(String doelstellingNaam) {
         return doelstellingLaden(doelstellingNaam).getDoelstellingID();
     }
-    
+
     public int geefAantalDoelstellingen() {
         return doelstellingenLaden().size();
     }
-    
+
     public int geefAantalDoelstellingen(int moduleID) {
         return doelstellingenLaden(moduleID).size();
     }

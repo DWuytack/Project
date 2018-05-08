@@ -11,286 +11,205 @@ import java.util.ArrayList;
  * OpleidingDAO(Opleiding Data Access Object) is een klasse voor alle
  * handelingen in de database betreffend Opleidingen.
  *
- * @author Davino & Ewout Phlips
+ * @author Ewout Phlips
  */
 public class OpleidingDAO {
 
     public void opleidingToevoegen(Opleiding opleiding) {
-
         Connection currentCon = null;
         PreparedStatement ps = null;
 
-        String sql = "INSERT INTO opleidingen "
-                + "(naam) VALUES (?);";
+        String sql = "INSERT INTO opleidingen (opleiding.naam) VALUES (?)";
 
         try {
             currentCon = ConnectionManager.getConnection();
+
             ps = currentCon.prepareStatement(sql);
             ps.setString(1, opleiding.getNaam());
-            ps.execute();
 
-        } catch (SQLException e) {
-
+            ps.executeQuery();
+        } catch (SQLException ex) {
         } finally {
-            sluitVariabelen(null, null, ps, currentCon);
+            Utilities.sluitVariabelen(ps, currentCon);
         }
+    }
+
+    public void opleidingenToevoegen(ArrayList<Opleiding> opleidingen) {
+        opleidingen.forEach((opleiding) -> this.opleidingToevoegen(opleiding));
     }
 
     public void opleidingAanpassen(Opleiding opleiding) {
-
         Connection currentCon = null;
-        Statement statement = null;
+        PreparedStatement ps = null;
 
-        String sql = "UPDATE opleidingen "
-                + " SET naam =  " + opleiding.getNaam()
-                + " WHERE opleidingID= "
-                + opleiding.getOpleidingID();
+        String sql = "UPDATE opleidingen SET naam = ? WHERE opleidingID = ?";
 
         try {
             currentCon = ConnectionManager.getConnection();
-            statement = currentCon.createStatement();
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
 
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, opleiding.getNaam());
+            ps.setInt(2, opleiding.getOpleidingID());
+
+            ps.executeQuery();
+        } catch (SQLException ex) {
         } finally {
-            sluitVariabelen(null, statement, null, currentCon);
+            Utilities.sluitVariabelen(ps, currentCon);
         }
+    }
+
+    public void opleidingenAanpassen(ArrayList<Opleiding> opleidingen) {
+        opleidingen.forEach((opleiding) -> this.opleidingAanpassen(opleiding));
     }
 
     public void opleidingVerwijderen(Opleiding opleiding) {
-
         Connection currentCon = null;
-        Statement statement = null;
+        PreparedStatement ps = null;
 
-        String sql = "DELETE FROM opleidingen "
-                + " WHERE opleidingID= " + opleiding.getOpleidingID();
+        String sql = "DELETE FROM opleidingen WHERE opelidingen.opleidingID = ?";
 
         try {
             currentCon = ConnectionManager.getConnection();
-            statement = currentCon.createStatement();
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
 
+            ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, opleiding.getOpleidingID());
+
+            ps.executeQuery();
+        } catch (SQLException ex) {
         } finally {
-            sluitVariabelen(null, statement, null, currentCon);
+            Utilities.sluitVariabelen(ps, currentCon);
         }
     }
 
-    public Opleiding opleidingLaden(int opleidingID) {
+    public void opleidingenVerwijderen(ArrayList<Opleiding> opleidingen) {
+        opleidingen.forEach((opleiding) -> this.opleidingVerwijderen(opleiding));
+    }
 
+    public Opleiding opleidingLaden(String opleidingNaam) {
+        Opleiding opleiding = new Opleiding();
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "SELECT * FROM opleidingen WHERE opleidingen.opleidingID = ?;";
+        String sql = "SELECT opleidingen.* FROM opleidingen WHERE opleidingen.naam = ?";
+
         try {
             currentCon = ConnectionManager.getConnection();
+
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, opleidingNaam);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                opleiding.setOpleidingID(rs.getInt("opleidingID"));
+                opleiding.setNaam(rs.getString("naam"));
+            }
+
+        } catch (SQLException e) {
+        } finally {
+            Utilities.sluitVariabelen(ps, rs, currentCon);
+        }
+        return opleiding;
+    }
+
+    public Opleiding opleidingLaden(int opleidingID) {
+        Opleiding opleiding = new Opleiding();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT opleidingen.* FROM opleidingen WHERE opleidingen.opleidingID = ?";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+
             ps = currentCon.prepareStatement(sql);
             ps.setInt(1, opleidingID);
+
             rs = ps.executeQuery();
-
-            Opleiding opleiding = new Opleiding();
-            opleiding.setOpleidingID(rs.getInt("opleidingID"));
-            opleiding.setNaam(rs.getString("naam"));
-
-            return opleiding;
-        } catch (Exception e) {
-
+            while (rs.next()) {
+                opleiding.setOpleidingID(rs.getInt("opleidingID"));
+                opleiding.setNaam(rs.getString("naam"));
+            }
+        } catch (SQLException e) {
         } finally {
-            sluitVariabelen(rs, null, ps, currentCon);
+            Utilities.sluitVariabelen(ps, rs, currentCon);
         }
-        return null;
+        return opleiding;
     }
 
     public ArrayList<Opleiding> opleidingenLaden() {
-
         ArrayList<Opleiding> opleidingen = new ArrayList<>();
         Connection currentCon = null;
         Statement statement = null;
         ResultSet rs = null;
 
+        String sql = "SELECT opleidingen.* FROM opleidingen";
+
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT * FROM opleidingen;";
             statement = currentCon.createStatement();
+
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
                 Opleiding opleiding = new Opleiding();
                 opleiding.setOpleidingID(rs.getInt("opleidingID"));
                 opleiding.setNaam(rs.getString("naam"));
-
                 opleidingen.add(opleiding);
             }
         } catch (SQLException e) {
-
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-                rs = null;
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (Exception e) {
-
-                }
-
-                statement = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-
-                }
-
-                currentCon = null;
-            }
-
+            Utilities.sluitVariabelen(statement, rs, currentCon);
         }
         return opleidingen;
     }
 
     public ArrayList<Opleiding> opleidingenLaden(int studiegebiedID) {
-
         ArrayList<Opleiding> opleidingen = new ArrayList<>();
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
+        String sql = "SELECT opleidingen.* FROM opleidingen "
+                + "INNER JOIN studiegebieden_opleidingen ON opleidingen.opleidingID = studiegebieden_opleidingen.opleidingID "
+                + "WHERE studiegebieden_opleidingen.studiegebiedID = ?";
+
         try {
             currentCon = ConnectionManager.getConnection();
-            String sql = "SELECT opleidingen.naam, opleidingen.opleidingID FROM opleidingen"
-                    + " inner join studiegebied_opleidingen on studiegebied_opleidingen.opleidingID = opleidingen.opleidingID "
-                    + " inner join studiegebieden on studiegebieden.studiegebiedID = studiegebied_opleidingen.studiegebiedID "
-                    + " where studiegebied_opleidingen.studiegebiedID = ? ";
 
             ps = currentCon.prepareStatement(sql);
             ps.setInt(1, studiegebiedID);
+
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 Opleiding opleiding = new Opleiding();
-                opleiding.setNaam(rs.getString("naam"));
                 opleiding.setOpleidingID(rs.getInt("opleidingID"));
+                opleiding.setNaam(rs.getString("naam"));
                 opleidingen.add(opleiding);
             }
-        } catch (SQLException e) {
-
+        } catch (Exception e) {
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (Exception e) {
-
-                }
-
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-
-                }
-
-                currentCon = null;
-            }
-
+            Utilities.sluitVariabelen(ps, rs, currentCon);
         }
         return opleidingen;
     }
-    
-    public ArrayList<Opleiding> opleidingenLaden(String studiegebiedNaam) {
-        StudiegebiedDAO studiegebiedDAO = new StudiegebiedDAO();
-        
-        return opleidingenLaden(studiegebiedDAO.geefStudiegebiedID(studiegebiedNaam));
+
+    public String geefOpleidingNaam(int opleidingID) {
+        return opleidingLaden(opleidingID).getNaam();
     }
 
     public int geefOpleidingID(String opleidingNaam) {
-
-        int opleidingID = 0;
-        Connection currentCon = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        try {
-            String sql = "select opleidingID from opleidingen where "
-                    + "opleidingen.naam= ?";
-            currentCon = ConnectionManager.getConnection();
-            ps = currentCon.prepareStatement(sql);
-            ps.setString(1, opleidingNaam);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                opleidingID = rs.getInt("opleidingID");
-            }
-
-        } catch (Exception e) {
-
-        } finally {
-            sluitVariabelen(rs, ps, null, currentCon);
-        }
-
-        return opleidingID;
+        return opleidingLaden(opleidingNaam).getOpleidingID();
     }
 
-    /* Sluit enkele variabelen en zet ze op null */
-    private void sluitVariabelen(ResultSet rs, Statement statement, PreparedStatement ps, Connection currentCon) {
-        if (rs != null) {
-            try {
-                rs.close();
-            } catch (Exception e) {
-            }
-            try {
-                rs = null;
-            } catch (Exception e) {
-            }
-        }
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (Exception e) {
-            }
-            try {
-                statement = null;
-            } catch (Exception e) {
-            }
-        }
-        if (ps != null) {
-            try {
-                ps.close();
-            } catch (Exception e) {
-            }
-            try {
-                ps = null;
-            } catch (Exception e) {
-            }
-        }
-        if (currentCon != null) {
-            try {
-                currentCon.close();
-            } catch (Exception e) {
-            }
-            try {
-                currentCon = null;
-            } catch (Exception e) {
-            }
-        }
+    public int geefAantalOpleidingen() {
+        return opleidingenLaden().size();
     }
+
+    public int geefAantalOpleidingen(int studiegebiedID) {
+        return opleidingenLaden(studiegebiedID).size();
+    }
+
 }

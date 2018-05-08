@@ -35,9 +35,7 @@ public class ModuleDAO {
     }
 
     public void modulesToevoegen(ArrayList<Module> modules) {
-        modules.forEach((module) -> {
-            moduleToevoegen(module);
-        });
+        modules.forEach((module) -> this.moduleToevoegen(module));
     }
 
     public void moduleAanpassen(Module module) {
@@ -61,9 +59,7 @@ public class ModuleDAO {
     }
 
     public void modulesAanpassen(ArrayList<Module> modules) {
-        modules.forEach((module) -> {
-            moduleAanpassen(module);
-        });
+        modules.forEach((module) -> this.moduleAanpassen(module));
     }
 
     public void moduleVerwijderen(Module module) {
@@ -86,9 +82,7 @@ public class ModuleDAO {
     }
 
     public void modulesVerwijderen(ArrayList<Module> modules) {
-        modules.forEach((module) -> {
-            moduleVerwijderen(module);
-        });
+        modules.forEach((module) -> this.moduleVerwijderen(module));
     }
 
     public Module moduleLaden(String moduleNaam) {
