@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.Connection;
@@ -14,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author CURSIST
+ * @author Ewout Phlips
  */
 public class SchooljarenDAO {
 
@@ -80,8 +75,8 @@ public class SchooljarenDAO {
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT schooljaren.schooljaarID, schooljaren.schooljaar FROM schooljaren"
-                    + "where schooljaar = ?";
+            String sql = "SELECT schooljaren.* FROM schooljaren"
+                    + "WHERE schooljaar = ?";
 
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
@@ -90,40 +85,13 @@ public class SchooljarenDAO {
 
             while (rs.next()) {
 
-                schooljaarID = rs.getInt(schooljaarID);
+                schooljaarID = rs.getInt("schooljaarID");
 
             }
 
         } catch (Exception e) {
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (Exception e) {
-
-                }
-
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-
-                }
-
-                currentCon = null;
-            }
-
+            Utilities.sluitVariabelen(ps, rs, currentCon);
         }
         return schooljaarID;
     }

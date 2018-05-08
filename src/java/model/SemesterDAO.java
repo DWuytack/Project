@@ -75,10 +75,10 @@ public class SemesterDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        try {
-            String sql = "SELECT semesters.semesterID, semesters.semester from semesters"
+        String sql = "SELECT semesters.* from semesters"
             + "WHERE semester = ?";
-
+        
+        try {
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);
             ps.setString(1, semesterNaam);
@@ -86,40 +86,13 @@ public class SemesterDAO {
 
             while (rs.next()) {
 
-                semesterID = rs.getInt(semesterID);
+                semesterID = rs.getInt("semesterID");
 
             }
 
         } catch (Exception e) {
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-                rs = null;
-            }
-
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (Exception e) {
-
-                }
-
-                ps = null;
-            }
-
-            if (currentCon != null) {
-                try {
-                    currentCon.close();
-                } catch (Exception e) {
-
-                }
-
-                currentCon = null;
-            }
-
+            Utilities.sluitVariabelen(ps, rs, currentCon);
         }
         return semesterID;
     }
