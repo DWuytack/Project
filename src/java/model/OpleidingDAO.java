@@ -67,7 +67,7 @@ public class OpleidingDAO {
         PreparedStatement ps = null;
 
         String sql = "DELETE FROM opleidingen WHERE opelidingen.opleidingID = ?";
-
+  
         try {
             currentCon = ConnectionManager.getConnection();
 
