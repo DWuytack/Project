@@ -11,6 +11,10 @@
         <servlet-name>EvaluatieFormulierServlet</servlet-name>
         <servlet-class>controller.EvaluatieFormulierServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MenuServlet</servlet-name>
+        <servlet-class>controller.MenuServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -27,6 +31,10 @@
         <servlet-name>someservlet</servlet-name>
         <servlet-class>controller.someservlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>MenuServlet</servlet-name>
+        <url-pattern>/MenuServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
