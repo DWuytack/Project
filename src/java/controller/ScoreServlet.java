@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Opleiding;
 import model.OpleidingDAO;
-import model.ScoreDAO; 
+import model.BeoordelingssoortDAO; 
 import model.StudiegebiedDAO;
 
 /**
@@ -21,7 +21,7 @@ import model.StudiegebiedDAO;
 @WebServlet(name = "ScoreServlet", urlPatterns = {"/ScoreServlet"})
 public class ScoreServlet extends HttpServlet {
     
-    ScoreDAO scoreDAO = new ScoreDAO();
+    BeoordelingssoortDAO scoreDAO = new BeoordelingssoortDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -1,45 +1,10 @@
 package model;
+
 /**
- *
- * @author Keanu      
-hier komt de score  
-*/ 
+ * Score: de score die een cursist krijgt.
+ * 
+ * @author Ewout Phlips
+ */
 public class Score {
     
-    private int beoordelingssoortID;
-    private String naam;
-    private String beschrijving;
-    private int waarde;
-    
-    public int getBeoordelingssoortID() {
-        return beoordelingssoortID;
-    }
-
-    public void setBeoordelingssoortID(int beoordelingssoortID) {
-        this.beoordelingssoortID = beoordelingssoortID;
-    }
-
-    public String getNaam() {
-        return naam;
-    }
-
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
-
-    public String getBeschrijving() {
-        return beschrijving;
-    }
-
-    public void setBeschrijving(String beschrijving) {
-        this.beschrijving = beschrijving;
-    }
-
-    public int getWaarde() {
-        return waarde;
-    }
-
-    public void setWaarde(int waarde) {
-        this.waarde = waarde;
-    }
 }

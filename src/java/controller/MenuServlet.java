@@ -18,8 +18,8 @@ import model.Opleiding;
 import model.OpleidingDAO;
 import model.Schooljaar;
 import model.SchooljaarDAO;
-import model.Score;
-import model.ScoreDAO;
+import model.Beoordelingssoort;
+import model.BeoordelingssoortDAO;
 import model.SemesterDAO;
 import model.Studiegebied;
 import model.StudiegebiedDAO;
@@ -165,8 +165,8 @@ public class MenuServlet extends HttpServlet {
 
                 case "Type score aanpassen":
                     //laden van de types scores
-                    ScoreDAO scoreDAO = new ScoreDAO();
-                    ArrayList<Score> typeScores = scoreDAO.typeScoreLaden();
+                    BeoordelingssoortDAO scoreDAO = new BeoordelingssoortDAO();
+                    ArrayList<Beoordelingssoort> typeScores = scoreDAO.beoordelingssoortenLaden();
                     session.setAttribute("lijstBeoordelingssoorten", typeScores);
                     response.sendRedirect("TypeScoreOverzicht.jsp");
                     break;
