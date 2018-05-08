@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * BeoordelingssoortDAO(Beoordelingssoort Data Access Object) is een klasse voor alle
- * handelingen in de database betreffend Beoordelingssoorten.
+ * BeoordelingssoortDAO(Beoordelingssoort Data Access Object) is een klasse voor
+ * alle handelingen in de database betreffend Beoordelingssoorten.
  *
  * @author Ewout Phlips
  */
@@ -38,18 +38,7 @@ public class BeoordelingssoortDAO {
 
     public void beoordelingssoortenToevoegen(ArrayList<Beoordelingssoort> beoordelingssoorten) {
         beoordelingssoorten.forEach((beoordelingssoort) -> this.beoordelingssoortToevoegen(beoordelingssoort)
-        Toevoegen(beoordelingssoort)
-    
-
-    
-
-    
-
-    
-
-    
-
-    );
+        );
     }
 
     public void beoordelingssoortAanpassen(Beoordelingssoort beoordelingssoort) {
