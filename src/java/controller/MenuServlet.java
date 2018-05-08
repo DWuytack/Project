@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Doelstelling;
-import model.DoelstellingDAO;
 import model.Gebruiker;
 import model.GebruikerDAO;
 import model.Instellingen;
@@ -123,7 +121,7 @@ public class MenuServlet extends HttpServlet {
                     studiegebiedDAO = new StudiegebiedDAO();
                     ArrayList<Studiegebied> studiegebieden2 = studiegebiedDAO.studiegebiedenLaden();
                     session.setAttribute("studiegebieden", studiegebieden2);                   
-                    response.sendRedirect("OverzichtStudieGebieden.jsp");                   
+                    response.sendRedirect("OverzichtStudiegebieden.jsp");                   
                     break;
                     
                 case "Evaluatieformulieren":

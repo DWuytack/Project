@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-function laadCursisten(){
+function laadCursistenEnDoelstellingen(){
     
       if (document.getElementById("modules").selectedIndex === 0){
         return;
@@ -57,7 +57,8 @@ function laadCursisten(){
                 option.text = data[i].naam;
                 dropdown.add(option);
             }
-            option.text = "Voeg cursist toe..."
+            option = document.createElement('option');
+            option.text = "Voeg cursist toe...";
             dropdown.add(option);
         }
     };

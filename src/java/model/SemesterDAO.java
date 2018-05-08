@@ -76,7 +76,7 @@ public class SemesterDAO {
         ResultSet rs = null;
 
         String sql = "SELECT semesters.* from semesters"
-            + "WHERE semester = ?";
+            + " WHERE semester=?";
         
         try {
             currentCon = ConnectionManager.getConnection();

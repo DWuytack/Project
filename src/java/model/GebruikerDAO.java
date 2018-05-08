@@ -384,10 +384,10 @@ public class GebruikerDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "SELECT * from gebruikers"
-                + "INNER JOIN inschrijvingen on gebruikers.gebruikerID = inschrijvingen.inschrijvingID"
-                + "WHERE inschrijvingen.moduleID = ?"
-                + "AND inschrijvingen.semesterID = ?"
-                + "AND inschrijvingen.schooljaarID = ?";
+                + " INNER JOIN inschrijvingen on gebruikers.gebruikerID = inschrijvingen.gebruikerID"
+                + " WHERE inschrijvingen.moduleID=?"
+                + " AND inschrijvingen.semesterID=?"
+                + " AND inschrijvingen.schooljaarID=?";
         try {
             currentCon = ConnectionManager.getConnection();
 
@@ -399,13 +399,7 @@ public class GebruikerDAO {
 
             while (rs.next()) {
                 Gebruiker gebruiker = new Gebruiker();
-                gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
-                gebruiker.setVoorNaam(rs.getString("voornaam"));
-                gebruiker.setAchternaam(rs.getString("achternaam"));
-                gebruiker.setLogin(rs.getString("login"));
-                gebruiker.setRol(rs.getString("rol"));
-                gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
-                gebruiker.setEmail(rs.getString("email"));
+                gebruiker.setNaam(rs.getString("voornaam") + " " + rs.getString("achternaam") );
                 gebruikers.add(gebruiker);
             }
         } catch (SQLException e) {

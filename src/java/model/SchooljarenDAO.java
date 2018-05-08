@@ -76,7 +76,7 @@ public class SchooljarenDAO {
 
         try {
             String sql = "SELECT schooljaren.* FROM schooljaren"
-                    + "WHERE schooljaar = ?";
+                    + " WHERE schooljaar=?";
 
             currentCon = ConnectionManager.getConnection();
             ps = currentCon.prepareStatement(sql);

@@ -66,7 +66,7 @@
 
                     <td width="10px"></td>
 
-                    <td>  <select id="modules" hidden onchange="laadCursisten()" style="max-width:170px;">
+                    <td>  <select id="modules" hidden onchange="laadCursistenEnDoelstellingen()" style="max-width:170px;">
 
                         </select> </td>
 
@@ -152,7 +152,7 @@
                 <tr >
 
                     <td > <input type="submit"  value=" Print Formulier "  class="button"></td>
-                    <td > <input type="submit"  value=" Bewaar Formuier " class="button"></td>
+                    <td > <input type="submit"  value=" Bewaar Formulier " class="button"></td>
                     <td > <input type="submit"  value=" Laad Formulier " class="button"></td>
                 </tr>
 

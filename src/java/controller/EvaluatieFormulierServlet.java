@@ -85,11 +85,11 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             String vorigSchooljaar=String.valueOf(schooljaarID -1);
 
             switch (semesterNummer) {
-                case 1:
+                case 2:
                     volSchooljaar=schooljaar.substring(0,4)+" - "+ volgendSchooljaar;
                     break;
                     
-                case 2:
+                case 1:
                       volSchooljaar=vorigSchooljaar + " - " + schooljaar.substring(0,4);
                     break;  
             }

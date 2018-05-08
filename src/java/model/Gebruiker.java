@@ -14,6 +14,15 @@ public class Gebruiker {
     private String rol;
     private String voorNaam;
     private String achternaam;
+    private String naam;
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
     private Date geboorteDatum;
     private String geboorteDatumValue;
     private String email;
