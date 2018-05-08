@@ -15,7 +15,7 @@ import model.ModuleDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
 import model.Schooljaar;
-import model.SchooljarenDAO;
+import model.SchooljaarDAO;
 import model.Score;
 import model.ScoreDAO;
 import model.SemesterDAO;
@@ -91,7 +91,7 @@ public class MenuServlet extends HttpServlet {
                 case "Overzicht scores":
                     
                     // laden van schooljaren uit database en in het geheugen plaatsen
-                    SchooljarenDAO schooljaarDAO = new SchooljarenDAO();
+                    SchooljaarDAO schooljaarDAO = new SchooljaarDAO();
                     ArrayList<Schooljaar> schooljaren = schooljaarDAO.schooljarenLaden();
                     session.setAttribute("schooljaren", schooljaren);
                                         
@@ -127,7 +127,7 @@ public class MenuServlet extends HttpServlet {
                 case "Evaluatieformulieren":
 
                     //laden schooljaren
-                    schooljaarDAO = new SchooljarenDAO();
+                    schooljaarDAO = new SchooljaarDAO();
                     ArrayList<Schooljaar> schooljaren2 = schooljaarDAO.schooljarenLaden();
                     session.setAttribute("schooljaren", schooljaren2);
                     

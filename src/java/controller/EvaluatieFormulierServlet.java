@@ -18,7 +18,7 @@ import model.Module;
 import model.ModuleDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
-import model.SchooljarenDAO;
+import model.SchooljaarDAO;
 import model.SemesterDAO;
 import model.StudiegebiedDAO;
 
@@ -95,10 +95,10 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             }
 
             GebruikerDAO gebruikerDAO = new GebruikerDAO();
-            SchooljarenDAO schooljarenDAO=new SchooljarenDAO();
+            SchooljaarDAO schooljarenDAO=new SchooljaarDAO();
             SemesterDAO semesterDAO=new SemesterDAO();
             ModuleDAO moduleDAO = new ModuleDAO();
-            int param1=schooljarenDAO.laadSchooljaarID(volSchooljaar);
+            int param1=schooljarenDAO.geefSchooljaarID(volSchooljaar);
             int param2=semesterDAO.laadSemesterID(semester);
             int param3= moduleDAO.laadModuleID(module);
             ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(param1,param2 ,param3);

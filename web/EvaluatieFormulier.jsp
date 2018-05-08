@@ -72,15 +72,15 @@
 
                     <td width="10px"></td>
 
-                    <td>  <select id="cursisten"  hidden  style="max-width:170px;">
+                    <td>  <select id="cursisten" onchange="genereerFormulierNaam()" hidden  style="max-width:170px;">
 
                         </select> </td>
 
 
                     <td width="10px"></td>
 
-                    <td>  <select id="les" hidden  style="max-width:50px;">
-                       </select> </td>
+                    <td>  <label id="formulierNaam" hidden  style="max-width:70px;">
+                       </label> </td>
 
                     <td width="10px"></td>
                 </tr>

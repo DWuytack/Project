@@ -4,6 +4,16 @@
  * and open the template in the editor.
  */
 
+function genereerFormuliernaam(){
+    
+    var label=document.getElementById('formulierNaam');
+    label.hidden=false;
+    label.text="formulierNaam";
+    
+}
+
+
+
 function laadCursistenEnDoelstellingen(){
     
       if (document.getElementById("modules").selectedIndex === 0){
