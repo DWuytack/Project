@@ -60,7 +60,7 @@ public class TakenServlet extends HttpServlet {
                     getoondeTaken = aantalTaken;
                 }
                 session.setAttribute("getoondeTaken", getoondeTaken);
-                taken = taakDAO.takenLaden(bladz);
+                taken = taakDAO.takenLaden();
                 session.setAttribute("lijstTaken", taken);
                 response.sendRedirect("Taken.jsp");
             }
@@ -76,7 +76,7 @@ public class TakenServlet extends HttpServlet {
                 }
                 session.setAttribute("getoondeTaken", getoondeTaken);
                 session.setAttribute("bladzijde", bladz);
-                taken = taakDAO.takenLaden(bladz);
+                taken = taakDAO.takenLaden();
                 session.setAttribute("lijstTaken", taken);
                 response.sendRedirect("Taken.jsp");
             }
@@ -92,7 +92,7 @@ public class TakenServlet extends HttpServlet {
                 }
                 session.setAttribute("getoondeTaken", getoondeTaken);
                 session.setAttribute("bladzijde", bladz);
-                taken = taakDAO.takenLaden(bladz);
+                taken = taakDAO.takenLaden();
                 session.setAttribute("lijstTaken", taken);
                 response.sendRedirect("Taken.jsp");
             }
@@ -109,7 +109,7 @@ public class TakenServlet extends HttpServlet {
                 session.setAttribute("getoondeTaken", getoondeTaken);
                 System.out.println("bladz: " + bladz);
                 session.setAttribute("bladzijde", bladz);
-                taken = taakDAO.takenLaden(bladz);
+                taken = taakDAO.takenLaden();
                 session.setAttribute("lijstTaken", taken);
                 response.sendRedirect("Taken.jsp");
             }
@@ -144,7 +144,6 @@ public class TakenServlet extends HttpServlet {
 
                 case "Zoeken":
                     session.setAttribute("zoekterm", zoekterm);
-                    taken = taakDAO.takenZoeken(zoekterm);
                     session.setAttribute("lijstTaken", taken);
                     response.sendRedirect("Taken.jsp");
                     break;
@@ -154,7 +153,7 @@ public class TakenServlet extends HttpServlet {
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
                     int bladzd = (int) session.getAttribute("bladzijde");
-                    taken = taakDAO.takenLaden(bladzd);
+                    taken = taakDAO.takenLaden();
                     session.setAttribute("lijstTaken", taken);
                     response.sendRedirect("Taken.jsp");
                     break;
@@ -163,9 +162,9 @@ public class TakenServlet extends HttpServlet {
                     session = request.getSession(true);
                     session.removeAttribute("editID");
                     session.removeAttribute("saveID");
-                    taakDAO.takenVerwijderen(Integer.parseInt(deleteID));
+                    taakDAO.taakVerwijderen(taakDAO.taakLaden(deleteID));
                     bladzd = (int) session.getAttribute("bladzijde");
-                    taken = taakDAO.takenLaden(bladzd);
+                    taken = taakDAO.takenLaden();
                     aantalTaken = taakDAO.geefAantalTaken();
                     session.setAttribute("aantalRecords", aantalTaken);
                     session.setAttribute("lijstTaken", taken);
@@ -191,9 +190,10 @@ public class TakenServlet extends HttpServlet {
                     int id = Integer.parseInt(saveID);
                     taak.setNaam(request.getParameter("naam"));
                     taak.setBeschrijving(request.getParameter("beschrijving"));
-                    taakDAO.taakAanpassen(id, taak);
+                    taak.setTaakID(id);
+                    taakDAO.taakAanpassen(taak);
                     bladzd = (int) session.getAttribute("bladzijde");
-                    taken = taakDAO.takenLaden(bladzd);
+                    taken = taakDAO.takenLaden();
                     aantalTaken = taakDAO.geefAantalTaken();
                     session.setAttribute("aantalRecords", aantalTaken);
                     session.setAttribute("lijstTaken", taken);
