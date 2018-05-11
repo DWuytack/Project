@@ -15,219 +15,60 @@
         <script src="js/jquery.js"></script>
         <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
+        <!-- START Test -->
+        <script src="js/dataStudiegebiedenTemp.js"></script>
+        <!-- END Test -->
         <script src="js/studiegebieden.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/studiegebieden.css">
         <title>StudieGebieden</title>
     </head>
-    <body>
+    
+    <body>  
+        <script>
+            var params = 'studiegebied=' + '';
+            var requestData = function(params) {
+                var xhttp = new XMLHttpRequest();
+                var data = "";
+                //params = 'page=1';
+
+                xhttp.open("POST", "StudiegebiedenServlet", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
+                       // Typical action to be performed when the document is ready:
+                       dataTest = JSON.parse(xhttp.responseText);
+                       console.log("pulled data");
+                       console.log(dataTest);
+                    }
+                };
+                xhttp.send(params);
+            };
+            
+            requestData(params);
+            
+        </script>
+        
         <%@include file="Bovenbalk.jsp" %>
-        <!-- styling verplaatst naar theme.css "SUBNAV" -->
+        
         <section id="pagename">
             <h2> OverzichtStudiegebieden </h2>
-            <!-- <h1 align="center" class="kleur" style="display: inherit;"> OverzichtStudiegebieden </h1> -->
-
         </section>
 
         <section>
             <form action="StudiegebiedenServlet">
-                <script>
-                    var data = {
-                        opleiding: {
-                            gebied1: [
-                                {
-                                    value: "opleiding1a",
-                                    view: "opleiding1"
-                                },
-                                {
-                                    value: "opleiding2a",
-                                    view: "opleiding2"
-                                },
-                                {
-                                    value: "opleiding3a",
-                                    view: "opleiding3"
-                                },
-                                {
-                                    value: "opleiding4a",
-                                    view: "opleiding4"
-                                }
-                            ],
-                            gebied2: [{
-                                    value: "opleiding1b",
-                                    view: "opleiding1b"
-                                },
-                                {
-                                    value: "opleiding2b",
-                                    view: "opleiding2b"
-                                }
-                            ]
-
-                        },
-                        module: {
-                            opleiding1a: [
-                                {
-                                    value: "module1a",
-                                    view: "module1"
-                                },
-                                {
-                                    value: "module2a",
-                                    view: "module2"
-                                },
-                                {
-                                    value: "module3a",
-                                    view: "module3"
-                                },
-                                {
-                                    value: "module4a",
-                                    view: "module4"
-                                }
-                            ],
-                            opleiding2a: [
-                                {
-                                    value: "module1b",
-                                    view: "module1b"
-                                },
-                                {
-                                    value: "module2b",
-                                    view: "module2b"
-                                }
-                            ],
-                            opleiding1b: [
-                                {
-                                    value: "module1a",
-                                    view: "module1"
-                                },
-                                {
-                                    value: "module2a",
-                                    view: "module2"
-                                },
-                                {
-                                    value: "module3a",
-                                    view: "module3"
-                                },
-                                {
-                                    value: "module4a",
-                                    view: "module4"
-                                }
-                            ],
-                            opleiding2b: [
-                                {
-                                    value: "module1b",
-                                    view2: "module1b"
-                                },
-                                {
-                                    value: "module2b",
-                                    view: "module2b"
-                                }
-                            ]
-                        },
-                        doelstelling: {
-                            module1a: [
-                                {
-                                    value: "doelstelling1a",
-                                    view: "doelstelling1"
-                                },
-                                {
-                                    value: "doelstelling2a",
-                                    view: "doelstelling2"
-                                },
-                                {
-                                    value: "doelstelling3a",
-                                    view: "doelstelling3"
-                                },
-                                {
-                                    value: "doelstelling4a",
-                                    view: "doelstelling4"
-                                }
-                            ],
-                            module2a: [
-                                {
-                                    value: "doelstelling1b",
-                                    view: "doelstelling1b"
-                                },
-                                {
-                                    value: "doelstelling2b",
-                                    view: "doelstelling2b"
-                                }
-                            ],
-                            module1b: [
-                                {
-                                    value: "doelstelling1a",
-                                    view: "doelstelling1"
-                                },
-                                {
-                                    value: "doelstelling2a",
-                                    view: "doelstelling2"
-                                },
-                                {
-                                    value: "doelstelling3a",
-                                    view: "doelstelling3"
-                                },
-                                {
-                                    value: "doelstelling4a",
-                                    view: "doelstelling4"
-                                }
-                            ],
-                            module2b: [
-                                {
-                                    value: "doelstelling1b",
-                                    view2: "doelstelling1b"
-                                },
-                                {
-                                    value: "doelstelling2b",
-                                    view: "doelstelling2b"
-                                }
-                            ]
-                        }
-
-                    };
-                    console.log(data);
-                </script>
-                </head>
-
-                <body>
-
-                    <section>
-                        <div id="menu">
-                            <div role="menu-header">
-                                <select name="studiegebieden">
-                                    <option value="0">Kies Uw StudieGebied</option>
-                                    <option value="gebied1">Gebied1</option>
-                                    <option value="gebied2">Gebied2</option>
-                                </select>
-                            </div>
-                            <div role="menu-content">
-                                <div role="menu-header">
-                                    <select name="opleidingen"></select>
-                                </div>
-                                <div role="menu-content">
-                                    <div role="menu-header">
-                                        <!--<a class="toggle">Kies Uw Module </a>-->
-                                    </div>
-                                    <div role="menu-content">
-                                        <div role="menu-header">
-                                            <!-- <a class="toggle">Doelstelling</a>-->
-                                        </div>
-                                        <div role="menu-content">
-                                            <div role="menu-header">
-                                                <a class="toggle">Taken</a>
-                                                <option value="taak1">taak</option>
-                                                <option value="taak2">taak2</option>
-                                            </div>
-                                            <div role="menu-content">
-                                                <div role="menu-header">
-                                                    <a class="toggle">Score</a>
-                                                    <option value="Score">Score</option>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </body>
+                <div id="menu">
+                    <div role="menu-header">
+                        <select name="studiegebieden">
+                            <option value="0">Kies Uw StudieGebied</option>
+                            <option value="gebied1">Gebied1</option>
+                            <option value="gebied2">Gebied2</option>
+                        </select>
+                    </div>
+                    <div role="menu-content"></div>          
+                </div>
             </form>
         </section>
+        
     </body>
 </html>
