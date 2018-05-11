@@ -100,67 +100,70 @@
                 </tr>
             </table>
             <br>
-            <table class="doelstelling2">
-                <thead>
-
-                    <tr class="lijn" bgcolor="#AAAA00" height="50" >
-                        <th  ><b>Doelstellingen</th>                      
-                        <th ><b>Kern</b></th>               
-                        <th><b>Taken</b></th>
-                        <th ><b>Score</b></th>
-                        <th ><b>Waarde</b></th>
-                        <th ><b>Commentaar</b></th>
-                    </tr>
-                </thead>
-
-
-                <tbody>
-
-                    <tr class="formrow">
-                        <td><select name="doelstelling"  id="doelstellingen" hidden >
-                        </select></td>
-
-                        
-                          <td><select name="kern" hidden >
-                            <input type="checkbox" name="kerncheck"><br>
-                            </select>
-                    
-                        <td><select name="taak" hidden >
-
-                            </select>
-                        <td class="center">
-                            <select name="score" hidden>
-
-                            </select></td>
-                      
-                        <td><textarea name="textarea" hidden
-                                      rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
-                    </tr>
-            </table>
             <br>
+            <table>
 
-            <table class="doelstelling1">
-
-                <tr >
-
-                    <td align="center" >Totale Score: 80% </td>
+                <tr bgcolor="#ceccca" height="50px" >
+                    <td width="3%" />
+                    <td width="30%"><b>Doelstellingen</td>   
+                    <td width="3%" />
+                    <td width="3%"><b>Kern</b></td>  
+                    <td width="3%" />
+                    <td width="20%"><b>Taken</b></td>
+                    <td width="3%" />
+                    <td width="3%"><b>Score</b></td>
+                    <td width="3%" />
+                    <td width="3%"><b>Waarde</b></td>
+                    <td width="3%" />
+                    <td width="30%"><b>Commentaar</b></td>
+                    <td width="3%" />
                 </tr>
 
+                <tr height="20px">
+
+                <tr>
+
+                    <td />
+                    <td><select name="doelstelling"  id="doelstellingen" hidden >
+                        </select></td>
+                    <td />
+
+                    <td class="center"><select name="kern" hidden >
+                            <input type="checkbox" name="kerncheck"><br>
+                        </select> </td>
+                    <td />
+
+                    <td><select name="taak" hidden ></select></td>
+                    <td />
+                    <td><select name="score" hidden></select></td>
+                    <td />
+                    <td><select name="waarde" hidden></select></td>
+                    <td />
+                    <td><textarea name="textarea" hidden
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+                    
+                </tr>
+
+
             </table>
+            <br>
+            <br>
+            <br>
             <br>
 
             <table class="doelstelling1" >
 
                 <tr >
-                    <td > <input type="submit"  value=" Maak Formulier leeg " class="button"></td>
-                    <td > <input type="submit"  value=" Print Formulier "  class="button"></td>
-                    <td > <input type="submit"  value=" Bewaar Formulier " class="button"></td>
-                    <td > <input type="submit"  value=" Laad Formulier " class="button"></td>
+                    <td > <input type="submit"  value=" Formulier wissen " class="button"></td>
+                    <td > <input type="submit"  value=" Print formulier  "  class="button"></td>
+                    <td > <input type="submit"  value=" Bewaar formulier " class="button"></td>
+                    <td > <input type="submit"  value=" Laad formulier " class="button"></td>
                 </tr>
 
             </table>
 
-            <h2 id="demo"> </h2>
+
         </p>
     </form>
 
