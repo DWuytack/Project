@@ -104,12 +104,12 @@
                 <thead>
 
                     <tr class="lijn" bgcolor="#AAAA00" height="50" >
-                        <th  class="links" width="25%"><b>Doelstellingen</th>                      
-                        <th><b>Kern</b></th>               
-                        <th  class="links" ><b>Taken</b></th>
-                        <th  class="links" width="5%"><b>Score</b></th>
-                        <th  class="center" width="10%"><b>Waarde</b></th>
-                        <th  class="links" width="25%"><b>Commentaar</b></th>
+                        <th  ><b>Doelstellingen</th>                      
+                        <th ><b>Kern</b></th>               
+                        <th><b>Taken</b></th>
+                        <th ><b>Score</b></th>
+                        <th ><b>Waarde</b></th>
+                        <th ><b>Commentaar</b></th>
                     </tr>
                 </thead>
 
@@ -118,19 +118,21 @@
 
                     <tr class="formrow">
                         <td><select name="doelstelling"  id="doelstellingen" hidden >
-                               
+                        </select></td>
 
-                            </select></td>
-
-                        <td></td>
+                        
+                          <td><select name="kern" hidden >
+                            <input type="checkbox" name="kerncheck"><br>
+                            </select>
+                    
                         <td><select name="taak" hidden >
-                             
-                            </select></td></td>
+
+                            </select>
                         <td class="center">
                             <select name="score" hidden>
-                              
+
                             </select></td>
-                        <td></td>
+                      
                         <td><textarea name="textarea" hidden
                                       rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
                     </tr>
