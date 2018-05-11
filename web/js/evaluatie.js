@@ -4,19 +4,27 @@
  * and open the template in the editor.
  */
 
-function genereerFormuliernaam(){
-    
-    var label=document.getElementById('formulierNaam');
-    label.hidden=false;
-    label.text="formulierNaam";
-    
+function genereerFormuliernaam() {
+
+    var lesnummer = document.getElementById('lesnr').value;
+    var label = document.getElementById('formulierNaam');
+    label.hidden = false;
+    var lesdatum = document.getElementById("datum").value;
+    var leskeuze = document.getElementById('modules').value;
+    var lescursist = document.getElementById("cursisten").value;
+
+    label.innerHTML = "formulierNaam: " + lesdatum + "_" + leskeuze + "_" + lescursist + "_" + lesnummer ;
 }
 
 
+function laadLesnr() {
+    var lesnr = document.getElementById('lesnr');
+    lesnr.hidden = false;
+}
 
-function laadCursistenEnDoelstellingen(){
-    
-      if (document.getElementById("modules").selectedIndex === 0){
+function laadCursistenEnDoelstellingen() {
+
+    if (document.getElementById("modules").selectedIndex === 0) {
         return;
     }
     var keuze = document.getElementById('modules').value;
@@ -30,11 +38,12 @@ function laadCursistenEnDoelstellingen(){
         xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
 
-     var schooljaar = document.getElementById("datum").value;
-     var semester= document.getElementById("Semester").value;
-   
+    var schooljaar = document.getElementById("datum").value;
+    var semester = document.getElementById("Semester").value;
+
+
     //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?module=" + keuze + "&schooljaar=" + schooljaar + "&semester=" + semester , true);
+    xhttp.open("POST", "EvaluatieFormulierServlet?module=" + keuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
     xhttp.send();
 
     xhttp.onreadystatechange = function () {
@@ -72,15 +81,12 @@ function laadCursistenEnDoelstellingen(){
             dropdown.add(option);
         }
     };
-    
-    
-    
-    
+
 }
 
-function laadModules(){
-    
-      if (document.getElementById("opleidingen").selectedIndex === 0){
+function laadModules() {
+
+    if (document.getElementById("opleidingen").selectedIndex === 0) {
         return;
     }
     var keuze = document.getElementById('opleidingen').value;
@@ -95,7 +101,7 @@ function laadModules(){
     }
 
     //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?opleiding=" + keuze , true);
+    xhttp.open("POST", "EvaluatieFormulierServlet?opleiding=" + keuze, true);
     xhttp.send();
 
     xhttp.onreadystatechange = function () {
@@ -132,10 +138,10 @@ function laadModules(){
             dropdown.add(option);
         }
     };
-    
-    
-    
-    
+
+
+
+
 }
 
 function checkDate() {
@@ -147,7 +153,7 @@ function checkDate() {
         document.getElementById("Semester").selectedIndex = 0;
     } else {
         if (document.getElementById("Semester").selectedIndex === 0) {
-             document.getElementById("studiegebied").hidden = true;
+            document.getElementById("studiegebied").hidden = true;
         } else {
             document.getElementById("studiegebied").hidden = false;
         }
@@ -157,7 +163,7 @@ function checkDate() {
 
 function laadOpleidingen() {
 
-    if (document.getElementById("studiegebied").selectedIndex == 0){
+    if (document.getElementById("studiegebied").selectedIndex == 0) {
         return;
     }
     var keuze = document.getElementById('studiegebied').value;
