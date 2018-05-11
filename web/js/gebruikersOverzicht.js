@@ -69,6 +69,8 @@ document.addEventListener("click", function(e){
         var role = target.getAttribute("role");
         if(role === "aanpassen") {
             rij = utilities.vindRij(target);
+            console.log("onze rij");
+            console.log(rij);
             rij.classList.add("edit");
             utilities.rijAanpassen(rij, meta);
         }
@@ -81,8 +83,8 @@ document.addEventListener("click", function(e){
             rij = utilities.vindRij(target);
             rij.classList.remove("edit");
             console.log(backup);
-            utilities.rijHerstellen(rij);
-            /* var cellen = rij.childNodes;
+            //utilities.rijHerstellen(rij);
+            var cellen = rij.childNodes;
             i2 = -1;
             cellen.forEach(function(cell){
                 i2++;
@@ -90,7 +92,7 @@ document.addEventListener("click", function(e){
                 console.log(backup[i2]);
                 //console.log(cell);
                 //console.log(backup[i2]);
-            });*/
+            });
         }
     }
     

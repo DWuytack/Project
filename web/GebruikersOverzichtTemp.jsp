@@ -20,6 +20,20 @@
         <link rel="stylesheet" href="css/formulier.css">
         <link rel="stylesheet" href="css/gebruikersOverzicht.css">
         <title>Gebruikers overzicht</title>
+        <style>
+            table {
+                table-layout: fixed;
+            }
+            #gebruikersOverzicht thead th {
+                width: 15%;
+            }
+            #gebruikersOverzicht thead th[title="email"] {
+                width: 25%;
+            }
+            #gebruikersOverzicht thead th[title="acties"] {
+                width: 80px;
+            }
+        </style>
     </head>
     
     <body>
