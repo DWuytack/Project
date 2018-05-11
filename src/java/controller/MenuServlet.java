@@ -11,22 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Doelstelling;
-import model.DoelstellingDAO;
-import model.Gebruiker;
-import model.GebruikerDAO;
-import model.Instellingen;
-import model.Module;
-import model.ModuleDAO;
-import model.Opleiding;
-import model.OpleidingDAO;
-import model.Schooljaar;
-import model.Score;
-import model.ScoreDAO;
-import model.SemesterDAO;
-import model.Studiegebied;
-import model.StudiegebiedDAO;
-import model.Semester;
+import model.*;
+
 
 
 /**
@@ -145,18 +131,12 @@ studiegebiedDAO = new StudiegebiedDAO();
 studiegebieden = studiegebiedDAO.studiegebiedenLaden();
 session.setAttribute("studiegebieden", studiegebieden);
 
-// laden opleidingen
-opleidingDAO = new OpleidingDAO();
-opleidingen = opleidingDAO.opleidingenLaden();
-session.setAttribute("opleidingen", opleidingen);
-
-// laden modules
-moduleDAO = new ModuleDAO();
-modules = moduleDAO.modulesLaden();
-session.setAttribute("modules", modules);
-
-// laden cursisten
 // laden lesnr
+LesnrDAO  lesnrDAO = new LesnrDAO();
+ArrayList<Lesnr> lesnrs = lesnrDAO.lesnrsLaden();
+session.setAttribute("lesnrs", lesnrs);
+
+
 
 
 response.sendRedirect("EvaluatieFormulier.jsp");

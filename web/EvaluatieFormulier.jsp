@@ -34,8 +34,8 @@
                     <td width="70px"></td>
 
                     <td> <input type="date" id="datum" 
-                       required style="font-size: 0.9rem"  > </td>
-                    
+                                required style="font-size: 0.9rem"  > </td>
+
                     <td> <select name="Semester" id="Semester" onchange="checkDate()" style="max-width:140px;" >
                             <option selected > Semester... </option>
                             <c:forEach items="${semesters}" var="semester">                  
@@ -72,15 +72,29 @@
 
                     <td width="10px"></td>
 
-                    <td>  <select id="cursisten" onchange="genereerFormulierNaam()" hidden  style="max-width:170px;">
+
+                    <td>  <select id="cursisten" onchange="laadLesnr()" hidden  style="max-width:170px;">
 
                         </select> </td>
 
+                     <td width="10px"></td>  
+                        
+                    <td>  <select id="lesnr" onchange="genereerFormuliernaam()" hidden  style="max-width:170px;">
 
-                    <td width="10px"></td>
+                            <option selected disabled> Lesnr... </option>
+                            <c:forEach items="${lesnrs}" var="lesnr">                  
+                                <option> ${lesnr.lesnr} </option>                     
+                            </c:forEach>
+                            <option> Voeg lesnr toe... </option>
+                            
+                        </select> </td> 
 
-                    <td>  <label id="formulierNaam" hidden  style="max-width:70px;">
-                       </label> </td>
+
+
+                    <td width="20px"></td>
+
+                    <td>  <label id="formulierNaam"  hidden  style="max-width:120px;">
+                        </label> </td>
 
                     <td width="10px"></td>
                 </tr>
