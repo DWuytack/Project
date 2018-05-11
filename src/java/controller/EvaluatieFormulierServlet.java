@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Doelstelling;
+import model.DoelstellingDAO;
 import model.Gebruiker;
 import model.GebruikerDAO;
 import model.Module;
@@ -78,32 +80,46 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             String semesterNr = semester.substring(0, 1);
 
-            int schooljaarID = Integer.valueOf(schooljaar.substring(0,4));
+            int schooljaarID = Integer.valueOf(schooljaar.substring(0, 4));
             int semesterNummer = Integer.valueOf(semesterNr);
-            String volSchooljaar="";
-            String volgendSchooljaar=String.valueOf(schooljaarID +1);
-            String vorigSchooljaar=String.valueOf(schooljaarID -1);
+            String volSchooljaar = "";
+            String volgendSchooljaar = String.valueOf(schooljaarID + 1);
+            String vorigSchooljaar = String.valueOf(schooljaarID - 1);
 
             switch (semesterNummer) {
                 case 2:
-                    volSchooljaar=schooljaar.substring(0,4)+" - "+ volgendSchooljaar;
+                    volSchooljaar = schooljaar.substring(0, 4) + " - " + volgendSchooljaar;
                     break;
-                    
+
                 case 1:
-                      volSchooljaar=vorigSchooljaar + " - " + schooljaar.substring(0,4);
-                    break;  
+                    volSchooljaar = vorigSchooljaar + " - " + schooljaar.substring(0, 4);
+                    break;
             }
 
             GebruikerDAO gebruikerDAO = new GebruikerDAO();
-            SchooljaarDAO schooljarenDAO=new SchooljaarDAO();
-            SemesterDAO semesterDAO=new SemesterDAO();
+            SchooljaarDAO schooljarenDAO = new SchooljaarDAO();
+            SemesterDAO semesterDAO = new SemesterDAO();
             ModuleDAO moduleDAO = new ModuleDAO();
-            int param1=schooljarenDAO.geefSchooljaarID(volSchooljaar);
-            int param2=semesterDAO.laadSemesterID(semester);
-            int param3= moduleDAO.laadModuleID(module);
-            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(param1,param2 ,param3);
+            int param1 = schooljarenDAO.geefSchooljaarID(volSchooljaar);
+            int param2 = semesterDAO.laadSemesterID(semester);
+            int param3 = moduleDAO.laadModuleID(module);
+            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(param1, param2, param3);
 
             String json = gson.toJson(gebruikers);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
+
+        String test = request.getParameter("doelstelling");
+
+        if (test != null) {
+
+            //laad doelstellingen
+            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
+            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(moduleDAO.geefModuleID(test));
+            String json = gson.toJson(doelstellingen);
 
             response.setContentType("application/json");
             response.getWriter().write(json);

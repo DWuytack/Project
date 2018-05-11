@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+var formulierNaam;
+
+
 function genereerFormuliernaam() {
 
     var lesnummer = document.getElementById('lesnr').value;
@@ -12,17 +15,70 @@ function genereerFormuliernaam() {
     var lesdatum = document.getElementById("datum").value;
     var leskeuze = document.getElementById('modules').value;
     var lescursist = document.getElementById("cursisten").value;
+    formulierNaam="formulierNaam: " + lesdatum + "_" + leskeuze + "_" + lescursist + "_" + lesnummer ;
+    label.innerHTML = formulierNaam;
+    
+     if (document.getElementById("modules").selectedIndex === 0) {
+        return;
+    }
+    var keuze = document.getElementById('modules').value;
+    var xhttp = new XMLHttpRequest();
 
-    label.innerHTML = "formulierNaam: " + lesdatum + "_" + leskeuze + "_" + lescursist + "_" + lesnummer ;
+    if (window.XMLHttpRequest) {
+        // code voor moderne browsers
+        xhttp = new XMLHttpRequest();
+    } else {
+        // code voor oude IE browsers
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    //open(method,url,async)
+    xhttp.open("POST", "EvaluatieFormulierServlet?doelstelling=" + keuze, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = function () {
+
+        //200: "OK"
+        //403: "Forbidden"
+        //404: "Not Found"
+
+        //0: request not initialized 
+        //1: server connection established
+        //2: request received 
+        //3: processing request 
+        //4: request finished and response is ready
+        if (this.readyState === 4 && this.status === 200) {
+
+            let dropdown = document.getElementById('doelstellingen');
+            dropdown.hidden = false;
+    
+            let defaultOption = document.createElement('option');
+            defaultOption.text = 'Doelstelling...';
+            defaultOption.disabled = true;
+            dropdown.add(defaultOption);
+            dropdown.selectedIndex = 0;
+
+            const data = JSON.parse(xhttp.responseText);
+            let option;
+            for (let i = 0; i < data.length; i++) {
+                option = document.createElement('option');
+                option.text = data[i].naam;
+                dropdown.add(option);
+            }
+            option = document.createElement('option');
+            option.text = "Voeg doelstelling toe...";
+            dropdown.add(option);
+        }
+    };
+
 }
-
 
 function laadLesnr() {
     var lesnr = document.getElementById('lesnr');
     lesnr.hidden = false;
 }
 
-function laadCursistenEnDoelstellingen() {
+function laadCursisten() {
 
     if (document.getElementById("modules").selectedIndex === 0) {
         return;

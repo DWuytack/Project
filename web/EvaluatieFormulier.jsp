@@ -66,7 +66,7 @@
 
                     <td width="10px"></td>
 
-                    <td>  <select id="modules" hidden onchange="laadCursistenEnDoelstellingen()" style="max-width:170px;">
+                    <td>  <select id="modules" hidden onchange="laadCursisten()" style="max-width:170px;">
 
                         </select> </td>
 
@@ -77,8 +77,8 @@
 
                         </select> </td>
 
-                     <td width="10px"></td>  
-                        
+                    <td width="10px"></td>  
+
                     <td>  <select id="lesnr" onchange="genereerFormuliernaam()" hidden  style="max-width:170px;">
 
                             <option selected disabled> Lesnr... </option>
@@ -86,7 +86,7 @@
                                 <option> ${lesnr.lesnr} </option>                     
                             </c:forEach>
                             <option> Voeg lesnr toe... </option>
-                            
+
                         </select> </td> 
 
 
@@ -117,35 +117,21 @@
                 <tbody>
 
                     <tr class="formrow">
-                        <td><select name="cursist" style="max-width:300px;">
-                                <option value="doelstelling" selected disabled> Kies doelstelling... </option>
-                                <c:forEach items="${doelstellingen}" var="doelstelling">
-                                    <option value="doelstelling">${doelstelling.naam}</option>
-                                </c:forEach>
-                                <option value="doelstelling">Maak een nieuwe doelstelling aan...</option>
+                        <td><select name="doelstelling"  id="doelstellingen" hidden >
+                               
 
                             </select></td>
 
                         <td></td>
-                        <td><select name="taak" style="max-width:300px;">
-                                <option value="taak" selected disabled> Kies taak... </option>
-                                <c:forEach items="${taken}" var="taak">
-                                    <option value="taak">${taak.naam}</option>
-                                </c:forEach>
-                                <option value="taak">Maak een nieuwe taak aan...</option>
-
+                        <td><select name="taak" hidden >
+                             
                             </select></td></td>
                         <td class="center">
-                            <select name="score" value="">
-                                <option value="score" selected disabled> Kies score... </option>
-                                <c:forEach items="${scores}" var="score">
-                                    <option value="score">${score.naam}</option>
-                                </c:forEach>
-
-
+                            <select name="score" hidden>
+                              
                             </select></td>
                         <td></td>
-                        <td><textarea name="textarea"
+                        <td><textarea name="textarea" hidden
                                       rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
                     </tr>
             </table>
@@ -164,7 +150,7 @@
             <table class="doelstelling1" >
 
                 <tr >
-
+                    <td > <input type="submit"  value=" Maak Formulier leeg " class="button"></td>
                     <td > <input type="submit"  value=" Print Formulier "  class="button"></td>
                     <td > <input type="submit"  value=" Bewaar Formulier " class="button"></td>
                     <td > <input type="submit"  value=" Laad Formulier " class="button"></td>
