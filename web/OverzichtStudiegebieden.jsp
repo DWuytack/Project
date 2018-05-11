@@ -24,7 +24,31 @@
         <title>StudieGebieden</title>
     </head>
     
-    <body>     
+    <body>  
+        <script>
+            var params = 'studiegebied=' + '';
+            var requestData = function(params) {
+                var xhttp = new XMLHttpRequest();
+                var data = "";
+                //params = 'page=1';
+
+                xhttp.open("POST", "StudiegebiedenServlet", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
+                       // Typical action to be performed when the document is ready:
+                       dataTest = JSON.parse(xhttp.responseText);
+                       console.log("pulled data");
+                       console.log(dataTest);
+                    }
+                };
+                xhttp.send(params);
+            };
+            
+            requestData(params);
+            
+        </script>
+        
         <%@include file="Bovenbalk.jsp" %>
         
         <section id="pagename">

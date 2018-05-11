@@ -23,6 +23,14 @@
         <servlet-name>EvaluatieFormulierServlet</servlet-name>
         <url-pattern>/EvaluatieFormulierServlet</url-pattern>
     </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>StudiegebiedenServlet</servlet-name>
+        <url-pattern>/StudiegebiedenServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>StudiegebiedenServlet</servlet-name>
+        <servlet-class>controller.StudiegebiedenServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>someservlet</servlet-name>
         <url-pattern>/someservlet</url-pattern>
