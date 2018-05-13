@@ -169,27 +169,27 @@ public class TaakDAO {
         return taken;
     }
 
-    public ArrayList<Taak> takenLaden(int doelstellingID) {
+    public ArrayList<Taak> takenLaden(int moduleID) {
         ArrayList<Taak> taken = new ArrayList<>();
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "SELECT taken.* FROM taken "
-                + "INNER JOIN doelstellingen_taken ON taken.taakID = doelstellingen_taken.taakID "
-                + "WHERE doelstellingen_taken.taakID = ?";
+        String sql = " select * from taken where taakID IN (select taakid from doelstellingen_taken " +
+                    "where doelstellingen_taken.doelstellingID IN " +
+                    "(select doelstellingID from modules_doelstellingen where modules_doelstellingen.moduleID=?));";
 
         try {
             currentCon = ConnectionManager.getConnection();
 
             ps = currentCon.prepareStatement(sql);
-            ps.setInt(1, doelstellingID);
+            ps.setInt(1, moduleID);
 
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 Taak taak = new Taak();
-                taak.setTaakID(rs.getInt("doelstellingID"));
+                taak.setTaakID(rs.getInt("taakid"));
                 taak.setNaam(rs.getString("naam"));
                 taak.setBeschrijving(rs.getString("beschrijving"));
                 taken.add(taak);

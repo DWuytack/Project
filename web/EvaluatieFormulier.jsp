@@ -124,18 +124,18 @@
                     <td />
                    
 
-                    <td><select name="taak" id="taken" hidden ></select></td>
+                    <td><select name="taak" id="formTaken" hidden ></select></td>
                     <td />
                     
-                     <td><select name="doelstelling"  id="doelstellingen" hidden >
+                     <td><select name="doelstelling"  id="formDoelstellingen" hidden >
                         </select></td>
                     <td />
 
-                    <td><label name="kern" hidden disabled></label> </td>
+                    <td><label name="kern" id="formKern" hidden disabled></label> </td>
                     <td />
-                    <td><select name="score" id="score" hidden></select></td>
+                    <td><select name="score" id="formScore" hidden></select></td>
                     <td />
-                    <td><textarea name="textarea" hidden id="commentaar"
+                    <td><textarea name="textarea" hidden id="formCommentaar"
                                   rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
                     <td />
                     

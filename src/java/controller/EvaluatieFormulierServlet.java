@@ -12,8 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Doelstelling;
-import model.DoelstellingDAO;
 import model.Gebruiker;
 import model.GebruikerDAO;
 import model.Module;
@@ -23,6 +21,8 @@ import model.OpleidingDAO;
 import model.SchooljaarDAO;
 import model.SemesterDAO;
 import model.StudiegebiedDAO;
+import model.Taak;
+import model.TaakDAO;
 
 /**
  *
@@ -41,6 +41,8 @@ public class EvaluatieFormulierServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+ 
 
         Gson gson = new Gson();
         String studiegebied = request.getParameter("studiegebied");
@@ -111,15 +113,15 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             response.getWriter().write(json);
         }
 
-        String test = request.getParameter("taak");
+         String test = request.getParameter("taak");
 
         if (test != null) {
 
             //laad taken voor module
-            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+            TaakDAO taakDAO = new TaakDAO();
             ModuleDAO moduleDAO = new ModuleDAO();
-            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(moduleDAO.geefModuleID(test));
-            String json = gson.toJson(doelstellingen);
+            ArrayList<Taak> taken = taakDAO.takenLaden(moduleDAO.geefModuleID(test));
+            String json = gson.toJson(taken);
 
             response.setContentType("application/json");
             response.getWriter().write(json);
