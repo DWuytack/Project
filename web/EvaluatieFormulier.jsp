@@ -105,15 +105,13 @@
 
                 <tr bgcolor="#ceccca" height="50px" >
                     <td width="3%" />
-                    <td width="30%"><b>Doelstellingen</td>   
+                    <td width="30%"><b>Taak</td>   
                     <td width="3%" />
-                    <td width="3%"><b>Kern</b></td>  
+                    <td width="30%"><b>Doelstelling</b></td>  
                     <td width="3%" />
-                    <td width="20%"><b>Taken</b></td>
+                    <td width="3%"><b>Kern</b></td>
                     <td width="3%" />
                     <td width="3%"><b>Score</b></td>
-                    <td width="3%" />
-                    <td width="3%"><b>Waarde</b></td>
                     <td width="3%" />
                     <td width="30%"><b>Commentaar</b></td>
                     <td width="3%" />
@@ -124,22 +122,20 @@
                 <tr>
 
                     <td />
-                    <td><select name="doelstelling"  id="doelstellingen" hidden >
+                   
+
+                    <td><select name="taak" id="taken" hidden ></select></td>
+                    <td />
+                    
+                     <td><select name="doelstelling"  id="doelstellingen" hidden >
                         </select></td>
                     <td />
 
-                    <td class="center"><select name="kern" hidden >
-                            <input type="checkbox" name="kerncheck"><br>
-                        </select> </td>
+                    <td><label name="kern" hidden disabled></label> </td>
                     <td />
-
-                    <td><select name="taak" hidden ></select></td>
+                    <td><select name="score" id="score" hidden></select></td>
                     <td />
-                    <td><select name="score" hidden></select></td>
-                    <td />
-                    <td><select name="waarde" hidden></select></td>
-                    <td />
-                    <td><textarea name="textarea" hidden
+                    <td><textarea name="textarea" hidden id="commentaar"
                                   rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
                     <td />
                     

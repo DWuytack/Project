@@ -194,10 +194,6 @@ function laadModules() {
             dropdown.add(option);
         }
     };
-
-
-
-
 }
 
 function checkDate() {
@@ -214,7 +210,6 @@ function checkDate() {
             document.getElementById("studiegebied").hidden = false;
         }
     }
-
 }
 
 function laadOpleidingen() {
