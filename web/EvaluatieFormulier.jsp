@@ -11,7 +11,6 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
         <script src="js/evaluatie.js"></script>
         <link rel="stylesheet" href="css/theme.css">
@@ -117,7 +116,7 @@
                     <td width="3%" />
                 </tr>
 
-                <tr height="20px">
+                <tr height="20px" />
 
                 <tr>
 

@@ -18,9 +18,7 @@ function genereerFormuliernaam() {
     formulierNaam="formulierNaam: " + lesdatum + "_" + leskeuze + "_" + lescursist + "_" + lesnummer ;
     label.innerHTML = formulierNaam;
     
-     if (document.getElementById("modules").selectedIndex === 0) {
-        return;
-    }
+    if (document.getElementById("modules").selectedIndex === 0) {return;}
     var keuze = document.getElementById('modules').value;
     var xhttp = new XMLHttpRequest();
 
