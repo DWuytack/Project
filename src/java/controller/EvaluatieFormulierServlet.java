@@ -111,11 +111,11 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             response.getWriter().write(json);
         }
 
-        String test = request.getParameter("doelstelling");
+        String test = request.getParameter("taak");
 
         if (test != null) {
 
-            //laad doelstellingen
+            //laad taken voor module
             DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
             ModuleDAO moduleDAO = new ModuleDAO();
             ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(moduleDAO.geefModuleID(test));

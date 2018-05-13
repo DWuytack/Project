@@ -151,7 +151,7 @@
             <table class="doelstelling1" >
 
                 <tr >
-                    <td > <input type="submit"  value=" Formulier wissen " class="button"></td>
+                    <td > <input type="submit"  value=" Formulier leeg maken " class="button"></td>
                     <td > <input type="submit"  value=" Print formulier  "  class="button"></td>
                     <td > <input type="submit"  value=" Bewaar formulier " class="button"></td>
                     <td > <input type="submit"  value=" Laad formulier " class="button"></td>

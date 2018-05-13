@@ -33,7 +33,7 @@ function genereerFormuliernaam() {
     }
 
     //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?doelstelling=" + keuze, true);
+    xhttp.open("POST", "EvaluatieFormulierServlet?taak=" + keuze, true);
     xhttp.send();
 
     xhttp.onreadystatechange = function () {
@@ -49,11 +49,11 @@ function genereerFormuliernaam() {
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
 
-            let dropdown = document.getElementById('doelstellingen');
+            let dropdown = document.getElementById('taken');
             dropdown.hidden = false;
     
             let defaultOption = document.createElement('option');
-            defaultOption.text = 'Doelstelling...';
+            defaultOption.text = 'Taken...';
             defaultOption.disabled = true;
             dropdown.add(defaultOption);
             dropdown.selectedIndex = 0;
@@ -66,7 +66,7 @@ function genereerFormuliernaam() {
                 dropdown.add(option);
             }
             option = document.createElement('option');
-            option.text = "Voeg doelstelling toe...";
+            option.text = "Voeg taak toe...";
             dropdown.add(option);
         }
     };
