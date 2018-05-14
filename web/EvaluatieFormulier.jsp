@@ -123,11 +123,11 @@
                     <td />
                    
 
-                    <td><select name="taak" id="formTaken" hidden ></select></td>
+                    <td><select name="taak" id="formTaken" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
                     
-                     <td><select name="doelstelling"  id="formDoelstellingen" hidden >
-                        </select></td>
+                     <td><label name="doelstelling"  id="formDoelstellingen" hidden >
+                        </label></td>
                     <td />
 
                     <td><label name="kern" id="formKern" hidden disabled></label> </td>
@@ -139,7 +139,6 @@
                     <td />
                     
                 </tr>
-
 
             </table>
             <br>

@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Doelstelling;
+import model.DoelstellingDAO;
 import model.Gebruiker;
 import model.GebruikerDAO;
 import model.Module;
@@ -122,6 +124,20 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             ModuleDAO moduleDAO = new ModuleDAO();
             ArrayList<Taak> taken = taakDAO.takenLaden(moduleDAO.geefModuleID(test));
             String json = gson.toJson(taken);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
+
+        test = request.getParameter("formTaak");
+
+        if (test != null) {
+
+            //laad taken voor module
+            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+            TaakDAO taakDAO = new TaakDAO();
+            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.laadDoelstellingen(taakDAO.geefTaakID(test));
+            String json = gson.toJson(doelstellingen);
 
             response.setContentType("application/json");
             response.getWriter().write(json);
