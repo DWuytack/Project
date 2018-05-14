@@ -113,7 +113,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             response.getWriter().write(json);
         }
 
-         String test = request.getParameter("doelstelling");
+         String test = request.getParameter("taak");
 
         if (test != null) {
 

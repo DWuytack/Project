@@ -15,8 +15,8 @@ function genereerFormuliernaam() {
     var lesdatum = document.getElementById("datum").value;
     var leskeuze = document.getElementById('modules').value;
     var lescursist = document.getElementById("cursisten").value;
-    formulierNaam="formulierNaam: " + lesdatum + "_" + leskeuze + "_" + lescursist + "_" + lesnummer ;
-    label.innerHTML = formulierNaam;
+    formulierNaam= lescursist + "_" + leskeuze + "_" + lesdatum + "_" + lesnummer ;
+    label.innerHTML = "formulierNaam: " + formulierNaam;
     
     if (document.getElementById("modules").selectedIndex === 0) {return;}
     var keuze = document.getElementById('modules').value;
@@ -47,7 +47,7 @@ function genereerFormuliernaam() {
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
 
-            let dropdown = document.getElementById('taken');
+            let dropdown = document.getElementById('formTaken');
             dropdown.hidden = false;
     
             let defaultOption = document.createElement('option');
