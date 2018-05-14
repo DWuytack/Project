@@ -106,7 +106,7 @@
                     <td width="3%" />
                     <td width="30%"><b>Taak</td>   
                     <td width="3%" />
-                    <td width="30%"><b>Doelstelling</b></td>  
+                    <td width="15%"><b>Doelstelling</b></td>  
                     <td width="3%" />
                     <td width="3%"><b>Kern</b></td>
                     <td width="3%" />

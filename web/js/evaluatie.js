@@ -69,6 +69,9 @@ function laadFormDoelstellingen() {
 
 function laadScores(){
     
+     var score = document.getElementById('formCommentaar');
+     score.hidden=false;
+    
     var xhttp = new XMLHttpRequest();
 
     if (window.XMLHttpRequest) {
