@@ -35,7 +35,7 @@ var utilities = {
                 var a = document.createElement("A");
                 text = "";
                 th.scope = "col";
-                th.title = t;
+                th.title = t.toLowerCase();
                 a.innerHTML = titels[teller];
                 th.appendChild(a);
                 tr.appendChild(th);
@@ -79,12 +79,12 @@ var utilities = {
         else
           return "INPUT";
     },
-    celAanpassen : function(e, titel, meta) {
+    celAanpassen : function(e, titel, parameter, meta) {
         var tag = utilities.tagDetectie(titel, meta);
         var div, input, span;
         if(tag === "SELECT") {
             var select = document.createElement("SELECT");
-            select.name = titel.toLowerCase();
+            select.name = parameter.toLowerCase();
             meta[titel.toLowerCase()].forEach(function(val){
                 var option = document.createElement("OPTION");
                 option.value = val.toLowerCase();
@@ -94,12 +94,9 @@ var utilities = {
                 select.appendChild(option);
             });
             return select;
-        } else if(tag === "DIV" && titel === "Acties") {
-            div = utilities.actieKnoppenAanmaken("aanpassen");
-            return div;
         } else if(tag === "INPUT") {
             input = document.createElement("INPUT");
-            input.name = titel.toLowerCase();
+            input.name = parameter.toLowerCase();
             if(e.length === 10 && RegExp("([0-9]{2})\/+([0-9]{2})\/+([0-9]{4})").test(e)) {
                 input.type = "date";
                 input.value = utilities.datumFormat(e).data;
@@ -110,26 +107,55 @@ var utilities = {
             return input;
         }
     },
-    rijAanpassen : function(e, meta) {
+    rijAanpassen : function(e, meta, parameters) {
         var cellen = e.childNodes;
         var i = -1;
         backup = [];
         cellData = {};
+        parameters.forEach(function(parameter){
+            i++;
+            var loc = cellen[i];
+            var titel = loc.getAttribute("data-label");
+            var value = loc.innerText;
+            backup.push(loc.innerHTML);
+            var elem = utilities.celAanpassen(value, titel, parameter, meta);
+            while(loc.firstChild)
+                loc.removeChild(loc.firstChild);
+            loc.appendChild(elem);
+        });
+        i++;
+        if(cellen[i].getAttribute("data-label") === "Acties") {
+            var div = utilities.actieKnoppenAanmaken("aanpassen");
+            cellen[i].innerHTML = '';
+            cellen[i].appendChild(div);
+        }
+        
+        /*
+        if(tag === "DIV" && titel === "Acties") {
+            div = utilities.actieKnoppenAanmaken("aanpassen");
+            return div;
+        } 
+        */
+        /*
         cellen.forEach(function(loc) {
             i++;
             var titel = loc.getAttribute("data-label");
             var value = loc.innerText;
             backup.push(loc.innerHTML);
             console.log(loc);
-            var elem = utilities.celAanpassen(value, titel, meta);
+            var elem = utilities.celAanpassen(value, titel, parameters, meta);
             while(loc.firstChild)
                 loc.removeChild(loc.firstChild);
             loc.appendChild(elem);
         });
         console.log(backup);
+        */
     },
     rijBewerken : function() {
       
+    },
+    rijOpslaan : function() {
+        
     },
     vindRij : function(e) {
         var row = e.parentElement;

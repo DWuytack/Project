@@ -1,6 +1,6 @@
 var pageCounter = 1;
 var params = 'page=' + pageCounter;
-var titels;
+var titels, parameters;
 var meta;
 var backup = [];
 
@@ -26,7 +26,7 @@ var renderHTML = function(data) {
     meta = {
         rol : ["admin", "leerkracht", "cursist", "secretariaat"]
     };
-    var parameters = ["voorNaam", "achternaam", "login", "rol", "geboorteDatumValue", "email"];
+    parameters = ["achternaam", "voorNaam", "login", "rol", "geboorteDatumValue", "email"];
     var tabel = utilities.tabelAanmaken(data, parameters, titels);
     var inhoud = document.getElementById("gebruikersOverzicht");
     console.log(inhoud);
@@ -72,12 +72,32 @@ document.addEventListener("click", function(e){
             console.log("onze rij");
             console.log(rij);
             rij.classList.add("edit");
-            utilities.rijAanpassen(rij, meta);
+            utilities.rijAanpassen(rij, meta, parameters);
         }
         if(role === "opslaan") {
             rij = utilities.vindRij(target);
             rij.classList.remove("edit");
-            //rijOpslaan();
+            var tabelID = 'gebruikersOverzicht';
+            //utilities.rijOpslaan(rij, tabelID, titels);
+            var cellen = rij.childNodes;
+            i2 = -1;
+            parameters.forEach(function(cel){
+                i2++;
+                var cel = cellen[i2];
+                var celInhoud = document.querySelector('#' + tabelID + ' [name="' + parameters[i2].toLowerCase() + '"]');
+                celWaarde = celInhoud.value;
+                //!!!!!!!!!!!!!!!!!! BUG !!!!!!!!!!!!!!!!!!!!!!!!
+                alert(RegExp("([0-9]{4})\-+([0-9]{2})\-+([0-9]{2})").test(celWaarde));
+                if(celWaarde.length === 10 && RegExp("([0-9]{4})\-+([0-9]{2})\-+([0-9]{2})").test(celWaarde))
+                    celWaarde = utilities.datumFormat(celWaarde).view;
+                else
+                    cel.innerHTML = '<span>' + celWaarde + '</span>';
+            });
+            i2++;
+            if(titels[i2] === "Acties") {
+                cellen[i2].innerHTML = '';
+                cellen[i2].append( utilities.actieKnoppenAanmaken("tonen") );
+            }
         }
         if(role === "annuleren") {
             rij = utilities.vindRij(target);
@@ -86,13 +106,17 @@ document.addEventListener("click", function(e){
             //utilities.rijHerstellen(rij);
             var cellen = rij.childNodes;
             i2 = -1;
-            cellen.forEach(function(cell){
+            parameters.forEach(function(parameter){
                 i2++;
-                cell.innerHTML = backup[i2];
-                console.log(backup[i2]);
-                //console.log(cell);
-                //console.log(backup[i2]);
+                cel = cellen[i2];
+                cel.innerHTML = backup[i2];
+                console.log(cel);
             });
+            i2++;
+            if(titels[i2] === "Acties") {
+                cellen[i2].innerHTML = '';
+                cellen[i2].append( utilities.actieKnoppenAanmaken("tonen") );
+            }
         }
     }
     

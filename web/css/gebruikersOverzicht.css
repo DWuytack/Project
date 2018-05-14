@@ -2,10 +2,10 @@
     max-width: 1200px;
     min-width: 760px;
 }
-#gebruikersOverzicht table th[title="Rol"] > a {
+#gebruikersOverzicht table th[title="rol"] > a {
     min-width: 100px;
 }
-#gebruikersOverzicht table th[title="Email"] > a {
+#gebruikersOverzicht table th[title="email"] > a {
     min-width: 180px;
 }
 #gebruikersOverzicht table td > input[type="text"]:not([name="email"]) {
