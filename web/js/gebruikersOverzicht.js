@@ -23,6 +23,7 @@ var requestData = function(params) {
 
 var renderHTML = function(data) {
     titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email", "Acties"];
+    //titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email"];
     meta = {
         rol : ["admin", "leerkracht", "cursist", "secretariaat"]
     };
@@ -45,7 +46,7 @@ var renderHTML = function(data) {
 
 document.addEventListener("click", function(e){
     var target = e.target;
-    var rij = "";
+    var rij = '';
     
     if( e.target.name === "Volgende") {
         pageCounter++;
@@ -78,42 +79,12 @@ document.addEventListener("click", function(e){
             rij = utilities.vindRij(target);
             rij.classList.remove("edit");
             var tabelID = 'gebruikersOverzicht';
-            //utilities.rijOpslaan(rij, tabelID, titels);
-            var cellen = rij.childNodes;
-            i2 = -1;
-            parameters.forEach(function(cel){
-                i2++;
-                var cel = cellen[i2];
-                var celInhoud = document.querySelector('#' + tabelID + ' [name="' + parameters[i2].toLowerCase() + '"]');
-                celWaarde = celInhoud.value;
-                if(celWaarde.length === 10 && RegExp("([0-9]{4})\-+([0-9]{2})\-+([0-9]{2})").test(celWaarde))
-                    celWaarde = utilities.datumFormat(celWaarde).view;
-                cel.innerHTML = '<span>' + celWaarde + '</span>';
-            });
-            i2++;
-            if(titels[i2] === "Acties") {
-                cellen[i2].innerHTML = '';
-                cellen[i2].append( utilities.actieKnoppenAanmaken("tonen") );
-            }
+            utilities.rijOpslaan(rij, tabelID, parameters, titels);  
         }
         if(role === "annuleren") {
             rij = utilities.vindRij(target);
             rij.classList.remove("edit");
-            console.log(backup);
-            //utilities.rijHerstellen(rij);
-            var cellen = rij.childNodes;
-            i2 = -1;
-            parameters.forEach(function(parameter){
-                i2++;
-                cel = cellen[i2];
-                cel.innerHTML = backup[i2];
-                console.log(cel);
-            });
-            i2++;
-            if(titels[i2] === "Acties") {
-                cellen[i2].innerHTML = '';
-                cellen[i2].append( utilities.actieKnoppenAanmaken("tonen") );
-            }
+            utilities.rijHerstellen(rij, parameters, titels, backup); 
         }
     }
     
