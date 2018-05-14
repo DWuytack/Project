@@ -86,12 +86,9 @@ document.addEventListener("click", function(e){
                 var cel = cellen[i2];
                 var celInhoud = document.querySelector('#' + tabelID + ' [name="' + parameters[i2].toLowerCase() + '"]');
                 celWaarde = celInhoud.value;
-                //!!!!!!!!!!!!!!!!!! BUG !!!!!!!!!!!!!!!!!!!!!!!!
-                alert(RegExp("([0-9]{4})\-+([0-9]{2})\-+([0-9]{2})").test(celWaarde));
                 if(celWaarde.length === 10 && RegExp("([0-9]{4})\-+([0-9]{2})\-+([0-9]{2})").test(celWaarde))
                     celWaarde = utilities.datumFormat(celWaarde).view;
-                else
-                    cel.innerHTML = '<span>' + celWaarde + '</span>';
+                cel.innerHTML = '<span>' + celWaarde + '</span>';
             });
             i2++;
             if(titels[i2] === "Acties") {
