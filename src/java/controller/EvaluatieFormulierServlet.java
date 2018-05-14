@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Beoordelingssoort;
+import model.BeoordelingssoortDAO;
 import model.Doelstelling;
 import model.DoelstellingDAO;
 import model.Gebruiker;
@@ -143,6 +145,17 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             response.getWriter().write(json);
         }
 
+        test = request.getParameter("scores");
+        if (test != null) {
+
+            //laad taken voor module
+            BeoordelingssoortDAO scoreDAO = new BeoordelingssoortDAO();
+            ArrayList<Beoordelingssoort> scores = scoreDAO.beoordelingssoortenLaden();
+            String json = gson.toJson(scores);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -110,7 +110,7 @@
                     <td width="3%" />
                     <td width="3%"><b>Kern</b></td>
                     <td width="3%" />
-                    <td width="3%"><b>Score</b></td>
+                    <td width="7%"><b>Score</b></td>
                     <td width="3%" />
                     <td width="30%"><b>Commentaar</b></td>
                     <td width="3%" />

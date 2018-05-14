@@ -162,7 +162,7 @@ public class BeoordelingssoortDAO {
 
             while (rs.next()) {
                 Beoordelingssoort beoordelingssoort = new Beoordelingssoort();
-                beoordelingssoort.setBeoordelingssoortID(rs.getInt("beoordelingsoortID"));
+                beoordelingssoort.setBeoordelingssoortID(rs.getInt("beoordelingssoortID"));
                 beoordelingssoort.setNaam(rs.getString("naam"));
                 beoordelingssoort.setBeschrijving(rs.getString("beschrijving"));
                 beoordelingssoort.setWaarde(rs.getInt("waarde"));
