@@ -81,9 +81,9 @@ break;
 case "Overzicht scores":
 
 // laden van schooljaren uit database en in het geheugen plaatsen
-//SchooljarenDAO schooljaarDAO = new SchooljarenDAO();
-//ArrayList schooljaren = schooljaarDAO.schooljarenLaden();
-//session.setAttribute("schooljaren", schooljaren);
+SchooljaarDAO schooljaarDAO = new SchooljaarDAO();
+ArrayList schooljaren = schooljaarDAO.schooljarenLaden();
+session.setAttribute("schooljaren", schooljaren);
 
 // laden semester uit database en in het geheugen plaatsen
 SemesterDAO semesterDAO = new SemesterDAO();
@@ -117,9 +117,10 @@ break;
 case "Evaluatieformulieren":
 
 //laden schooljaren
-//schooljaarDAO = new SchooljarenDAO();
-//ArrayList schooljaren2 = schooljaarDAO.schooljarenLaden();
-//session.setAttribute("schooljaren", schooljaren2);
+    
+schooljaarDAO = new SchooljaarDAO();
+ArrayList schooljaren2 = schooljaarDAO.schooljarenLaden();
+session.setAttribute("schooljaren", schooljaren2);
 
 //laden semesters
 semesterDAO = new SemesterDAO();
@@ -147,9 +148,9 @@ break;
 
 case "Type score aanpassen":
 //laden van de types scores
-ScoreDAO scoreDAO = new ScoreDAO();
-//ArrayList typeScores = scoreDAO.typeScoreLaden();
-//session.setAttribute("lijstBeoordelingssoorten", typeScores);
+BeoordelingssoortDAO beoordelingssoortDAO = new BeoordelingssoortDAO();
+ArrayList beoordelingssoort = beoordelingssoortDAO.beoordelingssoortenLaden();
+session.setAttribute("lijstBeoordelingssoorten", beoordelingssoort);
 response.sendRedirect("TypeScoreOverzicht.jsp");
 break;
 }

@@ -1,7 +1,7 @@
 <%-- 
     Document   : typeScore
     Created on : 26-mrt-2018, 22:16:41
-    Author     : Gil
+    Author     : Gil en Keanu
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
@@ -41,32 +41,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${lijstBeoordelingssoorten}" var="typeScore">
+                            <c:forEach items="${lijstBeoordelingssoort}" var="typeScore">
                                 <tr <c:if test="${typeScore.beoordelingssoortID == sessionScope.editID}" >style="background-color: rgba(255,255,0,.5);"</c:if>>
                                     <c:if test="${typeScore.beoordelingssoortID == sessionScope.editID}" >
-                                        <td> <input type="text" name="naam"  value="${typeScore.naam}"> </td>
-                                        <td> <input type="text" name="beschrijving" value="${typeScore.beschrijving}"> </td>
-                                        <td> <input type="text" name="waarde"  value="${typeScore.waarde}"> </td>
+                                        <td> <input type="text" name="naam"  value="${beoordelingssoort.naam}"> </td>
+                                        <td> <input type="text" name="beschrijving" value="${beoordelingssoort.beschrijving}"> </td>
+                                        <td> <input type="text" name="waarde"  value="${beoordelingssoort.waarde}"> </td>
                                     </c:if>
                                         
-                                    <c:if test="${typeScore.beoordelingssoortID != sessionScope.editID}" >
-                                        <td> ${typeScore.naam} </td>
-                                        <td> ${typeScore.beschrijving} </td>
-                                        <td> ${typeScore.waarde} </td>
+                                    <c:if test="${Beoordelingssoort.beoordelingssoortID != sessionScope.editID}" >
+                                        <td> ${beoordelingssoort.naam} </td>
+                                        <td> ${beoordelingssoort.beschrijving} </td>
+                                        <td> ${beoordelingssoort.waarde} </td>
                                     </c:if>
 
                             <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                 <td class="actie">
-                                    <c:if test="${typeScore.beoordelingssoortID != sessionScope.editID}" >
+                                    <c:if test="${beoordelingssoort.beoordelingssoortID != sessionScope.editID}" >
                                         <div class="actie-images">
-                                            <span> <input type="image"  name="idEdit" value="${typeScore.beoordelingssoortID}" src='images/pencil.png'> </span>
-                                            <span> <input type="image"  name="idDelete" value="${typeScore.beoordelingssoortID}" src='images/vuilbak.png'> </span>
+                                            <span> <input type="image"  name="idEdit" value="${beoordelingssoort.beoordelingssoortID}" src='images/pencil.png'> </span>
+                                            <span> <input type="image"  name="idDelete" value="${beoordelingssoort.beoordelingssoortID}" src='images/vuilbak.png'> </span>
                                         </div>
                                     </c:if>
-                                    <c:if test="${typeScore.beoordelingssoortID == sessionScope.editID}" >
+                                    <c:if test="${beoordelingssoort.beoordelingssoortID == sessionScope.editID}" >
                                         <div class="actie-images">
-                                            <span> <input type="image"  name="idSave" value="${typeScore.beoordelingssoortID}" src='images/green.png'> </span>
-                                            <span> <input type="image"  name="idCancel" value="${typeScore.beoordelingssoortID}" src='images/cancel.png'> </span>
+                                            <span> <input type="image"  name="idSave" value="${beoordelingssoort.beoordelingssoortID}" src='images/green.png'> </span>
+                                            <span> <input type="image"  name="idCancel" value="${beoordelingssoort.beoordelingssoortID}" src='images/cancel.png'> </span>
                                         </div>
                                     </c:if>
                                 </td>

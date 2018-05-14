@@ -83,7 +83,7 @@ public class SchooljaarDAO {
 
             while (rs.next()) {
                 Schooljaar schooljaar = new Schooljaar();
-                schooljaar.setSchooljaarID(rs.getInt("opleidingID"));
+                schooljaar.setSchooljaarID(rs.getInt("schooljaarID"));
                 schooljaar.setSchooljaar(rs.getString("schooljaar"));
                 schooljaren.add(schooljaar);
             }
