@@ -15,6 +15,40 @@ import java.util.ArrayList;
  */
 public class DoelstellingDAO {
 
+    public ArrayList<Doelstelling> laadDoelstellingen(int taakID) {
+        ArrayList<Doelstelling> doelstellingen = new ArrayList();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "select * from doelstellingen "
+                + " inner join doelstellingen_taken on doelstellingen_taken.doelstellingID=doelstellingen.doelstellingID "
+                + " where doelstellingen_taken.taakID=?;";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+
+            ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, taakID);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Doelstelling doelstelling=new Doelstelling();
+                doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
+                doelstelling.setNaam(rs.getString("naam"));
+                doelstelling.setBeschrijving(rs.getString("beschrijving"));
+                doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
+                doelstellingen.add(doelstelling);
+            }
+
+        } catch (SQLException e) {
+        } finally {
+            Utilities.sluitVariabelen(ps, rs, currentCon);
+        }
+
+        return doelstellingen;
+    }
+
     public void doelstellingToevoegen(Doelstelling doelstelling) {
         Connection currentCon = null;
         PreparedStatement ps = null;
