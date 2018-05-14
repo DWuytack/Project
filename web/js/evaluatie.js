@@ -6,7 +6,54 @@
 
 var formulierNaam;
 
+ function laadFormDoelstellingen() {
 
+        if (document.getElementById("formTaken").selectedIndex === 0) {
+            return;
+        }
+        var keuze = document.getElementById('formTaken').value;
+        var xhttp = new XMLHttpRequest();
+
+        if (window.XMLHttpRequest) {
+            // code voor moderne browsers
+            xhttp = new XMLHttpRequest();
+        } else {
+            // code voor oude IE browsers
+            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        //open(method,url,async)
+        xhttp.open("POST", "EvaluatieFormulierServlet?formTaak=" + keuze, true);
+        xhttp.send();
+
+        xhttp.onreadystatechange = function () {
+
+            //200: "OK"
+            //403: "Forbidden"
+            //404: "Not Found"
+
+            //0: request not initialized 
+            //1: server connection established
+            //2: request received 
+            //3: processing request 
+            //4: request finished and response is ready
+            if (this.readyState === 4 && this.status === 200) {
+
+                let label = document.getElementById('formDoelstellingen');
+                label.hidden = false;
+
+                const data = JSON.parse(xhttp.responseText);
+                var doelstellingen = "";
+                for (let i = 0; i < data.length; i++) {
+                    doelstellingen = doelstellingen + data[i].naam + "<br>";
+                }
+                label.innerHTML = doelstellingen;
+
+            }
+        };
+    }
+    
+    
 function genereerFormuliernaam() {
 
     var lesnummer = document.getElementById('lesnr').value;
@@ -262,56 +309,8 @@ function laadOpleidingen() {
                 option.text = data[i].naam;
                 dropdown.add(option);
             }
-            option.text = "Voeg Opleiding toe..."
+            option.text = "Voeg Opleiding toe...";
             dropdown.add(option);
         }
     };
-
-
-    function laadFormDoelstellingen() {
-
-        if (document.getElementById("formTaken").selectedIndex === 0) {
-            return;
-        }
-        var keuze = document.getElementById('formTaken').value;
-        var xhttp = new XMLHttpRequest();
-
-        if (window.XMLHttpRequest) {
-            // code voor moderne browsers
-            xhttp = new XMLHttpRequest();
-        } else {
-            // code voor oude IE browsers
-            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        //open(method,url,async)
-        xhttp.open("POST", "EvaluatieFormulierServlet?formTaak=" + keuze, true);
-        xhttp.send();
-
-        xhttp.onreadystatechange = function () {
-
-            //200: "OK"
-            //403: "Forbidden"
-            //404: "Not Found"
-
-            //0: request not initialized 
-            //1: server connection established
-            //2: request received 
-            //3: processing request 
-            //4: request finished and response is ready
-            if (this.readyState === 4 && this.status === 200) {
-
-                let label = document.getElementById('formDoelstellingen');
-                label.hidden = false;
-
-                const data = JSON.parse(xhttp.responseText);
-                var doelstellingen = "";
-                for (let i = 0; i < data.length; i++) {
-                    doelstellingen = doelstellingen + data[i].naam;
-                }
-                label.innerHTML = doelstellingen;
-
-            }
-        };
-    }
 }
