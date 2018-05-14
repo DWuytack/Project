@@ -6,54 +6,67 @@
 
 var formulierNaam;
 
- function laadFormDoelstellingen() {
+function laadFormDoelstellingen() {
 
-        if (document.getElementById("formTaken").selectedIndex === 0) {
-            return;
-        }
-        var keuze = document.getElementById('formTaken').value;
-        var xhttp = new XMLHttpRequest();
+    if (document.getElementById("formTaken").selectedIndex === 0) {
+        return;
+    }
+    var keuze = document.getElementById('formTaken').value;
+    var xhttp = new XMLHttpRequest();
 
-        if (window.XMLHttpRequest) {
-            // code voor moderne browsers
-            xhttp = new XMLHttpRequest();
-        } else {
-            // code voor oude IE browsers
-            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
+    if (window.XMLHttpRequest) {
+        // code voor moderne browsers
+        xhttp = new XMLHttpRequest();
+    } else {
+        // code voor oude IE browsers
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
 
-        //open(method,url,async)
-        xhttp.open("POST", "EvaluatieFormulierServlet?formTaak=" + keuze, true);
-        xhttp.send();
+    //open(method,url,async)
+    xhttp.open("POST", "EvaluatieFormulierServlet?formTaak=" + keuze, true);
+    xhttp.send();
 
-        xhttp.onreadystatechange = function () {
+    xhttp.onreadystatechange = function () {
 
-            //200: "OK"
-            //403: "Forbidden"
-            //404: "Not Found"
+        //200: "OK"
+        //403: "Forbidden"
+        //404: "Not Found"
 
-            //0: request not initialized 
-            //1: server connection established
-            //2: request received 
-            //3: processing request 
-            //4: request finished and response is ready
-            if (this.readyState === 4 && this.status === 200) {
+        //0: request not initialized 
+        //1: server connection established
+        //2: request received 
+        //3: processing request 
+        //4: request finished and response is ready
+        if (this.readyState === 4 && this.status === 200) {
 
-                let label = document.getElementById('formDoelstellingen');
-                label.hidden = false;
+            let label = document.getElementById('formDoelstellingen');
+            let label2 = document.getElementById('formKern');
+            label.hidden = false;
+            label2.hidden=false;
 
-                const data = JSON.parse(xhttp.responseText);
-                var doelstellingen = "";
-                for (let i = 0; i < data.length; i++) {
-                    doelstellingen = doelstellingen + data[i].naam + "<br>";
-                }
-                label.innerHTML = doelstellingen;
+            const data = JSON.parse(xhttp.responseText);
+            var doelstellingen = "";
+            for (let i = 0; i < data.length; i++) {
+                doelstellingen = doelstellingen + data[i].naam + "<br>";
 
             }
-        };
+            label.innerHTML = doelstellingen;
+
+            var kern = "";
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].kerndoelstelling) {
+                    kern = kern + '\u2611' + "<br>";
+                } else {
+                    kern = kern + '\u2610' + "<br>";
+                }
+            }
+            label2.innerHTML = kern;
+        }
     }
-    
-    
+    ;
+}
+
+
 function genereerFormuliernaam() {
 
     var lesnummer = document.getElementById('lesnr').value;

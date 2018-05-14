@@ -126,13 +126,13 @@
                     <td><select name="taak" id="formTaken" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
                     
-                     <td><label name="doelstelling"  id="formDoelstellingen" hidden >
+                     <td><label name="doelstelling"  id="formDoelstellingen" hidden disabled >
                         </label></td>
                     <td />
 
-                    <td><label name="kern" id="formKern" hidden disabled></label> </td>
+                    <td style="text-align: center"><label name="kern" id="formKern" hidden disabled ></label> </td>
                     <td />
-                    <td><select name="score" id="formScore" hidden></select></td>
+                    <td><select name="score" id="formScore" hidden ></select></td>
                     <td />
                     <td><textarea name="textarea" hidden id="formCommentaar"
                                   rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
