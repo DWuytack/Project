@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,13 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Gebruiker;
-import model.Instellingen;
 import model.BeoordelingssoortDAO;
 import model.Beoordelingssoort;
 /**
  *
- * @author CURSIST
+ * @author keanu & gil
  */
 @WebServlet(name = "BeoordelingssoortServlet", urlPatterns = {"/BeoordelingssoortServlet"})
 public class BeoordelingssoortServlet extends HttpServlet {
@@ -44,26 +36,26 @@ public class BeoordelingssoortServlet extends HttpServlet {
         try {
             String actie = "";
             String editID = request.getParameter("idEdit");
-            String addID = request.getParameter("addID");
+            String addID = request.getParameter("idAdd");
             String cancelID = request.getParameter("idCancel");
             String saveID = request.getParameter("idSave");
             String deleteID = request.getParameter("idDelete");
 
             
             if (editID != null) {
-                actie = "Edit gebruiker";
+                actie = "Edit beoordelingssoort";
             }
             if (cancelID != null) {
-                actie = "Cancel gebruiker";
+                actie = "Cancel beoordelingssoort";
             }
             if (saveID != null) {
-                actie = "Save gebruiker";
+                actie = "Save beoordelingssoort";
             }
             if (deleteID != null) {
-                actie = "Delete gebruiker";
+                actie = "Delete beoordelingssoort";
             }
             if (addID != null) {
-                actie = "Add gebruiker";
+                actie = "Add beoordelingssoort";
             }
 
             Beoordelingssoort beoordelingssoort = new Beoordelingssoort();
@@ -74,8 +66,8 @@ public class BeoordelingssoortServlet extends HttpServlet {
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
                     beoordelingssoorten = beoordelingssoortDAO.beoordelingssoortenLaden();
-                    session.setAttribute("beoordelingssoorten", beoordelingssoort);
-                    response.sendRedirect("TypeScoreOverzicht.jsp"); //logged-in page 
+                    session.setAttribute("beoordelingssoorten", beoordelingssoorten);
+                    response.sendRedirect("TypeScoreOverzicht.jsp");
                     break;
 
                 case "Delete beoordelingssoort":
@@ -84,9 +76,7 @@ public class BeoordelingssoortServlet extends HttpServlet {
                     session.removeAttribute("saveID");
                     beoordelingssoortDAO.beoordelingssoortVerwijderen(beoordelingssoort);
                     beoordelingssoorten = beoordelingssoortDAO.beoordelingssoortenLaden();   
-
-                    session.setAttribute("beoordelingssoorten", beoordelingssoort);
-                    
+                    session.setAttribute("beoordelingssoorten", beoordelingssoorten);                    
                     response.sendRedirect("TypeScoreOverzicht.jsp");
                     break;
 
@@ -95,7 +85,7 @@ public class BeoordelingssoortServlet extends HttpServlet {
                     session.removeAttribute("editID");
                     session.removeAttribute("deleteID");
                     session.removeAttribute("saveID");
-                    response.sendRedirect("TypeScoreOverzicht.jsp"); //logged-in page 
+                    response.sendRedirect("TypeScoreOverzicht.jsp");
                     break;
 
                 case "Save beoordelingssoort":
@@ -104,19 +94,19 @@ public class BeoordelingssoortServlet extends HttpServlet {
                     int id = Integer.parseInt(saveID);
                     beoordelingssoort.setNaam(request.getParameter("naam"));
                     beoordelingssoort.setBeschrijving(request.getParameter("beschrijving"));
-                    beoordelingssoort.setWaarde(Integer.parseInt("Waarde"));
+                    beoordelingssoort.setWaarde(Integer.parseInt("waarde"));
                     beoordelingssoortDAO.beoordelingssoortAanpassen(id, beoordelingssoort);
                     beoordelingssoorten = beoordelingssoortDAO.beoordelingssoortenLaden();
-                    session.setAttribute("lijstGebruikers", beoordelingssoorten);
+                    session.setAttribute("beoordelingssoorten", beoordelingssoorten);
                     response.sendRedirect("TypeScoreOverzicht.jsp");
                     session.removeAttribute("saveID");
                     break;
 
                 case "add beoordelingssoort":
-                    session.setAttribute("addId", addID);
+                    session.setAttribute("idAdd", addID);
                     beoordelingssoortDAO.beoordelingssoortAanmaken(beoordelingssoort);
                     beoordelingssoorten = beoordelingssoortDAO.beoordelingssoortenLaden();
-                    session.setAttribute("lijstGebruikers", beoordelingssoorten);
+                    session.setAttribute("beoordelingssoorten", beoordelingssoorten);
                     response.sendRedirect("TypeScoreOverzicht.jsp");
             }
 
