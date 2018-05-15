@@ -41,15 +41,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${lijstBeoordelingssoort}" var="typeScore">
-                                <tr <c:if test="${typeScore.beoordelingssoortID == sessionScope.editID}" >style="background-color: rgba(255,255,0,.5);"</c:if>>
-                                    <c:if test="${typeScore.beoordelingssoortID == sessionScope.editID}" >
+                            <c:forEach items="${beoordelingssoorten}" var="beoordelingssoort">
+                                <tr <c:if test="${beoordelingssoort.beoordelingssoortID == sessionScope.editID}" >style="background-color: rgba(255,255,0,.5);"</c:if>>
+                                    <c:if test="${beoordelingssoort.beoordelingssoortID == sessionScope.editID}" >
                                         <td> <input type="text" name="naam"  value="${beoordelingssoort.naam}"> </td>
                                         <td> <input type="text" name="beschrijving" value="${beoordelingssoort.beschrijving}"> </td>
                                         <td> <input type="text" name="waarde"  value="${beoordelingssoort.waarde}"> </td>
                                     </c:if>
                                         
-                                    <c:if test="${Beoordelingssoort.beoordelingssoortID != sessionScope.editID}" >
+                                    <c:if test="${beoordelingssoort.beoordelingssoortID != sessionScope.editID}" >
                                         <td> ${beoordelingssoort.naam} </td>
                                         <td> ${beoordelingssoort.beschrijving} </td>
                                         <td> ${beoordelingssoort.waarde} </td>
