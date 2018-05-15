@@ -12,7 +12,7 @@ import model.BeoordelingssoortDAO;
 import model.Beoordelingssoort;
 /**
  *
- * @author keanu & gil
+ * @author Keanu & Gil
  */
 @WebServlet(name = "BeoordelingssoortServlet", urlPatterns = {"/BeoordelingssoortServlet"})
 public class BeoordelingssoortServlet extends HttpServlet {

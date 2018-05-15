@@ -1,7 +1,7 @@
 <%-- 
     Document   : typeScore
-    Created on : 26-mrt-2018, 22:16:41
-    Author     : Gil en Keanu
+    Created on : 26-mrt-2018, 22:15:41
+    Author     : Gil en Keanu 
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
