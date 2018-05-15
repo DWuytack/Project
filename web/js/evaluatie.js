@@ -71,7 +71,7 @@ function laadScores(){
     
      var score = document.getElementById('formCommentaar1');
      var plus=document.getElementById('addLine');
-     plus.hidden=false
+     plus.hidden=false;
      score.hidden=false;
     
     var xhttp = new XMLHttpRequest();
@@ -306,11 +306,17 @@ function laadModules() {
                 option.text = data[i].naam;
                 dropdown.add(option);
             }
-            option.text = "Voeg Module toe..."
+            option.text = "Voeg Module toe...";
             dropdown.add(option);
         }
     };
 }
+
+ function laadLijn2(){
+     let dropdown2 = document.getElementById('formTaken2');
+    dropdown2.hidden = false;
+}
+
 
 function checkDate() {
 
@@ -330,7 +336,7 @@ function checkDate() {
 
 function laadOpleidingen() {
 
-    if (document.getElementById("studiegebied").selectedIndex == 0) {
+    if (document.getElementById("studiegebied").selectedIndex === 0) {
         return;
     }
     var keuze = document.getElementById('studiegebied').value;
@@ -382,4 +388,7 @@ function laadOpleidingen() {
             dropdown.add(option);
         }
     };
+    
+   
+
 }

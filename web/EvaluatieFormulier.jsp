@@ -138,14 +138,35 @@
                     
                 </tr>
                 
+                <tr>
+                    <td />
+                    <td><select name="taak2" id="formTaken2" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+          
+                    <td><label name="doelstelling2"  id="formDoelstellingen2" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern2" id="formKern2" hidden disabled ></label> </td>
+                    <td />
+                    
+                    <td><select name="score2" id="formScore2" hidden ></select></td>
+                    <td />
+                    
+                    <td><textarea name="textarea2" hidden id="formCommentaar2"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+                    
+                </tr>
                 
                 
                 
                 <br>
-                <tr><td></td><td><input type="image" id="addLine" width="25" height="25" src="images/plus.gif" hidden /></td></tr>
+                <tr>
+                    <td></td>
+                    <td><img id="addLine" width="25" onclick="laadLijn2()" height="25" src="images/plus.gif" hidden /></td>
+                </tr>
                 
-                
-
             </table>
             <br>
             <br>
