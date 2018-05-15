@@ -12,6 +12,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/evaluatie.js"></script>
+           <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/formulier.css">
 
@@ -164,7 +165,7 @@
                 <br>
                 <tr>
                     <td></td>
-                    <td><img id="addLine" width="25" onclick="laadLijn2()" height="25" src="images/plus.gif" hidden /></td>
+                    <td><input type="button" id="addLine" width="25" value="Voeg een taak toe" onclick="laadLijn2();" height="25" hidden class="lijnButton" /></td>
                 </tr>
                 
             </table>

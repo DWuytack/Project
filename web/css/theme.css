@@ -763,7 +763,7 @@ i[name="gebruiker zoeken"] {
 */
 
 /* TEST */
-input[type="button"], input[type="submit"] { 
+input[type="submit"] { 
     font-family: Raleway; /*Force Elem Bug */
     
     position: relative;
@@ -783,4 +783,22 @@ input[type="button"], input[type="submit"] {
     
     text-align: center;
 }
+.lijnButton { 
+    font-family: Raleway; /*Force Elem Bug */
+    
+    position: relative;
+    padding: 10px;
+
+    background-color: #ec6e24;
+    
+    font-size: 11px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 150px #000;
+    text-align: center;
+}
+
+
+
+
 #gebruikers { font-weight: bold; }
