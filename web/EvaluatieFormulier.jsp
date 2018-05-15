@@ -11,7 +11,6 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="js/table.js"></script>
         <script src="js/evaluatie.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/formulier.css">
@@ -98,8 +97,7 @@
                     <td width="10px"></td>
                 </tr>
             </table>
-            <br>
-            <br>
+            
             <table>
 
                 <tr bgcolor="#ceccca" height="50px" >
@@ -116,29 +114,37 @@
                     <td width="3%" />
                 </tr>
 
+                <%--lijn met invoer --%>
                 <tr height="20px" />
 
                 <tr>
-
                     <td />
-                   
-
-                    <td><select name="taak" id="formTaken" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td><select name="taak" id="formTaken1" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
-                    
-                     <td><label name="doelstelling"  id="formDoelstellingen" hidden disabled >
+          
+                    <td><label name="doelstelling"  id="formDoelstellingen1" hidden disabled >
                         </label></td>
                     <td />
 
-                    <td style="text-align: center"><label name="kern" id="formKern" hidden disabled ></label> </td>
+                    <td style="text-align: center"><label name="kern" id="formKern1" hidden disabled ></label> </td>
                     <td />
-                    <td><select name="score" id="formScore" hidden ></select></td>
+                    
+                    <td><select name="score" id="formScore1" hidden ></select></td>
                     <td />
-                    <td><textarea name="textarea" hidden id="formCommentaar"
+                    
+                    <td><textarea name="textarea" hidden id="formCommentaar1"
                                   rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
                     <td />
                     
                 </tr>
+                
+                
+                
+                
+                <br>
+                <tr><td></td><td><input type="image" id="addLine" width="25" height="25" src="images/plus.gif" hidden /></td></tr>
+                
+                
 
             </table>
             <br>

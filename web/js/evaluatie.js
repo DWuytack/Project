@@ -8,10 +8,10 @@ var formulierNaam;
 
 function laadFormDoelstellingen() {
 
-    if (document.getElementById("formTaken").selectedIndex === 0) {
+    if (document.getElementById("formTaken1").selectedIndex === 0) {
         return;
     }
-    var keuze = document.getElementById('formTaken').value;
+    var keuze = document.getElementById('formTaken1').value;
     var xhttp = new XMLHttpRequest();
 
     if (window.XMLHttpRequest) {
@@ -39,8 +39,8 @@ function laadFormDoelstellingen() {
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
 
-            let label = document.getElementById('formDoelstellingen');
-            let label2 = document.getElementById('formKern');
+            let label = document.getElementById('formDoelstellingen1');
+            let label2 = document.getElementById('formKern1');
             label.hidden = false;
             label2.hidden=false;
 
@@ -69,7 +69,9 @@ function laadFormDoelstellingen() {
 
 function laadScores(){
     
-     var score = document.getElementById('formCommentaar');
+     var score = document.getElementById('formCommentaar1');
+     var plus=document.getElementById('addLine');
+     plus.hidden=false
      score.hidden=false;
     
     var xhttp = new XMLHttpRequest();
@@ -99,7 +101,7 @@ function laadScores(){
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
 
-            let dropdown = document.getElementById('formScore');
+            let dropdown = document.getElementById('formScore1');
             dropdown.hidden = false;
             dropdown.length = 0;
 
@@ -163,7 +165,7 @@ function genereerFormuliernaam() {
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
 
-            let dropdown = document.getElementById('formTaken');
+            let dropdown = document.getElementById('formTaken1');
             dropdown.hidden = false;
 
             let defaultOption = document.createElement('option');
