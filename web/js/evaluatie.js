@@ -167,7 +167,8 @@ function genereerFormuliernaam() {
 
             let dropdown = document.getElementById('formTaken1');
             dropdown.hidden = false;
-
+            dropdown.length = 0;            
+            
             let defaultOption = document.createElement('option');
             defaultOption.text = 'Taken...';
             defaultOption.disabled = true;
