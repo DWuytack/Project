@@ -187,11 +187,76 @@ public class BeoordelingssoortDAO {
         return beoordelingssoortenLaden().size();
     }
 
-    public void beoordelingssoortAanpassen(int id, Beoordelingssoort beoordelingssoort) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void beoordelingssoortAanpassen(int beoordelingssoortID, Beoordelingssoort beoordelingssoort) {
+        Connection currentCon = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        String sql = "UPDATE beoordelingssoorten set beoordelingssoorten.naam=?,"
+                + "beoordelingssoorten.beschrijving =?, beoordelingssoorten.waarde=?, "
+                + "WHERE beoordelingssoorten.beoordelingssoortID=?";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, beoordelingssoort.getNaam());
+            ps.setString(2, beoordelingssoort.getBeschrijving());
+            ps.setInt(3, beoordelingssoort.getWaarde());
+            ps.setInt(4, beoordelingssoortID);
+
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+
+        } finally {
+            Utilities.sluitVariabelen(ps, rs, currentCon);
+        }
+
     }
 
     public void beoordelingssoortAanmaken(Beoordelingssoort beoordelingssoort) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "INSERT INTO beoordelingssoorten(naam, beschrijving, waarde) VALUES(?,?,?)";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setString(1, beoordelingssoort.getNaam());
+            ps.setString(2, beoordelingssoort.getBeschrijving());
+            ps.setInt(3, beoordelingssoort.getWaarde());
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+
+        } finally {
+            Utilities.sluitVariabelen(ps, rs, currentCon);
+
+        }
     }
+    
+    public void beoordelingssoortVerwijderen(int beoordelingssoortID) {
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+
+        String sql
+                = "DELETE from beoordelingssoorten WHERE beoordelingssoorten.beoordelingssoortID = ?";
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+
+            ps.setInt(1, beoordelingssoortID);
+            ps.executeQuery();
+
+        } catch (SQLException ex) {
+
+        } finally {
+            Utilities.sluitVariabelen(ps, currentCon);
+        }
+    }
+
 }
