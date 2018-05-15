@@ -186,4 +186,12 @@ public class BeoordelingssoortDAO {
     public int geefAantalOpleidingen() {
         return beoordelingssoortenLaden().size();
     }
+
+    public void beoordelingssoortAanpassen(int id, Beoordelingssoort beoordelingssoort) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void beoordelingssoortAanmaken(Beoordelingssoort beoordelingssoort) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
