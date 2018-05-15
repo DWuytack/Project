@@ -147,10 +147,10 @@ response.sendRedirect("Rapport.jsp");
 break;
 
 case "Type score aanpassen":
-//laden van de types scores
+//laden van de types score
 BeoordelingssoortDAO beoordelingssoortDAO = new BeoordelingssoortDAO();
 ArrayList beoordelingssoort = beoordelingssoortDAO.beoordelingssoortenLaden();
-session.setAttribute("lijstBeoordelingssoorten", beoordelingssoort);
+session.setAttribute("beoordelingssoorten", beoordelingssoort);
 response.sendRedirect("TypeScoreOverzicht.jsp");
 break;
 }
@@ -160,7 +160,6 @@ break;
 }
 
 }
-
 
 @Override
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
