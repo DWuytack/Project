@@ -17,6 +17,20 @@
 #gebruikersOverzicht table td {
     line-height: 1.8;
 }
+
+table {
+    table-layout: fixed;
+}
+#gebruikersOverzicht thead th {
+    width: 15%;
+}
+#gebruikersOverzicht thead th[title="email"] {
+    width: 25%;
+}
+#gebruikersOverzicht thead th[title="acties"] {
+    width: 80px;
+}
+
 /*RESIZE SUPPORT */
 @media screen and (max-width: 800px) {
     #gebruikersOverzicht table tbody tr {

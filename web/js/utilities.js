@@ -1,64 +1,66 @@
-var utilities = {
+let utilities = {
     datumFormat : function(inputFormat) {
-        var pad = function(s) { return (s < 10) ? '0' + s : s; };
+        let pad = function(s) { return (s < 10) ? '0' + s : s; };
         if(RegExp("([0-9]{2})\/+([0-9]{2})\/+([0-9]{4})").test(inputFormat))
             inputFormat = inputFormat.split("/").reverse().join("-"); 
-        var d = new Date(inputFormat);
+        let d = new Date(inputFormat);
         return {
             data : inputFormat,
             view : [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
         }
     },
-    tabelAanmaken : function(data, parameters, titel){
-        var tabel = document.createElement("TABLE");
-        var thead = document.createElement("THEAD");
-        var tbody = document.createElement("TBODY");
-        var tr = "";
-        tr = utilities.rijAanmaken("kolom", parameters, titel);
-        thead.appendChild(tr);
+    tabelAanmaken : function(data, parameters, titels){
+        let tabel = document.createElement("TABLE");
+      	let thead = tabel.createTHead();
+      	let tbody = tabel.createTBody();
+        let tr;
+        
+        //thead
+        tr = utilities.rijAanmaken("kolom", parameters, titels, thead);
         tabel.appendChild(thead);
+        
+        //tbody
         data.forEach(function(e) {
-            tr = utilities.rijAanmaken(e, parameters, titel);
-            tbody.appendChild(tr);
+            tr = utilities.rijAanmaken(e, parameters, titels, tbody);
         });
         tabel.appendChild(tbody);
+        
         return tabel;
     },
-    rijAanmaken : function(e, parameters, titels) {
-        var tr = document.createElement("TR");
-        var teller = -1;
+    rijAanmaken : function(e, parameters, titels, target) {
+        let tr = target.insertRow(0);
+        let teller = -1;
         titels.forEach(function(titel){
-            var text = "";
             teller++;
-            var parameter = parameters[teller];
-            if(e === "kolom") {
-                var th = document.createElement("TH");
-                var a = document.createElement("A");
-                text = "";
+            let parameter = parameters[teller];
+            if(target.tagName === "THEAD") {
+                let th = document.createElement("TH");
+                let a = document.createElement("A");
                 th.scope = "col";
                 th.title = titel.toLowerCase();
-                a.innerHTML = titels[teller];
+                a.innerHTML = titel;
                 th.appendChild(a);
                 tr.appendChild(th);
             } else {
-                var td = document.createElement("TD");
-                td.setAttribute("data-label", titels[teller]);
-                if(titels[teller] === "Acties") {
-                    var div = utilities.actieKnoppenAanmaken("tonen");
+                let td = tr.insertCell(teller);
+                td.setAttribute("data-label", titel);
+
+                if(titel === "Acties") {
+                    let div = utilities.actieKnoppenAanmaken("tonen");
                     td.appendChild(div);
                 } else {
-                    var span = document.createElement("SPAN");
-                    text = "";
-                    var celInhoud = e[parameter];
+                    let span = document.createElement("SPAN");
+                    let text = "";
+                    let celInhoud = e[parameter];
                     if(celInhoud.length === 10 && RegExp("([0-9]{4})\-+([0-9]{2})\-+([0-9]{2})").test(celInhoud))
                         celInhoud = utilities.datumFormat(celInhoud).view;
                     text = document.createTextNode(celInhoud);
                     span.appendChild(text);
                     td.appendChild(span);
                 }
-                tr.appendChild(td); 
             }
         });
+        
         return tr;
     },
     tagDetectie : function (titel, meta) {
@@ -70,13 +72,13 @@ var utilities = {
           return "INPUT";
     },
     celAanpassen : function(e, titel, parameter, meta) {
-        var tag = utilities.tagDetectie(titel, meta);
-        var div, input, span;
+        let tag = utilities.tagDetectie(titel, meta);
+        let div, input, span;
         if(tag === "SELECT") {
-            var select = document.createElement("SELECT");
+            let select = document.createElement("SELECT");
             select.name = parameter.toLowerCase();
             meta[titel.toLowerCase()].forEach(function(val){
-                var option = document.createElement("OPTION");
+                let option = document.createElement("OPTION");
                 option.value = val.toLowerCase();
                 if(val.toLowerCase() === e.toLowerCase())
                     option.setAttribute("selected", true);
@@ -98,24 +100,24 @@ var utilities = {
         }
     },
     rijAanpassen : function(e, meta, parameters) {
-        var cellen = e.childNodes;
-        var i = -1;
+        let cellen = e.childNodes;
+        let i = -1;
         backup = [];
         cellData = {};
         parameters.forEach(function(parameter){
             i++;
-            var loc = cellen[i];
-            var titel = loc.getAttribute("data-label");
-            var value = loc.innerText;
+            let loc = cellen[i];
+            let titel = loc.getAttribute("data-label");
+            let value = loc.innerText;
             backup.push(loc.innerHTML);
-            var elem = utilities.celAanpassen(value, titel, parameter, meta);
+            let elem = utilities.celAanpassen(value, titel, parameter, meta);
             while(loc.firstChild)
                 loc.removeChild(loc.firstChild);
             loc.appendChild(elem);
         });
         i++;
         if(cellen[i].getAttribute("data-label") === "Acties") {
-            var div = utilities.actieKnoppenAanmaken("aanpassen");
+            let div = utilities.actieKnoppenAanmaken("aanpassen");
             cellen[i].innerHTML = '';
             cellen[i].appendChild(div);
         }
@@ -124,8 +126,8 @@ var utilities = {
       
     },
     rijHerstellen : function(rij, parameters, titels, backup) {
-        var cellen = rij.childNodes;
-        var i2 = -1;
+        let cellen = rij.childNodes;
+        let i2 = -1;
         parameters.forEach(function(parameter){
             i2++;
             cel = cellen[i2];
@@ -139,12 +141,12 @@ var utilities = {
         }
     },
     rijOpslaan : function(rij, tabelID, parameters, titels) {
-        var cellen = rij.childNodes;
-        var i2 = -1;
+        let cellen = rij.childNodes;
+        let i2 = -1;
         parameters.forEach(function(cel){
             i2++;
-            var cel = cellen[i2];
-            var celInhoud = document.querySelector('#' + tabelID + ' [name="' + parameters[i2].toLowerCase() + '"]');
+            let cel = cellen[i2];
+            let celInhoud = document.querySelector('#' + tabelID + ' [name="' + parameters[i2].toLowerCase() + '"]');
             celWaarde = celInhoud.value;
             if(celWaarde.length === 10 && RegExp("([0-9]{4})\-+([0-9]{2})\-+([0-9]{2})").test(celWaarde))
                 celWaarde = utilities.datumFormat(celWaarde).view;
@@ -157,13 +159,13 @@ var utilities = {
         }
     },
     vindRij : function(e) {
-        var row = e.parentElement;
+        let row = e.parentElement;
         while(row.tagName !== "TR") row = row.parentElement;
         return row;
     },
     actieKnoppenAanmaken : function(status) {
-        var div = document.createElement("DIV");
-        var span = "";
+        let div = document.createElement("DIV");
+        let span = "";
         div.classList.add("actie-images");
         if(status === "aanpassen") {
             span = utilities.actieKnop("idOpslaan", "images/green.png", "opslaan");
@@ -180,8 +182,8 @@ var utilities = {
         return div;
     },
     actieKnop : function(name, src, role) {
-        var span = document.createElement("SPAN");
-        var input = document.createElement("INPUT");
+        let span = document.createElement("SPAN");
+        let input = document.createElement("INPUT");
         input.type = "image";
         input.name = name;
         input.value = "1000";
