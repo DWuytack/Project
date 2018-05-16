@@ -244,14 +244,7 @@ form {
     flex-direction: column;
 }
 
-input[type="button"], input[type="submit"] { 
-    border: none;
-    background: none;
-} 
 
-input[type="button"]:focus, input[type="submit"]:focus {
-    filter: brightness(75%);
-}
 
 /* Restrictions
    ========================================================================== */
@@ -784,18 +777,24 @@ input[type="submit"] {
     text-align: center;
 }
 .lijnButton { 
+    
     font-family: Raleway; /*Force Elem Bug */
-    
-    position: relative;
-    padding: 10px;
-
-    background-color: #ec6e24;
-    
-    font-size: 11px;
+   
+    font-size: 30px;
     text-align: center;
-    color: #fff;
+    color: #000;
+    font-weight: 600;
     text-shadow: 0 0 150px #000;
     text-align: center;
+}
+
+input[type="button"], input[type="submit"] { 
+    border: #000;
+    background: #efe1c4;
+} 
+
+input[type="button"]:focus, input[type="submit"]:focus {
+    filter: brightness(75%);
 }
 
 

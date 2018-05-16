@@ -115,6 +115,7 @@
                     <td width="3%" />
                 </tr>
 
+              
                 <%--lijn met invoer --%>
                 <tr height="20px" />
 
@@ -165,7 +166,7 @@
                 <br>
                 <tr>
                     <td></td>
-                    <td><input type="button" id="addLine" width="25" value="Voeg een taak toe" onclick="laadLijn2();" height="25" hidden class="lijnButton" /></td>
+                    <td><input type="button" id="addLine" width="25" value="+" hidden onclick="laadVolgendeLijn();" height="25" class="lijnButton" /></td>
                 </tr>
                 
             </table>
