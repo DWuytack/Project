@@ -20,20 +20,6 @@
         <link rel="stylesheet" href="css/formulier.css">
         <link rel="stylesheet" href="css/gebruikersOverzicht.css">
         <title>Gebruikers overzicht</title>
-        <style>
-            table {
-                table-layout: fixed;
-            }
-            #gebruikersOverzicht thead th {
-                width: 15%;
-            }
-            #gebruikersOverzicht thead th[title="email"] {
-                width: 25%;
-            }
-            #gebruikersOverzicht thead th[title="acties"] {
-                width: 80px;
-            }
-        </style>
     </head>
     
     <body>
@@ -71,6 +57,9 @@
         </section>
                 
         <section id="popup">
+            <div id="gebruiker_verwijderen" style="width: 100%; display: flex;">
+                <a id="bt-gebruiker_verwijderen" style="font-size: 20px; background-color: red; color: white; margin: auto;">Ok, placeholder</a>
+            </div>
             <div id="gebruiker_toevoegen">
                 <fieldset>
                     <legend>Gebruiker Toevoegen: </legend><br>

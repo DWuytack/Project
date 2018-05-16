@@ -580,6 +580,8 @@ i[name="gebruiker zoeken"] {
 .table-container table tbody { overflow: scroll; }
 .table-container table tbody tr:nth-child(odd) { background-color: #f8f6ff; }
 .table-container table tbody tr.edit { background-color: rgba(255,255,0,.5); }
+.table-container table tbody tr.delete td { background-color: rgba(239,20,20,.1); }
+.table-container table tbody tr.delete span { color: rgba(239,20,20,.8); }
 .table-container table th {
     font-size: 18px;
     color: #fff;

@@ -1,12 +1,13 @@
-var pageCounter = 1;
-var params = 'page=' + pageCounter;
-var titels, parameters;
-var meta;
-var backup = [];
+let pageCounter = 1;
+let params = 'page=' + pageCounter;
+let titels, parameters;
+let meta;
+let backup = [];
+let rij = '';
 
-var requestData = function(params) {
-    var xhttp = new XMLHttpRequest();
-    var data = "";
+let requestData = function(params) {
+    let xhttp = new XMLHttpRequest();
+    let data = "";
     //params = 'page=1';
 
     xhttp.open("POST", "someservlet", true);
@@ -28,8 +29,8 @@ var renderHTML = function(data) {
         rol : ["admin", "leerkracht", "cursist", "secretariaat"]
     };
     parameters = ["achternaam", "voorNaam", "login", "rol", "geboorteDatumValue", "email"];
-    var tabel = utilities.tabelAanmaken(data, parameters, titels);
-    var inhoud = document.getElementById("gebruikersOverzicht");
+    let tabel = utilities.tabelAanmaken(data, parameters, titels);
+    let inhoud = document.getElementById("gebruikersOverzicht");
     console.log(inhoud);
     if(!inhoud.contains(tabel)) {
     while(inhoud.firstChild)
@@ -38,15 +39,13 @@ var renderHTML = function(data) {
     } else {
         inhoud = document.querySelector("#gebruikersOverzicht tbody");
         data.forEach(function(e){
-            var tr = utilities.rijAanmaken(e, parameters, titels);
-            inhoud.appendChild(tr);
+            let tr = utilities.rijAanmaken(e, parameters, titels, inhoud);
         });
     }
 };
 
 document.addEventListener("click", function(e){
-    var target = e.target;
-    var rij = '';
+    let target = e.target;
     
     if( e.target.name === "Volgende") {
         pageCounter++;
@@ -67,18 +66,16 @@ document.addEventListener("click", function(e){
     }
 
     if(target.hasAttribute("role")) {
-        var role = target.getAttribute("role");
+        let role = target.getAttribute("role");
         if(role === "aanpassen") {
             rij = utilities.vindRij(target);
-            console.log("onze rij");
-            console.log(rij);
             rij.classList.add("edit");
             utilities.rijAanpassen(rij, meta, parameters);
         }
         if(role === "opslaan") {
             rij = utilities.vindRij(target);
             rij.classList.remove("edit");
-            var tabelID = 'gebruikersOverzicht';
+            let tabelID = 'gebruikersOverzicht';
             utilities.rijOpslaan(rij, tabelID, parameters, titels);  
         }
         if(role === "annuleren") {
@@ -86,6 +83,36 @@ document.addEventListener("click", function(e){
             rij.classList.remove("edit");
             utilities.rijHerstellen(rij, parameters, titels, backup); 
         }
+        if(role === "verwijderen") {
+            rij = utilities.vindRij(target);
+            rij.classList.add("delete");
+
+            var popup = document.querySelector("#popup");
+            var loc = document.querySelector("#gebruiker_verwijderen");
+            if(!loc.className.includes("active")) {
+                popup.classList.add("active");
+                loc.classList.add("active");
+            } else {
+                popup.classList.remove("active");
+                loc.classList.remove("active");
+            }
+        }
+    }
+    
+    if(e.target.id === "popup") {
+        var popup = document.querySelector("#popup");
+        var loc = document.querySelector("#gebruiker_verwijderen");
+        popup.classList.remove("active");
+        loc.classList.remove("active");
+        rij.classList.remove("delete");
+    }
+    
+    if(e.target.id === "bt-gebruiker_verwijderen") {
+        document.querySelector("#gebruikersOverzicht table").deleteRow(rij.rowIndex);
+        var popup = document.querySelector("#popup");
+        var loc = document.querySelector("#gebruiker_verwijderen");
+        popup.classList.remove("active");
+        loc.classList.remove("active");
     }
     
 });
