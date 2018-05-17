@@ -33,7 +33,9 @@ public class someservlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String actie = "";
         String page = request.getParameter("page");
+        String editID = request.getParameter("idEdit");
 
         if (page != null) {
             int p = Integer.parseInt(page);
@@ -44,6 +46,15 @@ public class someservlet extends HttpServlet {
             String json = new Gson().toJson(cursisten);
             
             //session.setAttribute("json",  json);
+            
+            response.setContentType("application/json");
+            //response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
+        }
+        
+        if (editID != null) {
+            actie = "Edit gebruiker";
+            String json = new Gson().toJson(editID);
             
             response.setContentType("application/json");
             //response.setCharacterEncoding("UTF-8");
