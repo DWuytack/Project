@@ -247,8 +247,7 @@
                     <td><select name="score6" id="formScore6" hidden ></select></td>
                     <td />
 
-                    <td><textarea name="textarea6" hidden id="formCommentaar6"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td><textarea name="textarea6" hidden id="formCommentaar6">Vul hier je commentaar in...</textarea></td>
                     <td />
 
                 </tr>
