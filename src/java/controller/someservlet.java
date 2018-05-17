@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Gebruiker;
 import model.GebruikerDAO;
 
@@ -20,6 +21,8 @@ import model.GebruikerDAO;
  * @author Jens & D
  */
 public class someservlet extends HttpServlet {
+    
+    GebruikerDAO gebruikerDAO = new GebruikerDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,10 +35,14 @@ public class someservlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession session = request.getSession(true);
 
         String actie = "";
         String page = request.getParameter("page");
         String editID = request.getParameter("idEdit");
+        String saveID = request.getParameter("idSave");
+        int sessionID = 0;
 
         if (page != null) {
             actie = "Vraag pagina aan";
@@ -53,10 +60,35 @@ public class someservlet extends HttpServlet {
             response.getWriter().write(json);
         }
         
+        Gebruiker gebruiker = new Gebruiker();
+        
         if (editID != null) {
             actie = "Edit gebruiker";
-            String json = new Gson().toJson(editID);
+            session.setAttribute("editID", editID);
+            String json = new Gson().toJson(session.getAttribute("editID"));
+
+            response.setContentType("application/json");
+            //response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
+        }
+        if (saveID != null) {
+            /* try {} catch (ClassCastException | NullPointerException e) {
+                
+            }*/
             
+            int id = Integer.valueOf(session.getAttribute("editID").toString());
+            
+            
+            gebruiker.setVoorNaam(request.getParameter("voornaam"));
+            gebruiker.setAchternaam(request.getParameter("achternaam"));
+            gebruiker.setRol(request.getParameter("rol"));
+            java.sql.Date datum = java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
+            gebruiker.setGeboorteDatum(datum);
+            gebruiker.setEmail(request.getParameter("email"));
+            gebruiker.setLogin(request.getParameter("login"));
+            gebruikerDAO.gebruikerAanpassen(id, gebruiker);
+            
+            String json = new Gson().toJson(gebruiker);
             response.setContentType("application/json");
             //response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);

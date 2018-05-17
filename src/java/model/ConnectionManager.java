@@ -24,8 +24,8 @@ public class ConnectionManager {
 
             Class.forName("org.mariadb.jdbc.Driver");
             //con = DriverManager.getConnection("jdbc:mariadb://172.16.20.193:3306/project", "root", "12345");
-            //con = DriverManager.getConnection("jdbc:mariadb://dirkwuytack.be:3307/project", "project", "12345");
-            con = DriverManager.getConnection("jdbc:mariadb://localhost:3307/project", "project", "12345");
+            con = DriverManager.getConnection("jdbc:mariadb://dirkwuytack.be:3307/project", "project", "12345");
+            //con = DriverManager.getConnection("jdbc:mariadb://localhost:3307/project", "project", "12345");
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
