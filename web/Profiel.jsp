@@ -21,33 +21,33 @@
             <table>
                 <tr>
                     <td><label>Voornaam: </label></td>
-                    <td><input type="text" name="username" size="4" maxlength="40" value="<%= gebruiker.getVoorNaam()%>"/><td>
+                    <td><input type="text" id="voornaam" value="${sessionScope.currentSessionUser.voorNaam}"/><td>
                 </tr>
                 <tr>
                     <td><label>Achternaam: </label></td>
-                    <td><input type="text" name="username" size="40" maxlength="40" value="<%= gebruiker.getAchternaam()%>"/><td>
+                    <td><input type="text" id="achternaam" value="${sessionScope.currentSessionUser.achternaam}"/><td>
                 </tr>
                 <tr>
                     <td><label>Rol: </label></td>
-                    <td><input type="text" name="username" size="40" maxlength="40" value="<%= gebruiker.getRol()%>"/><td>
+                    <td><input type="text" id="rol" value="${sessionScope.currentSessionUser.rol}"/><td>
                 </tr>
                 <tr>
                     <td><label>GeboorteDatum: </label></td>
-                    <td><input type="text" name="username" size="40" maxlength="40" value="<%= gebruiker.getGeboorteDatum()%>"/><td>
+                    <td><input type="date" id="geboorteDatum" value="${sessionScope.currentSessionUser.geboorteDatumValue}"/><td>
                 </tr>
                 <tr>
                     <td> <label>Email: </label></td>
-                    <td><input type="text" name="username" size="40" maxlength="40" value="<%= gebruiker.getEmail()%>"/><td>
+                    <td><input type="text" id="email" value="${sessionScope.currentSessionUser.email}"/><td>
                 </tr>
                 <tr>
                     <td><label>Login: </label></td>
-                    <td><input type="text" name="username" size="40" maxlength="40" value="<%= gebruiker.getLogin()%>"><td>
+                    <td><input type="text" id="login" value="${sessionScope.currentSessionUser.login}"><td>
                 </tr>
             </table>
             <br>
-            <form action="GebruikersServlet">
-                <input type="submit" name="submit" value=" Wijzig paswoord "><br><br>
-                <input type="submit" name="submit" value=" Wijzig profiel ">	
+            <form action="ProfielServlet">
+                <input type="submit" name="submit" value="paswoordWijzigen"><br><br>
+                <input type="submit" name="submit" value="profielWijzigen">	
             </form>
         </section>
     </body>
