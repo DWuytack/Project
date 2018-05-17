@@ -5,11 +5,18 @@
  */
 
 var formulierNaam;
+var aantalLijnen=1;
+var taken="";
 
 
-function laadVolgendeLijn(){
+function laadLijn(){
     
-    
+    if (aantalLijnen > 1) {
+        laadExtraLijn();
+        return;
+    }
+   
+   
     if (document.getElementById("modules").selectedIndex === 0) {
         return;
     }
@@ -52,6 +59,7 @@ function laadVolgendeLijn(){
             dropdown.selectedIndex = 0;
 
             const data = JSON.parse(xhttp.responseText);
+            taken=data;
             let option;
             for (let i = 0; i < data.length; i++) {
                 option = document.createElement('option');
@@ -62,11 +70,39 @@ function laadVolgendeLijn(){
             option.text = "Voeg taak toe...";
             dropdown.add(option);
         }
+       
     };
-
-   
-    
+     aantalLijnen=aantalLijnen+1;
 }
+
+function laadExtraLijn(){
+    
+    
+            let dropdown = document.getElementById('formTaken' + aantalLijnen);
+            dropdown.hidden = false;
+            dropdown.length = 0;            
+            
+            let defaultOption = document.createElement('option');
+            defaultOption.text = 'Taken...';
+            defaultOption.disabled = true;
+            dropdown.add(defaultOption);
+            dropdown.selectedIndex = 0;
+
+            let option;
+            for (let i = 0; i < taken.length; i++) {
+                option = document.createElement('option');
+                option.text = taken[i].naam;
+                dropdown.add(option);
+            }
+            option = document.createElement('option');
+            option.text = "Voeg taak toe...";
+            dropdown.add(option);
+            aantalLijnen=aantalLijnen + 1;
+       
+}
+
+
+
 
 function laadFormDoelstellingen() {
 
@@ -195,6 +231,9 @@ function genereerFormuliernaam() {
     var lescursist = document.getElementById("cursisten").value;
     formulierNaam = lescursist + "_" + leskeuze + "_" + lesdatum + "_" + lesnummer;
     label.innerHTML = "formulierNaam: " + formulierNaam;
+    let voegLijnToe = document.getElementById('addLine');
+    voegLijnToe.hidden=false;
+    
 
 }
 

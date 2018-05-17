@@ -161,13 +161,34 @@
                     
                 </tr>
                 
-                
+                <tr>
+                    <td />
+                    <td><select name="taak3" id="formTaken3" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+          
+                    <td><label name="doelstelling3"  id="formDoelstellingen3" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern3" id="formKern3" hidden disabled ></label> </td>
+                    <td />
+                    
+                    <td><select name="score3" id="formScore3" hidden ></select></td>
+                    <td />
+                    
+                    <td><textarea name="textarea3" hidden id="formCommentaar3"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+                    
+                </tr>
                 
                 <br>
+                
                 <tr>
                     <td></td>
-                    <td><input type="button" id="addLine" width="25" value="+" hidden onclick="laadVolgendeLijn();" height="25" class="lijnButton" /></td>
+                    <td><input type="button" width="25" value="+" id="addLine" hidden onclick="laadLijn();" height="25" class="lijnButton" /></td>
                 </tr>
+           
                 
             </table>
             <br>
