@@ -12,7 +12,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/evaluatie.js"></script>
-           <script src="js/nav.js"></script>
+        <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/formulier.css">
 
@@ -98,7 +98,7 @@
                     <td width="10px"></td>
                 </tr>
             </table>
-            
+
             <table>
 
                 <tr bgcolor="#ceccca" height="50px" >
@@ -115,81 +115,85 @@
                     <td width="3%" />
                 </tr>
 
-              
+                <br/>
                 <%--lijn met invoer --%>
+                
                 <tr height="20px" />
 
                 <tr>
                     <td />
                     <td><select name="taak" id="formTaken1" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
-          
+
                     <td><label name="doelstelling"  id="formDoelstellingen1" hidden disabled >
                         </label></td>
                     <td />
 
                     <td style="text-align: center"><label name="kern" id="formKern1" hidden disabled ></label> </td>
                     <td />
-                    
+
                     <td><select name="score" id="formScore1" hidden ></select></td>
                     <td />
-                    
+
                     <td><textarea name="textarea" hidden id="formCommentaar1"
                                   rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
                     <td />
-                    
+
                 </tr>
-                
+
                 <tr>
                     <td />
                     <td><select name="taak2" id="formTaken2" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
-          
+
                     <td><label name="doelstelling2"  id="formDoelstellingen2" hidden disabled >
                         </label></td>
                     <td />
 
                     <td style="text-align: center"><label name="kern2" id="formKern2" hidden disabled ></label> </td>
                     <td />
-                    
+
                     <td><select name="score2" id="formScore2" hidden ></select></td>
                     <td />
-                    
+
                     <td><textarea name="textarea2" hidden id="formCommentaar2"
                                   rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
                     <td />
-                    
+
                 </tr>
-                
+
                 <tr>
                     <td />
                     <td><select name="taak3" id="formTaken3" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
-          
+
                     <td><label name="doelstelling3"  id="formDoelstellingen3" hidden disabled >
                         </label></td>
                     <td />
 
                     <td style="text-align: center"><label name="kern3" id="formKern3" hidden disabled ></label> </td>
                     <td />
-                    
+
                     <td><select name="score3" id="formScore3" hidden ></select></td>
                     <td />
-                    
+
                     <td><textarea name="textarea3" hidden id="formCommentaar3"
                                   rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
                     <td />
-                    
+
                 </tr>
-                
-                <br>
-                
+
+                <tr>
+                    <td><br/></td><td><br/></td>
+                </tr>
+
                 <tr>
                     <td></td>
-                    <td><input type="button" width="25" value="+" id="addLine" hidden onclick="laadLijn();" height="25" class="lijnButton" /></td>
+                    <td><input type="button" width="25" value="+" id="addLine" hidden  onclick="laadLijn();" height="25" class="lijnButton" /></td>
                 </tr>
-           
-                
+
+
+
             </table>
             <br>
             <br>
