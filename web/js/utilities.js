@@ -142,10 +142,11 @@ let utilities = {
     },
     rijOpslaan : function(rij, tabelID, parameters, titels) {
         let cellen = rij.childNodes;
+        let cel;
         let i2 = -1;
         parameters.forEach(function(cel){
             i2++;
-            let cel = cellen[i2];
+            cel = cellen[i2];
             let celInhoud = document.querySelector('#' + tabelID + ' [name="' + parameters[i2].toLowerCase() + '"]');
             celWaarde = celInhoud.value;
             if(celWaarde.length === 10 && RegExp("([0-9]{4})\-+([0-9]{2})\-+([0-9]{2})").test(celWaarde))
