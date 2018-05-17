@@ -21,7 +21,7 @@
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
-        <form method="post" action="EvaluatieFormulierServlet" >
+        <form method="post" action="EvaluatieFormulierServlet?keuze=reset" >
             <section id="pagename">
                 <h2> EvaluatieFormulier </h2>
             </section>

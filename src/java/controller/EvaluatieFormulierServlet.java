@@ -46,7 +46,10 @@ public class EvaluatieFormulierServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
- 
+        
+        String keuze = request.getParameter("reset");
+        
+        if (keuze != null) {response.sendRedirect("EvaluatieFormulier.jsp");}
 
         Gson gson = new Gson();
         String studiegebied = request.getParameter("studiegebied");
