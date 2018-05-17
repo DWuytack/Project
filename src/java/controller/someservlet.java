@@ -38,6 +38,7 @@ public class someservlet extends HttpServlet {
         String editID = request.getParameter("idEdit");
 
         if (page != null) {
+            actie = "Vraag pagina aan";
             int p = Integer.parseInt(page);
             GebruikerDAO gebruikerDAO = new GebruikerDAO();
             ArrayList<Gebruiker> cursisten = gebruikerDAO.gebruikersLaden(p);
