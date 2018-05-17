@@ -53,7 +53,7 @@ function laadLijn(){
             dropdown.length = 0;            
             
             let defaultOption = document.createElement('option');
-            defaultOption.text = 'Taken...';
+            defaultOption.text = 'Kies een taak...';
             defaultOption.disabled = true;
             dropdown.add(defaultOption);
             dropdown.selectedIndex = 0;
@@ -73,6 +73,8 @@ function laadLijn(){
        
     };
      aantalLijnen=aantalLijnen+1;
+     let lijn1= document.getElementById('lijn1');
+     lijn1.hidden=false;
 }
 
 function laadExtraLijn(){
@@ -83,7 +85,7 @@ function laadExtraLijn(){
             dropdown.length = 0;            
             
             let defaultOption = document.createElement('option');
-            defaultOption.text = 'Taken...';
+            defaultOption.text = 'Kies een taak...';
             defaultOption.disabled = true;
             dropdown.add(defaultOption);
             dropdown.selectedIndex = 0;
@@ -97,6 +99,9 @@ function laadExtraLijn(){
             option = document.createElement('option');
             option.text = "Voeg taak toe...";
             dropdown.add(option);
+            
+            let lijn= document.getElementById('lijn' + aantalLijnen);
+            lijn.hidden=false;
             aantalLijnen=aantalLijnen + 1;
        
 }
@@ -231,8 +236,7 @@ function genereerFormuliernaam() {
     var lescursist = document.getElementById("cursisten").value;
     formulierNaam = lescursist + "_" + leskeuze + "_" + lesdatum + "_" + lesnummer;
     label.innerHTML = "formulierNaam: " + formulierNaam;
-    let voegLijnToe = document.getElementById('addLine');
-    voegLijnToe.hidden=false;
+    laadLijn();
     
 
 }

@@ -117,7 +117,7 @@
 
                 <br/>
                 <%--lijn met invoer --%>
-                
+
                 <tr height="20px" />
 
                 <tr>
@@ -140,7 +140,7 @@
                     <td />
 
                 </tr>
-
+                <tr  id="lijn1" hidden><td><br/></td><td><br/></td></tr>
                 <tr>
                     <td />
                     <td><select name="taak2" id="formTaken2" hidden  onchange="laadFormDoelstellingen()" ></select></td>
@@ -161,7 +161,7 @@
                     <td />
 
                 </tr>
-
+                <tr id="lijn2" hidden><td><br/></td><td><br/></td></tr>
                 <tr>
                     <td />
                     <td><select name="taak3" id="formTaken3" hidden  onchange="laadFormDoelstellingen()" ></select></td>
@@ -183,10 +183,290 @@
 
                 </tr>
 
-                <tr>
-                    <td><br/></td><td><br/></td>
+                <tr  id="lijn3" hidden><td><br/></td><td><br/></td></tr>
+
+                 <tr>
+                    <td />
+                    <td><select name="taak4" id="formTaken4" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling4"  id="formDoelstellingen4" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern4" id="formKern4" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score4" id="formScore4" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea4" hidden id="formCommentaar4"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
                 </tr>
 
+                <tr  id="lijn4" hidden><td><br/></td><td><br/></td></tr>
+                
+                   <tr>
+                    <td />
+                    <td><select name="taak5" id="formTaken5" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling5"  id="formDoelstellingen5" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern5" id="formKern5" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score5" id="formScore5" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea5" hidden id="formCommentaar5"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
+                </tr>
+
+                <tr  id="lijn5" hidden><td><br/></td><td><br/></td></tr>
+               
+                
+                   <tr>
+                    <td />
+                    <td><select name="taak6" id="formTaken6" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling6"  id="formDoelstellingen6" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern6" id="formKern6" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score6" id="formScore6" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea6" hidden id="formCommentaar6"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
+                </tr>
+
+                <tr  id="lijn6" hidden><td><br/></td><td><br/></td></tr>
+               
+                 <tr>
+                    <td />
+                    <td><select name="taak7" id="formTaken7" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling7"  id="formDoelstellingen7" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern7" id="formKern7" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score7" id="formScore7" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea7" hidden id="formCommentaar7"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
+                </tr>
+
+                <tr  id="lijn7" hidden><td><br/></td><td><br/></td></tr>
+                
+                 <tr>
+                    <td />
+                    <td><select name="taak8" id="formTaken8" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling8"  id="formDoelstellingen8" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern8" id="formKern8" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score8" id="formScore8" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea8" hidden id="formCommentaar8"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
+                </tr>
+
+                <tr  id="lijn8" hidden><td><br/></td><td><br/></td></tr>
+                
+                    <tr>
+                    <td />
+                    <td><select name="taak9" id="formTaken9" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling9"  id="formDoelstellingen9" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern9" id="formKern9" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score9" id="formScore9" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea9" hidden id="formCommentaar9"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
+                </tr>
+
+                <tr  id="lijn9" hidden><td><br/></td><td><br/></td></tr>
+                
+                  <tr>
+                    <td />
+                    <td><select name="taak10" id="formTaken10" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling10"  id="formDoelstellingen10" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern10" id="formKern10" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score10" id="formScore10" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea10" hidden id="formCommentaar10"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
+                </tr>
+
+                <tr  id="lijn10" hidden><td><br/></td><td><br/></td></tr>
+                
+                <tr>
+                    <td />
+                    <td><select name="taak11" id="formTaken11" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling11"  id="formDoelstellingen11" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern11" id="formKern11" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score11" id="formScore11" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea11" hidden id="formCommentaar11"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
+                </tr>
+
+                <tr  id="lijn11" hidden><td><br/></td><td><br/></td></tr>
+                
+                  <tr>
+                    <td />
+                    <td><select name="taak12" id="formTaken12" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling12"  id="formDoelstellingen12" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern12" id="formKern12" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score12" id="formScore12" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea12" hidden id="formCommentaar12"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
+                </tr>
+
+                <tr  id="lijn12" hidden><td><br/></td><td><br/></td></tr>
+                
+                
+                  <tr>
+                    <td />
+                    <td><select name="taak13" id="formTaken13" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling13"  id="formDoelstellingen13" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern13" id="formKern13" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score13" id="formScore13" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea13" hidden id="formCommentaar13"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
+                </tr>
+
+                <tr  id="lijn13" hidden><td><br/></td><td><br/></td></tr>
+                
+                
+                 <tr>
+                    <td />
+                    <td><select name="taak14" id="formTaken14" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling14"  id="formDoelstellingen14" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern14" id="formKern14" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score14" id="formScore14" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea14" hidden id="formCommentaar14"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
+                </tr>
+
+                <tr  id="lijn14" hidden><td><br/></td><td><br/></td></tr>
+                
+                
+                  <tr>
+                    <td />
+                    <td><select name="taak15" id="formTaken15" hidden  onchange="laadFormDoelstellingen()" ></select></td>
+                    <td />
+
+                    <td><label name="doelstelling15"  id="formDoelstellingen15" hidden disabled >
+                        </label></td>
+                    <td />
+
+                    <td style="text-align: center"><label name="kern15" id="formKern15" hidden disabled ></label> </td>
+                    <td />
+
+                    <td><select name="score15" id="formScore15" hidden ></select></td>
+                    <td />
+
+                    <td><textarea name="textarea15" hidden id="formCommentaar15"
+                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                    <td />
+
+                </tr>
+
+                <tr  id="lijn15" hidden><td><br/></td><td><br/></td></tr>
+                
+                
+                
                 <tr>
                     <td></td>
                     <td><input type="button" width="25" value="+" id="addLine" hidden  onclick="laadLijn();" height="25" class="lijnButton" /></td>
@@ -195,8 +475,7 @@
 
 
             </table>
-            <br>
-            <br>
+          
             <br>
             <br>
 
