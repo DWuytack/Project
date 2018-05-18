@@ -43,7 +43,6 @@
 
                     <c:if test="${sessionScope.currentSessionUser.rol == 'cursist'}" >
                         <input type="submit" value="Rapport" name="actie"><br>
-                        <input type="submit" value="Overzicht scores klas" name="actie"><br>
                         <input type="submit" value="Overzicht scores cursist" name="actie"><br>
                     </c:if>
 
