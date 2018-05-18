@@ -72,7 +72,9 @@ public class someservlet extends HttpServlet {
             session.removeAttribute("idEdit");
             session.setAttribute("idEdit", editID);
             
-            int callID = Integer.valueOf(editID) * 4;
+            //ArrayList<Gebruiker> lijst = (ArrayList<Gebruiker>) session.getAttribute("lijstGebruikers");
+            
+            int callID = Integer.valueOf(editID) - 3;
             
             json = new Gson().toJson(callID);
 
@@ -85,11 +87,10 @@ public class someservlet extends HttpServlet {
             actie = "Gebruiker opslaan";
             editID = session.getAttribute("idEdit").toString();
             int requestID = Integer.valueOf(editID);
-            int callID = (int) (Integer.valueOf(saveID) * 0.25);
-            
-            
-            if( session.getAttribute("idEdit") != null && requestID == callID ) {
-                int id = Integer.valueOf(session.getAttribute("idEdit").toString());
+            int callID = Integer.valueOf(saveID);
+             
+            if( session.getAttribute("idEdit") != null && requestID == callID + 3 ) {
+                int id = (int) (Integer.valueOf(editID) * 0.25);
                 
                 //session aanpassen
                 session.removeAttribute("idEdit");

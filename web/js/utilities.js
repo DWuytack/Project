@@ -1,4 +1,11 @@
 let utilities = {
+    editID : 0,
+    saveID : 0,
+    backup : [],
+    backupData : [],
+    pageCounter : 1,
+    params : '',
+    tableID : '',
     datumFormat : function(inputFormat) {
         let pad = function(s) { return (s < 10) ? '0' + s : s; };
         if(RegExp("([0-9]{2})\/+([0-9]{2})\/+([0-9]{4})").test(inputFormat))
@@ -46,7 +53,7 @@ let utilities = {
                 td.setAttribute("data-label", titel);
 
                 if(titel === "Acties") {
-                    let div = utilities.actieKnoppenAanmaken("tonen", e.gebruikerID);
+                    let div = utilities.actieKnoppenAanmaken("tonen", e.jsonID);
                     td.appendChild(div);
                 } else {
                     let span = document.createElement("SPAN");
@@ -99,17 +106,19 @@ let utilities = {
             return input;
         }
     },
-    rijAanpassen : function(e, meta, parameters) {
+    rijAanpassen : function(e, meta, parameters, saveID) {
         let cellen = e.childNodes;
         let i = -1;
-        backup = [];
+        utilities.backup = [];
+        utilities.backupData = [];
+        utilities.saveID = saveID;
         cellData = {};
         parameters.forEach(function(parameter){
             i++;
             let loc = cellen[i];
             let titel = loc.getAttribute("data-label");
             let value = loc.innerText;
-            backup.push(loc.innerHTML);
+            utilities.backup.push(loc.innerHTML);
             let elem = utilities.celAanpassen(value, titel, parameter, meta);
             while(loc.firstChild)
                 loc.removeChild(loc.firstChild);
@@ -117,7 +126,7 @@ let utilities = {
         });
         i++;
         if(cellen[i].getAttribute("data-label") === "Acties") {
-            let div = utilities.actieKnoppenAanmaken("aanpassen");
+            let div = utilities.actieKnoppenAanmaken("aanpassen", saveID);
             cellen[i].innerHTML = '';
             cellen[i].appendChild(div);
         }
@@ -125,29 +134,29 @@ let utilities = {
     rijBewerken : function() {
       
     },
-    rijHerstellen : function(rij, parameters, titels, backup) {
+    rijHerstellen : function(rij, parameters, titels) {
         let cellen = rij.childNodes;
         let i2 = -1;
         parameters.forEach(function(parameter){
             i2++;
             cel = cellen[i2];
-            cel.innerHTML = backup[i2];
+            cel.innerHTML = utilities.backup[i2];
             console.log(cel);
         });
         i2++;
         if(titels[i2] === "Acties") {
             cellen[i2].innerHTML = '';
-            cellen[i2].append( utilities.actieKnoppenAanmaken("tonen") );
+            cellen[i2].append( utilities.actieKnoppenAanmaken("tonen", utilities.editID) );
         }
     },
-    rijOpslaan : function(rij, tabelID, parameters, titels) {
+    rijOpslaan : function(rij, parameters, titels) {
         let cellen = rij.childNodes;
         let cel;
         let i2 = -1;
         parameters.forEach(function(cel){
             i2++;
             cel = cellen[i2];
-            let celInhoud = document.querySelector('#' + tabelID + ' [name="' + parameters[i2].toLowerCase() + '"]');
+            let celInhoud = document.querySelector('#' + utilities.tabelID + ' [name="' + parameters[i2].toLowerCase() + '"]');
             celWaarde = celInhoud.value;
             if(celWaarde.length === 10 && RegExp("([0-9]{4})\-+([0-9]{2})\-+([0-9]{2})").test(celWaarde))
                 celWaarde = utilities.datumFormat(celWaarde).view;
@@ -156,7 +165,7 @@ let utilities = {
         i2++;
         if(titels[i2] === "Acties") {
             cellen[i2].innerHTML = '';
-            cellen[i2].append( utilities.actieKnoppenAanmaken("tonen") );
+            cellen[i2].append( utilities.actieKnoppenAanmaken("tonen", utilities.editID) );
         }
     },
     vindRij : function(e) {
@@ -169,9 +178,9 @@ let utilities = {
         let span = "";
         div.classList.add("actie-images");
         if(status === "aanpassen") {
-            span = utilities.actieKnop("idOpslaan", "images/green.png", "opslaan", 0);
+            span = utilities.actieKnop("idOpslaan", "images/green.png", "opslaan", id);
             div.appendChild(span);
-            span = utilities.actieKnop("idAnnuleren", "images/cancel.png", "annuleren", 0);
+            span = utilities.actieKnop("idAnnuleren", "images/cancel.png", "annuleren", id);
             div.appendChild(span);
         } else {
             span = utilities.actieKnop("idEdit", "images/pencil.png", "aanpassen", id);

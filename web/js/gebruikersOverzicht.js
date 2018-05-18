@@ -1,14 +1,12 @@
-let pageCounter = 1;
-let params = 'page=' + pageCounter;
+utilities.pageCounter = 1;
+utilities.params = 'page=' + utilities.pageCounter;
 let titels, parameters;
 let meta;
-let backup = [];
 let rij = '';
 
-const requestData = function(type, params) {
+const requestData = function(type, target) {
     let xhttp = new XMLHttpRequest();
     let data = "";
-    //params = 'page=1';
 
     xhttp.open("POST", "someservlet", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -20,11 +18,11 @@ const requestData = function(type, params) {
             renderHTML(type, data);
         }
     };
-    xhttp.send(params);
+    xhttp.send(utilities.params);
 };
 
 let renderHTML = function(type, data) {
-    if (type = "table") {
+    if (type === "tabel") {
         titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email", "Acties"];
         //titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email"];
         meta = {
@@ -44,36 +42,33 @@ let renderHTML = function(type, data) {
                 let tr = utilities.rijAanmaken(e, parameters, titels, inhoud);
             });
         }
-    }
+    } else if (type === "aanpassen")
+        utilities.rijAanpassen(rij, meta, parameters, data); 
+    else if (type === "opslaan")
+        utilities.rijOpslaan(rij, parameters, titels);  
+    else
+        console.log(data);
 };
-
-/*
-let renderCommand = function(data) {
-    
-};
-let id = "28";
-requestData("", 'idEdit=' + id);
-*/
 
 document.addEventListener("click", function(e){
     let target = e.target;
     
     if( e.target.name === "Volgende") {
-        pageCounter++;
-        params = 'page=' + pageCounter;
-        requestData("tabel", params);
+        utilities.pageCounter++;
+        utilities.params = 'page=' + utilities.pageCounter;
+        requestData("tabel",);
     }
     
     if( e.target.name === "Vorige") {
-        pageCounter--;
-        params = 'page=' + pageCounter;
-        requestData("tabel", params);
+        utilities.pageCounter--;
+        utilities.params = 'page=' + utilities.pageCounter;
+        requestData("tabel",);
     }
     
     if( e.target.id === "somebutton" ) {
-        pageCounter++;
-        params = 'page=' + pageCounter;
-        requestData("tabel", params);
+        utilities.pageCounter++;
+        utilities.params = 'page=' + utilities.pageCounter;
+        requestData("tabel",);
     }
 
     if(target.hasAttribute("role")) {
@@ -81,18 +76,61 @@ document.addEventListener("click", function(e){
         if(role === "aanpassen") {
             rij = utilities.vindRij(target);
             rij.classList.add("edit");
-            utilities.rijAanpassen(rij, meta, parameters);
+            let editID = target.value;
+            utilities.backupID = editID;
+            utilities.params = 'idEdit=' + editID;
+            requestData("aanpassen");
         }
         if(role === "opslaan") {
             rij = utilities.vindRij(target);
             rij.classList.remove("edit");
-            let tabelID = 'gebruikersOverzicht';
-            utilities.rijOpslaan(rij, tabelID, parameters, titels);  
+            console.log(rij.cells);
+            utilities.tabelID = 'gebruikersOverzicht';
+            utilities.params = 'idSave=' + utilities.saveID;
+            let i3 = -1;
+            //beter SYSTEEM zoeken !!!!
+            let requestParameter = ["voornaam", "achternaam", "rol", "geboorteDatum", "email"];
+            parameters.forEach(function(parameter){
+                i3++;
+                let cel = rij.cells[i3];
+                console.log(cel);
+                let getVal = function(cel){
+                    let ie = 0;
+                    let val = cel.childNodes;
+                    ie++;
+                    for(let node of val) {
+                        if(node.name === parameter) {
+                            return node;
+                        } else {
+                            node = node.childNodes;
+                            for(let node2 of node) {
+                                if(node2.name === parameter) {
+                                    return node;
+                                } else {
+                                    for(let node3 of node2) {
+                                        if(node3.name === parameter) {
+                                            return node;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return '';
+                }
+                let val = getVal(cel);
+                console.log(val);
+                //let val = document.querySelector('#' + utilities.tabelID + ' tbody tr:nth-child(' + rij.rowIndex + ') [name="' + parameter + '"]').value;
+                
+                utilities.params += parameter + '=' + val;
+            });
+            console.log(utilities.params);
+            requestData("opslaan");
         }
         if(role === "annuleren") {
             rij = utilities.vindRij(target);
             rij.classList.remove("edit");
-            utilities.rijHerstellen(rij, parameters, titels, backup); 
+            utilities.rijHerstellen(rij, parameters, titels); 
         }
         if(role === "verwijderen") {
             rij = utilities.vindRij(target);
@@ -129,5 +167,5 @@ document.addEventListener("click", function(e){
 });
 //Load
 (function() {
-    requestData("tabel", params);
+    requestData("tabel",);
 })();

@@ -10,7 +10,10 @@ import java.text.SimpleDateFormat;
  */
 public class Gebruiker {
    
+    //beveiligingsupdate, schakel over naar jsonID
+    //private transient int gebruikerID;
     private int gebruikerID;
+    private int jsonID;
     private String rol;
     private String voorNaam;
     private String achternaam;
@@ -29,13 +32,18 @@ public class Gebruiker {
     private String login;
     private String paswoord;
     private boolean geldig;
-    
 
+    public int getJsonID() {
+        this.jsonID = gebruikerID * 4;
+        return jsonID;
+    }
+    
     public int getGebruikerID() {
         return gebruikerID;
     }
 
     public void setGebruikerID(int gebruikerID) {
+        this.jsonID = gebruikerID * 4;
         this.gebruikerID = gebruikerID;
     }
 
