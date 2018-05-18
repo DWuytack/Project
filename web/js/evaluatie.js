@@ -11,8 +11,8 @@ var taken = "";
 
 function laadLijn() {
 
-    aantalLijnen=aantalLijnen +1;
-    
+    aantalLijnen = aantalLijnen + 1;
+
     if (aantalLijnen > 1) {
         laadExtraLijn();
         return;
@@ -21,7 +21,7 @@ function laadLijn() {
     if (document.getElementById("modules").selectedIndex === 0) {
         return;
     }
-    
+
     var keuze = document.getElementById('modules').value;
     var xhttp = new XMLHttpRequest();
 
@@ -103,7 +103,7 @@ function laadExtraLijn() {
 
     let lijn = document.getElementById('lijn' + aantalLijnen);
     lijn.hidden = false;
-   
+
 }
 
 
@@ -168,8 +168,13 @@ function laadFormDoelstellingen() {
         }
     }
     ;
-     let taakScore = document.getElementById('taakScore' + aantalLijnen);
-    taakScore.hidden = false;
+    let taakScore = document.getElementsByClassName('taakScore' + aantalLijnen);
+    var i;
+    for (i = 0; i < taakScore.length; i++) {
+        taakScore[i].hidden = false;
+    }
+
+
 }
 
 function laadScores() {
