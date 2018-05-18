@@ -163,6 +163,9 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore2" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
+
                 <tr id="lijn2" hidden><td><br/></td><td><br/></td></tr>
                 <tr>
                     <td />
@@ -184,10 +187,12 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore3" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  id="lijn3" hidden><td><br/></td><td><br/></td></tr>
 
-                 <tr>
+                <tr>
                     <td />
                     <td><select name="taak4" id="formTaken4" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
@@ -207,10 +212,12 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore4" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  id="lijn4" hidden><td><br/></td><td><br/></td></tr>
-                
-                   <tr>
+
+                <tr>
                     <td />
                     <td><select name="taak5" id="formTaken5" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
@@ -230,11 +237,13 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore5" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  id="lijn5" hidden><td><br/></td><td><br/></td></tr>
-               
-                
-                   <tr>
+
+
+                <tr>
                     <td />
                     <td><select name="taak6" id="formTaken6" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
@@ -253,10 +262,12 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore6" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  id="lijn6" hidden><td><br/></td><td><br/></td></tr>
-               
-                 <tr>
+
+                <tr>
                     <td />
                     <td><select name="taak7" id="formTaken7" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
@@ -276,10 +287,13 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore7" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
+
 
                 <tr  id="lijn7" hidden><td><br/></td><td><br/></td></tr>
-                
-                 <tr>
+
+                <tr>
                     <td />
                     <td><select name="taak8" id="formTaken8" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
@@ -299,10 +313,12 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore8" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  id="lijn8" hidden><td><br/></td><td><br/></td></tr>
-                
-                    <tr>
+
+                <tr>
                     <td />
                     <td><select name="taak9" id="formTaken9" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
@@ -322,10 +338,11 @@
                     <td />
 
                 </tr>
-
+                <tr id="taakScore9" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
+                <tr><td><br/></tr>
                 <tr  id="lijn9" hidden><td><br/></td><td><br/></td></tr>
-                
-                  <tr>
+
+                <tr>
                     <td />
                     <td><select name="taak10" id="formTaken10" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
@@ -345,9 +362,11 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore10" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  id="lijn10" hidden><td><br/></td><td><br/></td></tr>
-                
+
                 <tr>
                     <td />
                     <td><select name="taak11" id="formTaken11" hidden  onchange="laadFormDoelstellingen()" ></select></td>
@@ -368,10 +387,12 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore11" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  id="lijn11" hidden><td><br/></td><td><br/></td></tr>
-                
-                  <tr>
+
+                <tr>
                     <td />
                     <td><select name="taak12" id="formTaken12" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
@@ -391,11 +412,13 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore12" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  id="lijn12" hidden><td><br/></td><td><br/></td></tr>
-                
-                
-                  <tr>
+
+
+                <tr>
                     <td />
                     <td><select name="taak13" id="formTaken13" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
@@ -415,11 +438,13 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore13" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  id="lijn13" hidden><td><br/></td><td><br/></td></tr>
-                
-                
-                 <tr>
+
+
+                <tr>
                     <td />
                     <td><select name="taak14" id="formTaken14" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
@@ -439,11 +464,13 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore14" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  id="lijn14" hidden><td><br/></td><td><br/></td></tr>
-                
-                
-                  <tr>
+
+
+                <tr>
                     <td />
                     <td><select name="taak15" id="formTaken15" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
@@ -463,11 +490,13 @@
                     <td />
 
                 </tr>
+                <tr><td><br/></tr>
+                <tr id="taakScore15" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  id="lijn15" hidden><td><br/></td><td><br/></td></tr>
-                
-                
-                
+
+
+
                 <tr>
                     <td></td>
                     <td><input type="button" width="25" value="+" id="addLine" hidden  onclick="laadLijn();" height="25" class="lijnButton" /></td>
@@ -476,7 +505,7 @@
 
 
             </table>
-          
+
             <br>
             <br>
 
