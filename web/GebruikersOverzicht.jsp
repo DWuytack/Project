@@ -77,7 +77,7 @@
                                                     <option value="leerkracht">leerkracht</option>
                                                     <option value="cursist">cursist</option>
                                                     <option value="secretariaat">secretariaat</option></td>
-                                            </select>
+                                                </select>
                                             <td> <input type="date" name="geboorteDatum" value="${cursist.geboorteDatum}"> </td>
                                             <td> <input type="text" name="email"  value="${cursist.email}"/> </td>
                                             </c:if>
