@@ -141,7 +141,7 @@
 
                 </tr>
                 <tr><td><br/></tr>
-                <tr> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
+                <tr id="taakScore1" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
                 <tr  id="lijn1" hidden><td><br/></td><td><br/></td></tr>
                 <tr>
                     <td />

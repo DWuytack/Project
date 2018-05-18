@@ -168,6 +168,8 @@ function laadFormDoelstellingen() {
         }
     }
     ;
+     let taakScore = document.getElementById('taakScore' + aantalLijnen);
+    taakScore.hidden = false;
 }
 
 function laadScores() {
