@@ -4,83 +4,228 @@
  * and open the template in the editor.
  */
 
-document.addEventListener("click", function(e) {
-    var target = e.target;
-    if (target.classList.contains("toggle")) {
-        var parent = target.parentElement;
-        if (parent.hasAttribute("role") && parent.getAttribute("role") === "menu-header") {
-            var loc = parent.nextSibling.nextSibling; /* Bypass hidden element */
-        if (loc.hasAttribute("role") && loc.getAttribute("role") === "menu-content")
-            loc.classList.toggle("active");
-        }
+var Studiegebied;
+function laadOpleidingen() {
+
+    if (document.getElementById("studiegebied").selectedIndex === 0) {
+        return;
     }
-});
+    var keuze = document.getElementById('studiegebied').value;
+    var xhttp = new XMLHttpRequest();
 
-function findMenuHeader(target) {
-    var parent = target.parentElement;
-    if (parent.hasAttribute("role") && parent.getAttribute("role") === "menu-header")
-        return parent;
-    console.error("Error: locatie van menu-header is niet gevonden.");
-    return false;
-}
-
-function findMenuContent(header) {
-    for (var e of header.parentElement.children) {
-        if (e.hasAttribute("role") && e.getAttribute("role") === "menu-content")
-            return e;
+    if (window.XMLHttpRequest) {
+        // code voor moderne browsers
+        xhttp = new XMLHttpRequest();
+    } else {
+        // code voor oude IE browsers
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    console.error("Error: locatie van menu-content is niet gevonden.");
-    return false;
-}
 
-function createBrance(target, name, view, d) {
-    var value = target.value;
-    var parent = findMenuHeader(target); //menu-header
-    if (parent) {
-        var loc = findMenuContent(parent); //menu-content
-        if (loc) {
-            if (target.value === "0") {
-                loc.classList.remove("active");
-            } else {
-                loc.classList.add("active");
-                var header = document.createElement("DIV");
-                var content = document.createElement("DIV");
-                header.setAttribute("role", "menu-header");
-                content.setAttribute("role", "menu-content");
+    //open(method,url,async)
+    xhttp.open("POST", "StudiegebiedenServlet?studiegebied=" + keuze, true);
+    xhttp.send();
 
-                var inhoud = "";
-                var select = document.createElement("SELECT");
-                var option = document.createElement("OPTION");
-                select.name = name;
-                option.value = "0";
-                option.innerHTML = view;
-                select.appendChild(option);
+    xhttp.onreadystatechange = function () {
 
-                for (var val of d[value]) {
-                    option = document.createElement("OPTION");
-                    option.value = val.value;
-                    option.innerHTML = val.view;
-                    select.appendChild(option);
-                }
-                header.appendChild(select);
-                loc.innerHTML = "";
-                loc.appendChild(header);
-                loc.appendChild(content);
+        //200: "OK"
+        //403: "Forbidden"
+        //404: "Not Found"
+
+        //0: request not initialized 
+        //1: server connection established
+        //2: request received 
+        //3: processing request 
+        //4: request finished and response is ready
+        if (this.readyState === 4 && this.status === 200) {
+
+            let dropdown = document.getElementById('opleidingen');
+            dropdown.hidden = false;
+            dropdown.length = 0;
+
+            let defaultOption = document.createElement('option');
+            defaultOption.text = 'Opleiding...';
+            defaultOption.disabled = true;
+            dropdown.add(defaultOption);
+            dropdown.selectedIndex = 0;
+
+            const data = JSON.parse(xhttp.responseText);
+            let option;
+            for (let i = 0; i < data.length; i++) {
+                option = document.createElement('option');
+                option.text = data[i].naam;
+                dropdown.add(option);
             }
+            option.text = "Voeg Opleiding toe...";
+            dropdown.add(option);
         }
+    };
     }
+   function laadModules() {
+
+    if (document.getElementById("opleidingen").selectedIndex === 0) {
+        return;
+    }
+    var keuze = document.getElementById('opleidingen').value;
+    var xhttp = new XMLHttpRequest();
+
+    if (window.XMLHttpRequest) {
+        // code voor moderne browsers
+        xhttp = new XMLHttpRequest();
+    } else {
+        // code voor oude IE browsers
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    //open(method,url,async)
+    xhttp.open("POST", "StudiegebiedenServlet?opleiding=" + keuze, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = function () {
+
+        //200: "OK"
+        //403: "Forbidden"
+        //404: "Not Found"
+
+        //0: request not initialized 
+        //1: server connection established
+        //2: request received 
+        //3: processing request 
+        //4: request finished and response is ready
+        if (this.readyState === 4 && this.status === 200) {
+
+            let dropdown = document.getElementById('modules');
+            dropdown.hidden = false;
+            dropdown.length = 0;
+
+            let defaultOption = document.createElement('option');
+            defaultOption.text = 'Module...';
+            defaultOption.disabled = true;
+            dropdown.add(defaultOption);
+            dropdown.selectedIndex = 0;
+
+            const data = JSON.parse(xhttp.responseText);
+            let option;
+            for (let i = 0; i < data.length; i++) {
+                option = document.createElement('option');
+                option.text = data[i].naam;
+                dropdown.add(option);
+            }
+            option.text = "Voeg Module toe...";
+            dropdown.add(option);
+        }
+    };
+}
+    
+function laadDoelstellingen() {
+
+    if (document.getElementById("modules").selectedIndex === 0) {
+        return;
+    }
+    var keuze = document.getElementById('modules').value;
+    var xhttp = new XMLHttpRequest();
+
+    if (window.XMLHttpRequest) {
+        // code voor moderne browsers
+        xhttp = new XMLHttpRequest();
+    } else {
+        // code voor oude IE browsers
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    //open(method,url,async)
+    xhttp.open("POST", "StudiegebiedenServlet?module=" + keuze, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = function () {
+
+        //200: "OK"
+        //403: "Forbidden"
+        //404: "Not Found"
+
+        //0: request not initialized 
+        //1: server connection established
+        //2: request received 
+        //3: processing request 
+        //4: request finished and response is ready
+        if (this.readyState === 4 && this.status === 200) {
+
+            let dropdown = document.getElementById('doelstellingen');
+            dropdown.hidden = false;
+            dropdown.length = 0;
+
+            let defaultOption = document.createElement('option');
+            defaultOption.text = 'Doelstelling...';
+            defaultOption.disabled = true;
+            dropdown.add(defaultOption);
+            dropdown.selectedIndex = 0;
+
+            const data = JSON.parse(xhttp.responseText);
+            let option;
+            for (let i = 0; i < data.length; i++) {
+                option = document.createElement('option');
+                option.text = data[i].naam;
+                dropdown.add(option);
+            }
+            option.text = "Voeg Doelstelling toe...";
+            dropdown.add(option);
+        }
+    };
+}
+function laadTaken() {
+
+    if (document.getElementById("doelstellingen").selectedIndex === 0) {
+        return;
+    }
+    var keuze = document.getElementById('doelstellingen').value;
+    var xhttp = new XMLHttpRequest();
+
+    if (window.XMLHttpRequest) {
+        // code voor moderne browsers
+        xhttp = new XMLHttpRequest();
+    } else {
+        // code voor oude IE browsers
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    //open(method,url,async)
+    xhttp.open("POST", "StudiegebiedenServlet?doelstelling=" + keuze, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = function () {
+
+        //200: "OK"
+        //403: "Forbidden"
+        //404: "Not Found"
+
+        //0: request not initialized 
+        //1: server connection established
+        //2: request received 
+        //3: processing request 
+        //4: request finished and response is ready
+        if (this.readyState === 4 && this.status === 200) {
+
+            let dropdown = document.getElementById('taken');
+            dropdown.hidden = false;
+            dropdown.length = 0;
+
+            let defaultOption = document.createElement('option');
+            defaultOption.text = 'Taak...';
+            defaultOption.disabled = true;
+            dropdown.add(defaultOption);
+            dropdown.selectedIndex = 0;
+
+            const data = JSON.parse(xhttp.responseText);
+            let option;
+            for (let i = 0; i < data.length; i++) {
+                option = document.createElement('option');
+                option.text = data[i].naam;
+                dropdown.add(option);
+            }
+            option.text = "Voeg Doelstelling toe...";
+            dropdown.add(option);
+        }
+    };
 }
 
-document.addEventListener("change", function(e) {
-    var target = e.target;
 
-    if (target.name === "studiegebieden")
-        createBrance(target, "opleidingen", "Kies Uw Opleiding", data.opleiding);
-    else if (target.name === "opleidingen")
-  	createBrance(target, "modules", "Kies Uw Module", data.module);
-    else if (target.name === "modules")
-        createBrance(target, "doelstellingen", "Kies Uw Doelstelling", data.doelstelling);
-    else if (target.name === "doelstellingen")
-        createBrance(target, "taken", "Kies Uw Taak", data.taak);    
-});
 

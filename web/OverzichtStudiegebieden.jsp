@@ -12,63 +12,65 @@
 
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="js/jquery.js"></script>
         <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
-        <!-- START Test -->
-        <script src="js/dataStudiegebiedenTemp.js"></script>
-        <!-- END Test -->
         <script src="js/studiegebieden.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/studiegebieden.css">
         <title>StudieGebieden</title>
     </head>
-    
-    <body>  
-        <script>
-            var params = 'studiegebied=' + '';
-            var requestData = function(params) {
-                var xhttp = new XMLHttpRequest();
-                var data = "";
-                //params = 'page=1';
 
-                xhttp.open("POST", "StudiegebiedenServlet", true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState === 4 && this.status === 200) {
-                       // Typical action to be performed when the document is ready:
-                       dataTest = JSON.parse(xhttp.responseText);
-                       console.log("pulled data");
-                       console.log(dataTest);
-                    }
-                };
-                xhttp.send(params);
-            };
-            
-            requestData(params);
-            
-        </script>
-        
+    <body>
         <%@include file="Bovenbalk.jsp" %>
-        
-        <section id="pagename">
-            <h2> OverzichtStudiegebieden </h2>
-        </section>
+        <form method="post" action="StudiegebiedenServlet?keuze=reset" >
+            <section id="pagename">
+                <h2> OverzichtStudiegebieden </h2>
+            </section>
+            <hr>
 
-        <section>
-            <form action="StudiegebiedenServlet">
-                <div id="menu">
-                    <div role="menu-header">
-                        <select name="studiegebieden">
-                            <option value="0">Kies Uw StudieGebied</option>
-                            <option value="gebied1">Gebied1</option>
-                            <option value="gebied2">Gebied2</option>
-                        </select>
-                    </div>
-                    <div role="menu-content"></div>          
-                </div>
-            </form>
-        </section>
-        
+            <tr>
+                <td width="70px"></td>
+
+
+
+                <td width="10px"></td>
+
+                <td>
+                    <select name="studiegebied" id="studiegebied"  onchange="laadOpleidingen()"  style="max-width:170px;">
+                        <option selected disabled> Studiegebied... </option>
+                        <c:forEach items="${studiegebieden}" var="studiegebied">                  
+                            <option> ${studiegebied.naam} </option>                     
+                        </c:forEach>
+                        <option> Voeg studiegebied toe... </option>
+
+                    </select> 
+                </td>
+
+
+                <td width="10px"></td>
+
+                <td><select id="opleidingen" onchange="laadModules()"  hidden style="max-width:170px;">
+
+                    </select></td>
+
+                <td width="10px"></td>
+
+                <td>  <select id="modules"  onchange="laadDoelstellingen()" hidden style="max-width:170px;">
+
+                    </select> </td>
+
+                <td width="10px"></td>
+                 <td>  <select id="doelstellingen"  onchange="laadTaken()" hidden style="max-width:170px;">
+
+                    </select> </td>
+
+                <td width="10px"></td>  
+
+
+                <td width="20px"></td>
+
+                <td>  <label id="studiegebied"  hidden  style="max-width:120px;">
+                    </label> </td>
+        </form>
     </body>
 </html>

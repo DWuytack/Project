@@ -12,8 +12,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Doelstelling;
+import model.DoelstellingDAO;
+import model.Module;
+import model.ModuleDAO;
+import model.Opleiding;
+import model.OpleidingDAO;
 import model.Studiegebied;
 import model.StudiegebiedDAO;
+import model.Taak;
+import model.TaakDAO;
 
 
 /**
@@ -33,21 +41,70 @@ public class StudiegebiedenServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+         String keuze = request.getParameter("reset");
+        
+        if (keuze != null) {response.sendRedirect("OverzichtStudiegebieden.jsp");}
+
+        Gson gson = new Gson();
         String studiegebied = request.getParameter("studiegebied");
 
         if (studiegebied != null) {
-            StudiegebiedDAO studiegebiedDAO = new StudiegebiedDAO();
-            ArrayList<Studiegebied> studiegebieden = studiegebiedDAO.studiegebiedenLaden();
-            
-            //omzetten naar json
-            String json = new Gson().toJson(studiegebieden);
-            
-            //session.setAttribute("json",  json);
-            
+
+            //laad opleidingen per studiegebied
+            OpleidingDAO opleidingDAO = new OpleidingDAO();
+            StudiegebiedDAO studieGebiedDAO = new StudiegebiedDAO();
+            ArrayList<Opleiding> opleidingen = opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudiegebiedID(studiegebied));
+
+            String json = gson.toJson(opleidingen);
+
             response.setContentType("application/json");
-            //response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);
         }
+
+        String opleiding = request.getParameter("opleiding");
+
+        if (opleiding != null) {
+
+            //laad modules per opleiding
+            ModuleDAO moduleDAO = new ModuleDAO();
+            OpleidingDAO opleidingDAO = new OpleidingDAO();
+            ArrayList<Module> modules = moduleDAO.modulesLaden(opleidingDAO.geefOpleidingID(opleiding));
+
+            String json = gson.toJson(modules);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
+
+        String module = request.getParameter("module");
+
+        if (module != null) {
+
+            //laad doelstellingen voor module
+            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
+            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(moduleDAO.geefModuleID(module));
+            String json = gson.toJson(doelstellingen);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
+
+
+         String doelstelling = request.getParameter("doelstelling");
+
+        if (doelstelling != null) {
+
+            //laad taken per doelstelling
+            TaakDAO taakDAO = new TaakDAO();
+            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+            ArrayList<Taak> taken = taakDAO.takenLaden(doelstellingDAO.geefDoelstellingID(doelstelling));
+            String json = gson.toJson(taken);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
