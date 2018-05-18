@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="css/menu.css">
         <title>Startmenu</title>
     </head>
-    
+
     <body>
         <%@include file="Bovenbalk.jsp" %>
         <section id="welkom">
@@ -28,7 +28,8 @@
                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                         <input type="submit" value="Overzicht gebruikers" name="actie"><br>
                         <input type="submit" value="Overzicht studiegebieden" name="actie"><br>
-                        <input type="submit" value="Overzicht scores" name="actie"><br>
+                        <input type="submit" value="Overzicht scores klas" name="actie"><br>
+                        <input type="submit" value="Overzicht scores cursist" name="actie"><br>
                         <input type="submit" value="Type score aanpassen" name="actie"><br>
                     </c:if>
 
@@ -36,16 +37,22 @@
                         <input type="submit" value="Evaluatieformulieren" name="actie"><br> 
                         <input type="submit" value="Cursisten inschrijven" name="actie"><br>
                         <input type="submit" value="Overzicht studiegebieden" name="actie"><br>
+                        <input type="submit" value="Overzicht scores klas" name="actie"><br>
+                        <input type="submit" value="Overzicht scores cursist" name="actie"><br>
                     </c:if>
 
                     <c:if test="${sessionScope.currentSessionUser.rol == 'cursist'}" >
                         <input type="submit" value="Rapport" name="actie"><br>
+                        <input type="submit" value="Overzicht scores klas" name="actie"><br>
+                        <input type="submit" value="Overzicht scores cursist" name="actie"><br>
                     </c:if>
 
                     <c:if test="${sessionScope.currentSessionUser.rol == 'secretariaat'}" >
                         <input type="submit" value="Overzicht scores" name="actie"><br>
                         <input type="submit" value="Overzicht gebruikers" name="actie"><br>
                         <input type="submit" value="Overzicht studiegebieden" name="actie"><br>
+                        <input type="submit" value="Overzicht scores klas" name="actie"><br>
+                        <input type="submit" value="Overzicht scores cursist" name="actie"><br>
                     </c:if>
 
                 </div>
