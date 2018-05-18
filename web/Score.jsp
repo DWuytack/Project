@@ -49,54 +49,37 @@
                         </div>
                     </div>
                     <br><br>
-                    <table>
+<table>
                         <tr>
                             <td>
                                 <select name="Schooljaar">
                                     <option  selected disabled> Kies schooljaar.. </option>
                                     <c:forEach items="${schooljaren}" var="schooljaar">
-                                        <option value="schooljaar"> ${schooljaar.schooljaar} </option>   
-                                    </c:forEach>                                 
+                                        <option value="schooljaar"> ${schooljaar.schooljaar} </option>
+                                    </c:forEach>
                                 </select>
                             </td>
                             <td width="10px"></td>
                             <td>
-                                <select name="Semester" id ="Semester" onchange="laadStudiegebied()" style="max-width:150px;" >
+                                <select name="Semester" id ="Semester" hidden onchange="laadStudiegebied()" style="max-width:150px;" >
                                     <option  selected disabled> Kies semester.. </option>
                                     <c:forEach items="${semesters}" var="semester">
                                         <option value="semester"> ${semester.semester} </option> 
                                     </c:forEach> 
                                 </select>
-                            </td>                           
-                            <td width="10px"></td>
-                            <td>
-                                <select name="Studiegebied" id ="studiegebied"  onchange="laadOpleidingen()" style="max-width:150px;">
-                                    <option  selected disabled> Kies studiegebied.. </option>
-                                    <c:forEach items="${studiegebieden}" var="studiegebied">                  
-                                        <option> ${studiegebied.naam} </option>                     
-                                    </c:forEach>
-                                    <option> Voeg studiegebied toe... </option>
-                                </select> 
                             </td>
                             <td width="10px"></td>
-                            <td>
-                                <select name="Opleiding" id ="Opleiding"  onchange="laadModule()" style="max-width:150px;" style="max-width:112px;">
-                                    <option  selected disabled> Kies opleiding.. </option>
-                                    <c:forEach items="${opleidingen}" var="opleiding">
-                                        <option value="opleiding"> ${opleiding.naam} </option> 
-                                    </c:forEach> 
-                                </select>
-                            </td>
-                            <td width="10px"></td>
-                            <td>
-                                <select name="Module" style="max-width:112px;">
-                                    <option  selected disabled> Kies module.. </option>
-                                    <c:forEach items="${modules}" var="module">
-                                        <option value="module"> ${module.naam} </option> 
-                                    </c:forEach> 
-                                </select>
-                            </td>                            
-                        </tr>
+
+                        <td>
+                        <select id="studiegebied" hidden onchange="laadOpleidingen()"  style="max-width:170px;">
+
+                        </select></td>
+
+                        <td width="10px"></td>
+
+                        <td><select id="opleidingen" onchange="laadModules()" hidden  style="max-width:170px;">
+
+                        </select></td>
                     </table>
                     <br> <br>
                     <table class="datatable">
