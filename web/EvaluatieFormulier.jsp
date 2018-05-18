@@ -165,7 +165,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore2" hidden><td><br/></tr>
                 <tr class="taakScore2" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr class="taakScore2" hidden><td><br/></td><td><br/></td></tr>
@@ -189,7 +189,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore3" hidden><td><br/></tr>
                 <tr class="taakScore3" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  class="taakScore3" hidden><td><br/></td><td><br/></td></tr>
@@ -214,7 +214,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore4" hidden><td><br/></tr>
                 <tr class="taakScore4" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  class="taakScore4" hidden><td><br/></td><td><br/></td></tr>
@@ -239,7 +239,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore5" hidden><td><br/></tr>
                 <tr class="taakScore5" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  class="taakScore5" hidden><td><br/></td><td><br/></td></tr>
@@ -264,7 +264,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore6" hidden><td><br/></tr>
                 
                 <tr class="taakScore6" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
@@ -290,7 +290,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore7" hidden><td><br/></tr>
                 <tr class="taakScore7" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
 
@@ -316,7 +316,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore8" hidden><td><br/></tr>
                 <tr class="taakScore8" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  class="taakScore8" hidden><td><br/></td><td><br/></td></tr>
@@ -341,7 +341,7 @@
                     <td />
 
                 </tr>
-                 <tr><td><br/></tr>
+                 <tr class="taakScore9" hidden><td><br/></tr>
                 <tr class="taakScore9" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
                 <tr  class="taakScore9" hidden><td><br/></td><td><br/></td></tr>
 
@@ -365,7 +365,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore10" hidden><td><br/></tr>
                 <tr class="taakScore10" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  class="taakScore10" hidden><td><br/></td><td><br/></td></tr>
@@ -390,7 +390,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore11" hidden><td><br/></tr>
                 <tr class="taakScore11" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  class="taakScore11" hidden><td><br/></td><td><br/></td></tr>
@@ -415,7 +415,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore12" hidden><td><br/></tr>
                 <tr class="taakScore12" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  class="taakScore12" hidden><td><br/></td><td><br/></td></tr>
@@ -441,7 +441,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore13" hidden><td><br/></tr>
                 <tr class="taakScore13" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr class="taakScore13" hidden><td><br/></td><td><br/></td></tr>
@@ -467,7 +467,7 @@
                     <td />
 
                 </tr>
-                <tr><td><br/></tr>
+                <tr class="taakScore14" hidden><td><br/></tr>
                 <tr class="taakScore14" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  class="taakScore14" hidden><td><br/></td><td><br/></td></tr>
@@ -494,7 +494,7 @@
 
                 </tr>
 
-                <tr><td><br/></tr>
+                <tr class="taakScore15" hidden><td><br/></tr>
                 <tr class="taakScore15" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
                 <tr  class="taakScore15" hidden><td><br/></td><td><br/></td></tr>
