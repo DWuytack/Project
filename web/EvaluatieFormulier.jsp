@@ -30,12 +30,12 @@
             <table>
 
                 <tr>
-                    <td width="70px"></td>
+                    <td width="20px"></td>
 
                     <td> <input type="date" id="datum" 
                                 required style="font-size: 0.9rem"  > </td>
 
-                    <td> <select name="Semester" id="Semester" onchange="checkDate()" style="max-width:140px;" >
+                    <td> <select name="Semester" id="Semester" onchange="checkDate()" style="max-width:175px;" >
                             <option selected > Semester... </option>
                             <c:forEach items="${semesters}" var="semester">                  
                                 <option> ${semester.semester} </option>                     
@@ -78,7 +78,8 @@
 
                     <td width="10px"></td>  
 
-                    <td>  <select id="lesnr" onchange="genereerFormuliernaam()" hidden  style="max-width:170px;">
+                    <td width="75px">  
+                        <select id="lesnr" onchange="genereerFormuliernaam()" hidden  style="max-width:75px;">
 
                             <option selected disabled> Lesnr... </option>
                             <c:forEach items="${lesnrs}" var="lesnr">                  
@@ -87,9 +88,7 @@
                             <option> Voeg lesnr toe... </option>
 
                         </select> </td> 
-
-
-
+                        
                     <td width="20px"></td>
 
                     <td>  <label id="formulierNaam"  hidden  style="max-width:120px;">
@@ -118,26 +117,59 @@
                 <br/>
                 <%--lijn met invoer --%>
 
-                <tr height="20px" />
+                <tr height="10px" />
 
                 <tr>
                     <td />
                     <td><select name="taak" id="formTaken1" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
 
-                    <td><label name="doelstelling"  id="formDoelstellingen1" hidden disabled >
-                        </label></td>
+                    <td nowrap>
+                        <label  id="formDoelstellingen1_1"  class="formDoelstellingen1" hidden disabled ><font size="6"></font></label>
+                        <label id="formDoelstellingen1_2"  class="formDoelstellingen1" hidden disabled ></label>
+                        <label id="formDoelstellingen1_3"  class="formDoelstellingen1" hidden disabled ></label>
+                        <label  id="formDoelstellingen1_4"  class="formDoelstellingen1" hidden disabled ></label>
+                        <label  id="formDoelstellingen1_5"  class="formDoelstellingen1" hidden disabled ></label>
+                        <label  id="formDoelstellingen1_6"  class="formDoelstellingen1" hidden disabled ></label>
+                        <label id="formDoelstellingen1_7"  class="formDoelstellingen1" hidden disabled ></label>
+                        <label  id="formDoelstellingen1_8"  class="formDoelstellingen1" hidden disabled ></label>
+                        <label id="formDoelstellingen1_9"  class="formDoelstellingen1" hidden disabled ></label>
+                        <label  id="formDoelstellingen1_10"  class="formDoelstellingen1" hidden disabled ></label>
+                    </td>
                     <td />
 
-                    <td style="text-align: center"><label name="kern" id="formKern1" hidden disabled ></label> </td>
+                    <td style="text-align: center">
+                        <label  id="formkern1_1"  class="formkern1" hidden disabled ></label>
+                        <label  id="formkern1_2"  class="formkern1" hidden disabled ></label>
+                        <label  id="formkern1_3"  class="formkern1" hidden disabled ></label>
+                        <label  id="formkern1_4"  class="formkern1" hidden disabled ></label>
+                        <label  id="formkern1_5"  class="formkern1" hidden disabled ></label>
+                        <label  id="formkern1_6"  class="formkern1" hidden disabled ></label>
+                        <label  id="formkern1_7"  class="formkern1" hidden disabled ></label>
+                        <label  id="formkern1_8"  class="formkern1" hidden disabled ></label>
+                        <label  id="formkern1_9"  class="formkern1" hidden disabled ></label>
+                        <label  id="formkern1_10"  class="formkern1" hidden disabled ></label>
                     <td />
 
-                    <td><select name="score" id="formScore1" hidden ></select></td>
+                    
+                    
+                    <td>
+                        <select style="font-size: 10pt" style="height: 1.1em;"  id="formScore1_1" class="formScore1" hidden ></select>
+                        <select style="font-size: 10pt" style="height: 1.1em;"  id="formScore1_2" class="formScore1" hidden ></select>
+                        <select style="font-size: 10pt" style="height: 1.1em;" id="formScore1_3" class="formScore1" hidden ></select>
+                        <select style="font-size: 10pt" style="height: 1.1em;" id="formScore1_4" class="formScore1" hidden ></select>
+                        <select style="font-size: 10pt" style="height: 1.1em;" id="formScore1_5" class="formScore1" hidden ></select>
+                        <select style="font-size: 10pt" style="height: 1.1em;" id="formScore1_6" class="formScore1" hidden ></select>
+                        <select style="font-size: 10pt" style="height: 1.1em;" id="formScore1_7" class="formScore1" hidden ></select>
+                        <select style="font-size: 10pt" style="height: 1.1em;" id="formScore1_8" class="formScore1" hidden ></select>
+                        <select style="font-size: 10pt" style="height: 1.1em;"  id="formScore1_9" class="formScore1" hidden ></select>
+                        <select style="font-size: 10pt" style="height: 1.1em;"  id="formScore1_10" class="formScore1"hidden ></select>
+                    </td>
+                    <td/>
+
+                    <td><textarea id="formCommentaar1" cols="45" rows="5" hidden >Commentaar...</textarea></td>
                     <td />
 
-                    <td><textarea name="textarea" hidden id="formCommentaar1"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
-                    <td />
 
                 </tr>
 
@@ -161,7 +193,7 @@
                     <td />
 
                     <td><textarea name="textarea2" hidden id="formCommentaar2"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
@@ -184,7 +216,7 @@
                     <td />
 
                     <td><textarea name="textarea3" hidden id="formCommentaar3"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
@@ -208,7 +240,7 @@
                     <td />
 
                     <td><textarea name="textarea4" hidden id="formCommentaar4"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
@@ -232,7 +264,7 @@
                     <td />
 
                     <td><textarea name="textarea5" hidden id="formCommentaar5"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
@@ -257,7 +289,7 @@
                     <td><select name="score6" id="formScore6" hidden ></select></td>
                     <td />
 
-                    <td><textarea name="textarea6" hidden id="formCommentaar6">Vul hier je commentaar in...</textarea></td>
+                    <td><textarea name="textarea6" hidden id="formCommentaar6" cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
@@ -283,7 +315,7 @@
                     <td />
 
                     <td><textarea name="textarea7" hidden id="formCommentaar7"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
@@ -307,7 +339,7 @@
                     <td />
 
                     <td><textarea name="textarea8" hidden id="formCommentaar8"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
@@ -330,13 +362,13 @@
                     <td />
 
                     <td><textarea name="textarea9" hidden id="formCommentaar9"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
-                 <tr class="taakScore9" hidden height="20px" />
+                <tr class="taakScore9" hidden height="20px" />
                 <tr class="taakScore9" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-                 <tr class="taakScore9" hidden height="20px" />
+                <tr class="taakScore9" hidden height="20px" />
 
                 <tr>
                     <td />
@@ -354,11 +386,11 @@
                     <td />
 
                     <td><textarea name="textarea10" hidden id="formCommentaar10"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
-                 <tr class="taakScore10" hidden height="20px" />
+                <tr class="taakScore10" hidden height="20px" />
                 <tr class="taakScore10" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
                 <tr class="taakScore10" hidden height="20px" />
 
@@ -378,7 +410,7 @@
                     <td />
 
                     <td><textarea name="textarea11" hidden id="formCommentaar11"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
@@ -401,13 +433,13 @@
                     <td />
 
                     <td><textarea name="textarea12" hidden id="formCommentaar12"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
-                 <tr class="taakScore12" hidden height="20px" />
+                <tr class="taakScore12" hidden height="20px" />
                 <tr class="taakScore12" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-                 <tr class="taakScore12" hidden height="20px" />
+                <tr class="taakScore12" hidden height="20px" />
 
 
                 <tr>
@@ -426,11 +458,11 @@
                     <td />
 
                     <td><textarea name="textarea13" hidden id="formCommentaar13"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
-               <tr class="taakScore13" hidden height="20px" />
+                <tr class="taakScore13" hidden height="20px" />
                 <tr class="taakScore13" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
                 <tr class="taakScore13" hidden height="20px" />
 
@@ -450,13 +482,13 @@
                     <td />
 
                     <td><textarea name="textarea14" hidden id="formCommentaar14"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
-                 <tr class="taakScore14" hidden height="20px" />
+                <tr class="taakScore14" hidden height="20px" />
                 <tr class="taakScore14" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-                 <tr class="taakScore14" hidden height="20px" />
+                <tr class="taakScore14" hidden height="20px" />
 
 
                 <tr>
@@ -475,12 +507,12 @@
                     <td />
 
                     <td><textarea name="textarea15" hidden id="formCommentaar15"
-                                  rows="3" cols="35">Vul hier je commentaar in...</textarea></td>
+                                  cols="45" rows="5">Commentaar...</textarea></td>
                     <td />
 
                 </tr>
 
-                 <tr class="taakScore15" hidden height="20px" />
+                <tr class="taakScore15" hidden height="20px" />
                 <tr class="taakScore15" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
                 <tr class="taakScore15" hidden height="20px" />
 

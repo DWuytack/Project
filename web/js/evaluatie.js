@@ -7,6 +7,7 @@
 var formulierNaam;
 var aantalLijnen = 0;
 var taken = "";
+var aantalDoelstellingen = 1;
 
 
 function laadLijn() {
@@ -142,28 +143,26 @@ function laadFormDoelstellingen() {
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
 
-            let label = document.getElementById('formDoelstellingen' + aantalLijnen);
-            let label2 = document.getElementById('formKern' + aantalLijnen);
-            label.hidden = false;
-            label2.hidden = false;
-
             const data = JSON.parse(xhttp.responseText);
-            var doelstellingen = "";
-            for (let i = 0; i < data.length; i++) {
-                doelstellingen = doelstellingen + data[i].naam + "<br>";
+            var doelstellingen = document.getElementsByClassName('formDoelstellingen' + aantalLijnen);
 
+            aantalDoelstellingen = data.length;
+
+            for (let i = 0; i < data.length; i++) {
+                doelstellingen[i].hidden = false;
+                doelstellingen[i].innerHTML = data[i].naam + "<br>";
             }
-            label.innerHTML = doelstellingen;
 
-            var kern = "";
+            var kernen = document.getElementsByClassName('formkern' + aantalLijnen);
             for (let i = 0; i < data.length; i++) {
+                kernen[i].hidden = false;
                 if (data[i].kerndoelstelling) {
-                    kern = kern + '\u2611' + "<br>";
+                    kernen[i].innerHTML = '\u2611' + "<br>";
                 } else {
-                    kern = kern + '\u2610' + "<br>";
+                    kernen[i].innerHTML = '\u2610' + "<br>";
                 }
             }
-            label2.innerHTML = kern;
+
             laadScores();
         }
     }
@@ -179,14 +178,11 @@ function laadFormDoelstellingen() {
 
 function laadScores() {
 
-    var score = document.getElementById('formCommentaar' + aantalLijnen);
-    score.hidden = false;
-    
-    let verborgen = document.getElementsByClassName('addLine');
-    var i;
-    for (i = 0; i < verborgen.length; i++) {
-        verborgen[i].hidden = false;
-    }
+    var comment = document.getElementById('formCommentaar' + aantalLijnen);
+    comment.hidden = false;
+    comment.rows = aantalDoelstellingen + 1;
+
+
 
     var xhttp = new XMLHttpRequest();
 
@@ -215,25 +211,32 @@ function laadScores() {
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
 
-            let dropdown = document.getElementById('formScore' + aantalLijnen);
-            dropdown.hidden = false;
-            dropdown.length = 0;
-
-            let defaultOption = document.createElement('option');
-            defaultOption.text = 'Score...';
-            defaultOption.disabled = true;
-            dropdown.add(defaultOption);
-            dropdown.selectedIndex = 0;
-
             const data = JSON.parse(xhttp.responseText);
-            let option;
-            for (let i = 0; i < data.length; i++) {
-                option = document.createElement('option');
-                option.text = data[i].naam;
-                dropdown.add(option);
+            let scores = document.getElementsByClassName('formScore' + aantalLijnen);
+            var i;
+            for (i = 0; i < aantalDoelstellingen; i++) {
+                scores[i].hidden = false;
+                scores[i].length = 0;
+                let defaultOption = document.createElement('option');
+                defaultOption.text = 'Score...';
+                defaultOption.disabled = true;
+                scores[i].add(defaultOption);
+                scores[i].selectedIndex = 0;
+                let option;
+                for (let x = 0; x < data.length; x++) {
+                    option = document.createElement('option');
+                    option.text = data[x].naam;
+                    scores[i].add(option);
+                }
             }
         }
     };
+
+    let verborgen = document.getElementsByClassName('addLine');
+    var i;
+    for (i = 0; i < verborgen.length; i++) {
+        verborgen[i].hidden = false;
+    }
 
 }
 
@@ -248,7 +251,6 @@ function genereerFormuliernaam() {
     formulierNaam = lescursist + "_" + leskeuze + "_" + lesdatum + "_" + lesnummer;
     label.innerHTML = "formulierNaam: " + formulierNaam;
     laadLijn();
-
 
 }
 
