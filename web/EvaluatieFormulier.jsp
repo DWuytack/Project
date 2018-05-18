@@ -484,8 +484,6 @@
                 <tr class="taakScore15" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
                 <tr class="taakScore15" hidden height="20px" />
 
-
-
                 <tr class="addLine" hidden  height="20px"></tr>
                 <td></td>
                 <td class="addLine" hidden><input type="button" width="25" value="+" id="addLine" onclick="laadLijn();" height="25" class="lijnButton" /></td>
