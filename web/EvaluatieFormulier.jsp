@@ -140,11 +140,11 @@
                     <td />
 
                 </tr>
-          
-                    <tr class="taakScore1" hidden><td><br/></tr>
-                    <tr class="taakScore1" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-                
-                <tr  id="lijn1" hidden><td><br/></td><td><br/></td></tr>
+
+
+                <tr class="taakScore1" hidden height="20px" />
+                <tr class="taakScore1" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
+                <tr class="taakScore1" hidden height="20px" />
                 <tr>
                     <td />
                     <td><select name="taak2" id="formTaken2" hidden  onchange="laadFormDoelstellingen()" ></select></td>
@@ -165,10 +165,9 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore2" hidden><td><br/></tr>
+                <tr class="taakScore2" hidden height="20px" />
                 <tr class="taakScore2" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-
-                <tr class="taakScore2" hidden><td><br/></td><td><br/></td></tr>
+                <tr class="taakScore2" hidden height="20px" />
                 <tr>
                     <td />
                     <td><select name="taak3" id="formTaken3" hidden  onchange="laadFormDoelstellingen()" ></select></td>
@@ -189,10 +188,9 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore3" hidden><td><br/></tr>
+                <tr class="taakScore3" hidden height="20px" />
                 <tr class="taakScore3" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-
-                <tr  class="taakScore3" hidden><td><br/></td><td><br/></td></tr>
+                <tr class="taakScore3" hidden height="20px" />
 
                 <tr>
                     <td />
@@ -214,10 +212,9 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore4" hidden><td><br/></tr>
+                <tr class="taakScore4" hidden height="20px" />
                 <tr class="taakScore4" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-
-                <tr  class="taakScore4" hidden><td><br/></td><td><br/></td></tr>
+                <tr class="taakScore4" hidden height="20px" />
 
                 <tr>
                     <td />
@@ -239,10 +236,10 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore5" hidden><td><br/></tr>
+                <tr class="taakScore5" hidden height="20px" />
                 <tr class="taakScore5" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
-                <tr  class="taakScore5" hidden><td><br/></td><td><br/></td></tr>
+                <tr class="taakScore5" hidden height="20px" />
 
 
                 <tr>
@@ -264,11 +261,11 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore6" hidden><td><br/></tr>
-                
+                <tr class="taakScore6" hidden height="20px" />
+
                 <tr class="taakScore6" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
 
-                <tr  class="taakScore6" hidden><td><br/></td><td><br/></td></tr>
+                <tr class="taakScore6" hidden height="20px" />
 
                 <tr>
                     <td />
@@ -290,11 +287,9 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore7" hidden><td><br/></tr>
+                <tr class="taakScore7" hidden height="20px" />
                 <tr class="taakScore7" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-
-
-                <tr  class="taakScore7" hidden><td><br/></td><td><br/></td></tr>
+                <tr class="taakScore7" hidden height="20px" />
 
                 <tr>
                     <td />
@@ -316,11 +311,9 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore8" hidden><td><br/></tr>
+                <tr class="taakScore8" hidden height="20px" />
                 <tr class="taakScore8" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-
-                <tr  class="taakScore8" hidden><td><br/></td><td><br/></td></tr>
-
+                <tr class="taakScore8" hidden height="20px" />
                 <tr>
                     <td />
                     <td><select name="taak9" id="formTaken9" hidden  onchange="laadFormDoelstellingen()" ></select></td>
@@ -341,9 +334,9 @@
                     <td />
 
                 </tr>
-                 <tr class="taakScore9" hidden><td><br/></tr>
+                 <tr class="taakScore9" hidden height="20px" />
                 <tr class="taakScore9" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-                <tr  class="taakScore9" hidden><td><br/></td><td><br/></td></tr>
+                 <tr class="taakScore9" hidden height="20px" />
 
                 <tr>
                     <td />
@@ -365,10 +358,9 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore10" hidden><td><br/></tr>
+                 <tr class="taakScore10" hidden height="20px" />
                 <tr class="taakScore10" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-
-                <tr  class="taakScore10" hidden><td><br/></td><td><br/></td></tr>
+                <tr class="taakScore10" hidden height="20px" />
 
                 <tr>
                     <td />
@@ -390,11 +382,9 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore11" hidden><td><br/></tr>
+                <tr class="taakScore11" hidden height="20px" />
                 <tr class="taakScore11" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-
-                <tr  class="taakScore11" hidden><td><br/></td><td><br/></td></tr>
-
+                <tr class="taakScore11" hidden height="20px" />
                 <tr>
                     <td />
                     <td><select name="taak12" id="formTaken12" hidden  onchange="laadFormDoelstellingen()" ></select></td>
@@ -415,10 +405,9 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore12" hidden><td><br/></tr>
+                 <tr class="taakScore12" hidden height="20px" />
                 <tr class="taakScore12" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-
-                <tr  class="taakScore12" hidden><td><br/></td><td><br/></td></tr>
+                 <tr class="taakScore12" hidden height="20px" />
 
 
                 <tr>
@@ -441,11 +430,9 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore13" hidden><td><br/></tr>
+               <tr class="taakScore13" hidden height="20px" />
                 <tr class="taakScore13" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-
-                <tr class="taakScore13" hidden><td><br/></td><td><br/></td></tr>
-
+                <tr class="taakScore13" hidden height="20px" />
 
                 <tr>
                     <td />
@@ -467,10 +454,9 @@
                     <td />
 
                 </tr>
-                <tr class="taakScore14" hidden><td><br/></tr>
+                 <tr class="taakScore14" hidden height="20px" />
                 <tr class="taakScore14" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-
-                <tr  class="taakScore14" hidden><td><br/></td><td><br/></td></tr>
+                 <tr class="taakScore14" hidden height="20px" />
 
 
                 <tr>
@@ -494,16 +480,15 @@
 
                 </tr>
 
-                <tr class="taakScore15" hidden><td><br/></tr>
+                 <tr class="taakScore15" hidden height="20px" />
                 <tr class="taakScore15" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
-
-                <tr  class="taakScore15" hidden><td><br/></td><td><br/></td></tr>
-
+                <tr class="taakScore15" hidden height="20px" />
 
 
-                <tr>
-                    <td></td>
-                    <td><input type="button" width="25" value="+" id="addLine" hidden  onclick="laadLijn();" height="25" class="lijnButton" /></td>
+
+                <tr class="addLine" hidden  height="20px"></tr>
+                <td></td>
+                <td class="addLine" hidden><input type="button" width="25" value="+" id="addLine" onclick="laadLijn();" height="25" class="lijnButton" /></td>
                 </tr>
 
 

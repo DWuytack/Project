@@ -180,9 +180,13 @@ function laadFormDoelstellingen() {
 function laadScores() {
 
     var score = document.getElementById('formCommentaar' + aantalLijnen);
-    var plus = document.getElementById('addLine');
-    plus.hidden = false;
     score.hidden = false;
+    
+    let verborgen = document.getElementsByClassName('addLine');
+    var i;
+    for (i = 0; i < verborgen.length; i++) {
+        verborgen[i].hidden = false;
+    }
 
     var xhttp = new XMLHttpRequest();
 
