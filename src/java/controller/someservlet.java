@@ -48,10 +48,14 @@ public class someservlet extends HttpServlet {
             actie = "Vraag pagina aan";
             int p = Integer.parseInt(page);
             GebruikerDAO gebruikerDAO = new GebruikerDAO();
-            ArrayList<Gebruiker> cursisten = gebruikerDAO.gebruikersLaden(p);
+            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(p);
+            session.removeAttribute("lijstGebruikers");
+            session.setAttribute("lijstGebruikers", gebruikers);
             
             //omzetten naar json
-            String json = new Gson().toJson(cursisten);
+            String json = new Gson().toJson(gebruikers);
+            session.removeAttribute("json");
+            session.setAttribute("json", json);
             
             //session.setAttribute("json",  json);
             
@@ -64,8 +68,25 @@ public class someservlet extends HttpServlet {
         
         if (editID != null) {
             actie = "Edit gebruiker";
-            session.setAttribute("editID", editID);
-            String json = new Gson().toJson(session.getAttribute("editID"));
+            
+            ArrayList<Gebruiker> gebruikers = (ArrayList<Gebruiker>) session.getAttribute("lijstGebruikers");
+            ArrayList<Gebruiker> gebruikersJson = (ArrayList<Gebruiker>) session.getAttribute("json");
+            
+            ArrayList<Gebruiker> result = gson.fromJson(session.getAttribute("json"), ArrayList<Gebruiker>.class);
+            
+            for(Gebruiker user : lijst) {
+                for(Gebruiker user2 : gebruikers) {
+                    if(user.voorNaam.equals(""))
+                           
+                }
+                if(user.voorNaam.equals(""))
+                           
+            }
+            //int id = cursisten.get(0).getGebruikerID();
+            //session.setAttribute("editID", id);
+            
+            //String json = new Gson().toJson(session.getAttribute("editID"));
+            String json = new Gson().toJson(lijst);
 
             response.setContentType("application/json");
             //response.setCharacterEncoding("UTF-8");

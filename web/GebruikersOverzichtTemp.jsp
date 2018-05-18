@@ -29,6 +29,12 @@
             <h2> GebruikersOverzicht </h2>        
         </section>
         
+        <script>
+            console.log("data");
+            console.log('${sessionScope.lijstGebruikers[0].voorNaam}');
+            console.log('${sessionScope.lijstGebruikers[0].gebruikerID}');  
+        </script>
+        
         <section>
             <div class="table-container">   
                 <div class="table-nav-header">
