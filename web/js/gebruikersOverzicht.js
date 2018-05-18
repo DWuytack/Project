@@ -5,7 +5,7 @@ let meta;
 let backup = [];
 let rij = '';
 
-let requestData = function(params) {
+const requestData = function(type, params) {
     let xhttp = new XMLHttpRequest();
     let data = "";
     //params = 'page=1';
@@ -14,36 +14,46 @@ let requestData = function(params) {
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-           // Typical action to be performed when the document is ready:
-           data = JSON.parse(xhttp.responseText);
-           console.log(data);
-           renderHTML(data);
+            // Typical action to be performed when the document is ready:
+            data = JSON.parse(xhttp.responseText);
+            console.log(data);
+            renderHTML(type, data);
         }
     };
     xhttp.send(params);
 };
 
-var renderHTML = function(data) {
-    titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email", "Acties"];
-    //titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email"];
-    meta = {
-        rol : ["admin", "leerkracht", "cursist", "secretariaat"]
-    };
-    parameters = ["achternaam", "voorNaam", "login", "rol", "geboorteDatumValue", "email"];
-    let tabel = utilities.tabelAanmaken(data, parameters, titels);
-    let inhoud = document.getElementById("gebruikersOverzicht");
-    console.log(inhoud);
-    if(!inhoud.contains(tabel)) {
-    while(inhoud.firstChild)
-        inhoud.removeChild(inhoud.firstChild);
-    inhoud.appendChild(tabel);
-    } else {
-        inhoud = document.querySelector("#gebruikersOverzicht tbody");
-        data.forEach(function(e){
-            let tr = utilities.rijAanmaken(e, parameters, titels, inhoud);
-        });
+let renderHTML = function(type, data) {
+    if (type = "table") {
+        titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email", "Acties"];
+        //titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email"];
+        meta = {
+            rol : ["admin", "leerkracht", "cursist", "secretariaat"]
+        };
+        parameters = ["achternaam", "voorNaam", "login", "rol", "geboorteDatumValue", "email"];
+        let tabel = utilities.tabelAanmaken(data, parameters, titels);
+        let inhoud = document.getElementById("gebruikersOverzicht");
+        console.log(inhoud);
+        if(!inhoud.contains(tabel)) {
+        while(inhoud.firstChild)
+            inhoud.removeChild(inhoud.firstChild);
+        inhoud.appendChild(tabel);
+        } else {
+            inhoud = document.querySelector("#gebruikersOverzicht tbody");
+            data.forEach(function(e){
+                let tr = utilities.rijAanmaken(e, parameters, titels, inhoud);
+            });
+        }
     }
 };
+
+/*
+let renderCommand = function(data) {
+    
+};
+let id = "28";
+requestData("", 'idEdit=' + id);
+*/
 
 document.addEventListener("click", function(e){
     let target = e.target;
@@ -51,19 +61,19 @@ document.addEventListener("click", function(e){
     if( e.target.name === "Volgende") {
         pageCounter++;
         params = 'page=' + pageCounter;
-        requestData(params);
+        requestData("tabel", params);
     }
     
     if( e.target.name === "Vorige") {
         pageCounter--;
         params = 'page=' + pageCounter;
-        requestData(params);
+        requestData("tabel", params);
     }
     
     if( e.target.id === "somebutton" ) {
         pageCounter++;
         params = 'page=' + pageCounter;
-        requestData(params);
+        requestData("tabel", params);
     }
 
     if(target.hasAttribute("role")) {
@@ -119,5 +129,5 @@ document.addEventListener("click", function(e){
 });
 //Load
 (function() {
-    requestData(params);
+    requestData("tabel", params);
 })();

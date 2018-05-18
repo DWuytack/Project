@@ -46,7 +46,7 @@ let utilities = {
                 td.setAttribute("data-label", titel);
 
                 if(titel === "Acties") {
-                    let div = utilities.actieKnoppenAanmaken("tonen");
+                    let div = utilities.actieKnoppenAanmaken("tonen", e.gebruikerID);
                     td.appendChild(div);
                 } else {
                     let span = document.createElement("SPAN");
@@ -164,30 +164,30 @@ let utilities = {
         while(row.tagName !== "TR") row = row.parentElement;
         return row;
     },
-    actieKnoppenAanmaken : function(status) {
+    actieKnoppenAanmaken : function(status, id) {
         let div = document.createElement("DIV");
         let span = "";
         div.classList.add("actie-images");
         if(status === "aanpassen") {
-            span = utilities.actieKnop("idOpslaan", "images/green.png", "opslaan");
+            span = utilities.actieKnop("idOpslaan", "images/green.png", "opslaan", 0);
             div.appendChild(span);
-            span = utilities.actieKnop("idAnnuleren", "images/cancel.png", "annuleren");
+            span = utilities.actieKnop("idAnnuleren", "images/cancel.png", "annuleren", 0);
             div.appendChild(span);
         } else {
-            span = utilities.actieKnop("idEdit", "images/pencil.png", "aanpassen");
+            span = utilities.actieKnop("idEdit", "images/pencil.png", "aanpassen", id);
             div.appendChild(span);
-            span = utilities.actieKnop("idDelete", "images/vuilbak.png", "verwijderen");
+            span = utilities.actieKnop("idDelete", "images/vuilbak.png", "verwijderen", id);
             div.appendChild(span);
         }
 
         return div;
     },
-    actieKnop : function(name, src, role) {
+    actieKnop : function(name, src, role, id) {
         let span = document.createElement("SPAN");
         let input = document.createElement("INPUT");
         input.type = "image";
         input.name = name;
-        input.value = "1000";
+        input.value = id;
         input.src = src;
         input.setAttribute("role", role);
         span.appendChild(input);

@@ -32,7 +32,9 @@
         <script>
             console.log("data");
             console.log('${sessionScope.lijstGebruikers[0].voorNaam}');
-            console.log('${sessionScope.lijstGebruikers[0].gebruikerID}');  
+            console.log('${sessionScope.lijstGebruikers[0].gebruikerID}');
+            console.log("json");
+            console.log('${sessionScope.json}');
         </script>
         
         <section>

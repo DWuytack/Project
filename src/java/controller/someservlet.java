@@ -39,6 +39,7 @@ public class someservlet extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         String actie = "";
+        String json = "";
         String page = request.getParameter("page");
         String editID = request.getParameter("idEdit");
         String saveID = request.getParameter("idSave");
@@ -53,7 +54,7 @@ public class someservlet extends HttpServlet {
             session.setAttribute("lijstGebruikers", gebruikers);
             
             //omzetten naar json
-            String json = new Gson().toJson(gebruikers);
+            json = new Gson().toJson(gebruikers);
             session.removeAttribute("json");
             session.setAttribute("json", json);
             
@@ -68,48 +69,49 @@ public class someservlet extends HttpServlet {
         
         if (editID != null) {
             actie = "Edit gebruiker";
+            session.removeAttribute("idEdit");
+            session.setAttribute("idEdit", editID);
             
-            ArrayList<Gebruiker> gebruikers = (ArrayList<Gebruiker>) session.getAttribute("lijstGebruikers");
-            ArrayList<Gebruiker> gebruikersJson = (ArrayList<Gebruiker>) session.getAttribute("json");
+            int callID = Integer.valueOf(editID) * 4;
             
-            ArrayList<Gebruiker> result = gson.fromJson(session.getAttribute("json"), ArrayList<Gebruiker>.class);
-            
-            for(Gebruiker user : lijst) {
-                for(Gebruiker user2 : gebruikers) {
-                    if(user.voorNaam.equals(""))
-                           
-                }
-                if(user.voorNaam.equals(""))
-                           
-            }
-            //int id = cursisten.get(0).getGebruikerID();
-            //session.setAttribute("editID", id);
-            
-            //String json = new Gson().toJson(session.getAttribute("editID"));
-            String json = new Gson().toJson(lijst);
+            json = new Gson().toJson(callID);
 
             response.setContentType("application/json");
             //response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);
         }
-        if (saveID != null) {
-            /* try {} catch (ClassCastException | NullPointerException e) {
+        
+        if (saveID != null) { //onclick attack protection
+            actie = "Gebruiker opslaan";
+            editID = session.getAttribute("idEdit").toString();
+            int requestID = Integer.valueOf(editID);
+            int callID = (int) (Integer.valueOf(saveID) * 0.25);
+            
+            
+            if( session.getAttribute("idEdit") != null && requestID == callID ) {
+                int id = Integer.valueOf(session.getAttribute("idEdit").toString());
                 
-            }*/
+                //session aanpassen
+                session.removeAttribute("idEdit");
+                session.removeAttribute("idSave");
+                session.setAttribute("idSave", saveID);
+                
+                //object vullen
+                gebruiker.setVoorNaam(request.getParameter("voornaam"));
+                gebruiker.setAchternaam(request.getParameter("achternaam"));
+                gebruiker.setRol(request.getParameter("rol"));
+                java.sql.Date datum = java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
+                gebruiker.setGeboorteDatum(datum);
+                gebruiker.setEmail(request.getParameter("email"));
+                gebruiker.setLogin(request.getParameter("login"));
+                //object doorsturen naar database
+                gebruikerDAO.gebruikerAanpassen(id, gebruiker);
+
+                json = new Gson().toJson(gebruiker);
+            } else {
+                json = new Gson().toJson("Error: idSave & idEdit komen niet overeen");
+            }
             
-            int id = Integer.valueOf(session.getAttribute("editID").toString());
-            
-            
-            gebruiker.setVoorNaam(request.getParameter("voornaam"));
-            gebruiker.setAchternaam(request.getParameter("achternaam"));
-            gebruiker.setRol(request.getParameter("rol"));
-            java.sql.Date datum = java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
-            gebruiker.setGeboorteDatum(datum);
-            gebruiker.setEmail(request.getParameter("email"));
-            gebruiker.setLogin(request.getParameter("login"));
-            gebruikerDAO.gebruikerAanpassen(id, gebruiker);
-            
-            String json = new Gson().toJson(gebruiker);
             response.setContentType("application/json");
             //response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);
