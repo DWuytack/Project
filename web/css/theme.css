@@ -775,17 +775,7 @@ input[type="submit"] {
     
     text-align: center;
 }
-.lijnButton { 
-    
-    font-family: Raleway; /*Force Elem Bug */
-   
-    font-size: 30px;
-    text-align: center;
-    color: #000;
-    font-weight: 600;
-    text-shadow: 0 0 150px #000;
-    text-align: center;
-}
+
 
 input[type="button"], input[type="submit"] { 
     border: #000;

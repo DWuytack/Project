@@ -15,120 +15,121 @@
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/formulier.css">
-
         <title>EvaluatieFormulier</title>
     </head>
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
-        <form method="post" action="EvaluatieFormulierServlet?keuze=reset" >
+        <form method="post" action="EvaluatieFormulierServlet" >
+            
+            <!-- Titel van de pagina -->
             <section id="pagename">
                 <h2> EvaluatieFormulier </h2>
             </section>
             <hr>
-
+            
+            <!-- SelectieRij -->
             <table>
-
+                <tr height="10px">
                 <tr>
                     <td width="20px"></td>
-
+                    
+                    <!-- Datum kiezer -->
                     <td> <input type="date" id="datum" 
                                 required style="font-size: 0.9rem"  > </td>
-
-                    <td> <select name="Semester" id="Semester" onchange="checkDate()" style="max-width:175px;" >
+                    
+                    <!-- Semester kiezer-->
+                    <td> <select name="Semester" id="Semester" onchange="checkDate()">
                             <option selected > Semester... </option>
                             <c:forEach items="${semesters}" var="semester">                  
                                 <option> ${semester.semester} </option>                     
                             </c:forEach>
-
-                        </select> </td>
-
+                         </select> </td>
                     <td width="10px"></td>
-
+                    
+                    <!-- Studiegebied kiezer -->
                     <td>
-                        <select name="studiegebied" id="studiegebied" hidden  onchange="laadOpleidingen()"  style="max-width:170px;">
+                        <select name="studiegebied" id="studiegebied" hidden  onchange="laadOpleidingen()">
                             <option selected disabled> Studiegebied... </option>
                             <c:forEach items="${studiegebieden}" var="studiegebied">                  
                                 <option> ${studiegebied.naam} </option>                     
                             </c:forEach>
                             <option> Voeg studiegebied toe... </option>
-
                         </select> 
                     </td>
-
-
+                    <td width="10px"></td>
+                    
+                     <!-- Opleiding kiezer -->
+                    <td>
+                        <select id="opleidingen" onchange="laadModules()" hidden></select>
+                    </td>
+                    <td width="10px"></td>
+                    
+                     <!-- Module kiezer -->
+                    <td>  
+                        <select id="modules" hidden onchange="laadCursisten()" ></select> 
+                    </td>
                     <td width="10px"></td>
 
-                    <td><select id="opleidingen" onchange="laadModules()" hidden  style="max-width:170px;">
-
-                        </select></TD>
-
-                    <td width="10px"></td>
-
-                    <td>  <select id="modules" hidden onchange="laadCursisten()" style="max-width:170px;">
-
-                        </select> </td>
-
-                    <td width="10px"></td>
-
-
-                    <td>  <select id="cursisten" onchange="laadLesnr()" hidden  style="max-width:170px;">
-
-                        </select> </td>
-
+                    <!-- Cursist kiezer -->
+                    <td>  
+                        <select id="cursisten" onchange="laadLesnr()" hidden></select>
+                    </td>
                     <td width="10px"></td>  
 
-                    <td width="75px">  
-                        <select id="lesnr" onchange="genereerFormuliernaam()" hidden  style="max-width:75px;">
-
+                      <!-- Lesnummer kiezer -->
+                    <td>  
+                        <select id="lesnr" onchange="genereerFormuliernaam()" hidden>
                             <option selected disabled> Lesnr... </option>
                             <c:forEach items="${lesnrs}" var="lesnr">                  
                                 <option> ${lesnr.lesnr} </option>                     
                             </c:forEach>
-                            <option> Voeg lesnr toe... </option>
-
-                        </select> </td> 
-                        
+                        </select> </td>  
                     <td width="20px"></td>
 
-                    <td>  <label id="formulierNaam"  hidden  style="max-width:120px;">
-                        </label> </td>
-
+                      <!-- Formuliernaam -->
+                    <td>  
+                        <label id="formulierNaam"  hidden></label> 
+                    </td>
                     <td width="10px"></td>
                 </tr>
+              
             </table>
 
+            
+             <!-- Evaluatie venster -->
             <table>
-
+                         
+                 <!-- Titelbalk-->
+                <tr height="20px" />
                 <tr bgcolor="#ceccca" height="50px" >
                     <td width="3%" />
                     <td width="20%"><b>Taak</td>   
                     <td width="3%" />
                     <td width="40%"><b>Doelstelling</b></td>  
                     <td width="3%" />
-                    <td width="3%"><b>Kern</b></td>
+                    <td><b>Kern</b></td>
                     <td width="3%" />
-                    <td width="7%"><b>Score</b></td>
+                    <td width="6%"><b>Score</b></td>
                     <td width="3%" />
                     <td width="30%"><b>Commentaar</b></td>
                     <td width="3%" />
                 </tr>
+                <tr height="20px" />
+         
+                <!-- EvaluatieOnderdelen -->
 
-                <br/>
-                <%--lijn met invoer --%>
-
-                <tr height="10px" />
-
-                
-                
-                
+                <tr height="10px" />   
                 <tr>
+                    
+                    <!-- Taken kiezer -->
                     <td />
                     <td><select name="taak" id="formTaken1" hidden  onchange="laadFormDoelstellingen()" ></select></td>
                     <td />
 
+                   <!-- Doelstellingenweergave -->
                     <td nowrap>
-                        <label  id="formDoelstellingen1_1"  class="formDoelstellingen1" hidden disabled ><font size="6"></font></label>
+                        <label  id="formDoelstellingen1_1"  class="formDoelstellingen1" hidden disabled ></label>
                         <label id="formDoelstellingen1_2"  class="formDoelstellingen1" hidden disabled ></label>
                         <label id="formDoelstellingen1_3"  class="formDoelstellingen1" hidden disabled ></label>
                         <label  id="formDoelstellingen1_4"  class="formDoelstellingen1" hidden disabled ></label>
@@ -139,8 +140,9 @@
                         <label id="formDoelstellingen1_9"  class="formDoelstellingen1" hidden disabled ></label>
                         <label  id="formDoelstellingen1_10"  class="formDoelstellingen1" hidden disabled ></label>
                     </td>
-                    <td />
+                    <td/>
 
+                      <!-- Kerndoelstelling? -->
                     <td style="text-align: center">
                         <label  id="formkern1_1"  class="formkern1" hidden disabled ></label>
                         <label  id="formkern1_2"  class="formkern1" hidden disabled ></label>
@@ -154,6 +156,7 @@
                         <label  id="formkern1_10"  class="formkern1" hidden disabled ></label>
                     <td />
     
+                      <!-- Scores -->
                     <td>
                         <select style="font-size: 10pt" style="height: 1.1em;"  id="formScore1_1" class="formScore1" hidden ></select>
                         <select style="font-size: 10pt" style="height: 1.1em;"  id="formScore1_2" class="formScore1" hidden ></select>
@@ -168,26 +171,21 @@
                     </td>
                     <td/>
 
+                      <!-- Commentaar veld -->
                     <td><textarea id="formCommentaar1" cols="45" rows="5" hidden >Commentaar...</textarea></td>
                     <td />
                 </tr>
                 
+                  <!-- TaakScore -->
                 <tr class="taakScore1" hidden height="20px" />
                 <tr class="taakScore1" hidden> <td></td> <td></td> <td></td><td> <b>TaakScore: </b></td> </tr>
                 <tr class="taakScore1" hidden height="20px" />
-              
-
-                
-                
-                
-               
+   
+                <!-- Taak toevoegen -->
                 <tr class="addLine" hidden>
-                <td></td>
-                <td><input type="button" width="25" value="+" id="addLine" onclick="laadLijn();" height="20" class="lijnButton" /></td>
+                <td />
+                <td><input type="button" value="+" id="addLine" onclick="laadLijn();"  class="lijnButton" /></td>
                 </tr>
-
-
-
             </table>
 
             <br>
