@@ -1,23 +1,200 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 var formulierNaam;
-var aantalLijnen = 0;
-var taken = "";
-var aantalDoelstellingen = 1;
+var aantalTaken = 0;
+var aantalDoelstellingen = 0;
+var xhttp = new XMLHttpRequest();
+var dropdownKeuze;
 
 
+//toont studiegebieden nadat de semester is gekozen
+function toonStudiegebieden() {
+
+    var datum = document.getElementById("datum").value;
+
+    if (datum === '') {
+        alert("Selecteer eerst een datum!");
+        document.getElementById("Semester").selectedIndex = 0;
+    } else {
+        if (document.getElementById("Semester").selectedIndex === 0) {
+            document.getElementById("studiegebied").hidden = true;
+        } else {
+            document.getElementById("studiegebied").hidden = false;
+        }
+    }
+}
+
+//laad de dropdown met de gevraagde soort
+function laadDropdown(soort) {
+
+    if (window.XMLHttpRequest) {
+        // code voor moderne browsers
+        xhttp = new XMLHttpRequest();
+    } else {
+        // code voor oude IE browsers
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    //vraag informatie aan servlet
+    switch (soort) {
+        case 'opleidingen':
+            dropdownKeuze = document.getElementById('studiegebied').value;
+            xhttp.open("POST", "EvaluatieFormulierServlet?studiegebied=" + dropdownKeuze, true);
+            break;
+        case 'modules':
+            dropdownKeuze = document.getElementById('opleidingen').value;
+            xhttp.open("POST", "EvaluatieFormulierServlet?opleiding=" + dropdownKeuze, true);
+            break;
+        case 'cursisten':
+            dropdownKeuze = document.getElementById('modules').value;
+            var schooljaar = document.getElementById("datum").value;
+            var semester = document.getElementById("Semester").value;
+            xhttp.open("POST", "EvaluatieFormulierServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+            break;
+    }
+
+    xhttp.send();
+    //als het antwoord wordt ontvangen...
+    xhttp.onreadystatechange = function () {
+
+        if (this.readyState === 4 && this.status === 200) {
+
+            //plaats het antwoord in een object...
+            const data = JSON.parse(xhttp.responseText);
+
+            //toon dropdown
+            let dropdown = document.getElementById(soort);
+            dropdown.hidden = false;
+            dropdown.length = 0;
+
+            //plaats naam in dropdown en zorg ervoor dat de gebruiker dat niet kan selecteren
+            let defaultOption = document.createElement('option');
+
+            //plaats titel in dropdown
+            switch (soort) {
+                case 'opleidingen':
+                    defaultOption.text = 'Opleiding...';
+                    break;
+                case 'modules':
+                    defaultOption.text = 'Module...';
+                    break;
+                case 'cursisten':
+                    defaultOption.text = 'Cursist...';
+                    break;
+            }
+            defaultOption.disabled = true;
+            dropdown.add(defaultOption);
+            dropdown.selectedIndex = 0;
+
+            let option;
+            for (let i = 0; i < data.length; i++) {
+                option = document.createElement('option');
+                option.text = data[i].naam;
+                dropdown.add(option);
+            }
+            switch (soort) {
+                case 'opleidingen':
+                    option.text = "Voeg opleiding toe...";
+                    resetDropdowns('studiegebieden');
+                    break;
+                case 'modules':
+                    option.text = "Voeg module toe...";
+                    resetDropdowns('opleidingen');
+                    break;
+                case 'cursisten':
+                    option.text = "Voeg cursist toe...";
+                    //toon lesnr dropdown
+
+                    break;
+            }
+            dropdown.add(option);
+        }
+    };
+}
+
+//nadat alle keuzes zijn gemaakt, wordt de formuliernaam gegenereerd...
+function genereerFormuliernaam() {
+
+    //zijn alle keuzes gemaakt?
+    if (checkKeuzesOk() === true) {
+        var lesnummer = document.getElementById('lesnr').value;
+        var label = document.getElementById('formulierNaam');
+        label.hidden = false;
+        var lesdatum = document.getElementById("datum").value;
+        var leskeuze = document.getElementById('modules').value;
+        var lescursist = document.getElementById("cursisten").value;
+        formulierNaam = lescursist + "_" + leskeuze + "_" + lesdatum + "_" + lesnummer;
+        label.innerHTML = "formulierNaam: " + formulierNaam;
+        laadLijn();
+    }
+}
+
+function  checkKeuzesOk() {
+    let dropdowns = document.getElementsByClassName('drop');
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        if (dropdowns[i].selectedIndex === 0) {
+            return false;
+        }
+        ;
+    }
+    return true;
+}
+
+function resetDropdowns(naam) {
+
+    let dropdowns = document.getElementsByClassName('drop');
+    var i;
+    var idDropDown;
+
+    for (i = 0; i < dropdowns.length; i++) {
+
+        idDropDown = dropdowns[i].id;
+
+        //reset dropdowns na studiegebied
+        switch (naam) {
+
+            case 'studiegebieden':
+
+                if (idDropDown === 'modules') {
+                    dropdowns[i].selectedIndex = 0;
+                    ledigDropDown(dropdowns[i]);
+                }
+
+                if (idDropDown === 'cursisten') {
+                    dropdowns[i].selectedIndex = 0;
+                    ledigDropDown(dropdowns[i]);
+                }
+
+                break;
+
+            case 'opleidingen':
+                if (idDropDown === 'cursisten') {
+                    dropdowns[i].selectedIndex = 0;
+                    ledigDropDown(dropdowns[i]);
+                }
+                break;
+
+        }
+    }
+
+}
+
+function ledigDropDown(dropdown) {
+
+    var length = dropdown.options.length;
+    for (i = 1; i < length; i++) {
+        dropdown.options[i] = null;
+    }
+
+}
+
+
+//nadat de formuliernaam is gegenereerd, wordt eerste lijn van het formulier geladen
 function laadLijn() {
 
-    aantalLijnen = aantalLijnen + 1;
+    //aantal taken in het venster
+    aantalTaken = aantalTaken + 1;
 
-    if (aantalLijnen > 1) {
-        laadExtraLijn();
-        return;
-    }
 
     if (document.getElementById("modules").selectedIndex === 0) {
         return;
@@ -106,9 +283,6 @@ function laadExtraLijn() {
     lijn.hidden = false;
 
 }
-
-
-
 
 function laadFormDoelstellingen() {
 
@@ -240,214 +414,14 @@ function laadScores() {
 
 }
 
-function genereerFormuliernaam() {
 
-    var lesnummer = document.getElementById('lesnr').value;
-    var label = document.getElementById('formulierNaam');
-    label.hidden = false;
-    var lesdatum = document.getElementById("datum").value;
-    var leskeuze = document.getElementById('modules').value;
-    var lescursist = document.getElementById("cursisten").value;
-    formulierNaam = lescursist + "_" + leskeuze + "_" + lesdatum + "_" + lesnummer;
-    label.innerHTML = "formulierNaam: " + formulierNaam;
-    laadLijn();
-
-}
 
 function laadLesnr() {
     var lesnr = document.getElementById('lesnr');
     lesnr.hidden = false;
 }
 
-function laadCursisten() {
-
-    if (document.getElementById("modules").selectedIndex === 0) {
-        return;
-    }
-    var keuze = document.getElementById('modules').value;
-    var xhttp = new XMLHttpRequest();
-
-    if (window.XMLHttpRequest) {
-        // code voor moderne browsers
-        xhttp = new XMLHttpRequest();
-    } else {
-        // code voor oude IE browsers
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-    var schooljaar = document.getElementById("datum").value;
-    var semester = document.getElementById("Semester").value;
-
-
-    //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?module=" + keuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
-    xhttp.send();
-
-    xhttp.onreadystatechange = function () {
-
-        //200: "OK"
-        //403: "Forbidden"
-        //404: "Not Found"
-
-        //0: request not initialized 
-        //1: server connection established
-        //2: request received 
-        //3: processing request 
-        //4: request finished and response is ready
-        if (this.readyState === 4 && this.status === 200) {
-
-            let dropdown = document.getElementById('cursisten');
-            dropdown.hidden = false;
-            dropdown.length = 0;
-
-            let defaultOption = document.createElement('option');
-            defaultOption.text = 'Cursist...';
-            defaultOption.disabled = true;
-            dropdown.add(defaultOption);
-            dropdown.selectedIndex = 0;
-
-            const data = JSON.parse(xhttp.responseText);
-            let option;
-            for (let i = 0; i < data.length; i++) {
-                option = document.createElement('option');
-                option.text = data[i].naam;
-                dropdown.add(option);
-            }
-            option = document.createElement('option');
-            option.text = "Voeg cursist toe...";
-            dropdown.add(option);
-        }
-    };
-
-}
-
-function laadModules() {
-
-    if (document.getElementById("opleidingen").selectedIndex === 0) {
-        return;
-    }
-    var keuze = document.getElementById('opleidingen').value;
-    var xhttp = new XMLHttpRequest();
-
-    if (window.XMLHttpRequest) {
-        // code voor moderne browsers
-        xhttp = new XMLHttpRequest();
-    } else {
-        // code voor oude IE browsers
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-    //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?opleiding=" + keuze, true);
-    xhttp.send();
-
-    xhttp.onreadystatechange = function () {
-
-        //200: "OK"
-        //403: "Forbidden"
-        //404: "Not Found"
-
-        //0: request not initialized 
-        //1: server connection established
-        //2: request received 
-        //3: processing request 
-        //4: request finished and response is ready
-        if (this.readyState === 4 && this.status === 200) {
-
-            let dropdown = document.getElementById('modules');
-            dropdown.hidden = false;
-            dropdown.length = 0;
-
-            let defaultOption = document.createElement('option');
-            defaultOption.text = 'Module...';
-            defaultOption.disabled = true;
-            dropdown.add(defaultOption);
-            dropdown.selectedIndex = 0;
-
-            const data = JSON.parse(xhttp.responseText);
-            let option;
-            for (let i = 0; i < data.length; i++) {
-                option = document.createElement('option');
-                option.text = data[i].naam;
-                dropdown.add(option);
-            }
-            option.text = "Voeg Module toe...";
-            dropdown.add(option);
-        }
-    };
-}
 
 
 
-function checkDate() {
 
-    var datum = document.getElementById("datum").value;
-
-    if (datum === '') {
-        alert("Selecteer eerst een datum!");
-        document.getElementById("Semester").selectedIndex = 0;
-    } else {
-        if (document.getElementById("Semester").selectedIndex === 0) {
-            document.getElementById("studiegebied").hidden = true;
-        } else {
-            document.getElementById("studiegebied").hidden = false;
-        }
-    }
-}
-
-function laadOpleidingen() {
-
-    if (document.getElementById("studiegebied").selectedIndex === 0) {
-        return;
-    }
-    var keuze = document.getElementById('studiegebied').value;
-    var xhttp = new XMLHttpRequest();
-
-    if (window.XMLHttpRequest) {
-        // code voor moderne browsers
-        xhttp = new XMLHttpRequest();
-    } else {
-        // code voor oude IE browsers
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-    //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?studiegebied=" + keuze, true);
-    xhttp.send();
-
-    xhttp.onreadystatechange = function () {
-
-        //200: "OK"
-        //403: "Forbidden"
-        //404: "Not Found"
-
-        //0: request not initialized 
-        //1: server connection established
-        //2: request received 
-        //3: processing request 
-        //4: request finished and response is ready
-        if (this.readyState === 4 && this.status === 200) {
-
-            let dropdown = document.getElementById('opleidingen');
-            dropdown.hidden = false;
-            dropdown.length = 0;
-
-            let defaultOption = document.createElement('option');
-            defaultOption.text = 'Opleiding...';
-            defaultOption.disabled = true;
-            dropdown.add(defaultOption);
-            dropdown.selectedIndex = 0;
-
-            const data = JSON.parse(xhttp.responseText);
-            let option;
-            for (let i = 0; i < data.length; i++) {
-                option = document.createElement('option');
-                option.text = data[i].naam;
-                dropdown.add(option);
-            }
-            option.text = "Voeg Opleiding toe...";
-            dropdown.add(option);
-        }
-    };
-
-}
