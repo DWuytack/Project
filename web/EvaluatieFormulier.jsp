@@ -107,10 +107,8 @@
 
             </table>
 
-
             <!-- Evaluatie venster -->
             <table>
-
                 <!-- Titelbalk-->
                 <tr height="20px" />
                 <tr bgcolor="#ceccca" height="50px" >
@@ -127,122 +125,31 @@
                     <td width="3%" />
                 </tr>
                 <tr height="20px" />
+            </table>
 
-                <!-- EvaluatieOnderdelen -->
-
-                <tr height="10px" />   
-                <tr>
-
-                    <!-- Taken kiezer -->
-                    <td />
-                    <td><select name="taak" id="formTaken1" hidden  
-                                onchange="laadFormDoelstellingen()" 
-                                style="background: #f9f9f9" ></select></td>
-                    <td />
-
-                    <!-- Doelstellingenweergave -->
-                    <td nowrap>
-                        <label  id="formDoelstellingen1_1"  
-                                class="formDoelstellingen1" hidden disabled ></label>
-                        <label id="formDoelstellingen1_2"  
-                               class="formDoelstellingen1" hidden disabled ></label>
-                        <label id="formDoelstellingen1_3"  
-                               class="formDoelstellingen1" hidden disabled ></label>
-                        <label  id="formDoelstellingen1_4"  
-                                class="formDoelstellingen1" hidden disabled ></label>
-                        <label  id="formDoelstellingen1_5"  
-                                class="formDoelstellingen1" hidden disabled ></label>
-                        <label  id="formDoelstellingen1_6" 
-                                class="formDoelstellingen1" hidden disabled ></label>
-                        <label id="formDoelstellingen1_7"  
-                               class="formDoelstellingen1" hidden disabled ></label>
-                        <label  id="formDoelstellingen1_8"  
-                                class="formDoelstellingen1" hidden disabled ></label>
-                        <label id="formDoelstellingen1_9" 
-                               class="formDoelstellingen1" hidden disabled ></label>
-                        <label  id="formDoelstellingen1_10"  
-                                class="formDoelstellingen1" hidden disabled ></label>
-                    </td>
+            <table id="evaluatieTable">
+                
+                 <tr>
+                    <td width="3%" />
+                    <td width="20%"/>
+                    <td width="3%" />
+                    <td width="40%"/> 
+                    <td width="3%" />
                     <td/>
-
-                    <!-- Kerndoelstelling? -->
-                    <td style="text-align: center">
-                        <label  id="formkern1_1"  class="formkern1" hidden 
-                                disabled ></label>
-                        <label  id="formkern1_2"  class="formkern1" hidden 
-                                disabled ></label>
-                        <label  id="formkern1_3"  class="formkern1" hidden 
-                                disabled ></label>
-                        <label  id="formkern1_4"  class="formkern1" hidden 
-                                disabled ></label>
-                        <label  id="formkern1_5"  class="formkern1" hidden 
-                                disabled ></label>
-                        <label  id="formkern1_6"  class="formkern1" hidden 
-                                disabled ></label>
-                        <label  id="formkern1_7"  class="formkern1" hidden 
-                                disabled ></label>
-                        <label  id="formkern1_8"  class="formkern1" hidden 
-                                disabled ></label>
-                        <label  id="formkern1_9"  class="formkern1" hidden 
-                                disabled ></label>
-                        <label  id="formkern1_10"  class="formkern1" hidden 
-                                disabled ></label>
-                    <td />
-
-                    <!-- Scores -->
-                    <td>
-                        <select style="font-size: 10pt" style="height: 1.1em;" 
-                                id="formScore1_1" class="formScore1" hidden 
-                                style="background: #f9f9f9" ></select>
-                        <select style="font-size: 10pt" style="height: 1.1em;"  
-                                id="formScore1_2" class="formScore1" hidden 
-                                style="background: #f9f9f9" ></select>
-                        <select style="font-size: 10pt" style="height: 1.1em;" 
-                                id="formScore1_3" class="formScore1" hidden 
-                                style="background: #f9f9f9" ></select>
-                        <select style="font-size: 10pt" style="height: 1.1em;" 
-                                id="formScore1_4" class="formScore1" hidden 
-                                style="background: #f9f9f9" ></select>
-                        <select style="font-size: 10pt" style="height: 1.1em;" 
-                                id="formScore1_5" class="formScore1" hidden 
-                                style="background: #f9f9f9" ></select>
-                        <select style="font-size: 10pt" style="height: 1.1em;" 
-                                id="formScore1_6" class="formScore1" hidden 
-                                style="background: #f9f9f9" ></select>
-                        <select style="font-size: 10pt" style="height: 1.1em;" 
-                                id="formScore1_7" class="formScore1" hidden 
-                                style="background: #f9f9f9" ></select>
-                        <select style="font-size: 10pt" style="height: 1.1em;" 
-                                id="formScore1_8" class="formScore1" hidden 
-                                style="background: #f9f9f9" ></select>
-                        <select style="font-size: 10pt" style="height: 1.1em;"  
-                                id="formScore1_9" class="formScore1" hidden 
-                                style="background: #f9f9f9" ></select>
-                        <select style="font-size: 10pt" style="height: 1.1em;" 
-                                id="formScore1_10" class="formScore1"hidden 
-                                style="background: #f9f9f9" ></select>
-                    </td>
-                    <td/>
-
-                    <!-- Commentaar veld -->
-                    <td><textarea id="formCommentaar1" cols="45" rows="5" 
-                                  hidden style="background: #f9f9f9 " >
-                            Commentaar...</textarea></td>
-                    <td />
+                    <td width="3%" />
+                    <td width="6%"/>
+                    <td width="3%" />
+                    <td width="30%"/>
+                    <td width="3%" />
                 </tr>
-
-                <!-- TaakScore -->
-                <tr class="taakScore1" hidden height="20px" />
-                <tr class="taakScore1" hidden> <td></td> <td></td> <td></td>
-                    <td> <b>TaakScore: </b></td> </tr>
-                <tr class="taakScore1" hidden height="20px" />
-
+                
                 <!-- Taak toevoegen -->
                 <tr class="addLine" hidden>
                     <td />
                     <td><input type="button" value="+" id="addLine" 
                                onclick="laadLijn();"  class="lijnButton" /></td>
-                </tr>
+                </tr> 
+                
             </table>
 
             <table class="doelstelling1" >
@@ -257,7 +164,6 @@
                     <td > <input type="submit"  value=" Laad formulier " 
                                  class="button"></td>
                 </tr>
-
             </table>
 
         </p>

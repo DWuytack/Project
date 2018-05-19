@@ -2,8 +2,10 @@
 var formulierNaam;
 var aantalTaken = 0;
 var aantalDoelstellingen = 0;
-var xhttp = new XMLHttpRequest();
 var dropdownKeuze;
+var formTaken;
+var taakDropdown;
+
 
 
 //toont studiegebieden nadat de semester is gekozen
@@ -26,14 +28,8 @@ function toonStudiegebieden() {
 //laad de dropdown met de gevraagde soort
 function laadDropdown(soort) {
 
-    if (window.XMLHttpRequest) {
-        // code voor moderne browsers
-        xhttp = new XMLHttpRequest();
-    } else {
-        // code voor oude IE browsers
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
 
+    var xhttp = new XMLHttpRequest();
     //vraag informatie aan servlet
     switch (soort) {
         case 'opleidingen':
@@ -127,7 +123,7 @@ function genereerFormuliernaam() {
         laadLijn();
     }
 }
-
+//Zijn alle keuzes gemaakt?
 function  checkKeuzesOk() {
     let dropdowns = document.getElementsByClassName('drop');
     var i;
@@ -140,6 +136,7 @@ function  checkKeuzesOk() {
     return true;
 }
 
+//als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
 function resetDropdowns(naam) {
 
     let dropdowns = document.getElementsByClassName('drop');
@@ -147,24 +144,19 @@ function resetDropdowns(naam) {
     var idDropDown;
 
     for (i = 0; i < dropdowns.length; i++) {
-
         idDropDown = dropdowns[i].id;
-
         //reset dropdowns na studiegebied
         switch (naam) {
-
             case 'studiegebieden':
 
                 if (idDropDown === 'modules') {
                     dropdowns[i].selectedIndex = 0;
                     ledigDropDown(dropdowns[i]);
                 }
-
                 if (idDropDown === 'cursisten') {
                     dropdowns[i].selectedIndex = 0;
                     ledigDropDown(dropdowns[i]);
                 }
-
                 break;
 
             case 'opleidingen':
@@ -173,248 +165,18 @@ function resetDropdowns(naam) {
                     ledigDropDown(dropdowns[i]);
                 }
                 break;
-
         }
     }
-
 }
 
+//maak een gevulde dropdown terug leeg
 function ledigDropDown(dropdown) {
 
     var length = dropdown.options.length;
     for (i = 1; i < length; i++) {
         dropdown.options[i] = null;
     }
-
 }
-
-
-//nadat de formuliernaam is gegenereerd, wordt eerste lijn van het formulier geladen
-function laadLijn() {
-
-    //aantal taken in het venster
-    aantalTaken = aantalTaken + 1;
-
-
-    if (document.getElementById("modules").selectedIndex === 0) {
-        return;
-    }
-
-    var keuze = document.getElementById('modules').value;
-    var xhttp = new XMLHttpRequest();
-
-    if (window.XMLHttpRequest) {
-        // code voor moderne browsers
-        xhttp = new XMLHttpRequest();
-    } else {
-        // code voor oude IE browsers
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-    //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?taak=" + keuze, true);
-    xhttp.send();
-
-    xhttp.onreadystatechange = function () {
-
-        //200: "OK"
-        //403: "Forbidden"
-        //404: "Not Found"
-
-        //0: request not initialized 
-        //1: server connection established
-        //2: request received 
-        //3: processing request 
-        //4: request finished and response is ready
-        if (this.readyState === 4 && this.status === 200) {
-
-            let dropdown = document.getElementById('formTaken1');
-            dropdown.hidden = false;
-            dropdown.length = 0;
-
-            let defaultOption = document.createElement('option');
-            defaultOption.text = 'Kies een taak...';
-            defaultOption.disabled = true;
-            dropdown.add(defaultOption);
-            dropdown.selectedIndex = 0;
-
-            const data = JSON.parse(xhttp.responseText);
-            taken = data;
-            let option;
-            for (let i = 0; i < data.length; i++) {
-                option = document.createElement('option');
-                option.text = data[i].naam;
-                dropdown.add(option);
-            }
-            option = document.createElement('option');
-            option.text = "Voeg taak toe...";
-            dropdown.add(option);
-        }
-
-    };
-    let lijn1 = document.getElementById('lijn1');
-    lijn1.hidden = false;
-}
-
-function laadExtraLijn() {
-
-
-    let dropdown = document.getElementById('formTaken' + aantalLijnen);
-    dropdown.hidden = false;
-    dropdown.length = 0;
-
-    let defaultOption = document.createElement('option');
-    defaultOption.text = 'Kies een taak...';
-    defaultOption.disabled = true;
-    dropdown.add(defaultOption);
-    dropdown.selectedIndex = 0;
-
-    let option;
-    for (let i = 0; i < taken.length; i++) {
-        option = document.createElement('option');
-        option.text = taken[i].naam;
-        dropdown.add(option);
-    }
-    option = document.createElement('option');
-    option.text = "Voeg taak toe...";
-    dropdown.add(option);
-
-    let lijn = document.getElementById('lijn' + aantalLijnen);
-    lijn.hidden = false;
-
-}
-
-function laadFormDoelstellingen() {
-
-    if (document.getElementById("formTaken" + aantalLijnen).selectedIndex === 0) {
-        return;
-    }
-    var keuze = document.getElementById('formTaken' + aantalLijnen).value;
-    var xhttp = new XMLHttpRequest();
-
-    if (window.XMLHttpRequest) {
-        // code voor moderne browsers
-        xhttp = new XMLHttpRequest();
-    } else {
-        // code voor oude IE browsers
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-    //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?formTaak=" + keuze, true);
-    xhttp.send();
-
-    xhttp.onreadystatechange = function () {
-
-        //200: "OK"
-        //403: "Forbidden"
-        //404: "Not Found"
-
-        //0: request not initialized 
-        //1: server connection established
-        //2: request received 
-        //3: processing request 
-        //4: request finished and response is ready
-        if (this.readyState === 4 && this.status === 200) {
-
-            const data = JSON.parse(xhttp.responseText);
-            var doelstellingen = document.getElementsByClassName('formDoelstellingen' + aantalLijnen);
-
-            aantalDoelstellingen = data.length;
-
-            for (let i = 0; i < data.length; i++) {
-                doelstellingen[i].hidden = false;
-                doelstellingen[i].innerHTML = data[i].naam + "<br>";
-            }
-
-            var kernen = document.getElementsByClassName('formkern' + aantalLijnen);
-            for (let i = 0; i < data.length; i++) {
-                kernen[i].hidden = false;
-                if (data[i].kerndoelstelling) {
-                    kernen[i].innerHTML = '\u2611' + "<br>";
-                } else {
-                    kernen[i].innerHTML = '\u2610' + "<br>";
-                }
-            }
-
-            laadScores();
-        }
-    }
-    ;
-    let taakScore = document.getElementsByClassName('taakScore' + aantalLijnen);
-    var i;
-    for (i = 0; i < taakScore.length; i++) {
-        taakScore[i].hidden = false;
-    }
-
-
-}
-
-function laadScores() {
-
-    var comment = document.getElementById('formCommentaar' + aantalLijnen);
-    comment.hidden = false;
-    comment.rows = aantalDoelstellingen + 1;
-
-
-
-    var xhttp = new XMLHttpRequest();
-
-    if (window.XMLHttpRequest) {
-        // code voor moderne browsers
-        xhttp = new XMLHttpRequest();
-    } else {
-        // code voor oude IE browsers
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-    //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?scores", true);
-    xhttp.send();
-
-    xhttp.onreadystatechange = function () {
-
-        //200: "OK"
-        //403: "Forbidden"
-        //404: "Not Found"
-
-        //0: request not initialized 
-        //1: server connection established
-        //2: request received 
-        //3: processing request 
-        //4: request finished and response is ready
-        if (this.readyState === 4 && this.status === 200) {
-
-            const data = JSON.parse(xhttp.responseText);
-            let scores = document.getElementsByClassName('formScore' + aantalLijnen);
-            var i;
-            for (i = 0; i < aantalDoelstellingen; i++) {
-                scores[i].hidden = false;
-                scores[i].length = 0;
-                let defaultOption = document.createElement('option');
-                defaultOption.text = 'Score...';
-                defaultOption.disabled = true;
-                scores[i].add(defaultOption);
-                scores[i].selectedIndex = 0;
-                let option;
-                for (let x = 0; x < data.length; x++) {
-                    option = document.createElement('option');
-                    option.text = data[x].naam;
-                    scores[i].add(option);
-                }
-            }
-        }
-    };
-
-    let verborgen = document.getElementsByClassName('addLine');
-    var i;
-    for (i = 0; i < verborgen.length; i++) {
-        verborgen[i].hidden = false;
-    }
-
-}
-
-
 
 function laadLesnr() {
     var lesnr = document.getElementById('lesnr');
@@ -422,6 +184,128 @@ function laadLesnr() {
 }
 
 
+//laad de taken
+function laadLijn() {
 
+    aantalTaken = aantalTaken + 1;
+    var xhttp = new XMLHttpRequest();
+    var keuze = document.getElementById('modules').value;
+
+    //open(method,url,async)
+    xhttp.open("POST", "EvaluatieFormulierServlet?taak=" + keuze, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = function () {
+
+        if (this.readyState === 4 && this.status === 200) {
+
+            const data = JSON.parse(xhttp.responseText);
+            var evalTable = document.getElementById("evaluatieTable");
+
+            var row = evalTable.insertRow(0);
+            row.insertCell(0);
+            var vak2 = row.insertCell(1);
+
+            var select = document.createElement('select');
+            select.onchange = function () {
+
+                var keuze = document.getElementById('formTaken' + aantalTaken).value;
+                var xhttp = new XMLHttpRequest();
+
+                //open(method,url,async)
+                xhttp.open("POST", "EvaluatieFormulierServlet?formTaak=" + keuze, true);
+                xhttp.send();
+
+                xhttp.onreadystatechange = function () {
+
+                    if (this.readyState === 4 && this.status === 200) {
+
+                        const data2 = JSON.parse(xhttp.responseText);
+                        aantalDoelstellingen = data2.length;
+
+                        for (let i = 0; i < data.length; i++) {
+                            doelstellingen[i].hidden = false;
+                            doelstellingen[i].innerHTML = data[i].naam + "<br>";
+                        }
+
+                        var kernen = document.getElementsByClassName('formkern' + aantalTaken);
+                        for (let i = 0; i < data.length; i++) {
+                            kernen[i].hidden = false;
+                            if (data[i].kerndoelstelling) {
+                                kernen[i].innerHTML = '\u2611' + "<br>";
+                            } else {
+                                kernen[i].innerHTML = '\u2610' + "<br>";
+                            }
+                        }
+
+                        var comment = document.getElementById('formCommentaar' + aantalTaken);
+                        comment.hidden = false;
+                        comment.rows = aantalDoelstellingen + 1;
+                        var xhttp = new XMLHttpRequest();
+                        //open(method,url,async)
+                        xhttp.open("POST", "EvaluatieFormulierServlet?scores", true);
+                        xhttp.send();
+
+                        xhttp.onreadystatechange = function () {
+
+                            if (this.readyState === 4 && this.status === 200) {
+
+                                const data = JSON.parse(xhttp.responseText);
+                                let scores = document.getElementsByClassName('formScore' + aantalTaken);
+                                var i;
+                                for (i = 0; i < aantalDoelstellingen; i++) {
+                                    scores[i].hidden = false;
+                                    scores[i].length = 0;
+                                    let defaultOption = document.createElement('option');
+                                    defaultOption.text = 'Score...';
+                                    defaultOption.disabled = true;
+                                    scores[i].add(defaultOption);
+                                    scores[i].selectedIndex = 0;
+                                    let option;
+                                    for (let x = 0; x < data.length; x++) {
+                                        option = document.createElement('option');
+                                        option.text = data[x].naam;
+                                        scores[i].add(option);
+                                    }
+                                }
+                            }
+                        };
+
+                        let verborgen = document.getElementsByClassName('addLine');
+                        var i;
+                        for (i = 0; i < verborgen.length; i++) {
+                            verborgen[i].hidden = false;
+                        }
+                    }
+                }
+                ;
+                let taakScore = document.getElementsByClassName('taakScore' + aantalTaken);
+                var i;
+                for (i = 0; i < taakScore.length; i++) {
+                    taakScore[i].hidden = false;
+                }
+
+            };
+            select.id = "formTaken" + aantalTaken;
+
+            let defaultOption = document.createElement('option');
+            defaultOption.text = 'Kies een taak...';
+            defaultOption.disabled = true;
+            select.add(defaultOption);
+            select.selectedIndex = 0;
+
+            let option;
+            for (let i = 0; i < data.length; i++) {
+                option = document.createElement('option');
+                option.text = data[i].naam;
+                select.add(option);
+            }
+            option = document.createElement('option');
+            option.text = "Voeg taak toe...";
+            select.add(option);
+            vak2.appendChild(select);
+        }
+    };
+}
 
 
