@@ -6,6 +6,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 
 <nav class="top-navigatie">
+    <div id="titel">
+        <h1>Score on Web</h1>
+    </div>
     <div id="nav-left">
         <!-- toon menu altijd behalve bij het menu -->
         <div id="menu">
@@ -34,9 +37,6 @@
                 </a>
             </li>
         </ul>
-    </div>
-    <div id="titel">
-        <h1>Score on Web</h1>
     </div>
 </nav>
 <header>

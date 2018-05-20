@@ -253,7 +253,7 @@ html {
     -khtml-user-select: none; /* Konqueror HTML */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
-  
+    user-select: none;
 }
 
 input, a, select { 
@@ -287,7 +287,7 @@ nav {
 
 header {
     position: relative;
-    z-index: 300;
+    z-index: 250;
     min-height: 108px; /* 105px; old 60px !! MOET KLEINER!!!*/
     display: flex;
 }
@@ -348,6 +348,7 @@ section::before, section::after {
 
 /* NAV#b titel */
 #titel {
+    z-index: -1;
     position: absolute;
     top: 0;
     min-height: 60px;
