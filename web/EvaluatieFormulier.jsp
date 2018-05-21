@@ -83,7 +83,7 @@
                 <td>
                     <select name="studiegebied" id="studiegebied"  
                             onchange="laadDropdown('opleidingen')" 
-                            style="background: #f9f9f9"  class="drop">
+                            style="background: #efc4c4"  class="drop">
                         <option selected disabled> Studiegebied... 
                         </option>
                         <c:forEach items="${studiegebieden}" 

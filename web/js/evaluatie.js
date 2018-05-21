@@ -1,5 +1,5 @@
 
-var formulierNaam;
+var formulierNaam='';
 var aantalTaken = 0;
 var aantalDoelstellingen = 0;
 var dropdownKeuze;
@@ -10,8 +10,8 @@ var taakDropdown;
 
 //kiest juiste semester aan de hand van datum
 function pasSemesterAan() {
-    
-    let nu = new Date(document.querySelector("#datum").value); 
+
+    let nu = new Date(document.querySelector("#datum").value);
     switch (nu.getMonth() + 1) {
         case 2:
         case 3:
@@ -30,6 +30,7 @@ function pasSemesterAan() {
             document.querySelector("#Semester").selectedIndex = 1;
             break;
     }
+    if (formulierNaam !== '') genereerFormuliernaam();
 }
 
 //laad de dropdown met de gevraagde soort
@@ -40,18 +41,31 @@ function laadDropdown(soort) {
     //vraag informatie aan servlet
     switch (soort) {
         case 'opleidingen':
+            dropdown = document.querySelector("#studiegebied");
+            dropdown.style = "background: #f9f9f9";
+            dropdown = document.querySelector("#opleidingen");
+            dropdown.style = "background: #efc4c4";
             dropdownKeuze = document.getElementById('studiegebied').value;
             xhttp.open("POST", "EvaluatieFormulierServlet?studiegebied=" + dropdownKeuze, true);
             break;
         case 'modules':
+            dropdown = document.querySelector("#opleidingen");
+            dropdown.style = "background: #f9f9f9";
+            dropdown = document.querySelector("#modules");
+            dropdown.style = "background: #efc4c4";
             dropdownKeuze = document.getElementById('opleidingen').value;
             xhttp.open("POST", "EvaluatieFormulierServlet?opleiding=" + dropdownKeuze, true);
             break;
         case 'cursisten':
+            dropdown = document.querySelector("#modules");
+            dropdown.style = "background: #f9f9f9";
+            dropdown = document.querySelector("#cursisten");
+            dropdown.style = "background: #efc4c4";
             dropdownKeuze = document.getElementById('modules').value;
             var schooljaar = document.getElementById("datum").value;
             var semester = document.getElementById("Semester").value;
             xhttp.open("POST", "EvaluatieFormulierServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+             if (formulierNaam !== '') genereerFormuliernaam();
             break;
     }
 
@@ -112,39 +126,26 @@ function laadDropdown(soort) {
             dropdown.add(option);
         }
     };
+
+
 }
 
 //nadat alle keuzes zijn gemaakt, wordt de formuliernaam gegenereerd...
 function genereerFormuliernaam() {
 
-    //zijn alle keuzes gemaakt?
-    if (checkKeuzesOk() === true) {
-        var lesnummer = document.getElementById('lesnr').value;
-        var label = document.getElementById('formulierNaam');
-        label.hidden = false;
-        var lesdatum = document.getElementById("datum").value;
-        var leskeuze = document.getElementById('modules').value;
-        var lescursist = document.getElementById("cursisten").value;
-        formulierNaam = lescursist + "_" + leskeuze + "_" + lesdatum + "_" + lesnummer;
-        label.innerHTML = "formulierNaam: " + formulierNaam;
-    }
-}
-//Zijn alle keuzes gemaakt?
-function  checkKeuzesOk() {
-    let dropdowns = document.getElementsByClassName('drop');
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-        if (dropdowns[i].selectedIndex === 0) {
-            dropdowns[i].style = "background: #f42e07";
-            return false;
-        } else {
-            dropdowns[i].style = "background: #f9f9f9";
-        }
-        ;
-    }
-    return true;
-}
+    dropdown = document.querySelector("#lesnr");
+    dropdown.style = "background: #f9f9f9";
+    dropdown.hidden = false;
+    var lesnummer = document.getElementById('lesnr').value;
+    var label = document.getElementById('formulierNaam');
+    label.hidden = false;
+    var lesdatum = document.getElementById("datum").value;
+    var leskeuze = document.getElementById('modules').value;
+    var lescursist = document.getElementById("cursisten").value;
+    formulierNaam = lescursist + "_" + leskeuze + "_" + lesdatum + "_" + lesnummer;
+    label.innerHTML = "formulierNaam: " + formulierNaam;
 
+}
 //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
 function resetDropdowns(naam) {
 
@@ -160,10 +161,12 @@ function resetDropdowns(naam) {
 
                 if (idDropDown === 'modules') {
                     dropdowns[i].selectedIndex = 0;
+                    dropdowns[i].style = "background: #efc4c4";
                     ledigDropDown(dropdowns[i]);
                 }
                 if (idDropDown === 'cursisten') {
                     dropdowns[i].selectedIndex = 0;
+                    dropdowns[i].style = "background: #efc4c4";
                     ledigDropDown(dropdowns[i]);
                 }
                 break;
@@ -171,6 +174,7 @@ function resetDropdowns(naam) {
             case 'opleidingen':
                 if (idDropDown === 'cursisten') {
                     dropdowns[i].selectedIndex = 0;
+                    dropdowns[i].style = "background: #efc4c4";
                     ledigDropDown(dropdowns[i]);
                 }
                 break;
@@ -188,8 +192,13 @@ function ledigDropDown(dropdown) {
 }
 
 function laadLesnr() {
-    var lesnr = document.getElementById('lesnr');
-    lesnr.hidden = false;
+
+    dropdown = document.querySelector("#cursisten");
+    dropdown.style = "background: #f9f9f9";
+    dropdown = document.querySelector("#lesnr");
+    dropdown.style = "background: #efc4c4";
+    dropdown.hidden = false;
+   if (formulierNaam !== '') genereerFormuliernaam();
 }
 
 
