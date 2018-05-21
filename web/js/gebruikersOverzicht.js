@@ -28,7 +28,7 @@ let renderHTML = function(type, data) {
         meta = {
             rol : ["admin", "leerkracht", "cursist", "secretariaat"]
         };
-        parameters = ["achternaam", "voorNaam", "login", "rol", "geboorteDatumValue", "email"];
+        parameters = ["achternaam", "voornaam", "login", "rol", "geboorteDatumValue", "email"];
         let tabel = utilities.tabelAanmaken(data, parameters, titels);
         let inhoud = document.getElementById("gebruikersOverzicht");
         console.log(inhoud);
@@ -87,43 +87,12 @@ document.addEventListener("click", function(e){
             console.log(rij.cells);
             utilities.tabelID = 'gebruikersOverzicht';
             utilities.params = 'idSave=' + utilities.saveID;
-            let i3 = -1;
-            //beter SYSTEEM zoeken !!!!
-            let requestParameter = ["voornaam", "achternaam", "rol", "geboorteDatum", "email"];
-            parameters.forEach(function(parameter){
-                i3++;
-                let cel = rij.cells[i3];
-                console.log(cel);
-                let getVal = function(cel){
-                    let ie = 0;
-                    let val = cel.childNodes;
-                    ie++;
-                    for(let node of val) {
-                        if(node.name === parameter) {
-                            return node;
-                        } else {
-                            node = node.childNodes;
-                            for(let node2 of node) {
-                                if(node2.name === parameter) {
-                                    return node;
-                                } else {
-                                    for(let node3 of node2) {
-                                        if(node3.name === parameter) {
-                                            return node;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    return '';
-                }
-                let val = getVal(cel);
-                console.log(val);
-                //let val = document.querySelector('#' + utilities.tabelID + ' tbody tr:nth-child(' + rij.rowIndex + ') [name="' + parameter + '"]').value;
-                
-                utilities.params += parameter + '=' + val;
-            });
+            for(let i=0; i < utilities.editRow.length; i++) {
+                let val = utilities.editRow[i].value;
+                let parameter = parameters[i];
+                if(parameter === "geboorteDatumValue") parameter = "geboorteDatum";
+                utilities.params += '&' + parameter + '=' + val;
+            }
             console.log(utilities.params);
             requestData("opslaan");
         }

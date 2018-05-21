@@ -15,7 +15,8 @@ public class Gebruiker {
     private int gebruikerID;
     private int jsonID;
     private String rol;
-    private String voorNaam;
+    //private transient String voorNaam;
+    private String voornaam;
     private String achternaam;
     private String naam;
 
@@ -56,11 +57,11 @@ public class Gebruiker {
     }
 
     public String getVoorNaam() {
-        return voorNaam;
+        return voornaam;
     }
 
-    public void setVoorNaam(String voorNaam) {
-        this.voorNaam = voorNaam;
+    public void setVoorNaam(String voornaam) {
+        this.voornaam = voornaam;
     }
 
     public String getAchternaam() {

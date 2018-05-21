@@ -2,6 +2,7 @@ let utilities = {
     editID : 0,
     saveID : 0,
     backup : [],
+    editRow : [],
     backupData : [],
     pageCounter : 1,
     params : '',
@@ -113,6 +114,7 @@ let utilities = {
         utilities.backupData = [];
         utilities.saveID = saveID;
         cellData = {};
+        utilities.editRow = [];
         parameters.forEach(function(parameter){
             i++;
             let loc = cellen[i];
@@ -123,6 +125,7 @@ let utilities = {
             while(loc.firstChild)
                 loc.removeChild(loc.firstChild);
             loc.appendChild(elem);
+            utilities.editRow.push(document.querySelector('[name="' + parameter.toLowerCase() + '"]'));
         });
         i++;
         if(cellen[i].getAttribute("data-label") === "Acties") {
