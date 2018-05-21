@@ -35,7 +35,7 @@
                     <td width="20px"></td>
 
                     <!-- Datum kiezer -->
-                    <td> <input type="date" id="datum"  value="today" onChange="pasSemesterAan()"
+                    <td> <input type="date" id="datum"  value="today" onchange="pasSemesterAan()"
                                 required style="font-size: 0.9rem"  
                                 style="background: #f9f9f9"  > </td>
                 <script>
@@ -44,7 +44,7 @@
                 </script>
 
                 <!-- Semester kiezer-->
-                <td> <select name="Semester" id="Semester" 
+                <td> <select name="Semester" id="Semester" onchange="laadCursistenOpnieuw()"
                              style="background: #f9f9f9" class="drop" >
                         <option selected > Semester... </option>
                         <c:forEach items="${semesters}" var="semester">                  
@@ -173,9 +173,9 @@
                 </tr>
 
                 <!-- Taak toevoegen -->
-                <tr class="addLine" hidden>
+                <tr class="addLine" id="addLine" hidden>
                     <td />
-                    <td><input type="button" value="+" id="addLine" 
+                    <td><input type="button" value="+" 
                                onclick="laadLijn();"  class="lijnButton" /></td>
                 </tr> 
 

@@ -1,5 +1,5 @@
 
-var formulierNaam='';
+var formulierNaam = '';
 var aantalTaken = 0;
 var aantalDoelstellingen = 0;
 var dropdownKeuze;
@@ -30,7 +30,8 @@ function pasSemesterAan() {
             document.querySelector("#Semester").selectedIndex = 1;
             break;
     }
-    if (formulierNaam !== '') genereerFormuliernaam();
+    if (formulierNaam !== '')
+        genereerFormuliernaam();
 }
 
 //laad de dropdown met de gevraagde soort
@@ -65,7 +66,6 @@ function laadDropdown(soort) {
             var schooljaar = document.getElementById("datum").value;
             var semester = document.getElementById("Semester").value;
             xhttp.open("POST", "EvaluatieFormulierServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
-             if (formulierNaam !== '') genereerFormuliernaam();
             break;
     }
 
@@ -103,6 +103,14 @@ function laadDropdown(soort) {
             dropdown.selectedIndex = 0;
 
             let option;
+            option = document.createElement('option');
+            switch (soort) {
+                case 'cursisten':  
+                    option.text = "Blanco";
+                    dropdown.add(option);
+                    break;
+            }
+            
             for (let i = 0; i < data.length; i++) {
                 option = document.createElement('option');
                 option.text = data[i].naam;
@@ -118,12 +126,20 @@ function laadDropdown(soort) {
                     resetDropdowns('opleidingen');
                     break;
                 case 'cursisten':
+                    option.text = "Blanco";
+                    dropdown.add(option);
                     option.text = "Voeg cursist toe...";
-                    //toon lesnr dropdown
-
                     break;
             }
             dropdown.add(option);
+
+            //plaats titel in dropdown
+            switch (soort) {
+                case 'cursisten':
+                    if (formulierNaam !== '')
+                        genereerFormuliernaam();
+                    break;
+            }
         }
     };
 
@@ -145,7 +161,31 @@ function genereerFormuliernaam() {
     formulierNaam = lescursist + "_" + leskeuze + "_" + lesdatum + "_" + lesnummer;
     label.innerHTML = "formulierNaam: " + formulierNaam;
 
+    //ready to take off?
+    let dropdowns = document.getElementsByClassName('drop');
+    var ready = true;
+    for (let i = 0; i < dropdowns.length; i++) {
+        if (dropdowns[i].selectedIndex === 0) {
+            ready = false;
+        }
+        if (dropdowns[i].hidden === true) {
+            ready = false;
+        }
+
+    }
+    if (ready === true) {
+       laadLijn();
+    }
+
 }
+
+function laadCursistenOpnieuw() {
+
+    if (formulierNaam !== '')
+        laadDropdown("cursisten");
+}
+
+
 //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
 function resetDropdowns(naam) {
 
@@ -198,7 +238,8 @@ function laadLesnr() {
     dropdown = document.querySelector("#lesnr");
     dropdown.style = "background: #efc4c4";
     dropdown.hidden = false;
-   if (formulierNaam !== '') genereerFormuliernaam();
+    if (formulierNaam !== '')
+        genereerFormuliernaam();
 }
 
 
@@ -300,10 +341,10 @@ function laadLijn() {
                                 for (let i = 0; i < aantalDoelstellingen; i++) {
 
                                     var scoreSelect = document.createElement('select');
-                                    scoreSelect.id = "formScore" + i + 1;
-                                    scoreSelect.style.fontSize = "13px";
                                     scoreSelect.style = "background: #f9f9f9";
-
+                                    scoreSelect.id = "formScore"  + i;
+                                    scoreSelect.style.fontSize = "10pt";
+                                
 
                                     let defaultOption = document.createElement('option');
                                     defaultOption.text = 'Score...';
@@ -331,6 +372,8 @@ function laadLijn() {
                             var commentVak = row.insertCell(9);
                             commentVak.style.verticalAlign = "top";
                             commentVak.appendChild(comment);
+                            var extraLijn = document.getElementById("addLine");
+                            extraLijn.hidden=false;
                         };
 
                     }
@@ -359,6 +402,7 @@ function laadLijn() {
 
             //plaats de dropdown in de rij op de evaluatie.jsp
             taakVak.appendChild(select);
+            
         }
     };
 }
