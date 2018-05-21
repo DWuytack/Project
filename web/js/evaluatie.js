@@ -105,12 +105,12 @@ function laadDropdown(soort) {
             let option;
             option = document.createElement('option');
             switch (soort) {
-                case 'cursisten':  
+                case 'cursisten':
                     option.text = "Blanco";
                     dropdown.add(option);
                     break;
             }
-            
+
             for (let i = 0; i < data.length; i++) {
                 option = document.createElement('option');
                 option.text = data[i].naam;
@@ -174,7 +174,7 @@ function genereerFormuliernaam() {
 
     }
     if (ready === true) {
-       laadLijn();
+        laadLijn();
     }
 
 }
@@ -246,9 +246,11 @@ function laadLesnr() {
 //laad de taken
 function laadLijn() {
 
+
     aantalTaken = aantalTaken + 1;
     var xhttp = new XMLHttpRequest();
     var module = document.getElementById('modules').value;
+
 
     //open(method,url,async)
     xhttp.open("POST", "EvaluatieFormulierServlet?taak=" + module, true);
@@ -264,7 +266,9 @@ function laadLijn() {
             //maak een rij in ons evaluatie.jsp
             var evalTable = document.getElementById("evaluatieTable");
             var row = evalTable.insertRow(0);
+            row.id = "row" + aantalTaken;
             row.insertCell(0);
+
             var taakVak = row.insertCell(1);
             taakVak.style.verticalAlign = "center";
 
@@ -293,6 +297,7 @@ function laadLijn() {
                         row.insertCell(2);
                         //we voorzien een vak voor onze doelstellingen
                         var doelstellingenVak = row.insertCell(3);
+
                         doelstellingenVak.style.whiteSpace = "nowrap";
                         const doelstellingen = JSON.parse(xhttp2.responseText);
                         aantalDoelstellingen = doelstellingen.length;
@@ -342,9 +347,9 @@ function laadLijn() {
 
                                     var scoreSelect = document.createElement('select');
                                     scoreSelect.style = "background: #f9f9f9";
-                                    scoreSelect.id = "formScore"  + i;
+                                    scoreSelect.id = "formScore" + i;
                                     scoreSelect.style.fontSize = "10pt";
-                                
+
 
                                     let defaultOption = document.createElement('option');
                                     defaultOption.text = 'Score...';
@@ -373,7 +378,7 @@ function laadLijn() {
                             commentVak.style.verticalAlign = "top";
                             commentVak.appendChild(comment);
                             var extraLijn = document.getElementById("addLine");
-                            extraLijn.hidden=false;
+                            extraLijn.hidden = false;
                         };
 
                     }
@@ -402,7 +407,7 @@ function laadLijn() {
 
             //plaats de dropdown in de rij op de evaluatie.jsp
             taakVak.appendChild(select);
-            
+
         }
     };
 }
