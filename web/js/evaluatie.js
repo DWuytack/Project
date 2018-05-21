@@ -189,44 +189,59 @@ function laadLijn() {
 
     aantalTaken = aantalTaken + 1;
     var xhttp = new XMLHttpRequest();
-    var keuze = document.getElementById('modules').value;
+    var module = document.getElementById('modules').value;
 
     //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?taak=" + keuze, true);
+    xhttp.open("POST", "EvaluatieFormulierServlet?taak=" + module, true);
     xhttp.send();
 
+    //als het taken door de server worden afgeleverd
     xhttp.onreadystatechange = function () {
 
         if (this.readyState === 4 && this.status === 200) {
 
-            const data = JSON.parse(xhttp.responseText);
-            var evalTable = document.getElementById("evaluatieTable");
+            const taken = JSON.parse(xhttp.responseText);
 
+            //maak een rij in ons evaluatie.jsp
+            var evalTable = document.getElementById("evaluatieTable");
             var row = evalTable.insertRow(0);
             row.insertCell(0);
-            var vak2 = row.insertCell(1);
+            var taakVak = row.insertCell(1);
 
+            //maak een dropdown aan voor de taken te laden
             var select = document.createElement('select');
+
+            //wat gebeurt er als er een taak wordt gekozen?
             select.onchange = function () {
 
-                var keuze = document.getElementById('formTaken' + aantalTaken).value;
-                var xhttp = new XMLHttpRequest();
+                //welke taak is gekozen?
+                var select_id = document.getElementById("formTaken" + aantalTaken);
+                var selectedTaak=select_id.options[select_id.selectedIndex].value;
+                var xhttp2 = new XMLHttpRequest();
 
-                //open(method,url,async)
-                xhttp.open("POST", "EvaluatieFormulierServlet?formTaak=" + keuze, true);
-                xhttp.send();
+                //laad de doelstellingen die overeenkomen met de taak
+                xhttp2.open("POST", "EvaluatieFormulierServlet?formTaak=" + selectedTaak, true);
+                xhttp2.send();
 
-                xhttp.onreadystatechange = function () {
+                xhttp2.onreadystatechange = function () {
 
+                    //als de doelstellingen arriveren...
                     if (this.readyState === 4 && this.status === 200) {
 
-                        const data2 = JSON.parse(xhttp.responseText);
-                        aantalDoelstellingen = data2.length;
+                        row.insertCell(2);
+                        //we voorzien een vak voor onze doelstellingen
+                        var doelstellingenVak = row.insertCell(3);
 
-                        for (let i = 0; i < data.length; i++) {
-                            doelstellingen[i].hidden = false;
-                            doelstellingen[i].innerHTML = data[i].naam + "<br>";
+                        const doelstellingen = JSON.parse(xhttp2.responseText);
+                        aantalDoelstellingen = doelstellingen.length;
+                        var strDoelstellingen = "";
+
+                        for (let i = 0; i < doelstellingen.length; i++) {
+                            //we maken een string aan
+                            strDoelstellingen = strDoelstellingen + doelstellingen[i].naam + "<br/>";
                         }
+
+                        doelstellingenVak.innerHTML = strDoelstellingen;
 
                         var kernen = document.getElementsByClassName('formkern' + aantalTaken);
                         for (let i = 0; i < data.length; i++) {
@@ -286,8 +301,11 @@ function laadLijn() {
                 }
 
             };
+
+            //geef de taken dropdown een id
             select.id = "formTaken" + aantalTaken;
 
+            //en vul de dropdown met de gewenste taken
             let defaultOption = document.createElement('option');
             defaultOption.text = 'Kies een taak...';
             defaultOption.disabled = true;
@@ -295,15 +313,17 @@ function laadLijn() {
             select.selectedIndex = 0;
 
             let option;
-            for (let i = 0; i < data.length; i++) {
+            for (let i = 0; i < taken.length; i++) {
                 option = document.createElement('option');
-                option.text = data[i].naam;
+                option.text = taken[i].naam;
                 select.add(option);
             }
             option = document.createElement('option');
             option.text = "Voeg taak toe...";
             select.add(option);
-            vak2.appendChild(select);
+
+            //plaats de dropdown in de rij op de evaluatie.jsp
+            taakVak.appendChild(select);
         }
     };
 }
