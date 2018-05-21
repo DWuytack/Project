@@ -84,24 +84,24 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
         if (module != null) {
 
-            String schooljaar = request.getParameter("schooljaar");
+            String datum = request.getParameter("schooljaar");
             String semester = request.getParameter("semester");
 
             String semesterNr = semester.substring(0, 1);
 
-            int schooljaarID = Integer.valueOf(schooljaar.substring(0, 4));
+            int schooljaar= Integer.valueOf(datum.substring(0, 4));
             int semesterNummer = Integer.valueOf(semesterNr);
             String volSchooljaar = "";
-            String volgendSchooljaar = String.valueOf(schooljaarID + 1);
-            String vorigSchooljaar = String.valueOf(schooljaarID - 1);
+            String volgendSchooljaar = String.valueOf(schooljaar + 1);
+            String vorigSchooljaar = String.valueOf(schooljaar - 1);
 
             switch (semesterNummer) {
-                case 2:
-                    volSchooljaar = schooljaar.substring(0, 4) + " - " + volgendSchooljaar;
+                case 1:
+                    volSchooljaar = datum.substring(0, 4) + " - " + volgendSchooljaar;
                     break;
 
-                case 1:
-                    volSchooljaar = vorigSchooljaar + " - " + schooljaar.substring(0, 4);
+                case 2:
+                    volSchooljaar = vorigSchooljaar + " - " + datum.substring(0, 4);
                     break;
             }
 
