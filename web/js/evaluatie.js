@@ -6,8 +6,6 @@ var dropdownKeuze;
 var formTaken;
 var taakDropdown;
 
-
-
 //kiest juiste semester aan de hand van datum
 function pasSemesterAan() {
 
@@ -123,6 +121,7 @@ function laadDropdown(soort) {
                 case 'modules':
                     option.text = "Voeg module toe...";
                     resetDropdowns('opleidingen');
+                    verwijderTaken();
                     break;
                 case 'cursisten':
                     option.text = "Blanco";
@@ -131,10 +130,7 @@ function laadDropdown(soort) {
                     break;
             }
             dropdown.add(option);
-
             genereerFormuliernaam();
-
-
         }
     };
 
@@ -175,8 +171,10 @@ function genereerFormuliernaam() {
     }
     if (ready === true) {
         toonTaakToevoegen();
+        label.hidden=false;
     } else {
         verbergTaakToevoegen();
+        label.hidden=true;
     }
 
 }
@@ -196,11 +194,6 @@ function toonTaakToevoegen() {
 
 }
 
-
-
-
-
-
 function laadCursistenOpnieuw() {
 
     if (formulierNaam !== '')
@@ -212,10 +205,9 @@ function laadCursistenOpnieuw() {
 function resetDropdowns(naam) {
 
     let dropdowns = document.getElementsByClassName('drop');
-    var i;
     var idDropDown;
 
-    for (i = 0; i < dropdowns.length; i++) {
+    for (let i = 0; i < dropdowns.length; i++) {
         idDropDown = dropdowns[i].id;
         //reset dropdowns na studiegebied
         switch (naam) {
@@ -258,7 +250,7 @@ function laadLesnr() {
     dropdown = document.querySelector("#cursisten");
     dropdown.style = "background: #f9f9f9";
     dropdown = document.querySelector("#lesnr");
-    dropdown.style = "background: #efc4c4";
+    if (dropdown.selectedIndex === 0) dropdown.style = "background: #efc4c4";
     dropdown.hidden = false;
     if (formulierNaam !== '')
         genereerFormuliernaam();
@@ -268,12 +260,10 @@ function laadLesnr() {
 //laad de taken
 function laadLijn() {
 
-
     aantalTaken = aantalTaken + 1;
     var xhttp = new XMLHttpRequest();
     var module = document.getElementById('modules').value;
-
-
+    
     //open(method,url,async)
     xhttp.open("POST", "EvaluatieFormulierServlet?taak=" + module, true);
     xhttp.send();
@@ -289,6 +279,7 @@ function laadLijn() {
             var evalTable = document.getElementById("evaluatieTable");
             var row = evalTable.insertRow(0);
             row.id = "row" + aantalTaken;
+            row.style.height="40px";
             row.insertCell(0);
 
             var taakVak = row.insertCell(1);
@@ -432,7 +423,10 @@ function laadLijn() {
 
             //plaats de dropdown in de rij op de evaluatie.jsp
             taakVak.appendChild(select);
-
+         
+           
+           
+          
         }
     };
 }

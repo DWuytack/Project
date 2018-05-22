@@ -1,4 +1,4 @@
-let utilities = {
+const utilities = {
     editID : 0,
     saveID : 0,
     backup : [],
@@ -7,6 +7,27 @@ let utilities = {
     pageCounter : 1,
     params : '',
     tableID : '',
+    requestData : function(type, target) {
+        let hasTarget = false;
+        let xhttp = new XMLHttpRequest();
+        let data = "";
+
+        if(target !== undefined && target.hasAttribute("name")) hasTarget = true;
+        if(hasTarget) target.classList.add("active");
+
+        xhttp.open("POST", "someservlet", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                // Typical action to be performed when the document is ready:
+                data = JSON.parse(xhttp.responseText);
+                if(hasTarget) target.classList.remove("active");
+                console.log(data);
+                renderHTML(type, data);
+            }
+        };
+        xhttp.send(utilities.params);
+    },
     datumFormat : function(inputFormat) {
         let pad = function(s) { return (s < 10) ? '0' + s : s; };
         if(RegExp("([0-9]{2})\/+([0-9]{2})\/+([0-9]{4})").test(inputFormat))
@@ -144,7 +165,6 @@ let utilities = {
             i2++;
             cel = cellen[i2];
             cel.innerHTML = utilities.backup[i2];
-            console.log(cel);
         });
         i2++;
         if(titels[i2] === "Acties") {

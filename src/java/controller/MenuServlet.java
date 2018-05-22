@@ -160,6 +160,11 @@ ArrayList beoordelingssoort = beoordelingssoortDAO.beoordelingssoortenLaden();
 session.setAttribute("beoordelingssoorten", beoordelingssoort);
 response.sendRedirect("TypeScoreOverzicht.jsp");
 break;
+
+case "Cursisten inschrijven":
+response.sendRedirect("CursistenInschrijven.jsp");
+break;
+
 }
 
 } catch (Throwable theException) {
