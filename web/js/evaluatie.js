@@ -6,8 +6,6 @@ var dropdownKeuze;
 var formTaken;
 var taakDropdown;
 
-
-
 //kiest juiste semester aan de hand van datum
 function pasSemesterAan() {
 
@@ -123,6 +121,7 @@ function laadDropdown(soort) {
                 case 'modules':
                     option.text = "Voeg module toe...";
                     resetDropdowns('opleidingen');
+                    verwijderTaken();
                     break;
                 case 'cursisten':
                     option.text = "Blanco";
@@ -260,7 +259,6 @@ function laadLesnr() {
 
 //laad de taken
 function laadLijn() {
-
 
     aantalTaken = aantalTaken + 1;
     var xhttp = new XMLHttpRequest();
