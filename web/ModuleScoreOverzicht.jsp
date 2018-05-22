@@ -22,6 +22,11 @@
         <link rel="stylesheet" href="css/theme.css">
         
         <title>Score overzicht per klas</title>
+        <style>
+            #nav-topke {
+                width: auto;
+            }     
+        </style>
     </head>
 
     <body>
@@ -43,7 +48,7 @@
                         </div>
                     </div>
                     <br><br>
-                    <table>
+                    <table id="nav-topke">
                         <tr>
                             <td>
                                 <select name="schooljaar" id="schooljaar" style="max-width:150px;">
