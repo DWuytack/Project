@@ -196,11 +196,6 @@ function toonTaakToevoegen() {
 
 }
 
-
-
-
-
-
 function laadCursistenOpnieuw() {
 
     if (formulierNaam !== '')
@@ -432,7 +427,10 @@ function laadLijn() {
 
             //plaats de dropdown in de rij op de evaluatie.jsp
             taakVak.appendChild(select);
-
+         
+           
+           
+          
         }
     };
 }
