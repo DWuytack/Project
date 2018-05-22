@@ -90,56 +90,36 @@ SemesterDAO semesterDAO = new SemesterDAO();
 ArrayList semesters = semesterDAO.semestersLaden();
 session.setAttribute("semesters", semesters);
 
-// laden modules uit database en in het geheugen plaatsen
-ModuleDAO moduleDAO = new ModuleDAO();
-ArrayList modules = moduleDAO.modulesLaden();
-session.setAttribute("modules", modules);
-
-// laden van opleidingen
-OpleidingDAO opleidingDAO = new OpleidingDAO();
-ArrayList opleidingen = opleidingDAO.opleidingenLaden();
-session.setAttribute("opleidingen", opleidingen);
-
 // laden studiegebieden
 StudiegebiedDAO studiegebiedDAO = new StudiegebiedDAO();
 ArrayList studiegebieden = studiegebiedDAO.studiegebiedenLaden();
 session.setAttribute("studiegebieden", studiegebieden);
-response.sendRedirect("Score.jsp");
+response.sendRedirect("ModuleScoreOverzicht.jsp");
 break;
 
 case "Overzicht scores cursist":
 
 // laden van schooljaren uit database en in het geheugen plaatsen
-SchooljaarDAO schooljaarDAO1 = new SchooljaarDAO();
-ArrayList schooljaren1 = schooljaarDAO1.schooljarenLaden();
-session.setAttribute("schooljaren", schooljaren1);
+schooljaarDAO = new SchooljaarDAO();
+schooljaren = schooljaarDAO.schooljarenLaden();
+session.setAttribute("schooljaren", schooljaren);
 
 // laden semester uit database en in het geheugen plaatsen
-SemesterDAO semesterDAO1 = new SemesterDAO();
-ArrayList semesters1 = semesterDAO1.semestersLaden();
-session.setAttribute("semesters", semesters1);
-
-// laden modules uit database en in het geheugen plaatsen
-ModuleDAO moduleDAO1 = new ModuleDAO();
-ArrayList modules1 = moduleDAO1.modulesLaden();
-session.setAttribute("modules", modules1);
-
-// laden van opleidingen
-OpleidingDAO opleidingDAO1 = new OpleidingDAO();
-ArrayList opleidingen1 = opleidingDAO1.opleidingenLaden();
-session.setAttribute("opleidingen", opleidingen1);
+semesterDAO = new SemesterDAO();
+semesters = semesterDAO.semestersLaden();
+session.setAttribute("semesters", semesters);
 
 // laden studiegebieden
-StudiegebiedDAO studiegebiedDAO1 = new StudiegebiedDAO();
-ArrayList studiegebieden1 = studiegebiedDAO1.studiegebiedenLaden();
-session.setAttribute("studiegebieden", studiegebieden1);
-response.sendRedirect("Score.jsp");
+studiegebiedDAO = new StudiegebiedDAO();
+studiegebieden = studiegebiedDAO.studiegebiedenLaden();
+session.setAttribute("studiegebieden", studiegebieden);
+response.sendRedirect("CursistScoreOverzicht.jsp");
 break;
 
 case "Overzicht studiegebieden":
 studiegebiedDAO = new StudiegebiedDAO();
-ArrayList studiegebieden2 = studiegebiedDAO.studiegebiedenLaden();
-session.setAttribute("studiegebieden", studiegebieden2); 
+studiegebieden = studiegebiedDAO.studiegebiedenLaden();
+session.setAttribute("studiegebieden", studiegebieden); 
 response.sendRedirect("OverzichtStudiegebieden.jsp"); 
 break;
 
@@ -148,8 +128,8 @@ case "Evaluatieformulieren":
 //laden schooljaren
     
 schooljaarDAO = new SchooljaarDAO();
-ArrayList schooljaren2 = schooljaarDAO.schooljarenLaden();
-session.setAttribute("schooljaren", schooljaren2);
+schooljaren = schooljaarDAO.schooljarenLaden();
+session.setAttribute("schooljaren", schooljaren);
 
 //laden semesters
 semesterDAO = new SemesterDAO();
@@ -166,11 +146,9 @@ LesnrDAO  lesnrDAO = new LesnrDAO();
 ArrayList<Lesnr> lesnrs = lesnrDAO.lesnrsLaden();
 session.setAttribute("lesnrs", lesnrs);
 
-
-
-
 response.sendRedirect("EvaluatieFormulier.jsp");
 break;
+
 case "Rapport":
 response.sendRedirect("Rapport.jsp");
 break;

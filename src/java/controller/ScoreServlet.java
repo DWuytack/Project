@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import model.Opleiding;
 import model.OpleidingDAO;
 import model.BeoordelingssoortDAO; 
+import model.Gebruiker;
+import model.ScoreDAO;
+import model.Module;
+import model.ModuleDAO;
+import model.SchooljaarDAO;
+import model.SemesterDAO;
 import model.StudiegebiedDAO;
 
 /**
@@ -20,8 +26,6 @@ import model.StudiegebiedDAO;
  */
 @WebServlet(name = "ScoreServlet", urlPatterns = {"/ScoreServlet"})
 public class ScoreServlet extends HttpServlet {
-    
-    BeoordelingssoortDAO scoreDAO = new BeoordelingssoortDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,22 +38,63 @@ public class ScoreServlet extends HttpServlet {
      */
      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        String keuze = request.getParameter("reset");
+        
+        if (keuze != null) {response.sendRedirect("ModuleScoreOverzicht.jsp");}
 
-        String keuze = request.getParameter("studiegebied");
         Gson gson = new Gson();
+        String studiegebied = request.getParameter("studiegebied");
 
-        if (keuze != null) {
-                   
-            OpleidingDAO opleidingDAO=new OpleidingDAO();
-            StudiegebiedDAO studieGebiedDAO=new StudiegebiedDAO();
-            ArrayList<Opleiding> opleidingen=opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudiegebiedID(keuze));
+        if (studiegebied != null) {
+
+            OpleidingDAO opleidingDAO = new OpleidingDAO();
+            StudiegebiedDAO studieGebiedDAO = new StudiegebiedDAO();
+            ArrayList<Opleiding> opleidingen = opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudiegebiedID(studiegebied));
 
             String json = gson.toJson(opleidingen);
-            
+
             response.setContentType("application/json");
             response.getWriter().write(json);
         }
-    }
+
+        String opleiding = request.getParameter("opleiding");
+
+        if (opleiding != null) {
+
+            ModuleDAO moduleDAO = new ModuleDAO();
+            OpleidingDAO opleidingDAO = new OpleidingDAO();
+            ArrayList<Module> modules = moduleDAO.modulesLaden(opleidingDAO.geefOpleidingID(opleiding));
+
+            String json = gson.toJson(modules);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
+
+        String module = request.getParameter("module");
+
+        if (module != null) {
+
+            String schooljaar = request.getParameter("schooljaar");
+            String semester = request.getParameter("semester");
+
+            ScoreDAO scoreDAO = new ScoreDAO();
+            SchooljaarDAO schooljarenDAO = new SchooljaarDAO();
+            SemesterDAO semesterDAO = new SemesterDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
+            int param1 = schooljarenDAO.geefSchooljaarID(schooljaar);
+            int param2 = semesterDAO.laadSemesterID(semester);
+            int param3 = moduleDAO.laadModuleID(module);
+            ArrayList<String> cursistenScore = scoreDAO.klassikaleScore(param1, param2, param3);
+
+            String json = gson.toJson(cursistenScore);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
+     }
      // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
