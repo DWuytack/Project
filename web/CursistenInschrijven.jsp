@@ -18,23 +18,27 @@
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
-        <form method="post" action="CursistenInschrijvenServlet" >
+        <form method="post" action="CursistenInschrijvenServlet?keuze=reset" >
 
             <section id="pagename">
                 <h2> CursistenInschrijven </h2>
             </section>
-            <hr>
+
+            <td width="70px"></td>
+
+            <td width="10px"></td>
 
             <table>
-                <tr height="10px">
-                <tr>
-                    <td width="20px"></td>
 
-                    <td>  
-                        <select id="modules"
-                                style="background: #f9f9f9"  class="drop"></select> 
-                    </td>
-                    
+                <td> <select name="module" id="module"
+                             style="background: #f9f9f9" class="drop" >
+                        <option selected disabled > Module... </option>
+                        <c:forEach items="${modules}" var="module">                  
+                            <option> ${module.naam} </option>                     
+                        </c:forEach>
+                            <option> Voeg Module toe... </option>
+                    </select> </td>
+
             </table>
 
         </form>

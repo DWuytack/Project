@@ -7,10 +7,13 @@ package controller;
 
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Doelstelling;
+import model.DoelstellingDAO;
 import model.ModuleDAO;
 
 /**
@@ -39,13 +42,18 @@ public class CursistenInschrijvenServlet extends HttpServlet {
 
         Gson gson = new Gson();
 
-        String module = request.getParameter("modules");
+        String module = request.getParameter("module");
 
         if (module != null) {
 
+            //laad doelstellingen voor module
+            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
             ModuleDAO moduleDAO = new ModuleDAO();
-            int param = moduleDAO.laadModuleID(module);
+            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(moduleDAO.geefModuleID(module));
+            String json = gson.toJson(doelstellingen);
 
+            response.setContentType("application/json");
+            response.getWriter().write(json);
         }
 
     }
