@@ -267,8 +267,7 @@ function laadLijn() {
     aantalTaken = aantalTaken + 1;
     var xhttp = new XMLHttpRequest();
     var module = document.getElementById('modules').value;
-
-
+    
     //open(method,url,async)
     xhttp.open("POST", "EvaluatieFormulierServlet?taak=" + module, true);
     xhttp.send();
@@ -284,6 +283,7 @@ function laadLijn() {
             var evalTable = document.getElementById("evaluatieTable");
             var row = evalTable.insertRow(0);
             row.id = "row" + aantalTaken;
+            row.style.height="40px";
             row.insertCell(0);
 
             var taakVak = row.insertCell(1);
