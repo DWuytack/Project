@@ -95,7 +95,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><label name="curstinstenScores"  id="curstinstenScores" hidden disabled >
+                                <td><label name="cursistenScore"  id="cursistenScore">
                                 </label></td>
                                 <td />
                                 <c:forEach items="${cursistenScore}" var="cursistenScore">
