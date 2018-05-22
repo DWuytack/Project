@@ -187,8 +187,9 @@ public class GebruikersServlet extends HttpServlet {
                     gebruiker.setVoorNaam(request.getParameter("voornaam"));
                     gebruiker.setAchternaam(request.getParameter("achternaam"));
                     gebruiker.setRol(request.getParameter("rol"));
-                    java.sql.Date datum = java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
-                    gebruiker.setGeboorteDatum(datum);
+                    /*java.sql.Date datum = java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
+                    gebruiker.setGeboorteDatum(datum);*/
+                    gebruiker.setGeboorteDatum(request.getParameter("geboorteDatum"));
                     gebruiker.setEmail(request.getParameter("email"));
                     gebruiker.setLogin(request.getParameter("login"));
                     gebruikerDAO.gebruikerAanpassen(id, gebruiker);
