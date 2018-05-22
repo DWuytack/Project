@@ -131,10 +131,7 @@ function laadDropdown(soort) {
                     break;
             }
             dropdown.add(option);
-
             genereerFormuliernaam();
-
-
         }
     };
 
@@ -175,8 +172,10 @@ function genereerFormuliernaam() {
     }
     if (ready === true) {
         toonTaakToevoegen();
+        label.hidden=false;
     } else {
         verbergTaakToevoegen();
+        label.hidden=true;
     }
 
 }
@@ -207,10 +206,9 @@ function laadCursistenOpnieuw() {
 function resetDropdowns(naam) {
 
     let dropdowns = document.getElementsByClassName('drop');
-    var i;
     var idDropDown;
 
-    for (i = 0; i < dropdowns.length; i++) {
+    for (let i = 0; i < dropdowns.length; i++) {
         idDropDown = dropdowns[i].id;
         //reset dropdowns na studiegebied
         switch (naam) {
@@ -253,7 +251,7 @@ function laadLesnr() {
     dropdown = document.querySelector("#cursisten");
     dropdown.style = "background: #f9f9f9";
     dropdown = document.querySelector("#lesnr");
-    dropdown.style = "background: #efc4c4";
+    if (dropdown.selectedIndex === 0) dropdown.style = "background: #efc4c4";
     dropdown.hidden = false;
     if (formulierNaam !== '')
         genereerFormuliernaam();
