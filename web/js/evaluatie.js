@@ -174,10 +174,25 @@ function genereerFormuliernaam() {
 
     }
     if (ready === true) {
-        laadLijn();
+       toonTaakToevoegen();
+    } else {
+        verbergTaakToevoegen();
     }
 
 }
+
+function toonTaakToevoegen(){
+    
+      var extraLijn = document.getElementById("addLine");
+      extraLijn.hidden = false;
+    
+    
+}
+
+
+
+
+
 
 function laadCursistenOpnieuw() {
 
@@ -377,8 +392,7 @@ function laadLijn() {
                             var commentVak = row.insertCell(9);
                             commentVak.style.verticalAlign = "top";
                             commentVak.appendChild(comment);
-                            var extraLijn = document.getElementById("addLine");
-                            extraLijn.hidden = false;
+                          
                         };
 
                     }
