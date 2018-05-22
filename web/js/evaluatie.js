@@ -181,6 +181,13 @@ function genereerFormuliernaam() {
 
 }
 
+function verbergTaakToevoegen(){
+    
+      var extraLijn = document.getElementById("addLine");
+      extraLijn.hidden = true;
+    
+    
+}
 function toonTaakToevoegen(){
     
       var extraLijn = document.getElementById("addLine");
