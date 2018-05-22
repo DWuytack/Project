@@ -64,7 +64,7 @@
                             </td>
                             <td width="10px"></td>
                             <td>
-                                <select name="studiegebied" id="studiegebied" hidden onchange="laadOpleidingen()"  style="max-width:170px;">
+                                <select name="studiegebied" id="studiegebied" hidden onchange="laadOpleidingen()"  style="max-width:140px;">
                                     <option selected disabled> Studiegebied... </option>
                                     <c:forEach items="${studiegebieden}" var="studiegebied">                  
                                         <option> ${studiegebied.naam} </option>                     
@@ -74,19 +74,19 @@
                             </td>   
                             <td width="10px"></td>
 
-                            <td><select id="studiegebied" hidden onchange="laadOpleidingen()" style="max-width:170px;">
+                            <td><select id="studiegebied" hidden onchange="laadOpleidingen()" style="max-width:140px;">
 
                                 </select></td>
 
                             <td width="10px"></td>
 
-                            <td><select id="opleidingen" hidden onchange="laadModules()" style="max-width:170px;">
+                            <td><select id="opleidingen" hidden onchange="laadModules()" style="max-width:130px;">
 
                                 </select></td>
 
                             <td width="10px"></td>
 
-                            <td><select id="modules" hidden onchange="laadCursistenScores()" style="max-width:170px;">
+                            <td><select id="modules" hidden onchange="laadCursistenScores()" style="max-width:130px;">
 
                                 </select></td>
                         </tr>
