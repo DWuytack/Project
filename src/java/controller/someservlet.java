@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Gebruiker;
 import model.GebruikerDAO;
+import model.Instellingen;
 
 /**
  *
@@ -44,8 +45,20 @@ public class someservlet extends HttpServlet {
         String editID = request.getParameter("idEdit");
         String saveID = request.getParameter("idSave");
         int sessionID = 0;
+        int aantalGebruikers = (int) session.getAttribute("aantalRecords");
 
         if (page != null) {
+            int getoondeGebruikers = Instellingen.AANTAL_RECORDS_PER_PAGE;
+            if (getoondeGebruikers > aantalGebruikers) {
+                getoondeGebruikers = aantalGebruikers;
+            }
+            session.setAttribute("aantalRecords", aantalGebruikers);
+            session.setAttribute("getoondeGebruikers", getoondeGebruikers);
+            session.setAttribute("bladzijde", page);
+            
+            
+            
+            
             actie = "Vraag pagina aan";
             int p = Integer.parseInt(page);
             GebruikerDAO gebruikerDAO = new GebruikerDAO();
@@ -101,8 +114,9 @@ public class someservlet extends HttpServlet {
                 gebruiker.setVoorNaam(request.getParameter("voornaam"));
                 gebruiker.setAchternaam(request.getParameter("achternaam"));
                 gebruiker.setRol(request.getParameter("rol"));
-                java.sql.Date datum = java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
-                gebruiker.setGeboorteDatum(datum);
+                /*java.sql.Date datum = java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
+                gebruiker.setGeboorteDatum(datum);*/
+                gebruiker.setGeboorteDatum(request.getParameter("geboorteDatum"));
                 gebruiker.setEmail(request.getParameter("email"));
                 gebruiker.setLogin(request.getParameter("login"));
                 //object doorsturen naar database

@@ -1,17 +1,10 @@
 <%-- 
-    Document   : ModuleScoreOverzicht
-    Created on : 8-mrt-2018, 11:04:02
-    Author     : Keanu & Gil
+    Document   : CursistScoreOverzicht
+    Created on : 22-mei-2018, 9:38:42
+    Author     : Gil en Keanu
 --%>
 
-<%@ page language="java" 
-         contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"
-         import="model.Gebruiker"
-         %>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>    
     <head>
@@ -22,11 +15,6 @@
         <link rel="stylesheet" href="css/theme.css">
         
         <title>Score overzicht per klas</title>
-        <style>
-            #nav-topke {
-                width: auto;
-            }     
-        </style>
     </head>
 
     <body>
@@ -48,7 +36,7 @@
                         </div>
                     </div>
                     <br><br>
-                    <table id="nav-topke">
+                    <table>
                         <tr>
                             <td>
                                 <select name="schooljaar" id="schooljaar" style="max-width:150px;">
@@ -107,7 +95,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><label name="curstinstenScores"  id="curstinstenScores" hidden disabled >
+                                <td><label name="cursistenScore"  id="cursistenScore">
                                 </label></td>
                                 <td />
                                 <c:forEach items="${cursistenScore}" var="cursistenScore">
