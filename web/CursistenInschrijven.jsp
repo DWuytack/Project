@@ -1,7 +1,7 @@
 <%-- 
     Document   : CursistenInschrijven
     Created on : 22-mei-2018, 11:07:08
-    Author     : CURSIST
+    Author     : Aaron
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
