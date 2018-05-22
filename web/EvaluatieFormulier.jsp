@@ -118,7 +118,7 @@
 
                 <!-- Lesnummer kiezer -->
                 <td>  
-                    <select id="lesnr" onchange="genereerFormuliernaam()" 
+                    <select id="lesnr" onchange="laadFormuliernaam()" 
                             hidden style="background: #f9f9f9"  class="drop">
                         <option selected disabled> Lesnr... </option>
                         <c:forEach items="${lesnrs}" var="lesnr">                  

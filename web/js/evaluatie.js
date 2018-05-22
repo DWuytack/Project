@@ -37,7 +37,6 @@ function pasSemesterAan() {
 //laad de dropdown met de gevraagde soort
 function laadDropdown(soort) {
 
-
     var xhttp = new XMLHttpRequest();
     //vraag informatie aan servlet
     switch (soort) {
@@ -133,25 +132,25 @@ function laadDropdown(soort) {
             }
             dropdown.add(option);
 
-            //plaats titel in dropdown
-            switch (soort) {
-                case 'cursisten':
-                    if (formulierNaam !== '')
-                        genereerFormuliernaam();
-                    break;
-            }
+            genereerFormuliernaam();
+
+
         }
     };
 
 
 }
 
+function laadFormuliernaam() {
+    dropdown = document.querySelector("#lesnr");
+    dropdown.style = "background: #f9f9f9";
+    genereerFormuliernaam();
+}
+
+
 //nadat alle keuzes zijn gemaakt, wordt de formuliernaam gegenereerd...
 function genereerFormuliernaam() {
 
-    dropdown = document.querySelector("#lesnr");
-    dropdown.style = "background: #f9f9f9";
-    dropdown.hidden = false;
     var lesnummer = document.getElementById('lesnr').value;
     var label = document.getElementById('formulierNaam');
     label.hidden = false;
@@ -164,6 +163,7 @@ function genereerFormuliernaam() {
     //ready to take off?
     let dropdowns = document.getElementsByClassName('drop');
     var ready = true;
+
     for (let i = 0; i < dropdowns.length; i++) {
         if (dropdowns[i].selectedIndex === 0) {
             ready = false;
@@ -174,26 +174,26 @@ function genereerFormuliernaam() {
 
     }
     if (ready === true) {
-       toonTaakToevoegen();
+        toonTaakToevoegen();
     } else {
         verbergTaakToevoegen();
     }
 
 }
 
-function verbergTaakToevoegen(){
-    
-      var extraLijn = document.getElementById("addLine");
-      extraLijn.hidden = true;
-    
-    
+function verbergTaakToevoegen() {
+
+    var extraLijn = document.getElementById("addLine");
+    extraLijn.hidden = true;
+
+
 }
-function toonTaakToevoegen(){
-    
-      var extraLijn = document.getElementById("addLine");
-      extraLijn.hidden = false;
-    
-    
+function toonTaakToevoegen() {
+
+    var extraLijn = document.getElementById("addLine");
+    extraLijn.hidden = false;
+
+
 }
 
 
@@ -389,6 +389,10 @@ function laadLijn() {
                                     scoreVak.appendChild(scoreSelect);
                                 }
                             }
+                            dropdown = document.querySelector("#lesnr");
+                            dropdown.style = "background: #f9f9f9";
+                            dropdown.hidden = false;
+
                             var comment = document.createElement('textarea');
                             comment.rows = aantalDoelstellingen + 1;
                             comment.cols = 35;
@@ -399,7 +403,7 @@ function laadLijn() {
                             var commentVak = row.insertCell(9);
                             commentVak.style.verticalAlign = "top";
                             commentVak.appendChild(comment);
-                          
+
                         };
 
                     }
