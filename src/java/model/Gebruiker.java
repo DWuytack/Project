@@ -11,8 +11,8 @@ import java.text.SimpleDateFormat;
 public class Gebruiker {
    
     //beveiligingsupdate, schakel over naar jsonID
-    //private transient int gebruikerID;
-    private int gebruikerID;
+    private transient int gebruikerID;
+    //private int gebruikerID;
     private int jsonID;
     private String rol;
     private String voornaam;

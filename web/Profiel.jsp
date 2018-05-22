@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <td><label>GeboorteDatum: </label></td>
-                    <td><input type="date" id="geboorteDatum" value="${sessionScope.currentSessionUser.geboorteDatumValue}"/><td>
+                    <td><input type="date" id="geboorteDatum" value="${sessionScope.currentSessionUser.geboorteDatum}"/><td>
                 </tr>
                 <tr>
                     <td> <label>Email: </label></td>
