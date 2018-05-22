@@ -14,19 +14,19 @@ import java.util.ArrayList;
  */
 public class ScoreDAO {
     
-    public ArrayList<String> klassikaleScore(int schooljaarID, int semesterID, int moduleID) {
-        ArrayList<String> cursistenScore = new ArrayList<>();
+    public ArrayList klassikaleScore(int schooljaarID, int semesterID, int moduleID) {
+        ArrayList cursistenScore = new ArrayList<>();
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        String sql = "SELECT gebruikers.voornaam, gebruikers.achternaam, avg(beoordelingssoorten.waarde) as totaal_score from doelstellingen_inschrijvingen\n" +
-        "INNER JOIN beoordelingssoorten ON doelstellingen_inschrijvingen.beoordelingssoortID = beoordelingssoorten.beoordelingssoortID\n" +
-        "INNER JOIN inschrijvingen ON doelstellingen_inschrijvingen.inschrijvingID = inschrijvingen.inschrijvingID\n" +
-        "INNER JOIN gebruikers ON inschrijvingen.gebruikerID = gebruikers.gebruikerID\n" +
-        "WHERE inschrijvingen.moduleID=?\n" +
-        "AND inschrijvingen.semesterID=?\n" +
-        "AND inschrijvingen.schooljaarID=?\n" +
+        String sql = "SELECT gebruikers.voornaam, gebruikers.achternaam, avg(beoordelingssoorten.waarde) as totaal_score from doelstellingen_inschrijvingen " +
+        "INNER JOIN beoordelingssoorten ON doelstellingen_inschrijvingen.beoordelingssoortID = beoordelingssoorten.beoordelingssoortID " +
+        "INNER JOIN inschrijvingen ON doelstellingen_inschrijvingen.inschrijvingID = inschrijvingen.inschrijvingID " +
+        "INNER JOIN gebruikers ON inschrijvingen.gebruikerID = gebruikers.gebruikerID " +
+        "WHERE inschrijvingen.moduleID=? " +
+        "AND inschrijvingen.semesterID=? " +
+        "AND inschrijvingen.schooljaarID=? " +
         "GROUP BY gebruikers.gebruikerID;";
         
         try {
@@ -39,7 +39,7 @@ public class ScoreDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                
+     
                 cursistenScore.add(rs.getString("voornaam") + " " + rs.getString("achternaam") + " " + rs.getString("totaal_score"));
                 
             }
