@@ -6,8 +6,6 @@ var dropdownKeuze;
 var formTaken;
 var taakDropdown;
 
-
-
 //kiest juiste semester aan de hand van datum
 function pasSemesterAan() {
 
@@ -42,6 +40,7 @@ function laadDropdown(soort) {
     //vraag informatie aan servlet
     switch (soort) {
         case 'opleidingen':
+            //highlight opleiding in het rood
             dropdown = document.querySelector("#studiegebied");
             dropdown.style = "background: #f9f9f9";
             dropdown = document.querySelector("#opleidingen");
