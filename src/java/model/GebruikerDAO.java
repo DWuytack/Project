@@ -47,7 +47,7 @@ public class GebruikerDAO {
                 String voornaam = rs.getString("voornaam");
                 String achternaam = rs.getString("achternaam");
                 String rol = rs.getString("rol");
-                Date geboorteDatum = rs.getDate("geboorteDatum");
+                String geboorteDatum = rs.getString("geboorteDatum");
                 String email = rs.getString("email");
 
                 gebruiker.setGebruikerID(gebruikerID);
@@ -95,7 +95,7 @@ public class GebruikerDAO {
                     gebruiker.setAchternaam(rs.getString("achternaam"));
                     gebruiker.setLogin(rs.getString("login"));
                     gebruiker.setRol(rs.getString("rol"));
-                    gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
+                    gebruiker.setGeboorteDatum(rs.getString("geboortedatum"));
                     gebruiker.setEmail(rs.getString("email"));
                     cursistenLijst.add(gebruiker);
 
@@ -136,7 +136,7 @@ public class GebruikerDAO {
                     gebruiker.setAchternaam(rs.getString("achternaam"));
                     gebruiker.setLogin(rs.getString("login"));
                     gebruiker.setRol(rs.getString("rol"));
-                    gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
+                    gebruiker.setGeboorteDatum(rs.getString("geboortedatum"));
                     gebruiker.setEmail(rs.getString("email"));
                     gebruikers.add(gebruiker);
                 }
@@ -191,7 +191,7 @@ public class GebruikerDAO {
             ps.setString(1, gebruiker.getVoorNaam());
             ps.setString(2, gebruiker.getAchternaam());
             ps.setString(3, gebruiker.getRol());
-            ps.setDate(4, gebruiker.getGeboorteDatum());
+            ps.setString(4, gebruiker.getGeboorteDatum());
             ps.setString(5, gebruiker.getEmail());
             ps.setString(6, gebruiker.getLogin());
             ps.setString(7, gebruiker.getPaswoord());
@@ -237,7 +237,7 @@ public class GebruikerDAO {
             ps.setString(3, gebruiker.getLogin());
             ps.setString(1, gebruiker.getVoorNaam());
             ps.setString(2, gebruiker.getAchternaam());
-            ps.setDate(6, gebruiker.getGeboorteDatum());
+            ps.setString(6, gebruiker.getGeboorteDatum());
             ps.setString(5, gebruiker.getEmail());
             ps.setInt(7, gebruikerID);
 
@@ -281,7 +281,7 @@ public class GebruikerDAO {
                     gebruiker.setAchternaam(rs.getString("achternaam"));
                     gebruiker.setLogin(rs.getString("login"));
                     gebruiker.setRol(rs.getString("rol"));
-                    gebruiker.setGeboorteDatum(rs.getDate("geboortedatum"));
+                    gebruiker.setGeboorteDatum(rs.getString("geboortedatum"));
                     gebruiker.setEmail(rs.getString("email"));
                     gebruikers.add(gebruiker);
                 }

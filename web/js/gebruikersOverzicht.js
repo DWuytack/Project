@@ -1,41 +1,22 @@
 utilities.pageCounter = 1;
 utilities.params = 'page=' + utilities.pageCounter;
-let titels, parameters;
+const   titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email", "Acties"],
+        parameters = ["achternaam", "voornaam", "login", "rol", "geboorteDatum", "email"];
+        //parameters = ["achternaam", "voornaam", "login", "rol", "geboorteDatumValue", "email"];
 let meta;
 let rij = '';
 
-const requestData = function(type, target) {
-    let xhttp = new XMLHttpRequest();
-    let data = "";
-
-    xhttp.open("POST", "someservlet", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            // Typical action to be performed when the document is ready:
-            data = JSON.parse(xhttp.responseText);
-            console.log(data);
-            renderHTML(type, data);
-        }
-    };
-    xhttp.send(utilities.params);
-};
-
-let renderHTML = function(type, data) {
+//Render HTML achter Ajax request
+const renderHTML = function(type, data) {
     if (type === "tabel") {
-        titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email", "Acties"];
-        //titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email"];
         meta = {
             rol : ["admin", "leerkracht", "cursist", "secretariaat"]
         };
-        parameters = ["achternaam", "voornaam", "login", "rol", "geboorteDatumValue", "email"];
         let tabel = utilities.tabelAanmaken(data, parameters, titels);
         let inhoud = document.getElementById("gebruikersOverzicht");
-        console.log(inhoud);
         if(!inhoud.contains(tabel)) {
-        while(inhoud.firstChild)
-            inhoud.removeChild(inhoud.firstChild);
-        inhoud.appendChild(tabel);
+            while(inhoud.firstChild) inhoud.removeChild(inhoud.firstChild);
+            inhoud.appendChild(tabel);
         } else {
             inhoud = document.querySelector("#gebruikersOverzicht tbody");
             data.forEach(function(e){
@@ -50,25 +31,26 @@ let renderHTML = function(type, data) {
         console.log(data);
 };
 
+//Klik events
 document.addEventListener("click", function(e){
     let target = e.target;
     
     if( e.target.name === "Volgende") {
         utilities.pageCounter++;
         utilities.params = 'page=' + utilities.pageCounter;
-        requestData("tabel",);
+        utilities.requestData("tabel",);
     }
     
     if( e.target.name === "Vorige") {
         utilities.pageCounter--;
         utilities.params = 'page=' + utilities.pageCounter;
-        requestData("tabel",);
+        utilities.requestData("tabel",);
     }
     
     if( e.target.id === "somebutton" ) {
         utilities.pageCounter++;
         utilities.params = 'page=' + utilities.pageCounter;
-        requestData("tabel",);
+        utilities.requestData("tabel",);
     }
 
     if(target.hasAttribute("role")) {
@@ -79,7 +61,7 @@ document.addEventListener("click", function(e){
             let editID = target.value;
             utilities.backupID = editID;
             utilities.params = 'idEdit=' + editID;
-            requestData("aanpassen");
+            utilities.requestData("aanpassen", target);
         }
         if(role === "opslaan") {
             rij = utilities.vindRij(target);
@@ -90,11 +72,10 @@ document.addEventListener("click", function(e){
             for(let i=0; i < utilities.editRow.length; i++) {
                 let val = utilities.editRow[i].value;
                 let parameter = parameters[i];
-                if(parameter === "geboorteDatumValue") parameter = "geboorteDatum";
+                //if(parameter === "geboorteDatumValue") parameter = "geboorteDatum";
                 utilities.params += '&' + parameter + '=' + val;
             }
-            console.log(utilities.params);
-            requestData("opslaan");
+            utilities.requestData("opslaan", target);
         }
         if(role === "annuleren") {
             rij = utilities.vindRij(target);
@@ -134,7 +115,8 @@ document.addEventListener("click", function(e){
     }
     
 });
+
 //Load
 (function() {
-    requestData("tabel",);
+    utilities.requestData("tabel",);
 })();

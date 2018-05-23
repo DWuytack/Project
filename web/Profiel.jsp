@@ -15,9 +15,72 @@
     
     <body>
         <%@include file="Bovenbalk.jsp" %>
+        <!--
+        <style>
+            section {
+                display: flex;
+                justify-content: space-around;
+                flex-direction: column;
+            }
+            #testa {
+                display: flex;
+                width: 400px;
+                flex-direction: column;
+                margin: auto;
+                justify-content: space-around;
+            }
+            #testa div {
+                display: inherit;
+                margin: 5px;
+            }
+            #testa label {
+                display: inherit;
+                width: 50%;
+
+            }
+            #testa input {
+                display: inherit;
+                width: 50%;
+                /* justify-content: space-around; */
+            }
+            #testa input {
+                margin: 0;
+            }
+        </style>
+        -->
         <section>
             <h2>Mijn profiel</h2>
             <hr>
+            
+            <!--
+            <div id="testa">
+                <div>
+                    <label>Voornaam: </label>
+                    <input type="text" id="voornaam" value="${sessionScope.currentSessionUser.voorNaam}">
+                </div>
+                <div>
+                    <label>Achternaam: </label>
+                    <input type="text" id="achternaam" value="${sessionScope.currentSessionUser.achternaam}">
+                </div>
+                <div>
+                    <label>Rol: </label>
+                    <input type="text" id="rol" value="${sessionScope.currentSessionUser.rol}">
+                </div>
+                <div>
+                    <label>GeboorteDatum: </label>
+                    <input type="date" id="geboorteDatum" value="${sessionScope.currentSessionUser.geboorteDatum}">
+                </div>
+                <div>
+                    <label>Email: </label>
+                    <input type="text" id="email" value="${sessionScope.currentSessionUser.email}">
+                </div>
+                <div>
+                    <label>Login: </label>
+                    <input type="text" id="login" value="${sessionScope.currentSessionUser.login}">
+                </div>
+            </div>
+            -->
+
             <table>
                 <tr>
                     <td><label>Voornaam: </label></td>
@@ -33,7 +96,7 @@
                 </tr>
                 <tr>
                     <td><label>GeboorteDatum: </label></td>
-                    <td><input type="date" id="geboorteDatum" value="${sessionScope.currentSessionUser.geboorteDatumValue}"/><td>
+                    <td><input type="date" id="geboorteDatum" value="${sessionScope.currentSessionUser.geboorteDatum}"/><td>
                 </tr>
                 <tr>
                     <td> <label>Email: </label></td>

@@ -20,6 +20,13 @@
         <link rel="stylesheet" href="css/formulier.css">
         <link rel="stylesheet" href="css/gebruikersOverzicht.css">
         <title>Gebruikers overzicht</title>
+        <style>
+            input[name="idEdit"].active, input[name="idOpslaan"].active {
+                -webkit-filter: grayscale(100%);
+                filter: grayscale(100%);
+                pointer-events: none;
+            }
+        </style>
     </head>
     
     <body>

@@ -11,11 +11,10 @@ import java.text.SimpleDateFormat;
 public class Gebruiker {
    
     //beveiligingsupdate, schakel over naar jsonID
-    //private transient int gebruikerID;
-    private int gebruikerID;
+    private transient int gebruikerID;
+    //private int gebruikerID;
     private int jsonID;
     private String rol;
-    //private transient String voorNaam;
     private String voornaam;
     private String achternaam;
     private String naam;
@@ -27,8 +26,7 @@ public class Gebruiker {
     public void setNaam(String naam) {
         this.naam = naam;
     }
-    private Date geboorteDatum;
-    private String geboorteDatumValue;
+    private String geboorteDatum;
     private String email;
     private String login;
     private String paswoord;
@@ -72,23 +70,12 @@ public class Gebruiker {
         this.achternaam = achternaam;
     }
 
-    public Date getGeboorteDatum() {
+    public String getGeboorteDatum() {
         return geboorteDatum;
     }
 
-    public void setGeboorteDatum(Date geboorteDatum) {
+    public void setGeboorteDatum(String geboorteDatum) {
         this.geboorteDatum = geboorteDatum;
-        setGeboorteDatumValue();
-    }
-    
-    public void setGeboorteDatumValue() {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        this.geboorteDatumValue = df.format(geboorteDatum);
-    }
-    
-    public String getGeboorteDatumValue() {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        return df.format(geboorteDatum);
     }
 
     public String getEmail() {

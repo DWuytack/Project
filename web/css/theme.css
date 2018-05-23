@@ -778,7 +778,7 @@ input[type="submit"] {
 }
 
 
-input[type="button"], input[type="submit"] { 
+#evaluatie input[type="button"], #evaluatie input[type="submit"] { 
     border: #000;
     background: #efe1c4;
 } 
