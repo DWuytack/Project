@@ -116,38 +116,38 @@ function laadDropdown(soort) {
             defaultOption.disabled = true;
             dropdown.add(defaultOption);
             dropdown.selectedIndex = 0;
-            let option;
-            option = document.createElement('option');
             switch (soort) {
                 case 'cursisten':
-                    option.text = "Blanco";
-                    dropdown.add(option);
+                    let  optionExtra = document.createElement('option');
+                    optionExtra.text = "Blanco";
+                    dropdown.add(optionExtra);
                     break;
             }
 
             for (let i = 0; i < data.length; i++) {
-                option = document.createElement('option');
-                option.text = data[i].naam;
-                dropdown.add(option);
+               let  optiondata = document.createElement('option');
+                optiondata.text = data[i].naam;
+                dropdown.add(optiondata);
             }
+            
+            let  optionNieuw= document.createElement('option');
             switch (soort) {
+                 
                 case 'opleidingen':
-                    option.text = "Voeg opleiding toe...";
+                    optionNieuw.text = "Maak nieuwe opleiding...";
                     resetDropdowns('studiegebieden');
                     break;
                 case 'modules':
-                    option.text = "Voeg module toe...";
+                    optionNieuw.text = "Maak nieuwe module...";
                     resetDropdowns('opleidingen');
                     verwijderTaken();
                     break;
                 case 'cursisten':
-                    option.text = "Blanco";
-                    dropdown.add(option);
-                    option.text = "Voeg cursist toe...";
+                    optionNieuw.text = "Maak nieuwe cursist...";
                     laadTaakSelectData();
                     break;
             }
-            dropdown.add(option);
+            dropdown.add(optionNieuw);
             genereerFormuliernaam();
         }
     };
