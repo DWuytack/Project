@@ -212,16 +212,19 @@ function laadCursistenScores() {
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
 
-            let label = document.getElementById('curstinstenScores');           
-            label.hidden = false;   
-            
-            const data = JSON.parse(xhttp.responseText);
-            var cursistScore = "";
-            for (let i = 0; i < data.length; i++) {
-                cursistScore = cursistScore + data[i].naam + "<br>";
+            let achternaam = document.getElementById('achternaam');
+            let voornaam = document.getElementById('voornaam');
+            let waarde = document.getElementById('waarde');
 
+            const data = JSON.parse(xhttp.responseText);
+
+
+            for (let i = 0; i < data.length; i++) {
+                achternaam.innerHTML = data[i].achternaam;
+                voornaam.innerHTML = data[i].voornaam;
+                waarde.innerHTML = data[i].waarde;                
             }
-            label.innerHTML = cursistScore;           
+
         }
     };
 }

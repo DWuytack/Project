@@ -5,7 +5,8 @@ var aantalDoelstellingen = 0;
 var dropdownKeuze;
 var formTaken;
 var taakDropdown;
-
+var evalTable;
+var taakSelectData;
 //kiest juiste semester aan de hand van datum
 function pasSemesterAan() {
 
@@ -75,15 +76,12 @@ function laadDropdown(soort) {
 
             //plaats het antwoord in een object...
             const data = JSON.parse(xhttp.responseText);
-
             //toon dropdown
             let dropdown = document.getElementById(soort);
             dropdown.hidden = false;
             dropdown.length = 0;
-
             //plaats naam in dropdown en zorg ervoor dat de gebruiker dat niet kan selecteren
             let defaultOption = document.createElement('option');
-
             //plaats titel in dropdown
             switch (soort) {
                 case 'opleidingen':
@@ -99,7 +97,6 @@ function laadDropdown(soort) {
             defaultOption.disabled = true;
             dropdown.add(defaultOption);
             dropdown.selectedIndex = 0;
-
             let option;
             option = document.createElement('option');
             switch (soort) {
@@ -128,14 +125,13 @@ function laadDropdown(soort) {
                     option.text = "Blanco";
                     dropdown.add(option);
                     option.text = "Voeg cursist toe...";
+                    laadTaakSelectData();
                     break;
             }
             dropdown.add(option);
             genereerFormuliernaam();
         }
     };
-
-
 }
 
 function laadFormuliernaam() {
@@ -156,11 +152,9 @@ function genereerFormuliernaam() {
     var lescursist = document.getElementById("cursisten").value;
     formulierNaam = lescursist + "_" + leskeuze + "_" + lesdatum + "_" + lesnummer;
     label.innerHTML = "formulierNaam: " + formulierNaam;
-
     //ready to take off?
     let dropdowns = document.getElementsByClassName('drop');
     var ready = true;
-
     for (let i = 0; i < dropdowns.length; i++) {
         if (dropdowns[i].selectedIndex === 0) {
             ready = false;
@@ -184,15 +178,11 @@ function verbergTaakToevoegen() {
 
     var extraLijn = document.getElementById("addLine");
     extraLijn.hidden = true;
-
-
 }
 function toonTaakToevoegen() {
 
     var extraLijn = document.getElementById("addLine");
     extraLijn.hidden = false;
-
-
 }
 
 function laadCursistenOpnieuw() {
@@ -207,7 +197,6 @@ function resetDropdowns(naam) {
 
     let dropdowns = document.getElementsByClassName('drop');
     var idDropDown;
-
     for (let i = 0; i < dropdowns.length; i++) {
         idDropDown = dropdowns[i].id;
         //reset dropdowns na studiegebied
@@ -225,7 +214,6 @@ function resetDropdowns(naam) {
                     ledigDropDown(dropdowns[i]);
                 }
                 break;
-
             case 'opleidingen':
                 if (idDropDown === 'cursisten') {
                     dropdowns[i].selectedIndex = 0;
@@ -258,177 +246,156 @@ function laadLesnr() {
         genereerFormuliernaam();
 }
 
+function laadTaakSelectData() {
+
+    var xhttp3 = new XMLHttpRequest();
+    var module = document.getElementById('modules').value;
+    xhttp3.open("POST", "EvaluatieFormulierServlet?taak=" + module, true);
+    xhttp3.send();
+    //als het taken door de server worden afgeleverd
+    xhttp3.onreadystatechange = function () {
+
+        if (this.readyState === 4 && this.status === 200) {
+            taakSelectData = JSON.parse(xhttp3.responseText);
+        }
+    };
+}
 
 //laad de taken
 function laadLijn() {
 
     aantalTaken = aantalTaken + 1;
-    var xhttp = new XMLHttpRequest();
-    var module = document.getElementById('modules').value;
+    //maak een rij in ons evaluatie.jsp
+    evalTable = document.getElementById("evaluatieTable");
+    var legeLijn = evalTable.insertRow((aantalTaken*2) -1);
+    if (aantalTaken !== 1) legeLijn.style.height = "20px";
+    var row = evalTable.insertRow(aantalTaken*2);
+    row.id = "row" + aantalTaken;
+    row.style.height = "40px";
+    row.insertCell(0);
+    var taakVak = row.insertCell(1);
+    //lege cel
+    row.insertCell(2);
+    //we voorzien een vak voor onze doelstellingen
+    var doelstellingenVak = row.insertCell(3);
+    doelstellingenVak.style.whiteSpace = "nowrap";
+    doelstellingenVak.style.verticalAlign = "top";
+    //lege cel
+    row.insertCell(4);
+    //we voorzien een vak voor onze kernvakjes
+    var kernVak = row.insertCell(5);
+    kernVak.style.verticalAlign = "top";
+    taakVak.style.verticalAlign = "center";
+    row.insertCell(6);
+    //we voorzien een vak voor onze kernvakjes
+    var scoreVak = row.insertCell(7);
+    scoreVak.style.verticalAlign = "top";
+    //lege cel
+    row.insertCell(8);
+    //we voorzien een vak voor commentaar;
+    var commentVak = row.insertCell(9);
+    commentVak.style.verticalAlign = "top";
+    //maak een dropdown aan voor de taken te laden
+    var select = document.createElement('select');
+    select.style = "background: #f9f9f9";
+    select.onchange = function () {
+        taakWissel();
+    };
+    //geef de taken dropdown een id
+    select.id = "formTaken" + aantalTaken;
+    //en vul de dropdown met de gewenste taken
+    let defaultOption = document.createElement('option');
+    defaultOption.text = 'Kies een taak...';
+    defaultOption.disabled = true;
+    select.add(defaultOption);
+    select.selectedIndex = 0;
+    let option;
+    for (let i = 0; i < taakSelectData.length; i++) {
+        option = document.createElement('option');
+        option.text = taakSelectData[i].naam;
+        select.add(option);
+    }
+    option = document.createElement('option');
+    option.text = "Voeg taak toe...";
+    select.add(option);
+    //plaats de dropdown in de rij op de evaluatie.jsp
+    taakVak.appendChild(select);
+}
 
-    //open(method,url,async)
-    xhttp.open("POST", "EvaluatieFormulierServlet?taak=" + module, true);
-    xhttp.send();
+function taakWissel() {
 
-    //als het taken door de server worden afgeleverd
-    xhttp.onreadystatechange = function () {
+    //welke taak is gekozen?
+    var select_id = document.getElementById("formTaken" + aantalTaken);
+    var row = document.getElementById("row" + aantalTaken);
+    var selectedTaak = select_id.options[select_id.selectedIndex].value;
+    var xhttp7 = new XMLHttpRequest();
+    //laad de doelstellingen die overeenkomen met de taak
+    xhttp7.open("POST", "EvaluatieFormulierServlet?formTaak=" + selectedTaak, true);
+    xhttp7.send();
+    //als de doelstellingen arriveren...
+    xhttp7.onreadystatechange = function () {
 
         if (this.readyState === 4 && this.status === 200) {
-
-            const taken = JSON.parse(xhttp.responseText);
-            
-            //maak een rij in ons evaluatie.jsp
-            var evalTable = document.getElementById("evaluatieTable");
-            var row = evalTable.insertRow(0);
-            row.id = "row" + aantalTaken;
-            row.style.height = "40px";
-            row.insertCell(0);
-
-            var taakVak = row.insertCell(1);
-            taakVak.style.verticalAlign = "center";
-
-            //maak een dropdown aan voor de taken te laden
-            var select = document.createElement('select');
-            select.style = "background: #f9f9f9";
-            select.onchange=function() {taakWissel();};
-
-            //geef de taken dropdown een id
-            select.id = "formTaken" + aantalTaken;
-
-            //en vul de dropdown met de gewenste taken
-            let defaultOption = document.createElement('option');
-            defaultOption.text = 'Kies een taak...';
-            defaultOption.disabled = true;
-            select.add(defaultOption);
-            select.selectedIndex = 0;
-
-            let option;
-            for (let i = 0; i < taken.length; i++) {
-                option = document.createElement('option');
-                option.text = taken[i].naam;
-                select.add(option);
+            const doelstellingen = JSON.parse(xhttp7.responseText);
+            aantalDoelstellingen = doelstellingen.length;
+            var strDoelstellingen = "";
+            for (let i = 0; i < doelstellingen.length; i++) {
+                //we maken een string aan
+                strDoelstellingen = strDoelstellingen + doelstellingen[i].naam + "<br/>";
             }
-            option = document.createElement('option');
-            option.text = "Voeg taak toe...";
-            select.add(option);
+            strDoelstellingen = strDoelstellingen + "<br/> <b> TotaalScore: <b/>";
+            var doelstellingvak = row.cells[3];
+            doelstellingvak.innerHTML = strDoelstellingen;
+            var strKern = "";
+            for (let i = 0; i < doelstellingen.length; i++) {
+                //we maken een string aan
+                if (doelstellingen[i].kerndoelstelling === true)
+                    strKern = strKern + '\u2611' + "<br>";
+                if (doelstellingen[i].kerndoelstelling === false)
+                    strKern = strKern + '\u2610' + "<br>";
+            }
+            row.cells[5].innerHTML = strKern;
+            
+            var xhttp9 = new XMLHttpRequest();
+            //we vragen de scores op
+            xhttp9.open("POST", "EvaluatieFormulierServlet?scores", true);
+            xhttp9.send();
+            //als de scores toekomen...
+            xhttp9.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
 
-            //plaats de dropdown in de rij op de evaluatie.jsp
-            taakVak.appendChild(select);
+                    const scores = JSON.parse(xhttp9.responseText);
+                    row.cells[7].innerHTML="";
+                    for (let i = 0; i < aantalDoelstellingen; i++) {
+                        var scoreSelect = document.createElement('select');
+                        scoreSelect.style = "background: #f9f9f9";
+                        scoreSelect.id = "formScore" + i;
+                        scoreSelect.style.fontSize = "10pt";
+                        let defaultOption = document.createElement('option');
+                        defaultOption.text = 'Score...';
+                        defaultOption.disabled = true;
+                        scoreSelect.add(defaultOption);
+                        scoreSelect.selectedIndex = 0;
+                        let option;
+                        for (let x = 0; x < scores.length; x++) {
+                            option = document.createElement('option');
+                            option.text = scores[x].naam;
+                            scoreSelect.add(option);
+                        }
+                        row.cells[7].appendChild(scoreSelect);
+                    }
+                }
+            };
+           row.cells[9].innerHTML="";
+            var comment = document.createElement('textarea');
+            comment.rows = aantalDoelstellingen + 1;
+            comment.cols = 35;
+            comment.style = "background: #f9f9f9";
+            row.cells[9].appendChild(comment);
         }
     };
-
-  function taakWissel() {
-        
-        //welke taak is gekozen?
-        var select_id = document.getElementById("formTaken" + aantalTaken);
-        var selectedTaak = select_id.options[select_id.selectedIndex].value;
-        var xhttp2 = new XMLHttpRequest();
-
-        //laad de doelstellingen die overeenkomen met de taak
-        xhttp2.open("POST", "EvaluatieFormulierServlet?formTaak=" + selectedTaak, true);
-        xhttp2.send();
-
-        //als de doelstellingen arriveren...
-        xhttp2.onreadystatechange = function () {
-
-            if (this.readyState === 4 && this.status === 200) {
-
-                //lege cel
-                row.insertCell(2);
-                //we voorzien een vak voor onze doelstellingen
-                var doelstellingenVak = row.insertCell(3);
-
-                doelstellingenVak.style.whiteSpace = "nowrap";
-                const doelstellingen = JSON.parse(xhttp2.responseText);
-                aantalDoelstellingen = doelstellingen.length;
-                var strDoelstellingen = "";
-                for (let i = 0; i < doelstellingen.length; i++) {
-                    //we maken een string aan
-                    strDoelstellingen = strDoelstellingen + doelstellingen[i].naam + "<br/>";
-                }
-                strDoelstellingen = strDoelstellingen + "<br/> <b> TotaalScore: <b/>";
-                doelstellingenVak.style.verticalAlign = "top";
-                doelstellingenVak.innerHTML = strDoelstellingen;
-
-                //lege cel
-                row.insertCell(4);
-                //we voorzien een vak voor onze kernvakjes
-                var kernVak = row.insertCell(5);
-                var strKern = "";
-                for (let i = 0; i < doelstellingen.length; i++) {
-                    //we maken een string aan
-                    if (doelstellingen[i].kerndoelstelling === true)
-                        strKern = strKern + '\u2611' + "<br>";
-                    if (doelstellingen[i].kerndoelstelling === false)
-                        strKern = strKern + '\u2610' + "<br>";
-                }
-                kernVak.style.verticalAlign = "top";
-                kernVak.innerHTML = strKern;
-
-                var xhttp3 = new XMLHttpRequest();
-                //we vragen de scores op
-                xhttp3.open("POST", "EvaluatieFormulierServlet?scores", true);
-                xhttp3.send();
-
-                //als de scores toekomen...
-                xhttp3.onreadystatechange = function () {
-
-                    if (this.readyState === 4 && this.status === 200) {
-
-                        const scores = JSON.parse(xhttp3.responseText);
-
-                        //lege cel
-                        row.insertCell(6);
-                        //we voorzien een vak voor onze kernvakjes
-                        var scoreVak = row.insertCell(7);
-                        scoreVak.style.verticalAlign = "top";
-
-                        for (let i = 0; i < aantalDoelstellingen; i++) {
-
-                            var scoreSelect = document.createElement('select');
-                            scoreSelect.style = "background: #f9f9f9";
-                            scoreSelect.id = "formScore" + i;
-                            scoreSelect.style.fontSize = "10pt";
-
-
-                            let defaultOption = document.createElement('option');
-                            defaultOption.text = 'Score...';
-                            defaultOption.disabled = true;
-                            scoreSelect.add(defaultOption);
-                            scoreSelect.selectedIndex = 0;
-                            let option;
-
-                            for (let x = 0; x < scores.length; x++) {
-                                option = document.createElement('option');
-                                option.text = scores[x].naam;
-                                scoreSelect.add(option);
-
-                            }
-                            scoreVak.appendChild(scoreSelect);
-                        }
-                    }
-                    dropdown = document.querySelector("#lesnr");
-                    dropdown.style = "background: #f9f9f9";
-                    dropdown.hidden = false;
-
-                    var comment = document.createElement('textarea');
-                    comment.rows = aantalDoelstellingen + 1;
-                    comment.cols = 35;
-                    comment.style = "background: #f9f9f9";
-                    //lege cel
-                    row.insertCell(8);
-                    //we voorzien een vak voor commentaar;
-                    var commentVak = row.insertCell(9);
-                    commentVak.style.verticalAlign = "top";
-                    commentVak.appendChild(comment);
-
-                };
-
-            }
-        };
-    }
-    ;
-
 }
+;
+
 
 

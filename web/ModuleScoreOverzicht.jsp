@@ -102,21 +102,18 @@
                             <tr>
                                 <th onclick="sortTable(0)"><a>Achternaam</a></th>
                                 <th onclick="sortTable(1)"><a>Voornaam</a></th>
-                                <th onclick="sortTable(2)"><a>totaal score</a></th>                                                             
+                                <th onclick="sortTable(2)"><a>Waarde</a></th>                                                             
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><label name="curstinstenScores"  id="curstinstenScores" hidden disabled >
+                                <td><label  id="voornaam"  disabled >
                                 </label></td>
-                                <td />
-                                <c:forEach items="${cursistenScore}" var="cursistenScore">
-                                
-                                    <td> ${cursistenScore.voornaam} </td>
-                                    <td> ${cursistenScore.achternaam} </td>
-                                    <td> ${cursistenScore.totaal_score} </td>
-                                  
-                                </c:forEach>
+                                <td><label  id="achternaam"  disabled >
+                                </label></td>
+                                <td><label  id="waarde"  disabled >
+                                </label></td>
+                                <td />                         
                             </tr>
                         </tbody>
                     </table>

@@ -30,13 +30,22 @@
 
             <table>
 
-                <td> <select name="module" id="module"
+                <td> <select name="module" id="module" 
                              style="background: #f9f9f9" class="drop" >
                         <option selected disabled > Module... </option>
                         <c:forEach items="${modules}" var="module">                  
                             <option> ${module.naam} </option>                     
                         </c:forEach>
-                            <option> Voeg Module toe... </option>
+                        <option> Voeg Module toe... </option>
+                    </select> </td>
+
+                <td> <select name="cursisten" id="cursisten"
+                             style="background: #f9f9f9" class="drop" >
+                        <option selected disabled > Cursist... </option>
+                        <c:forEach items="${gebruikers}" var="gebruiker">                  
+                            <option> ${gebruiker.voorNaam} ${gebruiker.achternaam} </option>                     
+                        </c:forEach>
+                        <option> Voeg Cursist toe... </option>
                     </select> </td>
 
             </table>
