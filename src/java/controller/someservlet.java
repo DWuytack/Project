@@ -44,7 +44,8 @@ public class someservlet extends HttpServlet {
         String page = request.getParameter("page");
         String editID = request.getParameter("idEdit");
         String saveID = request.getParameter("idSave");
-        int sessionID = 0;
+        String deleteID = request.getParameter("idDelete");
+        //int bladz = (int) session.getAttribute("bladzijde");
         int aantalGebruikers = (int) session.getAttribute("aantalRecords");
 
         if (page != null) {
@@ -55,11 +56,7 @@ public class someservlet extends HttpServlet {
             session.setAttribute("aantalRecords", aantalGebruikers);
             session.setAttribute("getoondeGebruikers", getoondeGebruikers);
             session.setAttribute("bladzijde", page);
-            
-            
-            
-            
-            actie = "Vraag pagina aan";
+
             int p = Integer.parseInt(page);
             GebruikerDAO gebruikerDAO = new GebruikerDAO();
             ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(p);
@@ -71,66 +68,91 @@ public class someservlet extends HttpServlet {
             session.removeAttribute("json");
             session.setAttribute("json", json);
             
-            //session.setAttribute("json",  json);
-            
+            //json doorsturen
             response.setContentType("application/json");
             //response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);
         }
+        
+        //set action
+        if (editID != null)
+            actie = "Edit gebruiker";
+        else if (saveID != null)
+            actie = "Save gebruiker";
+        else if (deleteID != null)
+            actie = "Delete gebruiker";
         
         Gebruiker gebruiker = new Gebruiker();
+        int requestID, callID;
         
-        if (editID != null) {
-            actie = "Edit gebruiker";
-            session.removeAttribute("idEdit");
-            session.setAttribute("idEdit", editID);
-            
-            //ArrayList<Gebruiker> lijst = (ArrayList<Gebruiker>) session.getAttribute("lijstGebruikers");
-            
-            int callID = Integer.valueOf(editID) - 3;
-            
-            json = new Gson().toJson(callID);
-
-            response.setContentType("application/json");
-            //response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(json);
-        }
-        
-        if (saveID != null) { //onclick attack protection
-            actie = "Gebruiker opslaan";
-            editID = session.getAttribute("idEdit").toString();
-            int requestID = Integer.valueOf(editID);
-            int callID = Integer.valueOf(saveID);
-             
-            if( session.getAttribute("idEdit") != null && requestID == callID + 3 ) {
-                int id = (int) (Integer.valueOf(editID) * 0.25);
+        switch (actie) {
+            case "Edit gebruiker":
+                callID = Integer.valueOf(editID) - 3;
                 
                 //session aanpassen
                 session.removeAttribute("idEdit");
-                session.removeAttribute("idSave");
-                session.setAttribute("idSave", saveID);
+                session.setAttribute("idEdit", editID);
+                //ArrayList<Gebruiker> lijst = (ArrayList<Gebruiker>) session.getAttribute("lijstGebruikers");
+ 
+                json = new Gson().toJson(callID);
                 
-                //object vullen
-                gebruiker.setVoorNaam(request.getParameter("voornaam"));
-                gebruiker.setAchternaam(request.getParameter("achternaam"));
-                gebruiker.setRol(request.getParameter("rol"));
-                /*java.sql.Date datum = java.sql.Date.valueOf(request.getParameter("geboorteDatum"));
-                gebruiker.setGeboorteDatum(datum);*/
-                gebruiker.setGeboorteDatum(request.getParameter("geboorteDatum"));
-                gebruiker.setEmail(request.getParameter("email"));
-                gebruiker.setLogin(request.getParameter("login"));
-                //object doorsturen naar database
-                gebruikerDAO.gebruikerAanpassen(id, gebruiker);
+                //json doorsturen
+                response.setContentType("application/json");
+                //response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
+                
+                break;
+            case "Save gebruiker":
+                editID = session.getAttribute("idEdit").toString();
+                requestID = Integer.valueOf(editID);
+                callID = Integer.valueOf(saveID);
 
-                json = new Gson().toJson(gebruiker);
-            } else {
-                json = new Gson().toJson("Error: idSave & idEdit komen niet overeen");
-            }
-            
-            response.setContentType("application/json");
-            //response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(json);
+                if( session.getAttribute("idEdit") != null && requestID == callID + 3 ) {
+                    int id = (int) (Integer.valueOf(editID) * 0.25);
+
+                    //session aanpassen
+                    session.removeAttribute("idEdit");
+                    session.removeAttribute("idSave");
+                    session.setAttribute("idSave", saveID);
+
+                    //object vullen
+                    gebruiker.setVoorNaam(request.getParameter("voornaam"));
+                    gebruiker.setAchternaam(request.getParameter("achternaam"));
+                    gebruiker.setRol(request.getParameter("rol"));
+                    gebruiker.setGeboorteDatum(request.getParameter("geboorteDatum"));
+                    gebruiker.setEmail(request.getParameter("email"));
+                    gebruiker.setLogin(request.getParameter("login"));
+                    //object doorsturen naar database
+                    gebruikerDAO.gebruikerAanpassen(id, gebruiker);
+
+                    json = new Gson().toJson(gebruiker);
+                } else {
+                    json = new Gson().toJson("Error: idSave & idEdit komen niet overeen");
+                }
+                
+                //json doorsturen
+                response.setContentType("application/json");
+                //response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
+                break;
+            case "Delete gebruiker":
+                int id = (int) (Integer.valueOf(deleteID) * 0.25);
+                
+                //gebruiker verwijderen
+                gebruikerDAO.gebruikerVerwijderen(id);
+
+                json = new Gson().toJson("verwijderd: " + id);
+                
+                //json doorsturen
+                response.setContentType("application/json");
+                //response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
+                
+                
+                //page request wordt opnieuw opgevraagd om pagina te verwijderen
+                break;
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
