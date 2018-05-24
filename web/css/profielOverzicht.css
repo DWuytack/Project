@@ -1,0 +1,55 @@
+#profielOverzicht {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    justify-content: center;
+    margin: auto;
+    align-items: center;
+    align-content: center;
+    font-size: larger;
+}
+#profielOverzicht [role="header"] {
+    text-align: center;
+    width: 100%;
+}
+#profielOverzicht [role="header"] hr {
+    width: 100%;
+}
+#profielOverzicht [role="content"] {
+    display: inherit;
+    flex-direction: column;
+    text-align: left;
+    width: 100%;
+}
+#profielOverzicht [role="content"] div {
+    display: inherit;
+    align-items: center;
+}
+#profielOverzicht [role="content"] div label {
+    display: inherit;
+    width: 50%;
+    padding: 5px 0 5px 10px;
+}
+#profielOverzicht [role="content"] div input {
+    display: inherit;
+    width: 50%;
+    max-width: 50%;
+    padding: 5px 0 5px 10px;
+    margin: 0;
+}
+#profielOverzicht [role="footer"] {
+    display: inherit;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+#profielOverzicht [role="footer"] form {
+    display: block;
+}
+#profielOverzicht [role="footer"] form input {
+    display: inline-block;
+    font-size: 20px;
+    width: auto;
+}
