@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ScoreDAO {
     
     public ArrayList klassikaleScore(int schooljaarID, int semesterID, int moduleID) {
-        ArrayList cursistenScore = new ArrayList<>();
+        ArrayList cursistenScores = new ArrayList<>();
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -40,7 +40,7 @@ public class ScoreDAO {
 
             while (rs.next()) {
      
-                cursistenScore.add(rs.getString("voornaam") + " " + rs.getString("achternaam") + " " + rs.getString("totaal_score"));
+                cursistenScores.add(rs.getString("voornaam") + " " + rs.getString("achternaam") + " " + rs.getString("totaal_score"));
                 
             }
         } catch (SQLException e) {
@@ -48,6 +48,6 @@ public class ScoreDAO {
         } finally {
             Utilities.sluitVariabelen(ps, rs , currentCon);
         }
-        return cursistenScore;
+        return cursistenScores;
     }
 }

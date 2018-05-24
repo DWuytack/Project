@@ -218,7 +218,7 @@ function laadCursistenScores() {
             const data = JSON.parse(xhttp.responseText);
             var cursistScore = "";
             for (let i = 0; i < data.length; i++) {
-                cursistScore = cursistScore + data[i].naam + "<br>";
+                cursistScore = cursistScore + data[i].voornaam + data[i].achternaam + data[i].waarde + "<br>";
 
             }
             label.innerHTML = cursistScore;           

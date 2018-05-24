@@ -107,16 +107,9 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><label name="curstinstenScores"  id="curstinstenScores" hidden disabled >
+                                <td><label name="cursistScore"  id="cursistScore" hidden disabled >
                                 </label></td>
-                                <td />
-                                <c:forEach items="${cursistenScores}" var="cursistScore">
-                                
-                                    <td> ${cursistScore.voornaam} </td>
-                                    <td> ${cursistScore.achternaam} </td>
-                                    <td> ${cursistScore.waarde} </td>
-                                  
-                                </c:forEach>
+                                <td />                         
                             </tr>
                         </tbody>
                     </table>
