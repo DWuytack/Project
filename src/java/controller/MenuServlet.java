@@ -163,8 +163,11 @@ break;
 
 case "Cursisten inschrijven":
 ModuleDAO moduleDAO = new ModuleDAO();
+gebruikerDAO = new GebruikerDAO();
 ArrayList module = moduleDAO.modulesLaden();
+ArrayList gebruiker = gebruikerDAO.cursistenLaden1();
 session.setAttribute("modules", module);
+session.setAttribute("gebruikers", gebruiker);
 response.sendRedirect("CursistenInschrijven.jsp");
 break;
 
