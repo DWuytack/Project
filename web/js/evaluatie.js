@@ -267,7 +267,9 @@ function laadLijn() {
     aantalTaken = aantalTaken + 1;
     //maak een rij in ons evaluatie.jsp
     evalTable = document.getElementById("evaluatieTable");
-    var row = evalTable.insertRow(aantalTaken - 1);
+    var legeLijn = evalTable.insertRow((aantalTaken*2) -1);
+    if (aantalTaken !== 1) legeLijn.style.height = "20px";
+    var row = evalTable.insertRow(aantalTaken*2);
     row.id = "row" + aantalTaken;
     row.style.height = "40px";
     row.insertCell(0);
