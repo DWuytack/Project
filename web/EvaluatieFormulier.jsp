@@ -184,14 +184,14 @@
                 <table class="doelstelling1" >
                     <tr height="20px" />
                     <tr >
-                        <td > <input type="submit"  value=" Formulier leeg maken "
-                                     class="button"></td>
-                        <td > <input type="submit"  value=" Print formulier  "  
-                                     class="button"></td>
-                        <td > <input type="submit"  value=" Bewaar formulier " 
-                                     class="button"></td>
-                        <td > <input type="submit"  value=" Laad formulier " 
-                                     class="button"></td>
+                        <td > <input type="button"  value=" Formulier leeg maken "
+                                     class="evalButton"></td>
+                        <td > <input type="button"  value=" Print formulier  "  
+                                     class="evalButton"></td>
+                        <td > <input type="button"  value=" Bewaar formulier " 
+                                    class="evalButton"></td>
+                        <td > <input type="button"  value=" Laad formulier " 
+                                     class="evalButton"></td>
                     </tr>
                 </table>
 

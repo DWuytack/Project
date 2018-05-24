@@ -272,7 +272,7 @@ function laadLijn() {
    
     var row = evalTable.insertRow((aantalTaken * 2)-1);
     row.id = "row" + aantalTaken;
-    row.style.height = "40px";
+    
     row.insertCell(0);
     var taakVak = row.insertCell(1);
     //lege cel
@@ -326,6 +326,7 @@ function laadLijn() {
         var vak = legeLijn.insertCell(i);
         vak.innerHTML = "<hr/>";
     }
+    
 }
 
 function taakWissel(rowid) {
