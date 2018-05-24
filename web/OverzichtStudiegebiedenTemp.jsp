@@ -13,7 +13,11 @@
     <head>
         <style>
             .btn {
-                border: none;
+                outline:none;
+                min-width: 25px;
+                height: 30px;
+                border-radius: 5px;
+                border: 0;
                 background-color: inherit;
                 padding: 5px 5px;
                 cursor: pointer;
@@ -23,16 +27,18 @@
             .btn:hover {
                 background: #e7e7e7;
             }
-            .default {
+            .action {
                 font-size: 16px;
             }
             .plus {
-                font-size: 20px;
+                font-size: 16px;
             }
-           .datatable tbody tr:nth-child(2) td:first-child {
-                padding-left: 50px;
+            .opleiding td:first-child {
+                padding-left: 25px;
             }
-            
+            .module td:first-child {
+                padding-left: 50px; 
+            }
         </style>
         <meta name="keywords" content="ScoreOnWeb, Studiegebieden"
               name="description" content="Overzicht van Studiegebieden"
@@ -66,26 +72,57 @@
                     </thead>
 
                     <tbody>
-                        <!-- FOR EACH DING -->
-                        <tr>
-                            <td>Kookschool <button class="btn plus"><strong>+</strong></button></td>
-                            <td>School der koks</td>
-                            <td><button class="btn default">✎</button><button class="btn default">✖</button></td>                                                             
+                        <tr class="studiegebied">
+                            <td><button class="btn plus" value="closed" onclick="toggle('stu1', 'opleiding', this)"><b>+</b></button><button class="btn">Kokschool</button></td>
+                            <td>"Beschrijving nog toe te voegen."</td>
+                            <td><button class="btn action">✎</button><button class="btn action">✖</button></td>                                                             
                         </tr>
-                        <tr>
-                            <td class="modules">Opleiding</td>
-                            <td>School der koks</td>
-                            <td><button class="btn default">✎</button><button class="btn default">✖</button></td>                                              
+                        <tr class="opleiding stu1" hidden>
+                            <td><button class="btn plus" value="closed" onclick="toggle('opl1', 'module', this)"><b>+</b></button><button class="btn">Banketbakker</button></td>
+                            <td>"Beschrijving nog toe te voegen."</td>
+                            <td><button class="btn action">✎</button><button class="btn action">✖</button></td>                                              
                         </tr>
-                        <tr>
+                        <tr class="module stu1 opl1" value="closed" hidden>
+                            <td>Banket AA</td>
+                            <td>"Beschrijving nog toe te voegen."</td>
+                            <td><button class="btn action">✎</button><button class="btn action">✖</button></td>
+                        </tr>
+                        <tr class="studiegebied" value="stu1">
                             <td>Mechanicaschool</td>
-                            <td>School der robots</td>
-                            <td><button class="btn default">✎</button><button class="btn default">✖</button></td>                                                             
+                            <td>"Beschrijving nog toe te voegen."</td>
+                            <td><button class="btn action">✎</button><button class="btn action">✖</button></td>                                                             
                         </tr>
-                        <!-- END FOR EACH -->
                     </tbody>
                 </table> 
             </div>
         </section>
+
+        <script>
+            function get(name) {
+                return document.getElementsByClassName(name);
+            }
+
+            function toggle(elementsName, type, element) {
+                if (element.value === "closed") { //Show Elements
+                    var elements = get(elementsName + " " + type);
+                    var i = 0, l = elements.length;
+                    for (; i < l; i++) {
+                        elements[i].style.display = "table-row";
+                        elements[i].parentElement.value = "open"; 
+                    }
+                    element.value = "open";
+
+                } else if (element.value === "open") { //Hide Elements
+                    var elements = get(elementsName);
+                    var i = 0, l = elements.length;
+                    for (; i < l; i++) {
+                        elements[i].style.display = "none";
+                        elements[i].value = "closed";
+                    }
+                        element.value = "closed";
+                }
+            }
+
+        </script>
     </body>
 </html>
