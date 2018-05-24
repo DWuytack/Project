@@ -326,15 +326,15 @@ function taakWissel() {
     var select_id = document.getElementById("formTaken" + aantalTaken);
     var row = document.getElementById("row" + aantalTaken);
     var selectedTaak = select_id.options[select_id.selectedIndex].value;
-    var xhttp2 = new XMLHttpRequest();
+    var xhttp7 = new XMLHttpRequest();
     //laad de doelstellingen die overeenkomen met de taak
-    xhttp2.open("POST", "EvaluatieFormulierServlet?formTaak=" + selectedTaak, true);
-    xhttp2.send();
+    xhttp7.open("POST", "EvaluatieFormulierServlet?formTaak=" + selectedTaak, true);
+    xhttp7.send();
     //als de doelstellingen arriveren...
-    xhttp2.onreadystatechange = function () {
+    xhttp7.onreadystatechange = function () {
 
         if (this.readyState === 4 && this.status === 200) {
-            const doelstellingen = JSON.parse(xhttp2.responseText);
+            const doelstellingen = JSON.parse(xhttp7.responseText);
             aantalDoelstellingen = doelstellingen.length;
             var strDoelstellingen = "";
             for (let i = 0; i < doelstellingen.length; i++) {
@@ -342,7 +342,8 @@ function taakWissel() {
                 strDoelstellingen = strDoelstellingen + doelstellingen[i].naam + "<br/>";
             }
             strDoelstellingen = strDoelstellingen + "<br/> <b> TotaalScore: <b/>";
-            row.cell(2).innerHTML = strDoelstellingen;
+            var doelstellingvak = row.cells[3];
+            doelstellingvak.innerHTML = strDoelstellingen;
             var strKern = "";
             for (let i = 0; i < doelstellingen.length; i++) {
                 //we maken een string aan
@@ -351,18 +352,18 @@ function taakWissel() {
                 if (doelstellingen[i].kerndoelstelling === false)
                     strKern = strKern + '\u2610' + "<br>";
             }
-            row.cell(5).innerHTML = strKern;
-            var xhttp5 = new XMLHttpRequest();
+            row.cells[5].innerHTML = strKern;
+            
+            var xhttp9 = new XMLHttpRequest();
             //we vragen de scores op
-            xhttp5.open("POST", "EvaluatieFormulierServlet?scores", true);
-            xhttp5.send();
+            xhttp9.open("POST", "EvaluatieFormulierServlet?scores", true);
+            xhttp9.send();
             //als de scores toekomen...
-            xhttp5.onreadystatechange = function () {
-
+            xhttp9.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
 
-                    const scores = JSON.parse(xhttp5.responseText);
-
+                    const scores = JSON.parse(xhttp9.responseText);
+                    row.cells[7].innerHTML="";
                     for (let i = 0; i < aantalDoelstellingen; i++) {
                         var scoreSelect = document.createElement('select');
                         scoreSelect.style = "background: #f9f9f9";
@@ -379,18 +380,16 @@ function taakWissel() {
                             option.text = scores[x].naam;
                             scoreSelect.add(option);
                         }
-                        row.cell(7).appendChild(scoreSelect);
+                        row.cells[7].appendChild(scoreSelect);
                     }
                 }
-                dropdown = document.querySelector("#lesnr");
-                dropdown.style = "background: #f9f9f9";
-                dropdown.hidden = false;
-                var comment = document.createElement('textarea');
-                comment.rows = aantalDoelstellingen + 1;
-                comment.cols = 35;
-                comment.style = "background: #f9f9f9";
-                row.cell(9).appendChild(comment);
             };
+           row.cells[9].innerHTML="";
+            var comment = document.createElement('textarea');
+            comment.rows = aantalDoelstellingen + 1;
+            comment.cols = 35;
+            comment.style = "background: #f9f9f9";
+            row.cells[9].appendChild(comment);
         }
     };
 }
