@@ -256,7 +256,7 @@ function laadTaakSelectData() {
     xhttp3.onreadystatechange = function () {
 
         if (this.readyState === 4 && this.status === 200) {
-             taakSelectData = JSON.parse(xhttp3.responseText);
+            taakSelectData = JSON.parse(xhttp3.responseText);
         }
     };
 }
@@ -272,7 +272,27 @@ function laadLijn() {
     row.style.height = "40px";
     row.insertCell(0);
     var taakVak = row.insertCell(1);
+    //lege cel
+    row.insertCell(2);
+    //we voorzien een vak voor onze doelstellingen
+    var doelstellingenVak = row.insertCell(3);
+    doelstellingenVak.style.whiteSpace = "nowrap";
+    doelstellingenVak.style.verticalAlign = "top";
+    //lege cel
+    row.insertCell(4);
+    //we voorzien een vak voor onze kernvakjes
+    var kernVak = row.insertCell(5);
+    kernVak.style.verticalAlign = "top";
     taakVak.style.verticalAlign = "center";
+    row.insertCell(6);
+    //we voorzien een vak voor onze kernvakjes
+    var scoreVak = row.insertCell(7);
+    scoreVak.style.verticalAlign = "top";
+    //lege cel
+    row.insertCell(8);
+    //we voorzien een vak voor commentaar;
+    var commentVak = row.insertCell(9);
+    commentVak.style.verticalAlign = "top";
     //maak een dropdown aan voor de taken te laden
     var select = document.createElement('select');
     select.style = "background: #f9f9f9";
@@ -304,6 +324,7 @@ function taakWissel() {
 
     //welke taak is gekozen?
     var select_id = document.getElementById("formTaken" + aantalTaken);
+    var row = document.getElementById("row" + aantalTaken);
     var selectedTaak = select_id.options[select_id.selectedIndex].value;
     var xhttp2 = new XMLHttpRequest();
     //laad de doelstellingen die overeenkomen met de taak
@@ -313,12 +334,6 @@ function taakWissel() {
     xhttp2.onreadystatechange = function () {
 
         if (this.readyState === 4 && this.status === 200) {
-
-            //lege cel
-            row.insertCell(2);
-            //we voorzien een vak voor onze doelstellingen
-            var doelstellingenVak = row.insertCell(3);
-            doelstellingenVak.style.whiteSpace = "nowrap";
             const doelstellingen = JSON.parse(xhttp2.responseText);
             aantalDoelstellingen = doelstellingen.length;
             var strDoelstellingen = "";
@@ -327,12 +342,7 @@ function taakWissel() {
                 strDoelstellingen = strDoelstellingen + doelstellingen[i].naam + "<br/>";
             }
             strDoelstellingen = strDoelstellingen + "<br/> <b> TotaalScore: <b/>";
-            doelstellingenVak.style.verticalAlign = "top";
-            doelstellingenVak.innerHTML = strDoelstellingen;
-            //lege cel
-            row.insertCell(4);
-            //we voorzien een vak voor onze kernvakjes
-            var kernVak = row.insertCell(5);
+            row.cell(2).innerHTML = strDoelstellingen;
             var strKern = "";
             for (let i = 0; i < doelstellingen.length; i++) {
                 //we maken een string aan
@@ -341,25 +351,19 @@ function taakWissel() {
                 if (doelstellingen[i].kerndoelstelling === false)
                     strKern = strKern + '\u2610' + "<br>";
             }
-            kernVak.style.verticalAlign = "top";
-            kernVak.innerHTML = strKern;
-            var xhttp3 = new XMLHttpRequest();
+            row.cell(5).innerHTML = strKern;
+            var xhttp5 = new XMLHttpRequest();
             //we vragen de scores op
-            xhttp3.open("POST", "EvaluatieFormulierServlet?scores", true);
-            xhttp3.send();
+            xhttp5.open("POST", "EvaluatieFormulierServlet?scores", true);
+            xhttp5.send();
             //als de scores toekomen...
-            xhttp3.onreadystatechange = function () {
+            xhttp5.onreadystatechange = function () {
 
                 if (this.readyState === 4 && this.status === 200) {
 
-                    const scores = JSON.parse(xhttp3.responseText);
-                    //lege cel
-                    row.insertCell(6);
-                    //we voorzien een vak voor onze kernvakjes
-                    var scoreVak = row.insertCell(7);
-                    scoreVak.style.verticalAlign = "top";
-                    for (let i = 0; i < aantalDoelstellingen; i++) {
+                    const scores = JSON.parse(xhttp5.responseText);
 
+                    for (let i = 0; i < aantalDoelstellingen; i++) {
                         var scoreSelect = document.createElement('select');
                         scoreSelect.style = "background: #f9f9f9";
                         scoreSelect.id = "formScore" + i;
@@ -375,7 +379,7 @@ function taakWissel() {
                             option.text = scores[x].naam;
                             scoreSelect.add(option);
                         }
-                        scoreVak.appendChild(scoreSelect);
+                        row.cell(7).appendChild(scoreSelect);
                     }
                 }
                 dropdown = document.querySelector("#lesnr");
@@ -385,12 +389,7 @@ function taakWissel() {
                 comment.rows = aantalDoelstellingen + 1;
                 comment.cols = 35;
                 comment.style = "background: #f9f9f9";
-                //lege cel
-                row.insertCell(8);
-                //we voorzien een vak voor commentaar;
-                var commentVak = row.insertCell(9);
-                commentVak.style.verticalAlign = "top";
-                commentVak.appendChild(comment);
+                row.cell(9).appendChild(comment);
             };
         }
     };
