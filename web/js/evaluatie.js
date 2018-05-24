@@ -269,10 +269,8 @@ function laadLijn() {
     aantalTaken = aantalTaken + 1;
     //maak een rij in ons evaluatie.jsp
     evalTable = document.getElementById("evaluatieTable");
-    var legeLijn = evalTable.insertRow((aantalTaken * 2) - 1);
-    if (aantalTaken !== 1)
-        legeLijn.style.height = "20px";
-    var row = evalTable.insertRow(aantalTaken * 2);
+   
+    var row = evalTable.insertRow((aantalTaken * 2)-1);
     row.id = "row" + aantalTaken;
     row.style.height = "40px";
     row.insertCell(0);
@@ -323,16 +321,21 @@ function laadLijn() {
     select.add(option);
     //plaats de dropdown in de rij op de evaluatie.jsp
     taakVak.appendChild(select);
+    var legeLijn = evalTable.insertRow((aantalTaken * 2));
+    for (let i = 0; i < 10; i++) {
+        var vak = legeLijn.insertCell(i);
+        vak.innerHTML = "<hr/>";
+    }
 }
 
 function taakWissel(rowid) {
 
     //welke taak is gekozen?
-    taakid=rowid.replace("row","formTaken");
-    var selectTask=document.getElementById(taakid);
+    taakid = rowid.replace("row", "formTaken");
+    var selectTask = document.getElementById(taakid);
     var row = document.getElementById(rowid);
     var selectedTaak = selectTask.value;
-   
+
     var xhttp7 = new XMLHttpRequest();
     //laad de doelstellingen die overeenkomen met de taak
     xhttp7.open("POST", "EvaluatieFormulierServlet?formTaak=" + selectedTaak, true);
