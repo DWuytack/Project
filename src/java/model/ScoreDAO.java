@@ -14,13 +14,13 @@ import java.util.ArrayList;
  */
 public class ScoreDAO {
     
-    public ArrayList klassikaleScore(int schooljaarID, int semesterID, int moduleID) {
-        ArrayList cursistenScores = new ArrayList<>();
+    public ArrayList<Score> klassikaleScore(int schooljaarID, int semesterID, int moduleID) {
+        ArrayList<Score> cursistenScores = new ArrayList<>();
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        String sql = "SELECT gebruikers.voornaam, gebruikers.achternaam, avg(beoordelingssoorten.waarde) as totaal_score from doelstellingen_inschrijvingen " +
+        String sql = "SELECT gebruikers.voornaam, gebruikers.achternaam, avg(beoordelingssoorten.waarde) as waarde from doelstellingen_inschrijvingen " +
         "INNER JOIN beoordelingssoorten ON doelstellingen_inschrijvingen.beoordelingssoortID = beoordelingssoorten.beoordelingssoortID " +
         "INNER JOIN inschrijvingen ON doelstellingen_inschrijvingen.inschrijvingID = inschrijvingen.inschrijvingID " +
         "INNER JOIN gebruikers ON inschrijvingen.gebruikerID = gebruikers.gebruikerID " +
@@ -39,9 +39,12 @@ public class ScoreDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-     
-                cursistenScores.add(rs.getString("voornaam") + " " + rs.getString("achternaam") + " " + rs.getString("totaal_score"));
-                
+                Score score = new Score();
+                score.setVoornaam(rs.getString("voornaam"));
+                score.setAchternaam(rs.getString("achternaam"));
+                score.setWaarde(rs.getDouble("waarde"));
+                cursistenScores.add(score);
+                               
             }
         } catch (SQLException e) {
 

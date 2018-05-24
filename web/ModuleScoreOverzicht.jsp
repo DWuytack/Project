@@ -107,7 +107,11 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><label name="cursistScore"  id="cursistScore" hidden disabled >
+                                <td><label  id="voornaam"  disabled >
+                                </label></td>
+                                <td><label  id="achternaam"  disabled >
+                                </label></td>
+                                <td><label  id="waarde"  disabled >
                                 </label></td>
                                 <td />                         
                             </tr>
