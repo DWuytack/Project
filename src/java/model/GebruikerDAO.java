@@ -110,6 +110,40 @@ public class GebruikerDAO {
         return cursistenLijst;
     }
 
+    public ArrayList<Gebruiker> cursistenLaden1() {
+        ArrayList<Gebruiker> cursistenLijst = new ArrayList<>();
+        Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "select gebruikerID, voornaam, achternaam, login, email, geboortedatum, rol from gebruikers inner join rollen on gebruikers.rolID= rollen.rolID where gebruikers.rolID = '3'";
+            statement = currentCon.createStatement();
+            rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+
+                Gebruiker gebruiker = new Gebruiker();
+                gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
+                gebruiker.setVoorNaam(rs.getString("voornaam"));
+                gebruiker.setAchternaam(rs.getString("achternaam"));
+                gebruiker.setLogin(rs.getString("login"));
+                gebruiker.setRol(rs.getString("rol"));
+                gebruiker.setGeboorteDatum(rs.getString("geboortedatum"));
+                gebruiker.setEmail(rs.getString("email"));
+                cursistenLijst.add(gebruiker);
+
+            }
+        } catch (SQLException e) {
+
+        } finally {
+            sluitVariabelen(rs, statement, null, currentCon);
+
+        }
+        return cursistenLijst;
+    }
+
     public ArrayList<Gebruiker> gebruikersLaden(int bladz) {
 
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
@@ -378,7 +412,7 @@ public class GebruikerDAO {
         }
     }
 
-    public ArrayList<Gebruiker> gebruikersLaden (int schooljaarID, int semesterID, int moduleID) {
+    public ArrayList<Gebruiker> gebruikersLaden(int schooljaarID, int semesterID, int moduleID) {
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
         Connection currentCon = null;
         PreparedStatement ps = null;
@@ -399,7 +433,7 @@ public class GebruikerDAO {
 
             while (rs.next()) {
                 Gebruiker gebruiker = new Gebruiker();
-                gebruiker.setNaam(rs.getString("voornaam") + " " + rs.getString("achternaam") );
+                gebruiker.setNaam(rs.getString("voornaam") + " " + rs.getString("achternaam"));
                 gebruikers.add(gebruiker);
             }
         } catch (SQLException e) {
