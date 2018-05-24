@@ -212,7 +212,7 @@ function laadCursistenScores() {
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
 
-            let label = document.getElementById('curstinstenScores');           
+            let label = document.getElementById('cursistenScores');           
             label.hidden = false;   
             
             const data = JSON.parse(xhttp.responseText);

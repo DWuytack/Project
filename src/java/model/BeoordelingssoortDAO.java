@@ -27,7 +27,7 @@ public class BeoordelingssoortDAO {
             ps = currentCon.prepareStatement(sql);
             ps.setString(1, beoordelingssoort.getNaam());
             ps.setString(2, beoordelingssoort.getBeschrijving());
-            ps.setInt(3, beoordelingssoort.getWaarde());
+            ps.setDouble(3, beoordelingssoort.getWaarde());
 
             ps.executeQuery();
         } catch (SQLException ex) {
@@ -53,7 +53,7 @@ public class BeoordelingssoortDAO {
             ps = currentCon.prepareStatement(sql);
             ps.setString(1, beoordelingssoort.getNaam());
             ps.setString(2, beoordelingssoort.getBeschrijving());
-            ps.setInt(3, beoordelingssoort.getWaarde());
+            ps.setDouble(3, beoordelingssoort.getWaarde());
             ps.setInt(4, beoordelingssoort.getBeoordelingssoortID());
 
             ps.executeQuery();
@@ -109,7 +109,7 @@ public class BeoordelingssoortDAO {
                 beoordelingssoort.setBeoordelingssoortID(rs.getInt("beoordelingssoortID"));
                 beoordelingssoort.setNaam(rs.getString("naam"));
                 beoordelingssoort.setBeschrijving(rs.getString("beschrijving"));
-                beoordelingssoort.setWaarde(rs.getInt("waarde"));
+                beoordelingssoort.setWaarde(rs.getDouble("waarde"));
             }
         } catch (SQLException e) {
         } finally {
@@ -137,7 +137,7 @@ public class BeoordelingssoortDAO {
                 beoordelingssoort.setBeoordelingssoortID(rs.getInt("beoordelingssoortID"));
                 beoordelingssoort.setNaam(rs.getString("naam"));
                 beoordelingssoort.setBeschrijving(rs.getString("beschrijving"));
-                beoordelingssoort.setWaarde(rs.getInt("waarde"));
+                beoordelingssoort.setWaarde(rs.getDouble("waarde"));
             }
         } catch (SQLException e) {
         } finally {
@@ -165,7 +165,7 @@ public class BeoordelingssoortDAO {
                 beoordelingssoort.setBeoordelingssoortID(rs.getInt("beoordelingssoortID"));
                 beoordelingssoort.setNaam(rs.getString("naam"));
                 beoordelingssoort.setBeschrijving(rs.getString("beschrijving"));
-                beoordelingssoort.setWaarde(rs.getInt("waarde"));
+                beoordelingssoort.setWaarde(rs.getDouble("waarde"));
                 beoordelingssoorten.add(beoordelingssoort);
             }
         } catch (SQLException e) {
@@ -202,7 +202,7 @@ public class BeoordelingssoortDAO {
 
             ps.setString(1, beoordelingssoort.getNaam());
             ps.setString(2, beoordelingssoort.getBeschrijving());
-            ps.setInt(3, beoordelingssoort.getWaarde());
+            ps.setDouble(3, beoordelingssoort.getWaarde());
             ps.setInt(4, beoordelingssoortID);
 
             ps.executeUpdate();
@@ -228,7 +228,7 @@ public class BeoordelingssoortDAO {
 
             ps.setString(1, beoordelingssoort.getNaam());
             ps.setString(2, beoordelingssoort.getBeschrijving());
-            ps.setInt(3, beoordelingssoort.getWaarde());
+            ps.setDouble(3, beoordelingssoort.getWaarde());
             ps.executeUpdate();
 
         } catch (SQLException ex) {

@@ -9,7 +9,7 @@ public class Beoordelingssoort {
     private int beoordelingssoortID;
     private String naam;
     private String beschrijving;
-    private int waarde;
+    private double waarde;
     
     public int getBeoordelingssoortID() {
         return beoordelingssoortID;
@@ -35,11 +35,11 @@ public class Beoordelingssoort {
         this.beschrijving = beschrijving;
     }
 
-    public int getWaarde() {
+    public double getWaarde() {
         return waarde;
     }
 
-    public void setWaarde(int waarde) {
+    public void setWaarde(double waarde) {
         this.waarde = waarde;
     }
 }

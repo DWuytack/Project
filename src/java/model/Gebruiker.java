@@ -1,9 +1,5 @@
 package model;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 /**
  *
  * @author Dirk
@@ -18,6 +14,11 @@ public class Gebruiker {
     private String voornaam;
     private String achternaam;
     private String naam;
+    private String geboorteDatum;
+    private String email;
+    private String login;
+    private String paswoord;
+    private boolean geldig;
 
     public String getNaam() {
         return naam;
@@ -26,11 +27,7 @@ public class Gebruiker {
     public void setNaam(String naam) {
         this.naam = naam;
     }
-    private String geboorteDatum;
-    private String email;
-    private String login;
-    private String paswoord;
-    private boolean geldig;
+
 
     public int getJsonID() {
         this.jsonID = gebruikerID * 4;
