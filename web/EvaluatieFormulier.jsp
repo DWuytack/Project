@@ -158,7 +158,7 @@
 
                 <table id="evaluatieTable">
 
-                    <tr>
+                    <tr id="firstRow">
                         <td width="3%" />
                         <td width="20%"/>
                         <td width="3%" />
@@ -185,7 +185,7 @@
                     <tr height="20px" />
                     <tr >
                         <td > <input type="button"  value=" Formulier leeg maken "
-                                     class="evalButton"></td>
+                                     class="evalButton" onclick="formulierLeegMaken()"></td>
                         <td > <input type="button"  value=" Print formulier  "  
                                      class="evalButton"></td>
                         <td > <input type="button"  value=" Bewaar formulier " 

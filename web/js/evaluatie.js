@@ -9,6 +9,23 @@ var evalTable;
 var taakSelectData;
 
 
+function formulierLeegMaken() {
+
+    aantalRijen=evalTable.rows.length;
+    for (let i=aantalRijen-2; i>0 ; i--){
+        var row = evalTable.rows[i];
+        if (row.id !== "firstRow" ) {
+            if (row.id !== "addLine"){
+                evalTable.deleteRow(i);
+            }
+        }
+    }
+    aantalTaken=0;
+   
+}
+
+
+
 //kiest juiste semester aan de hand van datum
 function pasSemesterAan() {
 
@@ -197,6 +214,7 @@ function laadCursistenOpnieuw() {
 //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
 function resetDropdowns(naam) {
 
+    formulierLeegMaken();
     let dropdowns = document.getElementsByClassName('drop');
     var idDropDown;
     for (let i = 0; i < dropdowns.length; i++) {
@@ -269,10 +287,10 @@ function laadLijn() {
     aantalTaken = aantalTaken + 1;
     //maak een rij in ons evaluatie.jsp
     evalTable = document.getElementById("evaluatieTable");
-   
-    var row = evalTable.insertRow((aantalTaken * 2)-1);
+
+    var row = evalTable.insertRow((aantalTaken * 2) - 1);
     row.id = "row" + aantalTaken;
-    
+
     row.insertCell(0);
     var taakVak = row.insertCell(1);
     //lege cel
@@ -322,11 +340,12 @@ function laadLijn() {
     //plaats de dropdown in de rij op de evaluatie.jsp
     taakVak.appendChild(select);
     var legeLijn = evalTable.insertRow((aantalTaken * 2));
+    legeLijn.id="leeg";
     for (let i = 0; i < 10; i++) {
         var vak = legeLijn.insertCell(i);
         vak.innerHTML = "<hr/>";
     }
-    
+
 }
 
 function taakWissel(rowid) {
