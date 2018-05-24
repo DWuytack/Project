@@ -7,6 +7,8 @@ var formTaken;
 var taakDropdown;
 var evalTable;
 var taakSelectData;
+
+
 //kiest juiste semester aan de hand van datum
 function pasSemesterAan() {
 
@@ -267,9 +269,8 @@ function laadLijn() {
     aantalTaken = aantalTaken + 1;
     //maak een rij in ons evaluatie.jsp
     evalTable = document.getElementById("evaluatieTable");
-    var legeLijn = evalTable.insertRow((aantalTaken*2) -1);
-    if (aantalTaken !== 1) legeLijn.style.height = "20px";
-    var row = evalTable.insertRow(aantalTaken*2);
+   
+    var row = evalTable.insertRow((aantalTaken * 2)-1);
     row.id = "row" + aantalTaken;
     row.style.height = "40px";
     row.insertCell(0);
@@ -298,11 +299,11 @@ function laadLijn() {
     //maak een dropdown aan voor de taken te laden
     var select = document.createElement('select');
     select.style = "background: #f9f9f9";
-    select.onchange = function () {
-        taakWissel();
-    };
     //geef de taken dropdown een id
     select.id = "formTaken" + aantalTaken;
+    select.onchange = function () {
+        taakWissel(row.id);
+    };
     //en vul de dropdown met de gewenste taken
     let defaultOption = document.createElement('option');
     defaultOption.text = 'Kies een taak...';
@@ -320,14 +321,21 @@ function laadLijn() {
     select.add(option);
     //plaats de dropdown in de rij op de evaluatie.jsp
     taakVak.appendChild(select);
+    var legeLijn = evalTable.insertRow((aantalTaken * 2));
+    for (let i = 0; i < 10; i++) {
+        var vak = legeLijn.insertCell(i);
+        vak.innerHTML = "<hr/>";
+    }
 }
 
-function taakWissel() {
+function taakWissel(rowid) {
 
     //welke taak is gekozen?
-    var select_id = document.getElementById("formTaken" + aantalTaken);
-    var row = document.getElementById("row" + aantalTaken);
-    var selectedTaak = select_id.options[select_id.selectedIndex].value;
+    taakid = rowid.replace("row", "formTaken");
+    var selectTask = document.getElementById(taakid);
+    var row = document.getElementById(rowid);
+    var selectedTaak = selectTask.value;
+
     var xhttp7 = new XMLHttpRequest();
     //laad de doelstellingen die overeenkomen met de taak
     xhttp7.open("POST", "EvaluatieFormulierServlet?formTaak=" + selectedTaak, true);
@@ -355,7 +363,7 @@ function taakWissel() {
                     strKern = strKern + '\u2610' + "<br>";
             }
             row.cells[5].innerHTML = strKern;
-            
+
             var xhttp9 = new XMLHttpRequest();
             //we vragen de scores op
             xhttp9.open("POST", "EvaluatieFormulierServlet?scores", true);
@@ -365,7 +373,7 @@ function taakWissel() {
                 if (this.readyState === 4 && this.status === 200) {
 
                     const scores = JSON.parse(xhttp9.responseText);
-                    row.cells[7].innerHTML="";
+                    row.cells[7].innerHTML = "";
                     for (let i = 0; i < aantalDoelstellingen; i++) {
                         var scoreSelect = document.createElement('select');
                         scoreSelect.style = "background: #f9f9f9";
@@ -386,7 +394,7 @@ function taakWissel() {
                     }
                 }
             };
-           row.cells[9].innerHTML="";
+            row.cells[9].innerHTML = "";
             var comment = document.createElement('textarea');
             comment.rows = aantalDoelstellingen + 1;
             comment.cols = 35;
