@@ -19,7 +19,7 @@ import model.SemesterDAO;
 import model.StudiegebiedDAO;
 
 /**
- *  Deze klasse bevat de aanpassing van het scoretype.
+ *  Deze klasse bevat de bewerkingen om scores te laden.
  * @author gil-_
  */
 @WebServlet(name = "ScoreServlet", urlPatterns = {"/ScoreServlet"})
@@ -129,7 +129,7 @@ public class ScoreServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Dit is de scoreServlet";
     }// </editor-fold>
 
 }
