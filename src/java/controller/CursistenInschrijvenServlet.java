@@ -1,26 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
-import com.google.gson.Gson;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Doelstelling;
-import model.DoelstellingDAO;
-import model.ModuleDAO;
+import javax.servlet.http.HttpSession;
+import model.CursistenInschrijven;
+import model.CursistenInschrijvenDAO;
+import model.Gebruiker;
+import model.GebruikerDAO;
+import model.Instellingen;
 
 /**
+ * Deze klasse bevat alle mogelijke knoppen naar gebruikersbewerkingen.
  *
  * @author Aaron
  */
+@WebServlet(name = "CursistenInschrijvenServlet", urlPatterns = {"/CursistenInschrijvenServlet"})
 public class CursistenInschrijvenServlet extends HttpServlet {
+
+    CursistenInschrijvenDAO cursisteninschrijvenDAO = new CursistenInschrijvenDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,26 +37,35 @@ public class CursistenInschrijvenServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String keuze = request.getParameter("reset");
+        HttpSession session = request.getSession(true);
+        ArrayList<CursistenInschrijven> cursisten = null;
 
-        if (keuze != null) {
-            response.sendRedirect("CursistenInschrijven.jsp");
-        }
+        try {
+            String actie = "";
+            String zoekterm = request.getParameter("zoekterm");
 
-        Gson gson = new Gson();
+                cursisten = cursisteninschrijvenDAO.cursistenLaden();
+                session.setAttribute("lijstCursisten", cursisten);
+                response.sendRedirect("CursistenInschrijven.jsp");            
 
-        String module = request.getParameter("module");
+            if (zoekterm != null && !zoekterm.equals("")) {
+                actie = "Zoeken";
+            }
 
-        if (module != null) {
+            CursistenInschrijven cursisteninschrijven = new CursistenInschrijven();
 
-            //laad doelstellingen voor module
-            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
-            ModuleDAO moduleDAO = new ModuleDAO();
-            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(moduleDAO.geefModuleID(module));
-            String json = gson.toJson(doelstellingen);
+            switch (actie) {
+                case "Zoeken":
+                    session.setAttribute("zoekterm", zoekterm);
+                    cursisten = cursisteninschrijvenDAO.cursistenZoeken(zoekterm);
+                    session.setAttribute("lijstCursisten", cursisten);
+                    response.sendRedirect("GebruikersOverzicht.jsp");
+                    break;
 
-            response.setContentType("application/json");
-            response.getWriter().write(json);
+            }
+
+        } catch (Throwable theException) {
+
         }
 
     }
@@ -70,7 +82,7 @@ public class CursistenInschrijvenServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**
@@ -94,7 +106,7 @@ public class CursistenInschrijvenServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Dit is CursistenInschrijvenServlet!";
-    }
+        return "Short description";
+    }// </editor-fold>
 
 }
