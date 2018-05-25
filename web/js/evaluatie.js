@@ -7,21 +7,23 @@ var formTaken;
 var taakDropdown;
 var evalTable;
 var taakSelectData;
+var scores;
+var scoreVastGedeelte="";
 
 
 function formulierLeegMaken() {
 
-    aantalRijen=evalTable.rows.length;
-    for (let i=aantalRijen-2; i>0 ; i--){
+    aantalRijen = evalTable.rows.length;
+    for (let i = aantalRijen - 2; i > 0; i--) {
         var row = evalTable.rows[i];
-        if (row.id !== "firstRow" ) {
-            if (row.id !== "addLine"){
+        if (row.id !== "firstRow") {
+            if (row.id !== "addLine") {
                 evalTable.deleteRow(i);
             }
         }
     }
-    aantalTaken=0;
-   
+    aantalTaken = 0;
+
 }
 
 
@@ -125,14 +127,14 @@ function laadDropdown(soort) {
             }
 
             for (let i = 0; i < data.length; i++) {
-               let  optiondata = document.createElement('option');
+                let  optiondata = document.createElement('option');
                 optiondata.text = data[i].naam;
                 dropdown.add(optiondata);
             }
-            
-            let  optionNieuw= document.createElement('option');
+
+            let  optionNieuw = document.createElement('option');
             switch (soort) {
-                 
+
                 case 'opleidingen':
                     optionNieuw.text = "Maak nieuwe opleiding...";
                     resetDropdowns('studiegebieden');
@@ -340,12 +342,32 @@ function laadLijn() {
     //plaats de dropdown in de rij op de evaluatie.jsp
     taakVak.appendChild(select);
     var legeLijn = evalTable.insertRow((aantalTaken * 2));
-    legeLijn.id="leeg";
+    legeLijn.id = "leeg";
     for (let i = 0; i < 10; i++) {
         var vak = legeLijn.insertCell(i);
         vak.innerHTML = "<hr/>";
     }
 
+}
+function berekenGemiddelde(rij) {
+
+
+    var scoreBoxes = document.getElementsByName("formScore" + rij);
+    //we overlopen alle score dropdowns
+    var score;
+    var totaalScore = 0;
+    for (let i = 0; i < scoreBoxes.length; i++) {
+        score = scoreBoxes[i].value;     
+        for (let x = 0; x < scores.length; x++)  {
+            if (score === scores[x].naam) {
+                totaalScore = totaalScore + scores[x].waarde;
+            }
+        }
+    } 
+    var aantalScores=scoreBoxes.length;
+    var selectedRij = document.getElementById(rij);
+    selectedRij.cells[3].innerHTML = scoreVastGedeelte + " " + (totaalScore / aantalScores);
+   
 }
 
 function taakWissel(rowid) {
@@ -371,7 +393,7 @@ function taakWissel(rowid) {
                 //we maken een string aan
                 strDoelstellingen = strDoelstellingen + doelstellingen[i].naam + "<br/>";
             }
-            strDoelstellingen = strDoelstellingen + "<br/> <b> TotaalScore: <b/>";
+            strDoelstellingen = strDoelstellingen + "<br/> <b> TaakScore: <b/>";
             var doelstellingvak = row.cells[3];
             doelstellingvak.innerHTML = strDoelstellingen;
             var strKern = "";
@@ -392,18 +414,22 @@ function taakWissel(rowid) {
             xhttp9.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
 
-                    const scores = JSON.parse(xhttp9.responseText);
+                    scores = JSON.parse(xhttp9.responseText);
                     row.cells[7].innerHTML = "";
                     for (let i = 0; i < aantalDoelstellingen; i++) {
                         var scoreSelect = document.createElement('select');
                         scoreSelect.style = "background: #f9f9f9";
-                        scoreSelect.id = "formScore" + i;
+                        scoreSelect.name = "formScore" + rowid;
                         scoreSelect.style.fontSize = "10pt";
                         let defaultOption = document.createElement('option');
                         defaultOption.text = 'Score...';
                         defaultOption.disabled = true;
                         scoreSelect.add(defaultOption);
                         scoreSelect.selectedIndex = 0;
+                        scoreVastGedeelte=row.cells[3].innerHTML;
+                        scoreSelect.onchange = function () {
+                            berekenGemiddelde(row.id);
+                        };
                         let option;
                         for (let x = 0; x < scores.length; x++) {
                             option = document.createElement('option');

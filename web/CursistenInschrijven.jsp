@@ -24,31 +24,42 @@
                 <h2> CursistenInschrijven </h2>
             </section>
 
-            <td width="70px"></td>
+            <section>
+                <form action="CursistenInschrijvenServlet">
+                    <div class="table-container">
 
-            <td width="10px"></td>
-
-            <table>
-
-                <td> <select name="module" id="module" 
-                             style="background: #f9f9f9" class="drop" >
-                        <option selected disabled > Module... </option>
-                        <c:forEach items="${modules}" var="module">                  
-                            <option> ${module.naam} </option>                     
-                        </c:forEach>
-                        <option> Voeg Module toe... </option>
-                    </select> </td>
-
-                <td> <select name="cursisten" id="cursisten"
-                             style="background: #f9f9f9" class="drop" >
-                        <option selected disabled > Cursist... </option>
-                        <c:forEach items="${gebruikers}" var="gebruiker">                  
-                            <option> ${gebruiker.voorNaam} ${gebruiker.achternaam} </option>                     
-                        </c:forEach>
-                        <option> Voeg Cursist toe... </option>
-                    </select> </td>
-
-            </table>
+                        <div class="table-nav-header">
+                            <div id="zoeken">
+                                <a id="bt-zoeken">
+                                    <i class="material-icons">search</i>
+                                </a>
+                                <input type="text" name="zoekterm" size="15">
+                            </div>
+                        </div> 
+                        <div role="wrapper" style="overflow-x: auto; pointer-events: all;">     
+                            <table class="datatable">
+                                <thead>
+                                    <tr>
+                                        <th width="15%" onclick="sortTable(0)"><a>Voornaam</a</th>
+                                        <th width="15%" onclick="sortTable(1)"><a>Achternaam</a</th>
+                                        <th width="25%" onclick="sortTable(2)"><a>E-mail</a></th>
+                                        <th class="actie">Inschrijven in</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${lijstCursisten}" var = "cursist">
+                                        <tr>
+                                            <td> ${cursist.voorNaam} </td>
+                                            <td> ${cursist.achternaam} </td>
+                                            <td> ${cursist.email} </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </section>
 
         </form>
 

@@ -23,20 +23,15 @@
                 cursor: pointer;
                 display: inline-block;
                 color: black;
+                font-size: 16px;
             } 
             .btn:hover {
                 background: #e7e7e7;
             }
-            .action {
-                font-size: 16px;
-            }
-            .plus {
-                font-size: 16px;
-            }
-            .opleiding td:first-child {
+            .OPL td:first-child {
                 padding-left: 25px;
             }
-            .module td:first-child {
+            .MOD td:first-child {
                 padding-left: 50px; 
             }
         </style>
@@ -72,28 +67,43 @@
                     </thead>
 
                     <tbody>
-                        <tr class="studiegebied">
-                            <td><button class="btn plus" value="closed" onclick="toggle('stu1', 'opleiding', this)"><b>+</b></button><button class="btn">Kokschool</button></td>
-                            <td>"Beschrijving nog toe te voegen."</td>
-                            <td><button class="btn action">✎</button><button class="btn action">✖</button></td>                                                             
+                        <c:forEach items="${lijstOverzicht}" var="Object">
+                            
+                        </c:forEach>
+                        <tr class="STU" data-status="CLOSED" ID='STU_1'>
+                            <td>
+                                <button class="btn" onclick="toggle('STU_1', 'OPL');"><b>+</b></button>
+                                Studiegebied 1
+                            </td>
+                            <td>Beschrijving</td>
+                            <td><button class="btn">✎</button><button class="btn">✖</button></td>
                         </tr>
-                        <tr class="opleiding stu1" hidden>
-                            <td><button class="btn plus" value="closed" onclick="toggle('opl1', 'module', this)"><b>+</b></button><button class="btn">Banketbakker</button></td>
-                            <td>"Beschrijving nog toe te voegen."</td>
-                            <td><button class="btn action">✎</button><button class="btn action">✖</button></td>                                              
+                        <tr class="OPL STU_1" value="CLOSED" ID="OPL_1" hidden>
+                            <td>
+                                <button class="btn" onclick="toggle('OPL_1', 'MOD');"><b>+</b></button>
+                                Opleiding 1
+                            </td>
+                            <td>Beschrijving</td>
+                            <td><button class="btn">✎</button><button class="btn">✖</button></td>
                         </tr>
-                        <tr class="module stu1 opl1" value="closed" hidden>
-                            <td>Banket AA</td>
-                            <td>"Beschrijving nog toe te voegen."</td>
-                            <td><button class="btn action">✎</button><button class="btn action">✖</button></td>
+                        <tr class="MOD OPL_1" value="CLOSED" ID="MOD_1" hidden>
+                            <td>
+                                <button class="btn" onclick="//toggle();"><b>+</b></button>
+                                Module 1
+                            </td>
+                            <td>Beschrijving</td>
+                            <td><button class="btn">✎</button><button class="btn">✖</button></td>
                         </tr>
-                        <tr class="studiegebied" value="stu1">
-                            <td>Mechanicaschool</td>
-                            <td>"Beschrijving nog toe te voegen."</td>
-                            <td><button class="btn action">✎</button><button class="btn action">✖</button></td>                                                             
+                        <tr class="OPL STU_1" value="CLOSED" ID="OPL_2" hidden>
+                            <td>
+                                <button class="btn" onclick="//toggle();"><b>+</b></button>
+                                Opleiding 2
+                            </td>
+                            <td>Beschrijving</td>
+                            <td><button class="btn">✎</button><button class="btn">✖</button></td>
                         </tr>
                     </tbody>
-                </table> 
+                </table>
             </div>
         </section>
 
@@ -102,27 +112,30 @@
                 return document.getElementsByClassName(name);
             }
 
-            function toggle(elementsName, type, element) {
-                if (element.value === "closed") { //Show Elements
-                    var elements = get(elementsName + " " + type);
-                    var i = 0, l = elements.length;
-                    for (; i < l; i++) {
-                        elements[i].style.display = "table-row";
-                        elements[i].parentElement.value = "open"; 
-                    }
-                    element.value = "open";
+            function toggle(elementName, typeToToggle) {
+                var toOpenElements = get(typeToToggle.concat(" ", elementName));
+                var toCloseElements = get(elementName);
 
-                } else if (element.value === "open") { //Hide Elements
-                    var elements = get(elementsName);
-                    var i = 0, l = elements.length;
-                    for (; i < l; i++) {
-                        elements[i].style.display = "none";
-                        elements[i].value = "closed";
+                // OPEN ELEMENTS
+                if (document.getElementById(elementName).dataset.status === "CLOSED") {
+                    var i;
+                    for (i = 0; i < toOpenElements.length; i++) {
+                        toOpenElements[i].style.display = "table-row";
                     }
-                        element.value = "closed";
+                    document.getElementById(elementName).dataset.status = "OPENED";
+                    document.getElementById(elementName).firstElementChild.firstElementChild.innerHTML = "<b>-</b>";
+                }
+
+                // CLOSE ELEMENTS
+                else if (document.getElementById(elementName).dataset.status === "OPENED") {
+                    var i;
+                    for (i = 0; i < toCloseElements.length; i++) {
+                        toCloseElements[i].style.display = "none";
+                    }
+                    document.getElementById(elementName).dataset.status = "CLOSED";
+                    document.getElementById(elementName).firstElementChild.firstElementChild.innerHTML = "<b>+</b>";
                 }
             }
-
         </script>
     </body>
 </html>
