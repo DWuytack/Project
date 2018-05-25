@@ -107,7 +107,7 @@
                         </thead>
                         <tbody>
                             
-                            <tr>
+                            <tr id="rij0">
                                 <td><label id="achternaam" disabled >
                                     </label></td>
                                 <td><label id="voornaam" disabled >
@@ -116,6 +116,27 @@
                                     </label></td>
                                 <td />                         
                             </tr>
+                            
+                            <tr id="rij1">
+                                <td><label id="achternaam" disabled >
+                                    </label></td>
+                                <td><label id="voornaam" disabled >
+                                    </label></td>                              
+                                <td><label id="score" disabled >
+                                    </label></td>
+                                <td />                         
+                            </tr>
+                            
+                            <tr id="rij2">
+                                <td><label id="achternaam" disabled >
+                                    </label></td>
+                                <td><label id="voornaam" disabled >
+                                    </label></td>                              
+                                <td><label id="score" disabled >
+                                    </label></td>
+                                <td />                         
+                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>

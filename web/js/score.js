@@ -215,15 +215,52 @@ function laadCursistenScores() {
             let achternaam = document.getElementById('achternaam');
             let voornaam = document.getElementById('voornaam');
             let score = document.getElementById('score');
+            
+            
                                 
             const data = JSON.parse(xhttp.responseText);
 
             for (let teller = 0; teller < data.length; teller++) {
-                achternaam.innerHTML = data[teller].achternaam;
-                voornaam.innerHTML = data[teller].voornaam;
-                score.innerHTML = data[teller].score;                
+                var rij = document.getElementById("rij" + teller);
+               rij.cells[0].innerHTML = data[teller].achternaam;
+               rij.cells[1].innerHTML= data[teller].voornaam;
+               rij.cells[2].innerHTML = data[teller].score;                
             }
 
         }
     };
+     //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
+function resetDropdowns(naam) {
+
+    formulierLeegMaken();
+    let dropdowns = document.getElementsByClassName('drop');
+    var idDropDown;
+    for (let i = 0; i < dropdowns.length; i++) {
+        idDropDown = dropdowns[i].id;
+        //reset dropdowns na studiegebied
+        switch (naam) {
+            case 'studiegebied':
+
+                if (idDropDown === 'opleiding') {
+                    dropdowns[i].selectedIndex = 0;
+                    dropdowns[i].style = "background: #efc4c4";
+                    ledigDropDown(dropdowns[i]);
+                }
+                if (idDropDown === 'module') {
+                    dropdowns[i].selectedIndex = 0;
+                    dropdowns[i].style = "background: #efc4c4";
+                    ledigDropDown(dropdowns[i]);
+                }
+                break;
+            case 'opleidingen':
+                if (idDropDown === 'module') {
+                    dropdowns[i].selectedIndex = 0;
+                    dropdowns[i].style = "background: #efc4c4";
+                    ledigDropDown(dropdowns[i]);
+                }
+                break;
+                
+        }
+    }
+}
 }
