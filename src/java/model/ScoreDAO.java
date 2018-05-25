@@ -20,7 +20,7 @@ public class ScoreDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        String sql = "SELECT gebruikers.voornaam, gebruikers.achternaam, avg(beoordelingssoorten.waarde) as waarde from doelstellingen_inschrijvingen " +
+        String sql = "SELECT gebruikers.voornaam, gebruikers.achternaam, avg(beoordelingssoorten.waarde) as score from doelstellingen_inschrijvingen " +
         "INNER JOIN beoordelingssoorten ON doelstellingen_inschrijvingen.beoordelingssoortID = beoordelingssoorten.beoordelingssoortID " +
         "INNER JOIN inschrijvingen ON doelstellingen_inschrijvingen.inschrijvingID = inschrijvingen.inschrijvingID " +
         "INNER JOIN gebruikers ON inschrijvingen.gebruikerID = gebruikers.gebruikerID " +
@@ -42,7 +42,7 @@ public class ScoreDAO {
                 Score score = new Score();
                 score.setVoornaam(rs.getString("voornaam"));
                 score.setAchternaam(rs.getString("achternaam"));
-                score.setWaarde(rs.getDouble("waarde"));
+                score.setScore(rs.getDouble("score"));
                 cursistenScores.add(score);
                                
             }

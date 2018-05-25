@@ -214,15 +214,14 @@ function laadCursistenScores() {
 
             let achternaam = document.getElementById('achternaam');
             let voornaam = document.getElementById('voornaam');
-            let waarde = document.getElementById('waarde');
-
+            let score = document.getElementById('score');
+                                
             const data = JSON.parse(xhttp.responseText);
 
-
-            for (let i = 0; i < data.length; i++) {
-                achternaam.innerHTML = data[i].achternaam;
-                voornaam.innerHTML = data[i].voornaam;
-                waarde.innerHTML = data[i].waarde;                
+            for (let teller = 0; teller < data.length; teller++) {
+                achternaam.innerHTML = data[teller].achternaam;
+                voornaam.innerHTML = data[teller].voornaam;
+                score.innerHTML = data[teller].score;                
             }
 
         }

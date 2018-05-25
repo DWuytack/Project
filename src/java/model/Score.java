@@ -8,7 +8,7 @@ package model;
 public class Score {
     private String voornaam;
     private String achternaam;
-    private double waarde;
+    private double score;
 
     public String getVoornaam() {
         return voornaam;
@@ -26,12 +26,12 @@ public class Score {
         this.achternaam = achternaam;
     }
 
-    public double getWaarde() {
-        return waarde;
+    public double getScore() {
+        return score;
     }
 
-    public void setWaarde(double waarde) {
-        this.waarde = waarde;
+    public void setScore(double score) {
+        this.score = score;
     }
     
     

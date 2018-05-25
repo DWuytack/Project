@@ -20,7 +20,7 @@
         <%--<script src="js/table.js"></script>--%>
         <script src="js/score.js"></script>
         <link rel="stylesheet" href="css/theme.css">
-        
+
         <title>Score overzicht per klas</title>
         <style>
             #nav-topke {
@@ -102,17 +102,18 @@
                             <tr>
                                 <th onclick="sortTable(0)"><a>Achternaam</a></th>
                                 <th onclick="sortTable(1)"><a>Voornaam</a></th>
-                                <th onclick="sortTable(2)"><a>Waarde</a></th>                                                             
+                                <th onclick="sortTable(2)"><a>Score</a></th>                                                             
                             </tr>
                         </thead>
                         <tbody>
+                            
                             <tr>
-                                <td><label  id="voornaam"  disabled >
-                                </label></td>
-                                <td><label  id="achternaam"  disabled >
-                                </label></td>
-                                <td><label  id="waarde"  disabled >
-                                </label></td>
+                                <td><label id="achternaam" disabled >
+                                    </label></td>
+                                <td><label id="voornaam" disabled >
+                                    </label></td>                              
+                                <td><label id="score" disabled >
+                                    </label></td>
                                 <td />                         
                             </tr>
                         </tbody>
