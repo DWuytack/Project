@@ -229,7 +229,7 @@ function laadCursistenScores() {
 
         }
     };
-    //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
+     //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
 function resetDropdowns(naam) {
 
     formulierLeegMaken();
@@ -259,6 +259,7 @@ function resetDropdowns(naam) {
                     ledigDropDown(dropdowns[i]);
                 }
                 break;
+                
         }
     }
 }
