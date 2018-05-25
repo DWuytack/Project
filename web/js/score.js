@@ -229,4 +229,37 @@ function laadCursistenScores() {
 
         }
     };
+    //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
+function resetDropdowns(naam) {
+
+    formulierLeegMaken();
+    let dropdowns = document.getElementsByClassName('drop');
+    var idDropDown;
+    for (let i = 0; i < dropdowns.length; i++) {
+        idDropDown = dropdowns[i].id;
+        //reset dropdowns na studiegebied
+        switch (naam) {
+            case 'studiegebied':
+
+                if (idDropDown === 'opleiding') {
+                    dropdowns[i].selectedIndex = 0;
+                    dropdowns[i].style = "background: #efc4c4";
+                    ledigDropDown(dropdowns[i]);
+                }
+                if (idDropDown === 'module') {
+                    dropdowns[i].selectedIndex = 0;
+                    dropdowns[i].style = "background: #efc4c4";
+                    ledigDropDown(dropdowns[i]);
+                }
+                break;
+            case 'opleidingen':
+                if (idDropDown === 'module') {
+                    dropdowns[i].selectedIndex = 0;
+                    dropdowns[i].style = "background: #efc4c4";
+                    ledigDropDown(dropdowns[i]);
+                }
+                break;
+        }
+    }
+}
 }

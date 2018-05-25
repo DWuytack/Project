@@ -70,7 +70,7 @@ public class SemesterDAO {
 
     public int laadSemesterID(String semesterNaam) {
 
-        int semesterID = 0;
+        int semesterID = 1;
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
