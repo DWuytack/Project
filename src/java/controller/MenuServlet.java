@@ -67,13 +67,19 @@ gebruikerDAO = new GebruikerDAO();
 ArrayList gebruikers = gebruikerDAO.gebruikersLaden(1);
 
 int aantalGebruikers = gebruikerDAO.geefAantalGebruikers();
-session.setAttribute("aantalRecords", aantalGebruikers);
-session.setAttribute("bladzijde", 1);
+int bladz = 1;
 int getoondeGebruikers = Instellingen.AANTAL_RECORDS_PER_PAGE;
-if (getoondeGebruikers > aantalGebruikers) {
-getoondeGebruikers = aantalGebruikers;
+int aantalBladz = (int) (Math.ceil((double) (aantalGebruikers) / (double) (getoondeGebruikers)));
+session.setAttribute("aantalRecords", aantalGebruikers);
+session.setAttribute("bladzijde", bladz);
+session.setAttribute("aantalBladz", aantalBladz);
+
+int toongebruikers = getoondeGebruikers * bladz;
+if (toongebruikers > aantalGebruikers) {
+    toongebruikers = aantalGebruikers;
 }
 session.setAttribute("getoondeGebruikers", getoondeGebruikers);
+session.setAttribute("toonGebruikers", toongebruikers);
 session.setAttribute("lijstGebruikers", gebruikers);
 response.sendRedirect("GebruikersOverzicht.jsp");
 break;

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Gebruiker;
 import model.GebruikerDAO;
+import model.GebruikersOverzicht;
 import model.Instellingen;
 
 /**
@@ -45,26 +46,34 @@ public class someservlet extends HttpServlet {
         String editID = request.getParameter("idEdit");
         String saveID = request.getParameter("idSave");
         String deleteID = request.getParameter("idDelete");
-        //int bladz = (int) session.getAttribute("bladzijde");
+        int bladz = (int) session.getAttribute("bladzijde");
+        int toongebruikers = (int) session.getAttribute("toonGebruikers");
         int aantalGebruikers = (int) session.getAttribute("aantalRecords");
+        int getoondeGebruikers = Instellingen.AANTAL_RECORDS_PER_PAGE;
+        int aantalBladz = (int) (Math.ceil((double) (aantalGebruikers) / (double) getoondeGebruikers));
+        session.setAttribute("aantalBladz", Integer.toString(aantalBladz));
 
         if (page != null) {
-            int getoondeGebruikers = Instellingen.AANTAL_RECORDS_PER_PAGE;
-            if (getoondeGebruikers > aantalGebruikers) {
-                getoondeGebruikers = aantalGebruikers;
+            
+            bladz = Integer.parseInt(page);
+            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(bladz);
+            toongebruikers = aantalGebruikers / getoondeGebruikers;
+            if (toongebruikers > aantalGebruikers) {
+                toongebruikers = aantalGebruikers;
             }
+            
+            //session aanpassen
+            session.setAttribute("toonGebruikers", toongebruikers);
             session.setAttribute("aantalRecords", aantalGebruikers);
             session.setAttribute("getoondeGebruikers", getoondeGebruikers);
-            session.setAttribute("bladzijde", page);
-
-            int p = Integer.parseInt(page);
-            GebruikerDAO gebruikerDAO = new GebruikerDAO();
-            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(p);
-            session.removeAttribute("lijstGebruikers");
+            session.setAttribute("bladzijde", bladz);
             session.setAttribute("lijstGebruikers", gebruikers);
+
+            GebruikersOverzicht gebruikersOverzicht = new GebruikersOverzicht(bladz, aantalBladz, toongebruikers, aantalGebruikers, gebruikers);
             
             //omzetten naar json
-            json = new Gson().toJson(gebruikers);
+            json = new Gson().toJson(gebruikersOverzicht);
+            
             session.removeAttribute("json");
             session.setAttribute("json", json);
             
@@ -93,12 +102,12 @@ public class someservlet extends HttpServlet {
                 session.removeAttribute("idEdit");
                 session.setAttribute("idEdit", editID);
                 //ArrayList<Gebruiker> lijst = (ArrayList<Gebruiker>) session.getAttribute("lijstGebruikers");
- 
+                
+                //omzetten naar json
                 json = new Gson().toJson(callID);
                 
                 //json doorsturen
                 response.setContentType("application/json");
-                //response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(json);
                 
                 break;
@@ -122,11 +131,14 @@ public class someservlet extends HttpServlet {
                     gebruiker.setGeboorteDatum(request.getParameter("geboorteDatum"));
                     gebruiker.setEmail(request.getParameter("email"));
                     gebruiker.setLogin(request.getParameter("login"));
+                    
                     //object doorsturen naar database
                     gebruikerDAO.gebruikerAanpassen(id, gebruiker);
-
+                    
+                    //omzetten naar json
                     json = new Gson().toJson(gebruiker);
                 } else {
+                    //omzetten naar json
                     json = new Gson().toJson("Error: idSave & idEdit komen niet overeen");
                 }
                 
@@ -141,11 +153,11 @@ public class someservlet extends HttpServlet {
                 //gebruiker verwijderen
                 gebruikerDAO.gebruikerVerwijderen(id);
 
+                //omzetten naar json
                 json = new Gson().toJson("verwijderd: " + id);
                 
                 //json doorsturen
                 response.setContentType("application/json");
-                //response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(json);
                 
                 

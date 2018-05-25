@@ -1,4 +1,3 @@
-utilities.pageCounter = 1;
 utilities.params = 'page=' + utilities.pageCounter;
 const   titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email", "Acties"],
         parameters = ["achternaam", "voornaam", "login", "rol", "geboorteDatum", "email"];
@@ -12,23 +11,25 @@ const renderHTML = function(type, data) {
         meta = {
             rol : ["admin", "leerkracht", "cursist", "secretariaat"]
         };
-        let tabel = utilities.tabelAanmaken(data, parameters, titels);
+        let lijst = data.lijst;
+        let tabel = utilities.tabelAanmaken(lijst, parameters, titels);
         let inhoud = document.getElementById("gebruikersOverzicht");
         if(!inhoud.contains(tabel)) {
             while(inhoud.firstChild) inhoud.removeChild(inhoud.firstChild);
             inhoud.appendChild(tabel);
         } else {
             inhoud = document.querySelector("#gebruikersOverzicht tbody");
-            data.forEach(function(e){
+            lijst.forEach(function(e){
                 let tr = utilities.rijAanmaken(e, parameters, titels, inhoud);
             });
         }
     } else if (type === "aanpassen")
-        utilities.rijAanpassen(rij, meta, parameters, data); 
+        utilities.rijAanpassen(rij, meta, parameters, lijst); 
     else if (type === "opslaan")
         utilities.rijOpslaan(rij, parameters, titels);  
     else
         console.log(data);
+    document.getElementById("gebruikers").innerHTML = data.toonGebruikers + '/' + data.aantalGebruikers;
 };
 
 //Klik events
