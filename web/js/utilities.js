@@ -5,6 +5,13 @@ const utilities = {
     editRow : [],
     backupData : [],
     pageCounter : 1,
+    aantalBladz : 0,
+    buttons : {
+        eerste : document.querySelector('[name="Eerste"]'),
+        vorige : document.querySelector('[name="Vorige"]'),
+        volgende : document.querySelector('[name="Volgende"]'),
+        laatste : document.querySelector('[name="Laatste"]')
+    },
     params : '',
     tableID : '',
     requestData : function(type, target) {
@@ -224,5 +231,24 @@ const utilities = {
         input.setAttribute("role", role);
         span.appendChild(input);
         return span;
+    },
+    updateKnoppen : function() {
+        
+        if(utilities.pageCounter === 1) {
+            document.getElementById('bt-eerste').classList.add("inactive");
+            document.getElementById('bt-vorige').classList.add("inactive");
+            document.getElementById('bt-volgende').classList.remove("inactive");
+            document.getElementById('bt-laatste').classList.remove("inactive");
+        } else if(utilities.pageCounter === utilities.aantalBladz) {
+            document.getElementById('bt-eerste').classList.remove("inactive");
+            document.getElementById('bt-vorige').classList.remove("inactive");
+            document.getElementById('bt-volgende').classList.add("inactive");
+            document.getElementById('bt-laatste').classList.add("inactive");
+        } else {
+            document.getElementById('bt-eerste').classList.remove("inactive");
+            document.getElementById('bt-vorige').classList.remove("inactive");
+            document.getElementById('bt-volgende').classList.remove("inactive");
+            document.getElementById('bt-laatste').classList.remove("inactive");
+        }
     }
 };

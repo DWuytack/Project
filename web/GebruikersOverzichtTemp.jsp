@@ -26,6 +26,7 @@
                 filter: grayscale(100%);
                 pointer-events: none;
             }
+            /* [name="Eerste"].inactive, [name="Vorige"].inactive, [name="Volgende"].inactive, [name="Laatste"].inactive */
         </style>
     </head>
     
@@ -57,10 +58,10 @@
                         <a id="bt-gebruiker_toevoegen" name="gebruiker toevoegen">
                             <i class="material-icons">person_add</i>
                         </a>
-                        <input type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
-                        <input type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
-                        <input type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
-                        <input type="image" name="Laatste" value="skip_next" src='images/skip_next.png'>
+                        <input id="bt-eerste" type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
+                        <input id="bt-vorige" type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
+                        <input id="bt-volgende" type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
+                        <input id="bt-laatste" type="image" name="Laatste" value="skip_next" src='images/skip_next.png'>
                     </div>
                 </div>
                 <div id="gebruikersOverzicht" role="wrapper"></div>

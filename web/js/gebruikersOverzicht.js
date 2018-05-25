@@ -5,12 +5,15 @@ const   titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email"
 let meta;
 let rij = '';
 
+
+
 //Render HTML achter Ajax request
 const renderHTML = function(type, data) {
     if (type === "tabel") {
         meta = {
             rol : ["admin", "leerkracht", "cursist", "secretariaat"]
         };
+        utilities.aantalBladz = data.aantalBladz;
         let lijst = data.lijst;
         let tabel = utilities.tabelAanmaken(lijst, parameters, titels);
         let inhoud = document.getElementById("gebruikersOverzicht");
@@ -36,19 +39,41 @@ const renderHTML = function(type, data) {
 document.addEventListener("click", function(e){
     let target = e.target;
     
-    if( e.target.name === "Volgende") {
+    if( target.name === "Volgende" && utilities.pageCounter !== utilities.aantalBladz) {
         utilities.pageCounter++;
         utilities.params = 'page=' + utilities.pageCounter;
         utilities.requestData("tabel",);
+        
+        utilities.updateKnoppen();
+        /*
+        if(utilities.pageCounter === utilities.aantalBladz){
+            target.classList.add("inactive");
+            utilities.buttons.laatste.add("inactive");
+        } else {
+            target.classList.remove("inactive");
+            utilities.buttons.laatste.remove("inactive");
+        }
+        */
     }
     
-    if( e.target.name === "Vorige") {
+    if( target.name === "Vorige" && utilities.pageCounter !== 1) {
         utilities.pageCounter--;
         utilities.params = 'page=' + utilities.pageCounter;
         utilities.requestData("tabel",);
+        
+        utilities.updateKnoppen();
+        /*
+        if(utilities.pageCounter === 1) {
+            target.classList.add("inactive");
+            utilities.buttons.eerste.add("inactive");
+        } else {
+            target.classList.remove("inactive");
+            utilities.buttons.eerste.remove("inactive");
+        }
+        */
     }
     
-    if( e.target.id === "somebutton" ) {
+    if( target.id === "somebutton" ) {
         utilities.pageCounter++;
         utilities.params = 'page=' + utilities.pageCounter;
         utilities.requestData("tabel",);
@@ -99,7 +124,7 @@ document.addEventListener("click", function(e){
         }
     }
     
-    if(e.target.id === "popup") {
+    if(target.id === "popup") {
         var popup = document.querySelector("#popup");
         var loc = document.querySelector("#gebruiker_verwijderen");
         popup.classList.remove("active");
@@ -107,7 +132,7 @@ document.addEventListener("click", function(e){
         rij.classList.remove("delete");
     }
     
-    if(e.target.id === "bt-gebruiker_verwijderen") {
+    if(target.id === "bt-gebruiker_verwijderen") {
         document.querySelector("#gebruikersOverzicht table").deleteRow(rij.rowIndex);
         var popup = document.querySelector("#popup");
         var loc = document.querySelector("#gebruiker_verwijderen");
@@ -119,5 +144,15 @@ document.addEventListener("click", function(e){
 
 //Load
 (function() {
+    (function() {
+        utilities.buttons.eerste = document.getElementById('bt-eerste');
+        utilities.buttons.vorige = document.getElementById('bt-vorige');
+        utilities.buttons.volgende = document.getElementById('bt-volgende');
+        utilities.buttons.laatste = document.getElementById('bt-laatste');
+    })();
+    console.log(utilities.buttons.eerste);
+    
     utilities.requestData("tabel",);
+    
+    utilities.updateKnoppen();
 })();
