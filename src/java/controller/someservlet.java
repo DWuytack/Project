@@ -57,7 +57,7 @@ public class someservlet extends HttpServlet {
             
             bladz = Integer.parseInt(page);
             ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(bladz);
-            toongebruikers = aantalGebruikers / getoondeGebruikers;
+            toongebruikers = getoondeGebruikers * bladz;
             if (toongebruikers > aantalGebruikers) {
                 toongebruikers = aantalGebruikers;
             }
