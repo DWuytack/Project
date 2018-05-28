@@ -55,6 +55,7 @@ function laadOpleidingen() {
                 option.text = data[i].naam;
                 dropdown.add(option);
             }
+            option = document.createElement('option');
             option.text = "Voeg Opleiding toe...";
             dropdown.add(option);
         }
@@ -110,6 +111,7 @@ function laadModules() {
                 option.text = data[i].naam;
                 dropdown.add(option);
             }
+            option = document.createElement('option');
             option.text = "Voeg Module toe...";
             dropdown.add(option);
         }
@@ -166,7 +168,7 @@ function laadDoelstellingen() {
                 option.text = data[i].naam;
                 dropdown.add(option);
             }
-
+            option = document.createElement('option');
             option.text = "Voeg Doelstelling toe...";
             dropdown.add(option);
         }
@@ -216,12 +218,13 @@ function laadTaken() {
             dropdown.selectedIndex = 0;
 
             const data = JSON.parse(xhttp.responseText);
-            let option;
+            let optiondata;
             for (let i = 0; i < data.length; i++) {
                 option = document.createElement('option');
                 option.text = data[i].naam;
                 dropdown.add(option);
             }
+            option = document.createElement('option');
             option.text = "Voeg Doelstelling toe...";
             dropdown.add(option);
         }
