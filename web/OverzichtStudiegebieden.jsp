@@ -60,7 +60,11 @@
                     </select> </td>
 
                 <td width="10px"></td>
-                 <td>  <select id="doelstellingen"  onchange="laadTaken()" hidden style="max-width:170px;">
+                <td>  <select id="doelstellingen"  onchange="laadTaken()" hidden style="max-width:170px;">
+
+                    </select> </td>
+
+                <td>  <select id="taken" hidden style="max-width:170px;">
 
                     </select> </td>
 

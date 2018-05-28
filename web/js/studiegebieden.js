@@ -59,8 +59,8 @@ function laadOpleidingen() {
             dropdown.add(option);
         }
     };
-    }
-   function laadModules() {
+}
+function laadModules() {
 
     if (document.getElementById("opleidingen").selectedIndex === 0) {
         return;
@@ -115,7 +115,7 @@ function laadOpleidingen() {
         }
     };
 }
-    
+
 function laadDoelstellingen() {
 
     if (document.getElementById("modules").selectedIndex === 0) {
@@ -166,6 +166,7 @@ function laadDoelstellingen() {
                 option.text = data[i].naam;
                 dropdown.add(option);
             }
+
             option.text = "Voeg Doelstelling toe...";
             dropdown.add(option);
         }
