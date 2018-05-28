@@ -17,6 +17,9 @@ function checkJaar() {
 }
 
 function laadCursistenScores() {
+    dropdown = document.querySelector("#modules");
+    dropdown.style = "background: #f9f9f9";
+    
     if (document.getElementById("modules").selectedIndex === 0) {
         return;
     }
@@ -52,10 +55,6 @@ function laadCursistenScores() {
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
 
-            let achternaam = document.getElementById('achternaam');
-            let voornaam = document.getElementById('voornaam');
-            let score = document.getElementById('score');
-
             const data = JSON.parse(xhttp.responseText);
 
             for (let teller = 0; teller < data.length; teller++) {
@@ -71,31 +70,32 @@ function laadCursistenScores() {
     };
 }
 
-    //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
- function resetDropdowns(naam) {
-
+ //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
+function resetDropdowns(naam) {
+    
     formulierLeegMaken();
     let dropdowns = document.getElementsByClassName('drop');
     var idDropDown;
     for (let i = 0; i < dropdowns.length; i++) {
         idDropDown = dropdowns[i].id;
+        
         //reset dropdowns na studiegebied
         switch (naam) {
             case 'studiegebieden':
 
-                if (idDropDown === 'modules') {
+                if (idDropDown === 'opleidingen') {
                     dropdowns[i].selectedIndex = 0;
                     dropdowns[i].style = "background: #efc4c4";
                     ledigDropDown(dropdowns[i]);
                 }
-                if (idDropDown === 'cursisten') {
+                if (idDropDown === 'modules') {
                     dropdowns[i].selectedIndex = 0;
                     dropdowns[i].style = "background: #efc4c4";
                     ledigDropDown(dropdowns[i]);
                 }
                 break;
             case 'opleidingen':
-                if (idDropDown === 'cursisten') {
+                if (idDropDown === 'modules') {
                     dropdowns[i].selectedIndex = 0;
                     dropdowns[i].style = "background: #efc4c4";
                     ledigDropDown(dropdowns[i]);
@@ -105,7 +105,6 @@ function laadCursistenScores() {
     }
 }
 
- //laad de dropdowns van de gegeven soort.
 //laad de dropdown met de gevraagde soort
 function laadDropdown(soort) {
 
@@ -128,8 +127,20 @@ function laadDropdown(soort) {
             dropdown.style = "background: #efc4c4";
             dropdownKeuze = document.getElementById('opleidingen').value;
             xhttp.open("POST", "ScoreServlet?opleiding=" + dropdownKeuze, true);
-            break;       
+            break;
+        
+        case 'cursisten':
+            dropdown = document.querySelector("#modules");
+            dropdown.style = "background: #f9f9f9";
+            dropdown = document.querySelector("#cursisten");
+            dropdown.style = "background: #efc4c4";
+            dropdownKeuze = document.getElementById('modules').value;
+            var schooljaar = document.getElementById("schooljaar").value;
+            var semester = document.getElementById("Semester").value;
+            xhttp.open("POST", "ScoreServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+            break;
     }
+    
 
     xhttp.send();
     //als het antwoord wordt ontvangen...
@@ -152,7 +163,10 @@ function laadDropdown(soort) {
                     break;
                 case 'modules':
                     defaultOption.text = 'Module...';
-                    break;             
+                    break; 
+                 case 'cursisten':
+                    defaultOption.text = 'Cursist...';
+                    break;
             }
             defaultOption.disabled = true;
             dropdown.add(defaultOption);
@@ -181,6 +195,10 @@ function laadDropdown(soort) {
                 case 'modules':
                     optionNieuw.text = "Maak nieuwe module...";
                     resetDropdowns('opleidingen');
+                    break;
+                case 'cursisten':
+                    optionNieuw.text = "Maak nieuwe cursist...";
+                    laadTaakSelectData();
                     break;
             }
             dropdown.add(optionNieuw);

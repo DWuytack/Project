@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Gebruiker;
+import model.GebruikerDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
 import model.ScoreDAO;
@@ -88,6 +90,26 @@ public class ScoreServlet extends HttpServlet {
             ArrayList<Score> cursistenScores = scoreDAO.klassikaleScore(schooljaarID, semesterID, moduleID);
 
             String json = gson.toJson(cursistenScores);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
+        
+        if (module != null) {
+
+            String schooljaar = request.getParameter("schooljaar");
+            String semester = request.getParameter("semester");
+           
+            GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            SchooljaarDAO schooljarenDAO = new SchooljaarDAO();
+            SemesterDAO semesterDAO = new SemesterDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
+            int schooljaarID = schooljarenDAO.geefSchooljaarID(schooljaar);
+            int semesterID = semesterDAO.laadSemesterID(semester);
+            int moduleID = moduleDAO.laadModuleID(module);
+            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(schooljaarID, semesterID, moduleID);
+
+            String json = gson.toJson(gebruikers);
 
             response.setContentType("application/json");
             response.getWriter().write(json);

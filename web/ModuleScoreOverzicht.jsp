@@ -16,8 +16,7 @@
 <html>    
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="js/nav.js"></script>
-        
+        <script src="js/nav.js"></script>        
         <script src="js/score.js"></script>
         <link rel="stylesheet" href="css/theme.css">
 
@@ -72,7 +71,7 @@
                             <td>
                                 <select name="studiegebied" id="studiegebied"  
                                         onchange="laadDropdown('opleidingen')" 
-                                        style="background: #efc4c4"  class="drop">
+                                        style="background: #efc4c4"  class="drop" hidden>
                                     <option selected disabled> Studiegebied... 
                                     </option>
                                     <c:forEach items="${studiegebieden}" 
