@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.CursistenInschrijven;
 import model.CursistenInschrijvenDAO;
-import model.Gebruiker;
-import model.GebruikerDAO;
-import model.Instellingen;
+
 
 /**
  * Deze klasse bevat alle mogelijke knoppen naar gebruikersbewerkingen.
@@ -41,28 +39,11 @@ public class CursistenInschrijvenServlet extends HttpServlet {
         ArrayList<CursistenInschrijven> cursisten = null;
 
         try {
-            String actie = "";
             String zoekterm = request.getParameter("zoekterm");
 
-                cursisten = cursisteninschrijvenDAO.cursistenLaden();
+                cursisten = cursisteninschrijvenDAO.cursistenZoeken(zoekterm);
                 session.setAttribute("lijstCursisten", cursisten);
-                response.sendRedirect("CursistenInschrijven.jsp");            
-
-            if (zoekterm != null && !zoekterm.equals("")) {
-                actie = "Zoeken";
-            }
-
-            CursistenInschrijven cursisteninschrijven = new CursistenInschrijven();
-
-            switch (actie) {
-                case "Zoeken":
-                    session.setAttribute("zoekterm", zoekterm);
-                    cursisten = cursisteninschrijvenDAO.cursistenZoeken(zoekterm);
-                    session.setAttribute("lijstCursisten", cursisten);
-                    response.sendRedirect("GebruikersOverzicht.jsp");
-                    break;
-
-            }
+                response.sendRedirect("CursistenInschrijven.jsp");           
 
         } catch (Throwable theException) {
 
