@@ -126,7 +126,7 @@ case "Overzicht studiegebieden":
 studiegebiedDAO = new StudiegebiedDAO();
 studiegebieden = studiegebiedDAO.studiegebiedenLaden();
 session.setAttribute("studiegebieden", studiegebieden); 
-response.sendRedirect("OverzichtStudiegebieden.jsp"); 
+response.sendRedirect("OverzichtStudiegebiedenTemp.jsp"); 
 break;
 
 case "Evaluatieformulieren":

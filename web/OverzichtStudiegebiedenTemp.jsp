@@ -24,7 +24,7 @@
                 display: inline-block;
                 color: black;
                 font-size: 16px;
-                font-weight: 700;
+                font-weight: bolder;
             } 
             button:hover {
                 background: #e7e7e7;
@@ -57,9 +57,10 @@
 
         <!-- TABEL OVERZICHT -->
         <br>
+        <pre> ${sessionScope.testje} </pre>
         <section>
             <div class="table-container" id="overzicht">
-                <table id="studiegebieden">
+                <table class="studiegebieden">
                     <thead>
                         <tr>
                             <th>Naam</th>
@@ -68,8 +69,6 @@
                     <c:forEach items="${studiegebieden}" var="studiegebied">
                         <tr class="studiegebied" data-ID="${studiegebied.studiegebiedID}" >
                             <td><button onclick="toggleOpleidingen(this)">+</button>${studiegebied.naam}
-                                <table data-status="CLOSED">
-                                </table>
                             </td>
                         </tr>
                     </c:forEach>
