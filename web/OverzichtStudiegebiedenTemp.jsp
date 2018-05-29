@@ -24,9 +24,16 @@
                 display: inline-block;
                 color: black;
                 font-size: 16px;
+                font-weight: 700;
             } 
             button:hover {
                 background: #e7e7e7;
+            }
+            studiegebied {
+
+            }
+            opleiding {
+
             }
         </style>
         <meta name="keywords" content="ScoreOnWeb, Studiegebieden"
@@ -34,6 +41,7 @@
               name="author" content="Ewout Phlips"
               name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="js/nav.js"></script>
+        <script src="js/studiegebieden.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <title>ScoreOnWeb - Overzicht Studiegebieden</title>
     </head>
@@ -51,24 +59,20 @@
         <br>
         <section>
             <div class="table-container" id="overzicht">
-                <table class="datatable">
-                    <thead> 
+                <table id="studiegebieden">
+                    <thead>
                         <tr>
-                            <th width="25%"><a>Naam</a></th>
-                            <th width="65%"><a>Beschrijving</a></th>
-                            <th width="10%"></th>                                                             
+                            <th>Naam</th>
                         </tr>
                     </thead>
-
-                    <tbody>
-                        <c:forEach items="${studiegebieden}" var="studiegebied">
-                            <tr data-stu-ID="${studiegebied.studiegebiedID}">
-                                <td><button onclick="laadOpleidingen()"><b>+</b></button>${studiegebied.naam}</td>
-                                <td>${studiegbied.beschrijving}</td>
-                                <td><button>✎</button><button>✖</button></td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
+                    <c:forEach items="${studiegebieden}" var="studiegebied">
+                        <tr class="studiegebied" data-ID="${studiegebied.studiegebiedID}" >
+                            <td><button onclick="toggleOpleidingen(this)">+</button>${studiegebied.naam}
+                                <table data-status="CLOSED">
+                                </table>
+                            </td>
+                        </tr>
+                    </c:forEach>
                 </table>
             </div>
         </section>

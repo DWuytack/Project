@@ -5,6 +5,53 @@
  */
 
 var Studiegebied;
+
+function toggleOpleidingen(studiegebiedBtn) {
+    stuTable = studiegebiedBtn.parentElement.childNodes[2]; //Table waarin de opleidingen worden geladen
+    stuID = stuTable.parentElement.parentElement.dataset.id; //Id van het geselecteerde studiegebied.
+
+    if (stuTable.dataset.status === "OPENED") {
+        // VERWIJDER ALLES IN STUDIEGEBIED TABEL
+
+    } else {
+        // LAAD ALLE OPLEIDINGEN IN TABEL
+
+        var xhttp = new XMLHttpRequest();
+
+        if (window.XMLHttpRequest) {
+            // code voor moderne browsers
+            xhttp = new XMLHttpRequest();
+        } else {
+            // code voor oude IE browsers
+            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        //open(method,url,async)
+        xhttp.open("POST", "StudiegebiedenServlet?studiegebied=" + stuID, true);
+        xhttp.send();
+
+        xhttp.onreadystatechange = function () {
+
+            //200: "OK"
+            //403: "Forbidden"
+            //404: "Not Found"
+
+            //0: request not initialized 
+            //1: server connection established
+            //2: request received 
+            //3: processing request 
+            //4: request finished and response is ready
+            if (this.readyState === 4 && this.status === 200) {
+
+                const data = JSON.parse(xhttp.responseText);
+                for (let i = 0; i < data.length; i++) {
+
+                }
+            }
+        }
+    }
+    ;
+}
+
 function laadOpleidingen() {
 
     if (document.getElementById("studiegebied").selectedIndex === 0) {
@@ -61,6 +108,7 @@ function laadOpleidingen() {
         }
     };
 }
+
 function laadModules() {
 
     if (document.getElementById("opleidingen").selectedIndex === 0) {
@@ -174,6 +222,7 @@ function laadDoelstellingen() {
         }
     };
 }
+
 function laadTaken() {
 
     if (document.getElementById("doelstellingen").selectedIndex === 0) {
