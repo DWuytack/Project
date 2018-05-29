@@ -118,29 +118,23 @@
                     <table>
                         <!-- Titelbalk-->
                         <tr height="20px" />
-                        <tr bgcolor="#ceccca" height="50px" >
-                            <td width="3%" />
-                            <td width="30%"><b>Achternaam</td>   
-                            <td width="3%" />
-                            <td width="30%"><b>Voornaam</b></td>  
-                            <td width="3%" />
-                            <td width="6%"><b>Score</b></td>
-                            <td width="6%" />
+                        <tr bgcolor="#ceccca" height="50px" >                            
+                            <td width="30%"><b>Achternaam</td>                             
+                            <td width="30%"><b>Voornaam</b></td>                             
+                            <td width="6%"><b>Score</b></td>                            
                         </tr>
+                        
                         <tr height="20px" />
                     </table>
 
                     <table id="scoretable">
 
-                        <tr id="firstRow">
-                            <td width="3%" />
-                            <td width="30%"/>
-                            <td width="3%" />
-                            <td width="30%"/> 
-                            <td width="3%" />
-                            <td width="6%" />
-                            <td width="6%" />
+                        <tr id="firstRow">                          
+                            <td width="30%"/>                           
+                            <td width="30%"/>                           
+                            <td width="6%" />                            
                         </tr>
+                    </table>
                 </div>
             </section>
         </form>

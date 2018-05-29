@@ -17,8 +17,8 @@
         <script src="js/nav.js"></script>
         <script src="js/score.js"></script>
         <link rel="stylesheet" href="css/theme.css">
-        
-        <title>Score overzicht per klas</title>
+
+        <title>Score overzicht per cursist</title>
         <style>
             #nav-topke {
                 width: auto;
@@ -28,82 +28,105 @@
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
-        <form method ="POST" action="ScoreServlet?keuze=reset">
-            <section id="pagename">
-                <h2> Score overzicht per klas </h2> 
-            </section>       
-            <section>            
-                <br>
-                <div class="table-container">
-                    <div class="table-nav-header">
+        <!-- Titel van de pagina -->
+        <section id="pagename">
+            <h2> EvaluatieFormulier </h2>
+        </section>
+        <section id="score">
+            <form method="post" action="ScoreServlet" >
+                <hr>
 
-                        <div>                           
-                            <input type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
-                            <input type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
-                            <input type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
-                            <input type="image" name="Laatste" value="skip_next" src='images/skip_next.png'>
-                        </div>
-                    </div>
-                    <br><br>
-                    <table id="nav-topke">
-                        <tr>
-                            <td>
-                                <select name="schooljaar" id="schooljaar" style="background: #f9f9f9">
-                                    <option  selected disabled> Kies schooljaar.. </option>
-                                    <c:forEach items="${schooljaren}" var="schooljaar">
-                                        <option> ${schooljaar.schooljaar} </option>
-                                    </c:forEach>
-                                </select>
-                            </td>
-                            <td width="10px"></td>
-                            <td>
-                                <select name="semester" id="semester" onchange="checkJaar()" style="background: #f9f9f9" class="drop" >" >
-                                    <option selected disabled> Semester... </option>
-                                    <c:forEach items="${semesters}" var="semester">                  
-                                        <option> ${semester.semester} </option>                     
-                                    </c:forEach>
-                                </select>
-                            </td>
-                            <td width="10px"></td>
-                            <!-- Studiegebied kiezer -->
-                            <td>
-                                <select name="studiegebied" id="studiegebied"  
-                                        onchange="laadDropdown('opleidingen')" 
-                                        style="background: #efc4c4"  class="drop" hidden>
-                                    <option selected disabled> Studiegebied... 
-                                    </option>
-                                    <c:forEach items="${studiegebieden}" 
-                                               var="studiegebied">                  
-                                        <option> ${studiegebied.naam} </option>                     
-                                    </c:forEach>
-                                    <option> Voeg studiegebied toe... </option>
-                                </select> 
-                            </td>
-                            <td width="10px"></td>
+                <!-- SelectieRij -->
+                <table>
+                    <tr height="10px">
+                    <tr>
+                        <td width="20px"></td>
 
-                            <!-- Opleiding kiezer -->
-                            <td>
-                                <select id="opleidingen" onchange="laadDropdown('modules')"
-                                        hidden style="background: #f9f9f9"  class="drop"></select>
-                            </td>
-                            <td width="10px"></td>
+                        <!-- Datum kiezer -->
+                        <td> <input type="date" id="datum"  value="today" onchange="pasSemesterAan()"
+                                    required style="font-size: 0.9rem"  
+                                    style="background: #f9f9f9"  > </td>
+                    <script>
+                        let today = new Date().toISOString().substr(0, 10);
+                        document.querySelector("#datum").value = today;
+                    </script>
 
-                            <!-- Module kiezer -->
-                            <td>  
-                                <select id="modules" hidden onchange="laadDropdown('cursisten')"
-                                        style="background: #f9f9f9"  class="drop"></select> 
-                            </td>
-                            <td width="10px"></td>
-                            
-                             <td>  
-                                <select id="cursisten" hidden onchange="laadDoelstellingen()"
-                                        style="background: #f9f9f9"  class="drop"></select> 
-                            </td>
-                            <td width="10px"></td>
-                        </tr>
-                    </table>
-                    <br><br>
-                    <table>
+                    <!-- Semester kiezer-->
+                    <td> <select name="Semester" id="Semester" onchange="laadCursistenOpnieuw()"
+                                 style="background: #f9f9f9" class="drop" >
+                            <option selected > Semester... </option>
+                            <c:forEach items="${semesters}" var="semester">                  
+                                <option> ${semester.semester} </option>                     
+                            </c:forEach>
+                        </select> </td>
+
+                    <td width="10px"></td>
+
+                    <script>
+                        let tijd = new Date();
+                        switch (tijd.getMonth() + 1) {
+                            case 2:
+                            case 3:
+                            case 4:
+                            case 5:
+                            case 6:
+                                document.querySelector("#Semester").selectedIndex = 2;
+                                break;
+                            case 7:
+                            case 8:
+                            case 9:
+                            case 10:
+                            case 11:
+                            case 12:
+                            case 1:
+                                document.querySelector("#Semester").selectedIndex = 1;
+                                break;
+                        }
+
+                    </script>
+
+
+
+                    <!-- Studiegebied kiezer -->
+                    <td>
+                        <select name="studiegebied" id="studiegebied"  
+                                onchange="laadDropdown('opleidingen')" 
+                                style="background: #efc4c4"  class="drop">
+                            <option selected disabled> Studiegebied... 
+                            </option>
+                            <c:forEach items="${studiegebieden}" 
+                                       var="studiegebied">                  
+                                <option> ${studiegebied.naam} </option>                     
+                            </c:forEach>
+                            <option> Voeg studiegebied toe... </option>
+                        </select> 
+                    </td>
+                    <td width="10px"></td>
+
+                    <!-- Opleiding kiezer -->
+                    <td>
+                        <select id="opleidingen" onchange="laadDropdown('modules')"
+                                hidden style="background: #f9f9f9"  class="drop"></select>
+                    </td>
+                    <td width="10px"></td>
+
+                    <!-- Module kiezer -->
+                    <td>  
+                        <select id="modules" hidden onchange="laadDropdown('cursisten')"
+                                style="background: #f9f9f9"  class="drop"></select> 
+                    </td>
+                    <td width="10px"></td>
+
+                    <!-- Cursist kiezer -->
+                    <td>  
+                        <select id="cursisten" onchange="laadCursistenScores()" hidden 
+                                style="background: #f9f9f9"  class="drop"></select>
+                    </td>
+                    <td width="10px"></td>
+                    </tr>
+                </table>
+                <br><br>
+                <table>
                     <!-- Titelbalk-->
                     <tr height="20px" />
                     <tr bgcolor="#ceccca" height="50px" >
@@ -129,8 +152,8 @@
                         <td width="6%"/>
                         <td width="8%" />
                     </tr>
-                </div>
-            </section>
-        </form>
+                    </div>
+                    </section>
+            </form>
     </body>
 </html>

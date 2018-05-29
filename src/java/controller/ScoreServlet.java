@@ -77,14 +77,32 @@ public class ScoreServlet extends HttpServlet {
 
         if (module != null) {
 
-            String schooljaar = request.getParameter("schooljaar");
+            String datum = request.getParameter("schooljaar");
             String semester = request.getParameter("semester");
+
+            String semesterNr = semester.substring(0, 1);
+
+            int schooljaar= Integer.valueOf(datum.substring(0, 4));
+            int semesterNummer = Integer.valueOf(semesterNr);
+            String volSchooljaar = "";
+            String volgendSchooljaar = String.valueOf(schooljaar + 1);
+            String vorigSchooljaar = String.valueOf(schooljaar - 1);
+
+            switch (semesterNummer) {
+                case 1:
+                    volSchooljaar = datum.substring(0, 4) + " - " + volgendSchooljaar;
+                    break;
+
+                case 2:
+                    volSchooljaar = vorigSchooljaar + " - " + datum.substring(0, 4);
+                    break;
+            }
 
             ScoreDAO scoreDAO = new ScoreDAO();
             SchooljaarDAO schooljarenDAO = new SchooljaarDAO();
             SemesterDAO semesterDAO = new SemesterDAO();
             ModuleDAO moduleDAO = new ModuleDAO();
-            int schooljaarID = schooljarenDAO.geefSchooljaarID(schooljaar);
+            int schooljaarID = schooljarenDAO.geefSchooljaarID(volSchooljaar);
             int semesterID = semesterDAO.laadSemesterID(semester);
             int moduleID = moduleDAO.laadModuleID(module);
             ArrayList<Score> cursistenScores = scoreDAO.klassikaleScore(schooljaarID, semesterID, moduleID);
@@ -94,8 +112,8 @@ public class ScoreServlet extends HttpServlet {
             response.setContentType("application/json");
             response.getWriter().write(json);
         }
-               
-     }
+    }
+     
      // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
