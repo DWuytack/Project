@@ -18,16 +18,14 @@
 
     <body>
         <%@include file="Bovenbalk.jsp" %>
-        <form method="post" action="CursistenInschrijvenServlet?keuze=reset" >
-
+       
             <section id="pagename">
-                <h2> CursistenInschrijven </h2>
+                <h2> Cursisten Inschrijven </h2>
             </section>
 
             <section>
                 <form action="CursistenInschrijvenServlet">
                     <div class="table-container">
-
                         <div class="table-nav-header">
                             <div id="zoeken">
                                 <a id="bt-zoeken">
@@ -54,15 +52,12 @@
                                             <td> ${cursist.email} </td>
                                         </tr>
                                     </c:forEach>
-                                </tbody>>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </form>
             </section>
-
-        </form>
-
     </body>
 </html>
 
