@@ -169,9 +169,23 @@ break;
 
 case "Cursisten inschrijven":
 ModuleDAO moduleDAO = new ModuleDAO();
+semesterDAO = new SemesterDAO();
 gebruikerDAO = new GebruikerDAO();
+schooljaarDAO = new SchooljaarDAO();
+semesterDAO = new SemesterDAO();
+studiegebiedDAO = new StudiegebiedDAO();
+
 ArrayList module = moduleDAO.modulesLaden();
 ArrayList gebruiker = gebruikerDAO.cursistenLaden1();
+ArrayList semester = semesterDAO.semestersLaden();
+studiegebieden = studiegebiedDAO.studiegebiedenLaden();
+schooljaren = schooljaarDAO.schooljarenLaden();
+semesters = semesterDAO.semestersLaden();
+
+session.setAttribute("schooljaren", schooljaren);
+session.setAttribute("semesters", semesters);
+session.setAttribute("studiegebieden", studiegebieden);
+session.setAttribute("semesters", semester);
 session.setAttribute("modules", module);
 session.setAttribute("gebruikers", gebruiker);
 response.sendRedirect("CursistenInschrijven.jsp");

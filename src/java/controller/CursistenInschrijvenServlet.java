@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.CursistenInschrijven;
 import model.CursistenInschrijvenDAO;
-
 
 /**
  * Deze klasse bevat alle mogelijke knoppen naar gebruikersbewerkingen.
@@ -39,11 +37,13 @@ public class CursistenInschrijvenServlet extends HttpServlet {
         ArrayList<CursistenInschrijven> cursisten = null;
 
         try {
+            
             String zoekterm = request.getParameter("zoekterm");
 
-                cursisten = cursisteninschrijvenDAO.cursistenZoeken(zoekterm);
-                session.setAttribute("lijstCursisten", cursisten);
-                response.sendRedirect("CursistenInschrijven.jsp");           
+            cursisten = cursisteninschrijvenDAO.cursistenZoeken(zoekterm);
+            session.setAttribute("lijstCursisten", cursisten);
+            session.setAttribute("geladenCursisten", cursisten);
+            response.sendRedirect("CursistenInschrijven.jsp");
 
         } catch (Throwable theException) {
 
