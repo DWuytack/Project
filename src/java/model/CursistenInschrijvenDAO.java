@@ -39,7 +39,7 @@ public class CursistenInschrijvenDAO {
                 cursist.setAchternaam(rs.getString("achternaam"));
                 cursist.setEmail(rs.getString("email"));
                 cursisten.add(cursist);
-                
+
             }
 
         } catch (SQLException e) {
