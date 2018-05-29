@@ -36,373 +36,111 @@
             </section>       
             <section>            
                 <br>
-                <div class="table-container">
-                    <div class="table-nav-header">
-
-                        <div>                           
-                            <input type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
-                            <input type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
-                            <input type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
-                            <input type="image" name="Laatste" value="skip_next" src='images/skip_next.png'>
-                        </div>
-                    </div>
+                <div class="table-container">                   
                     <br><br>
                     <table id="nav-topke">
                         <tr>
-                            <td>
-                                <select name="schooljaar" id="schooljaar" style="background: #f9f9f9">
-                                    <option  selected disabled> Kies schooljaar.. </option>
-                                    <c:forEach items="${schooljaren}" var="schooljaar">
-                                        <option> ${schooljaar.schooljaar} </option>
-                                    </c:forEach>
-                                </select>
-                            </td>
-                            <td width="10px"></td>
-                            <td>
-                                <select name="semester" id="semester" onchange="checkJaar()" style="background: #f9f9f9" class="drop" >" >
-                                    <option selected disabled> Semester... </option>
-                                    <c:forEach items="${semesters}" var="semester">                  
-                                        <option> ${semester.semester} </option>                     
-                                    </c:forEach>
-                                </select>
-                            </td>
-                            <td width="10px"></td>
-                            <!-- Studiegebied kiezer -->
-                            <td>
-                                <select name="studiegebied" id="studiegebied"  
-                                        onchange="laadDropdown('opleidingen')" 
-                                        style="background: #efc4c4"  class="drop" hidden>
-                                    <option selected disabled> Studiegebied... 
-                                    </option>
-                                    <c:forEach items="${studiegebieden}" 
-                                               var="studiegebied">                  
-                                        <option> ${studiegebied.naam} </option>                     
-                                    </c:forEach>
-                                    <option> Voeg studiegebied toe... </option>
-                                </select> 
-                            </td>
-                            <td width="10px"></td>
+                            <!-- Datum kiezer -->
+                            <td> <input type="date" id="datum"  value="today" onchange="pasSemesterAan()"
+                                        required style="font-size: 0.9rem"  
+                                        style="background: #f9f9f9"  > </td>
+                        <script>
+                            let today = new Date().toISOString().substr(0, 10);
+                            document.querySelector("#datum").value = today;
+                        </script>
 
-                            <!-- Opleiding kiezer -->
-                            <td>
-                                <select id="opleidingen" onchange="laadDropdown('modules')"
-                                        hidden style="background: #f9f9f9"  class="drop"></select>
-                            </td>
-                            <td width="10px"></td>
+                        <!-- Semester kiezer-->
+                        <td> <select name="Semester" id="Semester" onchange="laadCursistenOpnieuw()"
+                                     style="background: #f9f9f9" class="drop" >
+                                <option selected > Semester... </option>
+                                <c:forEach items="${semesters}" var="semester">                  
+                                    <option> ${semester.semester} </option>                     
+                                </c:forEach>
+                            </select> </td>
 
-                            <!-- Module kiezer -->
-                            <td>  
-                                <select id="modules" hidden onchange="laadCursistenScores()"
-                                        style="background: #f9f9f9"  class="drop"></select> 
-                            </td>
-                            <td width="10px"></td>
+                        <td width="10px"></td>
+
+                        <script>
+                            let tijd = new Date();
+                            switch (tijd.getMonth() + 1) {
+                                case 2:
+                                case 3:
+                                case 4:
+                                case 5:
+                                case 6:
+                                    document.querySelector("#Semester").selectedIndex = 2;
+                                    break;
+                                case 7:
+                                case 8:
+                                case 9:
+                                case 10:
+                                case 11:
+                                case 12:
+                                case 1:
+                                    document.querySelector("#Semester").selectedIndex = 1;
+                                    break;
+                            }
+
+                        </script>
+
+                        <!-- Studiegebied kiezer -->
+                        <td>
+                            <select name="studiegebied" id="studiegebied"  
+                                    onchange="laadDropdown('opleidingen')" 
+                                    style="background: #efc4c4"  class="drop">
+                                <option selected disabled> Studiegebied... 
+                                </option>
+                                <c:forEach items="${studiegebieden}" 
+                                           var="studiegebied">                  
+                                    <option> ${studiegebied.naam} </option>                     
+                                </c:forEach>
+                                <option> Voeg studiegebied toe... </option>
+                            </select> 
+                        </td>
+                        <td width="10px"></td>
+
+                        <!-- Opleiding kiezer -->
+                        <td>
+                            <select id="opleidingen" onchange="laadDropdown('modules')"
+                                    hidden style="background: #f9f9f9"  class="drop"></select>
+                        </td>
+                        <td width="10px"></td>
+
+                        <!-- Module kiezer -->
+                        <td>  
+                            <select id="modules" hidden onchange="laadCursistenScores()"
+                                    style="background: #f9f9f9"  class="drop"></select> 
+                        </td>
+                        <td width="10px"></td>
                         </tr>
                     </table>
                     <br><br>
-                    <table class="datatable">
-                        <thead> 
-                            <tr>
-                                <th onclick="sortTable(0)"><a>Achternaam</a></th>
-                                <th onclick="sortTable(1)"><a>Voornaam</a></th>
-                                <th onclick="sortTable(2)"><a>Score</a></th>                                                             
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr id="rij0" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij1" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij2" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij3" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij4" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij5" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij6" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij7" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij8" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij9" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij10" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij11" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                            <tr id="rij12" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij13" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij14" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij15" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij16" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij17" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij18" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij19" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij20" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij21" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij22" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij23" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij24" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij25" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij26" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij27" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij28" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij29" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-                            <tr id="rij30" hidden>
-                                <td><label id="achternaam" disabled >
-                                    </label></td>
-                                <td><label id="voornaam" disabled >
-                                    </label></td>                              
-                                <td><label id="score" disabled >
-                                    </label></td>
-                                <td />                         
-                            </tr>
-
-                        </tbody>
+                    <table>
+                        <!-- Titelbalk-->
+                        <tr height="20px" />
+                        <tr bgcolor="#ceccca" height="50px" >
+                            <td width="3%" />
+                            <td width="30%"><b>Achternaam</td>   
+                            <td width="3%" />
+                            <td width="30%"><b>Voornaam</b></td>  
+                            <td width="3%" />
+                            <td width="6%"><b>Score</b></td>
+                            <td width="6%" />
+                        </tr>
+                        <tr height="20px" />
                     </table>
+
+                    <table id="scoretable">
+
+                        <tr id="firstRow">
+                            <td width="3%" />
+                            <td width="30%"/>
+                            <td width="3%" />
+                            <td width="30%"/> 
+                            <td width="3%" />
+                            <td width="6%" />
+                            <td width="6%" />
+                        </tr>
                 </div>
             </section>
         </form>

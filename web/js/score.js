@@ -1,4 +1,5 @@
 var dropdownKeuze;
+var aantalCursisten;
 
 function checkJaar() {
 
@@ -17,9 +18,10 @@ function checkJaar() {
 }
 
 function laadCursistenScores() {
+    formulierLeegMaken();
     dropdown = document.querySelector("#modules");
     dropdown.style = "background: #f9f9f9";
-    
+
     if (document.getElementById("modules").selectedIndex === 0) {
         return;
     }
@@ -57,28 +59,21 @@ function laadCursistenScores() {
 
             const data = JSON.parse(xhttp.responseText);
 
-            for (let teller = 0; teller < data.length; teller++) {
-                var rij = document.getElementById("rij" + teller);
-                rij.cells[0].innerHTML = data[teller].achternaam;
-                rij.cells[1].innerHTML = data[teller].voornaam;
-                var voorlopigeScore = data[teller].score * 10;
-                rij.cells[2].innerHTML = voorlopigeScore + "%";
-                document.getElementById("rij" + teller).hidden = false;
-            }
+            laadLijn(data);
 
         }
     };
 }
 
- //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
+//als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
 function resetDropdowns(naam) {
-    
+
     formulierLeegMaken();
     let dropdowns = document.getElementsByClassName('drop');
     var idDropDown;
     for (let i = 0; i < dropdowns.length; i++) {
         idDropDown = dropdowns[i].id;
-        
+
         //reset dropdowns na studiegebied
         switch (naam) {
             case 'studiegebieden':
@@ -128,7 +123,7 @@ function laadDropdown(soort) {
             dropdownKeuze = document.getElementById('opleidingen').value;
             xhttp.open("POST", "ScoreServlet?opleiding=" + dropdownKeuze, true);
             break;
-        
+
         case 'cursisten':
             dropdown = document.querySelector("#modules");
             dropdown.style = "background: #f9f9f9";
@@ -140,7 +135,7 @@ function laadDropdown(soort) {
             xhttp.open("POST", "ScoreServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
             break;
     }
-    
+
 
     xhttp.send();
     //als het antwoord wordt ontvangen...
@@ -163,8 +158,8 @@ function laadDropdown(soort) {
                     break;
                 case 'modules':
                     defaultOption.text = 'Module...';
-                    break; 
-                 case 'cursisten':
+                    break;
+                case 'cursisten':
                     defaultOption.text = 'Cursist...';
                     break;
             }
@@ -184,28 +179,10 @@ function laadDropdown(soort) {
                 optiondata.text = data[i].naam;
                 dropdown.add(optiondata);
             }
-
-            let  optionNieuw = document.createElement('option');
-            switch (soort) {
-
-                case 'opleidingen':
-                    optionNieuw.text = "Maak nieuwe opleiding...";
-                    resetDropdowns('studiegebieden');
-                    break;
-                case 'modules':
-                    optionNieuw.text = "Maak nieuwe module...";
-                    resetDropdowns('opleidingen');
-                    break;
-                case 'cursisten':
-                    optionNieuw.text = "Maak nieuwe cursist...";
-                    laadTaakSelectData();
-                    break;
-            }
-            dropdown.add(optionNieuw);
         }
     };
 }
-    
+
 function ledigDropDown(dropdown) {
 
     var length = dropdown.options.length;
@@ -213,3 +190,60 @@ function ledigDropDown(dropdown) {
         dropdown.options[i] = null;
     }
 }
+
+function formulierLeegMaken() {
+
+    var datatable = document.getElementsByClassName("datatable");
+    for (let i = datatable - 2; i > 0; i--) {
+        var row = datatable.rows[i];
+        if (row.id !== "firstRow") {
+            if (row.id !== "addLine") {
+                datatable.deleteRow(i);
+            }
+        }
+    }
+}
+
+function laadLijn(data) {
+
+    aantalCursisten = aantalCursisten + 1;
+    //maak een rij in ons evaluatie.jsp
+    scoreTable = document.getElementById("scoretable");
+    for (i = 0; i < data.length; i++) {
+        var row = scoreTable.insertRow((aantalCursisten));
+        row.id = "row" + aantalCursisten;
+
+        row.insertCell(0); 
+        row.insertCell(1);     
+        row.insertCell(2);
+        row.cells[0].innerhtml = data[0].achternaam;
+        row.cells[0].innerhtml = data[0].voornaam;
+        row.cells[0].innerhtml = data[0].score;
+        
+    }
+
+}
+
+function pasSemesterAan() {
+
+    let nu = new Date(document.querySelector("#datum").value);
+    switch (nu.getMonth() + 1) {
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+            document.querySelector("#Semester").selectedIndex = 2;
+            break;
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+        case 1:
+            document.querySelector("#Semester").selectedIndex = 1;
+            break;
+    }
+}
+
