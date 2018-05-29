@@ -46,14 +46,13 @@ public class StudiegebiedenServlet extends HttpServlet {
         if (keuze != null) {response.sendRedirect("OverzichtStudiegebieden.jsp");}
 
         Gson gson = new Gson();
-        String studiegebied = request.getParameter("studiegebied");
-
-        if (studiegebied != null) {
+        int studiegebied = Integer.parseInt(request.getParameter("studiegebied"));
+        
+        if (studiegebied != 0) {
 
             //laad opleidingen per studiegebied
             OpleidingDAO opleidingDAO = new OpleidingDAO();
-            StudiegebiedDAO studieGebiedDAO = new StudiegebiedDAO();
-            ArrayList<Opleiding> opleidingen = opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudiegebiedID(studiegebied));
+            ArrayList<Opleiding> opleidingen = opleidingDAO.opleidingenLaden(studiegebied);
 
             String json = gson.toJson(opleidingen);
 
