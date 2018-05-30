@@ -117,7 +117,7 @@ public class someservlet extends HttpServlet {
                 callID = Integer.valueOf(saveID);
 
                 if( session.getAttribute("idEdit") != null && requestID == callID + 3 ) {
-                    int id = (int) (Integer.valueOf(editID) * 0.25);
+                    int id = (int) (Double.valueOf(editID) * 0.25);
 
                     //session aanpassen
                     session.removeAttribute("idEdit");
@@ -148,7 +148,7 @@ public class someservlet extends HttpServlet {
                 response.getWriter().write(json);
                 break;
             case "Delete gebruiker":
-                int id = (int) (Integer.valueOf(deleteID) * 0.25);
+                int id = (int) (Double.valueOf(deleteID) * 0.25);
                 
                 //gebruiker verwijderen
                 gebruikerDAO.gebruikerVerwijderen(id);
