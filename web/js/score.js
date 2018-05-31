@@ -96,6 +96,7 @@ function resetDropdowns(naam) {
                     ledigDropDown(dropdowns[i]);
                 }
                 break;
+                
         }
     }
 }
@@ -123,6 +124,17 @@ function laadDropdown(soort) {
             dropdownKeuze = document.getElementById('opleidingen').value;
             xhttp.open("POST", "ScoreServlet?opleiding=" + dropdownKeuze, true);
             break;
+            case 'cursisten':
+            dropdown = document.querySelector("#modules");
+            dropdown.style = "background: #f9f9f9";
+            dropdown = document.querySelector("#cursisten");
+            dropdown.style = "background: #efc4c4";
+            dropdownKeuze = document.getElementById('modules').value;
+            var schooljaar = document.getElementById("datum").value;
+            var semester = document.getElementById("Semester").value;
+            xhttp.open("POST", "EvaluatieFormulierServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+            break;
+    
     }
 
     xhttp.send();
@@ -146,6 +158,9 @@ function laadDropdown(soort) {
                     break;
                 case 'modules':
                     defaultOption.text = 'Module...';
+                    break;
+                     case 'cursisten':
+                    defaultOption.text = 'Cursist...';
                     break;
             }
             defaultOption.disabled = true;

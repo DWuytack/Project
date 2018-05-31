@@ -112,8 +112,7 @@
 
                     <!-- Cursist kiezer -->
                     <td>  
-                        <select id="cursisten" hidden onchange="laadDropdown('cursisten')"  
-                                style="background: #f9f9f9"  class="drop"></select>
+                        <select id="cursisten"  style="background: #f9f9f9"  class="drop"></select>
                     </td>
                     <td width="10px"></td>
                     </tr>
