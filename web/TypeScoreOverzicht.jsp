@@ -11,10 +11,8 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
-        <link rel="stylesheet" href="css/formulier.css">
         <title>Type score</title>
     </head>
 
@@ -23,12 +21,12 @@
         <section id="pagename">
             <h2> Type scores </h2> 
         </section>
-
         <section>
             <form action="BeoordelingssoortServlet">
                 <div class="table-container">                   
                     <div class="table-nav-header" style="min-height: 20px;">                       
-                    </div>                   
+                    </div>
+                    <br>
                     <table class="datatable">
                         <thead>
                             <tr>
@@ -47,7 +45,7 @@
                                         <td> <input type="text" name="naam"  value="${beoordelingssoort.naam}"> </td>
                                         <td> <input type="text" name="beschrijving" value="${beoordelingssoort.beschrijving}"> </td>
                                         <td> <input type="text" name="waarde"  value="${beoordelingssoort.waarde}"> </td>
-                                    </c:if>
+                                        </c:if>
 
                                     <c:if test="${beoordelingssoort.beoordelingssoortID != sessionScope.editID}" >
                                         <td> ${beoordelingssoort.naam} </td>
@@ -91,7 +89,7 @@
                             <input type="text" name="waarde" size="16" maxlength="30">
                             <br><br>
                         </fieldset>
-                        <input type="submit" name="idAdd">
+                        <input type="submit" name="idAdd" value="toevoegen" class="typescoreToevoegen">
                     </div>
                 </div>
             </form>
