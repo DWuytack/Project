@@ -193,7 +193,7 @@ public class BeoordelingssoortDAO {
         PreparedStatement ps = null;
 
         String sql = "UPDATE beoordelingssoorten set beoordelingssoorten.naam=?,"
-                + "beoordelingssoorten.beschrijving =?, beoordelingssoorten.waarde=?, "
+                + "beoordelingssoorten.beschrijving =?, beoordelingssoorten.waarde=? "
                 + "WHERE beoordelingssoorten.beoordelingssoortID=?";
 
         try {

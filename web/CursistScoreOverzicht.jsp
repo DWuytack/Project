@@ -30,18 +30,14 @@
         <%@include file="Bovenbalk.jsp" %>
         <!-- Titel van de pagina -->
         <section id="pagename">
-            <h2> EvaluatieFormulier </h2>
+            <h2> Score overzicht per cursist</h2>
         </section>
-        <section id="score">
-            <form method="post" action="ScoreServlet" >
-                <hr>
-
-                <!-- SelectieRij -->
-                <table>
-                    <tr height="10px">
+        <section>            
+            <br>
+            <div class="table-container">                   
+                <br><br>
+                <table id="nav-topke">
                     <tr>
-                        <td width="20px"></td>
-
                         <!-- Datum kiezer -->
                         <td> <input type="date" id="datum"  value="today" onchange="pasSemesterAan()"
                                     required style="font-size: 0.9rem"  
@@ -50,7 +46,6 @@
                         let today = new Date().toISOString().substr(0, 10);
                         document.querySelector("#datum").value = today;
                     </script>
-
                     <!-- Semester kiezer-->
                     <td> <select name="Semester" id="Semester" onchange="laadCursistenOpnieuw()"
                                  style="background: #f9f9f9" class="drop" >
@@ -85,8 +80,6 @@
 
                     </script>
 
-
-
                     <!-- Studiegebied kiezer -->
                     <td>
                         <select name="studiegebied" id="studiegebied"  
@@ -119,7 +112,7 @@
 
                     <!-- Cursist kiezer -->
                     <td>  
-                        <select id="cursisten" onchange="laadCursistenScores()" hidden 
+                        <select id="cursisten" hidden onchange="laadDropdown('cursisten')"  
                                 style="background: #f9f9f9"  class="drop"></select>
                     </td>
                     <td width="10px"></td>
@@ -129,31 +122,24 @@
                 <table>
                     <!-- Titelbalk-->
                     <tr height="20px" />
-                    <tr bgcolor="#ceccca" height="50px" >
-                        <td width="3%" />
-                        <td width="40%"><b>Doelstelling</td>   
-                        <td width="3%" />
-                        <td><b>Kern</b></td>
-                        <td width="3%" />
-                        <td width="6%"><b>Score</b></td>
-                        <td width="8%" />
-                    </tr>
+                    <tr bgcolor="#ceccca" height="50px" >                            
+                        <td width="30%"><b>Doestellingen</td>                             
+                        <td width="30%"><b>kern</b></td>                             
+                        <td width="6%"><b>Score</b></td>                            
+                    </tr>                       
                     <tr height="20px" />
                 </table>
 
-                <table id="evaluatieTable">
+                <table id="scoretable">
 
-                    <tr id="firstRow">
-                        <td width="3%" />
-                        <td width="40%"/>
-                        <td width="3%" />
-                        <td/>
-                        <td width="3%" />
-                        <td width="6%"/>
-                        <td width="8%" />
+                    <tr id="firstRow">                          
+                        <td width="30%"/>                           
+                        <td width="30%"/>                           
+                        <td width="6%" />                            
                     </tr>
-                    </div>
-                    </section>
-            </form>
-    </body>
+                </table>
+            </div>
+        </section>
+    </form>
+</body>
 </html>

@@ -74,7 +74,7 @@ public class BeoordelingssoortServlet extends HttpServlet {
                     session = request.getSession(true);
                     session.removeAttribute("editID");
                     session.removeAttribute("saveID");
-                    beoordelingssoortDAO.beoordelingssoortVerwijderen(beoordelingssoort);
+                    beoordelingssoortDAO.beoordelingssoortVerwijderen(Integer.parseInt(deleteID));
                     beoordelingssoorten = beoordelingssoortDAO.beoordelingssoortenLaden();   
                     session.setAttribute("beoordelingssoorten", beoordelingssoorten);                    
                     response.sendRedirect("TypeScoreOverzicht.jsp");
@@ -94,7 +94,8 @@ public class BeoordelingssoortServlet extends HttpServlet {
                     int id = Integer.parseInt(saveID);
                     beoordelingssoort.setNaam(request.getParameter("naam"));
                     beoordelingssoort.setBeschrijving(request.getParameter("beschrijving"));
-                    beoordelingssoort.setWaarde(Integer.parseInt("waarde"));
+                    double waarde =Double.valueOf(request.getParameter("waarde"));
+                    beoordelingssoort.setWaarde(waarde);
                     beoordelingssoortDAO.beoordelingssoortAanpassen(id, beoordelingssoort);
                     beoordelingssoorten = beoordelingssoortDAO.beoordelingssoortenLaden();
                     session.setAttribute("beoordelingssoorten", beoordelingssoorten);
@@ -102,8 +103,12 @@ public class BeoordelingssoortServlet extends HttpServlet {
                     session.removeAttribute("saveID");
                     break;
 
-                case "add beoordelingssoort":
-                    session.setAttribute("idAdd", addID);
+                case "Add beoordelingssoort":
+                    session.setAttribute("idAdd", addID); 
+                    beoordelingssoort.setNaam(request.getParameter("naam"));
+                    beoordelingssoort.setBeschrijving(request.getParameter("beschrijving"));
+                    waarde =Double.valueOf(request.getParameter("waarde"));
+                    beoordelingssoort.setWaarde(waarde);
                     beoordelingssoortDAO.beoordelingssoortAanmaken(beoordelingssoort);
                     beoordelingssoorten = beoordelingssoortDAO.beoordelingssoortenLaden();
                     session.setAttribute("beoordelingssoorten", beoordelingssoorten);

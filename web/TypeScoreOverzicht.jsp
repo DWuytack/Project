@@ -23,9 +23,9 @@
         <section id="pagename">
             <h2> Type scores </h2> 
         </section>
-        
+
         <section>
-            <form action="ScoreServlet">
+            <form action="BeoordelingssoortServlet">
                 <div class="table-container">                   
                     <div class="table-nav-header" style="min-height: 20px;">                       
                     </div>                   
@@ -35,9 +35,9 @@
                                 <th align="center" onclick="sortTable(0)">naam</a</th>
                                 <th align="center" onclick="sortTable(1)">beschrijving</a</th>
                                 <th align="center" onclick="sortTable(2)">waarde</th>
-                                <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                     <th>acties</th>
-                                </c:if>
+                                    </c:if>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,49 +48,51 @@
                                         <td> <input type="text" name="beschrijving" value="${beoordelingssoort.beschrijving}"> </td>
                                         <td> <input type="text" name="waarde"  value="${beoordelingssoort.waarde}"> </td>
                                     </c:if>
-                                        
+
                                     <c:if test="${beoordelingssoort.beoordelingssoortID != sessionScope.editID}" >
                                         <td> ${beoordelingssoort.naam} </td>
                                         <td> ${beoordelingssoort.beschrijving} </td>
                                         <td> ${beoordelingssoort.waarde} </td>
                                     </c:if>
 
-                            <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                <td class="actie">
-                                    <c:if test="${beoordelingssoort.beoordelingssoortID != sessionScope.editID}" >
-                                        <div class="actie-images">
-                                            <span> <input type="image"  name="idEdit" value="${beoordelingssoort.beoordelingssoortID}" src='images/pencil.png'> </span>
-                                            <span> <input type="image"  name="idDelete" value="${beoordelingssoort.beoordelingssoortID}" src='images/vuilbak.png'> </span>
-                                        </div>
+                                    <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
+                                        <td class="actie">
+                                            <c:if test="${beoordelingssoort.beoordelingssoortID != sessionScope.editID}" >
+                                                <div class="actie-images">
+                                                    <span> <input type="image"  name="idEdit" value="${beoordelingssoort.beoordelingssoortID}" src='images/pencil.png'> </span>
+                                                    <span> <input type="image"  name="idDelete" value="${beoordelingssoort.beoordelingssoortID}" src='images/vuilbak.png'> </span>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${beoordelingssoort.beoordelingssoortID == sessionScope.editID}" >
+                                                <div class="actie-images">
+                                                    <span> <input type="image"  name="idSave" value="${beoordelingssoort.beoordelingssoortID}" src='images/green.png'> </span>
+                                                    <span> <input type="image"  name="idCancel" value="${beoordelingssoort.beoordelingssoortID}" src='images/cancel.png'> </span>
+                                                </div>
+                                            </c:if>
+                                        </td>
                                     </c:if>
-                                    <c:if test="${beoordelingssoort.beoordelingssoortID == sessionScope.editID}" >
-                                        <div class="actie-images">
-                                            <span> <input type="image"  name="idSave" value="${beoordelingssoort.beoordelingssoortID}" src='images/green.png'> </span>
-                                            <span> <input type="image"  name="idCancel" value="${beoordelingssoort.beoordelingssoortID}" src='images/cancel.png'> </span>
-                                        </div>
-                                    </c:if>
-                                </td>
-                            </c:if>
-                            </tr>
+                                </tr>
                             </c:forEach>
                         </tbody>
                     </table>
                     <div id="typeScore_toevoegen">
-                    <fieldset>
-                        <legend>typeScore Toevoegen: </legend><br>
-                        <label>Naam: </label>
-                        <br>
-                        <input type="text" name="naam" size="16" maxlength="30">
-                        <br><br>
-                        <label>Beschrijving: </label>
-                        <br>
-                        <input type="text" name="beschrijving" size="16" maxlength="30">
-                        <br><br>
-                        <label>Waarde: </label>                       
-                        <br>
-                    </fieldset>
-                    <input type="submit" name="actie" value="toevoegen">
-                </div>
+                        <fieldset>
+                            <legend>type score toevoegen</legend><br>
+                            <label>Naam: </label>
+                            <br>
+                            <input type="text" name="naam" size="16" maxlength="30">
+                            <br><br>
+                            <label>Beschrijving: </label>
+                            <br>
+                            <input type="text" name="beschrijving" size="16" maxlength="30">
+                            <br><br>
+                            <label>Waarde: </label>                       
+                            <br>
+                            <input type="text" name="waarde" size="16" maxlength="30">
+                            <br><br>
+                        </fieldset>
+                        <input type="submit" name="idAdd">
+                    </div>
                 </div>
             </form>
         </section>
