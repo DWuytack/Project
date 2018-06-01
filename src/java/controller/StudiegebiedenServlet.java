@@ -60,14 +60,13 @@ public class StudiegebiedenServlet extends HttpServlet {
             response.getWriter().write(json);
         }
 
-        String opleiding = request.getParameter("opleiding");
+        int opleiding = Integer.parseInt(request.getParameter("opleiding"));
 
-        if (opleiding != null) {
+        if (opleiding != 0) {
 
             //laad modules per opleiding
             ModuleDAO moduleDAO = new ModuleDAO();
-            OpleidingDAO opleidingDAO = new OpleidingDAO();
-            ArrayList<Module> modules = moduleDAO.modulesLaden(opleidingDAO.geefOpleidingID(opleiding));
+            ArrayList<Module> modules = moduleDAO.modulesLaden(opleiding);
 
             String json = gson.toJson(modules);
 
@@ -75,14 +74,14 @@ public class StudiegebiedenServlet extends HttpServlet {
             response.getWriter().write(json);
         }
 
-        String module = request.getParameter("module");
+        int module = Integer.parseInt(request.getParameter("module"));
 
-        if (module != null) {
+        if (module != 0) {
 
             //laad doelstellingen voor module
             DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
-            ModuleDAO moduleDAO = new ModuleDAO();
-            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(moduleDAO.geefModuleID(module));
+            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(module);
+            
             String json = gson.toJson(doelstellingen);
 
             response.setContentType("application/json");
@@ -90,14 +89,14 @@ public class StudiegebiedenServlet extends HttpServlet {
         }
 
 
-         String doelstelling = request.getParameter("doelstelling");
+        int doelstelling = Integer.parseInt(request.getParameter("doelstelling"));
 
-        if (doelstelling != null) {
+        if (doelstelling != 0) {
 
             //laad taken per doelstelling
             TaakDAO taakDAO = new TaakDAO();
-            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
-            ArrayList<Taak> taken = taakDAO.takenLaden(doelstellingDAO.geefDoelstellingID(doelstelling));
+            ArrayList<Taak> taken = taakDAO.takenLaden(doelstelling);
+            
             String json = gson.toJson(taken);
 
             response.setContentType("application/json");

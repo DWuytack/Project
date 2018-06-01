@@ -68,7 +68,7 @@
                     </thead>
                     <c:forEach items="${studiegebieden}" var="studiegebied">
                         <tr class="studiegebied" data-ID="${studiegebied.studiegebiedID}" >
-                            <td><button onclick="toggleOpleidingen(this)">+</button>${studiegebied.naam}
+                            <td><button onclick="toggle(this)">+</button>${studiegebied.naam}
                             </td>
                         </tr>
                     </c:forEach>
