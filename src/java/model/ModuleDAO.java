@@ -176,8 +176,7 @@ public class ModuleDAO {
         ResultSet rs = null;
 
         String sql = "SELECT modules.* FROM modules "
-                + "INNER JOIN opleidingen_modules ON modules.moduleID = opleidingen_modules.moduleID "
-                + "WHERE opleidingen_modules.opleidingID = ?";
+                + "WHERE modules.opleidingID = ?";
 
         try {
             currentCon = ConnectionManager.getConnection();

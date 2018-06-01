@@ -8,7 +8,7 @@ var taakDropdown;
 var evalTable;
 var taakSelectData;
 var scores;
-var scoreVastGedeelte="";
+var scoreVastGedeelte = "";
 
 
 function formulierLeegMaken() {
@@ -25,8 +25,6 @@ function formulierLeegMaken() {
     aantalTaken = 0;
 
 }
-
-
 
 //kiest juiste semester aan de hand van datum
 function pasSemesterAan() {
@@ -357,17 +355,24 @@ function berekenGemiddelde(rij) {
     var score;
     var totaalScore = 0;
     for (let i = 0; i < scoreBoxes.length; i++) {
-        score = scoreBoxes[i].value;     
-        for (let x = 0; x < scores.length; x++)  {
+        score = scoreBoxes[i].value;
+        for (let x = 0; x < scores.length; x++) {
             if (score === scores[x].naam) {
                 totaalScore = totaalScore + scores[x].waarde;
             }
         }
-    } 
-    var aantalScores=scoreBoxes.length;
+    }
+    var aantalScores = scoreBoxes.length;
     var selectedRij = document.getElementById(rij);
-    selectedRij.cells[3].innerHTML = scoreVastGedeelte + " " + (totaalScore / aantalScores);
-   
+    var totaal = Math.round((totaalScore / aantalScores) * 10) / 10;
+    if (totaal > 4.9) {
+        selectedRij.cells[3].innerHTML = scoreVastGedeelte + "<b> <font COLOR='#1e5abc' >" + totaal + "</font></b>";
+    } else {
+        selectedRij.cells[3].innerHTML = scoreVastGedeelte + "<b> <font COLOR='#f21515' >" + totaal + "</font></b>";
+    }
+
+
+
 }
 
 function taakWissel(rowid) {
@@ -426,7 +431,7 @@ function taakWissel(rowid) {
                         defaultOption.disabled = true;
                         scoreSelect.add(defaultOption);
                         scoreSelect.selectedIndex = 0;
-                        scoreVastGedeelte=row.cells[3].innerHTML;
+                        scoreVastGedeelte = row.cells[3].innerHTML;
                         scoreSelect.onchange = function () {
                             berekenGemiddelde(row.id);
                         };

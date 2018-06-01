@@ -175,9 +175,7 @@ public class TaakDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = " select * from taken where taakID IN (select taakid from doelstellingen_taken " +
-                    "where doelstellingen_taken.doelstellingID IN " +
-                    "(select doelstellingID from modules_doelstellingen where modules_doelstellingen.moduleID=?));";
+        String sql = " select * from taken where taakid in (select taakid from modules_taken where moduleID=?)";
 
         try {
             currentCon = ConnectionManager.getConnection();

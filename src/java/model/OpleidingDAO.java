@@ -172,8 +172,7 @@ public class OpleidingDAO {
         ResultSet rs = null;
 
         String sql = "SELECT opleidingen.* FROM opleidingen "
-                + "INNER JOIN studiegebied_opleidingen ON opleidingen.opleidingID = studiegebied_opleidingen.opleidingID "
-                + "WHERE studiegebied_opleidingen.studiegebiedID = ?";
+                + "WHERE opleidingen.studiegebiedID = ?";
 
         try {
             currentCon = ConnectionManager.getConnection();
