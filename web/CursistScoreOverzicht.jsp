@@ -112,7 +112,8 @@
 
                     <!-- Cursist kiezer -->
                     <td>  
-                        <select id="cursisten"  style="background: #f9f9f9"  class="drop"></select>
+                        <select id="cursisten" hidden onchange="laadDoelstellingenScores()"
+                                style="background: #f9f9f9"  class="drop"></select>
                     </td>
                     <td width="10px"></td>
                     </tr>

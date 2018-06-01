@@ -36,7 +36,7 @@ function laadCursistenScores() {
         // code voor oude IE browsers
         xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    
+
     dropdownKeuze = document.getElementById('modules').value;
     var schooljaar = document.getElementById("datum").value;
     var semester = document.getElementById("Semester").value;
@@ -96,7 +96,7 @@ function resetDropdowns(naam) {
                     ledigDropDown(dropdowns[i]);
                 }
                 break;
-                
+
         }
     }
 }
@@ -104,7 +104,7 @@ function resetDropdowns(naam) {
 //laad de dropdown met de gevraagde soort
 function laadDropdown(soort) {
 
-    var xhttp = new XMLHttpRequest();
+    var xhttp2 = new XMLHttpRequest();
     //vraag informatie aan servlet
     switch (soort) {
         case 'opleidingen':
@@ -114,7 +114,7 @@ function laadDropdown(soort) {
             dropdown = document.querySelector("#opleidingen");
             dropdown.style = "background: #efc4c4";
             dropdownKeuze = document.getElementById('studiegebied').value;
-            xhttp.open("POST", "ScoreServlet?studiegebied=" + dropdownKeuze, true);
+            xhttp2.open("POST", "ScoreServlet?studiegebied=" + dropdownKeuze, true);
             break;
         case 'modules':
             dropdown = document.querySelector("#opleidingen");
@@ -122,9 +122,9 @@ function laadDropdown(soort) {
             dropdown = document.querySelector("#modules");
             dropdown.style = "background: #efc4c4";
             dropdownKeuze = document.getElementById('opleidingen').value;
-            xhttp.open("POST", "ScoreServlet?opleiding=" + dropdownKeuze, true);
+            xhttp2.open("POST", "ScoreServlet?opleiding=" + dropdownKeuze, true);
             break;
-            case 'cursisten':
+        case 'cursisten':
             dropdown = document.querySelector("#modules");
             dropdown.style = "background: #f9f9f9";
             dropdown = document.querySelector("#cursisten");
@@ -132,19 +132,19 @@ function laadDropdown(soort) {
             dropdownKeuze = document.getElementById('modules').value;
             var schooljaar = document.getElementById("datum").value;
             var semester = document.getElementById("Semester").value;
-            xhttp.open("POST", "EvaluatieFormulierServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+            xhttp2.open("POST", "ScoreServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
             break;
-    
+
     }
 
-    xhttp.send();
+    xhttp2.send();
     //als het antwoord wordt ontvangen...
-    xhttp.onreadystatechange = function () {
+    xhttp2.onreadystatechange = function () {
 
         if (this.readyState === 4 && this.status === 200) {
 
             //plaats het antwoord in een object...
-            const data = JSON.parse(xhttp.responseText);
+            const data = JSON.parse(xhttp2.responseText);
             //toon dropdown
             let dropdown = document.getElementById(soort);
             dropdown.hidden = false;
@@ -159,7 +159,7 @@ function laadDropdown(soort) {
                 case 'modules':
                     defaultOption.text = 'Module...';
                     break;
-                     case 'cursisten':
+                case 'cursisten':
                     defaultOption.text = 'Cursist...';
                     break;
             }
@@ -258,3 +258,15 @@ function formulierLeegMaken() {
     aantalCursisten = 0;
 }
 
+function laadDoelstellingenScores() {
+    var xhttp3 = new XMLHttpRequest();
+    
+    dropdown = document.querySelector("#cursisten");
+    dropdown.style = "background: #f9f9f9";
+
+    dropdownKeuze = document.getElementById('cursisten').value;
+    var schooljaar = document.getElementById("datum").value;
+    var semester = document.getElementById("Semester").value;
+    xhttp3.open("POST", "ScoreServlet?cursisten=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+    
+}
