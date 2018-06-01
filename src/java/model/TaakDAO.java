@@ -189,7 +189,7 @@ public class TaakDAO {
                 Taak taak = new Taak();
                 taak.setTaakID(rs.getInt("taakid"));
                 taak.setNaam(rs.getString("naam"));
-                taak.setBeschrijving(rs.getString("beschrijving"));
+                taak.setBeschrijving(rs.getString("commentaar"));
                 taken.add(taak);
             }
         } catch (SQLException e) {
