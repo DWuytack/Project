@@ -1,96 +1,16 @@
-#gebruikersOverzicht {
-    max-width: 1200px;
-    min-width: 760px;
+/* DOM delay note !!!
+    het verwijderen van rijOverzicht kan een breuk in relatie met "tabel.target.table" geven.
+*/
+
+.rijOverzicht input[type=text]:not([name="email"]), .rijOverzicht input[type="date"], .rijOverzicht select[name="rol"] {
+    max-width: 105px;
 }
-#gebruikersOverzicht table th[title="rol"] > a {
-    min-width: 100px;
+.rijOverzicht input[name="email"] {
+    max-width: 180px;
 }
-#gebruikersOverzicht table th[title="email"] > a {
-    min-width: 180px;
-}
-#gebruikersOverzicht table td > input[type="text"]:not([name="email"]) {
-    max-width: 100px;
-}
-#gebruikersOverzicht table td > input[type="date"], select[name="rol"] {
-    max-width: 100px;
-}
-#gebruikersOverzicht table td {
+
+table td {
     line-height: 1.8;
 }
 
-table {
-    table-layout: fixed;
-}
-#gebruikersOverzicht thead th {
-    width: 15%;
-}
-#gebruikersOverzicht thead th[title="email"] {
-    width: 25%;
-}
-#gebruikersOverzicht thead th[title="acties"] {
-    width: 80px;
-}
-
 /*RESIZE SUPPORT */
-@media screen and (max-width: 800px) {
-    #gebruikersOverzicht table tbody tr {
-        background-color: #f8f6ff;
-    }
-    #gebruikersOverzicht {
-        max-width: none;
-        min-width: inherit;
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        margin: auto;
-    }
-    #gebruikersOverzicht table {
-        border: 0;
-        table-layout: fixed;
-    }
-
-    #gebruikersOverzicht table thead {
-        border: none;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
-
-    #gebruikersOverzicht table tr {
-        border-bottom: 3px solid #ddd;
-        display: block;
-        margin-bottom: .625em;
-    }
-
-    #gebruikersOverzicht table td {
-        border-bottom: 1px solid #ddd;
-        display: block;
-        font-size: .8em;
-        text-align: right;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-
-    #gebruikersOverzicht table td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        text-transform: uppercase;
-        display: flex;
-        min-width: 120px;
-        max-width: 50%;
-        width: 100%;
-        padding: 10px;
-    }
-
-    #gebruikersOverzicht table td:last-child {
-        border-bottom: 0;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 12px;
-    }
-}
