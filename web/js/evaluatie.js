@@ -11,6 +11,12 @@ var scores;
 var scoreVastGedeelte = "";
 
 
+function laadFormulier(){
+    
+    alert('Formulier geladen');
+      
+}
+
 function formulierLeegMaken() {
 
     aantalRijen = evalTable.rows.length;
@@ -25,6 +31,7 @@ function formulierLeegMaken() {
     aantalTaken = 0;
 
 }
+
 
 //kiest juiste semester aan de hand van datum
 function pasSemesterAan() {
@@ -54,6 +61,8 @@ function pasSemesterAan() {
 
 //laad de dropdown met de gevraagde soort
 function laadDropdown(soort) {
+    
+    
 
     var xhttp = new XMLHttpRequest();
     //vraag informatie aan servlet
@@ -198,6 +207,7 @@ function verbergTaakToevoegen() {
     var extraLijn = document.getElementById("addLine");
     extraLijn.hidden = true;
 }
+
 function toonTaakToevoegen() {
 
     var extraLijn = document.getElementById("addLine");
@@ -453,8 +463,4 @@ function taakWissel(rowid) {
             row.cells[9].appendChild(comment);
         }
     };
-}
-;
-
-
-
+};

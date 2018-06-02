@@ -12,7 +12,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/evaluatie.js"></script>
-        <script src="js/nav.js"></script>
+          <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/formulier.css">
         <title>EvaluatieFormulier</title>
@@ -185,20 +185,21 @@
                     <tr height="20px" />
                     <tr >
                         <td > <input type="button"  value=" Formulier leeg maken "
-                                     class="evalButton" onclick="formulierLeegMaken()"></td>
+                                     class="evalButton" onclick="formulierLeegMaken();"></td>
+                        <td > <input type='button'  value= ' Laad formulier '  
+                                     class='evalButton' onclick="formulierLeegMaken2();"></td>
+
                         <td > <input type="button"  value=" Print formulier  "  
                                      class="evalButton"></td>
                         <td > <input type="button"  value=" Bewaar formulier " 
-                                    class="evalButton"></td>
-                        <td > <input type="button"  value=" Laad formulier " 
                                      class="evalButton"></td>
                     </tr>
                 </table>
 
-            </p>
-        </form>
-    </section>
+                </p>
+            </form>
+        </section>
 
-</body>
+    </body>
 </html>
 

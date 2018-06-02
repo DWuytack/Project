@@ -39,5 +39,7 @@ document.addEventListener("click", function(e){
         popup.classList.remove("active");
         loc.classList.remove("active");
     }
-});
+})
+
+;
 
