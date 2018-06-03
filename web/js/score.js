@@ -1,5 +1,5 @@
 var dropdownKeuze;
-var aantalCursisten;
+var aantalCursisten = 0;
 var scoretable;
 
 function checkJaar() {
@@ -26,7 +26,7 @@ function laadCursistenScores() {
     if (document.getElementById("modules").selectedIndex === 0) {
         return;
     }
-    var keuze = document.getElementById('modules').value;
+    
     var xhttp = new XMLHttpRequest();
 
     if (window.XMLHttpRequest) {
@@ -40,7 +40,7 @@ function laadCursistenScores() {
     dropdownKeuze = document.getElementById('modules').value;
     var schooljaar = document.getElementById("datum").value;
     var semester = document.getElementById("Semester").value;
-    xhttp.open("POST", "EvaluatieFormulierServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+    xhttp.open("POST", "ScoreServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
 
     xhttp.send();
 
@@ -57,9 +57,27 @@ function laadCursistenScores() {
         //4: request finished and response is ready
         if (this.readyState === 4 && this.status === 200) {
 
-            const data = JSON.parse(xhttp.responseText);
+            var jsonData = JSON.parse(xhttp.responseText);
 
-            laadTabel(data);
+            var scoreTable = document.getElementById("scoretable");
+            for (let i = 0; i < jsonData.length; i++) {
+                aantalCursisten = aantalCursisten + 1;
+                var row = scoreTable.insertRow(i);
+                row.id = "row" + aantalCursisten;
+
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var achternaam = jsonData.toString("voornaam");
+                
+                cell1.innerhtml = jsonData.values("achternaam");
+                cell2.innerhtml = jsonData.valueOf("voornaam");
+                cell3.innerhtml = jsonData.valueOf(achternaam);
+                
+                cell1.innerhtml = jsonData.indexOf("achternaam"[0]);
+                
+                document.seElementById("cell1").innerHTML = jsonData.voornaam;
+            }
 
         }
     };
@@ -209,15 +227,17 @@ function laadTabel(data) {
     scoreTable = document.getElementById("scoretable");
     for (i = 0; i < data.length; i++) {
         aantalCursisten = aantalCursisten + 1;
-        var row = scoreTable.insertRow((aantalCursisten));
+        var row = scoreTable.insertRow(aantalCursisten);
         row.id = "row" + aantalCursisten;
 
-        row.insertCell(0);
-        row.insertCell(1);
-        row.insertCell(2);
-        row.cells[0].innerhtml = data[0].achternaam;
-        row.cells[1].innerhtml = data[1].voornaam;
-        row.cells[2].innerhtml = data[2].score;
+        var achternaam = data.keys(achternaam);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        //cell1.innerhtml = valueOf(achternaam);
+        cell1.innerhtml = data.valueOf("achternaam");
+        cell2.innerhtml = data.valueOf("voornaam");
+        cell3.innerhtml = data.valueOf(achternaam);
     }
 }
 
@@ -260,7 +280,7 @@ function formulierLeegMaken() {
 
 function laadDoelstellingenScores() {
     var xhttp3 = new XMLHttpRequest();
-    
+
     dropdown = document.querySelector("#cursisten");
     dropdown.style = "background: #f9f9f9";
 
@@ -268,5 +288,5 @@ function laadDoelstellingenScores() {
     var schooljaar = document.getElementById("datum").value;
     var semester = document.getElementById("Semester").value;
     xhttp3.open("POST", "ScoreServlet?cursisten=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
-    
+
 }

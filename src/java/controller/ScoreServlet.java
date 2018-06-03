@@ -98,16 +98,16 @@ public class ScoreServlet extends HttpServlet {
                     break;
             }
 
-            GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            ScoreDAO scoreDAO = new ScoreDAO();
             SchooljaarDAO schooljarenDAO = new SchooljaarDAO();
             SemesterDAO semesterDAO = new SemesterDAO();
             ModuleDAO moduleDAO = new ModuleDAO();
             int param1 = schooljarenDAO.geefSchooljaarID(volSchooljaar);
             int param2 = semesterDAO.laadSemesterID(semester);
             int param3 = moduleDAO.laadModuleID(module);
-            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(param1, param2, param3);
+            ArrayList<Score> moduleScore = scoreDAO.klassikaleScore(param1, param2, param3);
 
-            String json = gson.toJson(gebruikers);
+            String json = gson.toJson(moduleScore);
 
             response.setContentType("application/json");
             response.getWriter().write(json);
