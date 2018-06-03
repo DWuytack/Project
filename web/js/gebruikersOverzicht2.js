@@ -36,6 +36,7 @@
                 if(!target.classList.contains("active")) {
                     tabel.target.container.setAttribute("actie", "tfootFocus");
                     tabel.target.table.classList.remove("rijOverzicht");
+                    tabel.target.zoeken.classList.remove("active");
                     target.classList.add("active");
                     tabel.focus = "tabel";
                     tabel.actie = "toevoegen";
@@ -162,6 +163,16 @@
 
                     }
                 }
+                if(target.name === "Zoeken" && actie !== "toevoegen") {
+                    if(window.getComputedStyle(tabel.target.zoekterm, null).getPropertyValue("display") === "none") {
+                        tabel.target.zoeken.classList.add("active");
+                        tabel.target.zoekterm.focus();
+                    } else if(tabel.target.zoeken.classList.contains("active")) {
+                        tabel.target.zoeken.classList.remove("active");
+                    } else {
+                        tabel.target.zoeken.classList.add("active");
+                    }
+                }
                 if(target.name === "zoekterm") {
                     tabel.target.zoeken.classList.add("focus");
                     //if(target.value.length > 0) tabel.target.zoeken.classList.add("active");
@@ -184,9 +195,9 @@
                     tabel.target.zoeken.classList.remove("active");
             }
         });
+        console.log(tabel);
     }, 100 );
 })();
-
 /*
 console.log(tabel);
 console.log(tabel.ajaxData.data);
