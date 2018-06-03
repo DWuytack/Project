@@ -446,4 +446,10 @@ https://i.imgur.com/U8cTY8v.png)
     .w-zoeken [name="zoekterm"] {
         display: none;
     }
+    .w-zoeken.active {
+        width: auto;     
+    }
+    .w-zoeken.active [name="zoekterm"] {
+        display: flex;
+    }
 }
