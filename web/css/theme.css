@@ -470,7 +470,7 @@ div.active > .dropdown { display: flex; }
 .tabel-container {
   display: flex;
   flex-direction: column;
-  margin: auto 5%;
+  margin: auto 3%;
   width: inherit;
 }
 

@@ -119,7 +119,7 @@ class Tabel {
                     }]
             },
             meta: {},
-            params: '',
+            params: 'page=1',
             keys: keys,
             type: 'tabel',
             editID: 0,
@@ -127,7 +127,9 @@ class Tabel {
             bladz: 1,
             aantalBladz: 0,
             rijData: {},
-            requestCount: 0
+            requestCount: 0,
+            knopTarget : null,
+            requestType : 'container'
         };
         this.rechten = {
             klik: true
@@ -149,7 +151,7 @@ class Tabel {
 
     /* GETTERS & SETTERS
      ========================================================================== */
-    
+
     get aantalBladz() {
         return this.ajaxData.aantalBladz;
     }
@@ -159,25 +161,6 @@ class Tabel {
     }
 
     get bladz() {
-        let ajaxData = this.ajaxData;
-        let knoppen = this.target.knoppen;
-        if (ajaxData.bladz === 1) {
-            knoppen.eerste.classList.add("inactive");
-            knoppen.vorige.classList.add("inactive");
-            knoppen.volgende.classList.remove("inactive");
-            knoppen.laatste.classList.remove("inactive");
-        } else if (ajaxData.bladz === ajaxData.aantalBladz) {
-            knoppen.eerste.classList.remove("inactive");
-            knoppen.vorige.classList.remove("inactive");
-            knoppen.volgende.classList.add("inactive");
-            knoppen.laatste.classList.add("inactive");
-        } else {
-            knoppen.eerste.classList.remove("inactive");
-            knoppen.vorige.classList.remove("inactive");
-            knoppen.volgende.classList.remove("inactive");
-            knoppen.laatste.classList.remove("inactive");
-        }
-
         return this.ajaxData.bladz;
     }
 
@@ -219,19 +202,114 @@ class Tabel {
     }
 
     /* FUNCTIES - Requests */
+    
+    requestData(target, actie) {
+        let hasTarget = false;
+        let xhttp = new XMLHttpRequest();
+        let data = "";
+        let thisClass = this;
+
+        //if(target !== undefined && target.hasAttribute("name")) hasTarget = true;
+        //if(hasTarget) target.classList.add("active");
+
+        xhttp.open("POST", "someservlet", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                // Typical action to be performed when the document is ready:
+                data = JSON.parse(xhttp.responseText);
+                //if(hasTarget) target.classList.remove("active");
+                
+                console.log("data servlet");
+                console.log(data);
+                
+                //DEVa-1-2 tijdelijk verwijderen als interface af is--------------
+                thisClass.ajaxData.data = data;
+                //--------------------------------------------------------------
+                
+                if(actie === "render") thisClass.renderHTML(target, data);
+            }
+        };
+        xhttp.send(this.ajaxData.params);
+    }
+    
+    requestContainer() {
+        //this.ajaxData.params = 'page=1';
+        //this.ajaxData.requestType = 'container';
+        //this.target.section = target;
+        this.requestData(this.target.section, "render");
+    }
+    
+    requestRijenContent(target) {
+        this.ajaxData.requestType = 'rijen';
+        //this.target.section = target;
+        this.requestData(target, "render");
+    }
 
     requestTabel() {
+        
+    }
+    
+    /* FUNCTIES - Rendering
+     ========================================================================== */
+    
+    renderTabel(target, data, knopTarget) {
+        
+    }
+    
+    renderRijenContent(target, data) {
+        this.ajaxData.bladz = data.bladz;
+        this.ajaxData.aantalBladz = data.aantalBladz;
+        this.ajaxData.toonGebruikers = data.toonGebruikers;
+        this.ajaxData.aantalGebruikers = data.aantalGebruikers;
+        
+        this.target.aantalGebruikers.innerHTML = data.toonGebruikers + '/' + data.aantalGebruikers;
+        
+        //html aanmaken
+        //let loc = document.getElementById("tC-gebruikersOverzicht");
+        let content = this.rijenContentAanmaken(target, data);    
+    }
+    
+    renderContainer(data) {
+        //Parameters updaten
+        
+        /* serverside update required
+         * 
+        this.ajaxData.meta = data.meta;
+        this.ajaxData.keys = data.keys;
+        this.ajaxData.titels = data.titels;
+        */
+        
+        this.ajaxData.bladz = data.bladz;
+        this.ajaxData.aantalBladz = data.aantalBladz;
+        this.ajaxData.toonGebruikers = data.toonGebruikers;
+        this.ajaxData.aantalGebruikers = data.aantalGebruikers;
+        
         let keys = this.ajaxData.keys;
         let type = this.type;
         keys.forEach(key => {
             if (key.toLowerCase().includes("datum"))
                 type.rij[key] = "datum";
         });
+        
+        //html aanmaken
+        let content = this.containerAanmaken(data);
+        //this.tabelHTML = this.tabelAanmaken();
+        
+        //html toevoegen aan pagina
+        this.target.section.appendChild(content);    
+    }
 
-        this.containerHTML = this.containerAanmaken();
-        this.tabelHTML = this.tabelAanmaken();
+    renderHTML(target, data) {
+        let requestType = this.ajaxData.requestType;
+        
+        //DEVa-2-2 tijdelijk verwijderen als interface af is--------------
+        data = this.ajaxData.data;
+        //--------------------------------------------------------------
+        
+        if(requestType === 'container') this.renderContainer(data);
+        else if(requestType === 'rijen') this.renderRijenContent(target, data);
 
-        this.renderHTML();
     }
 
     /* FUNCTIES - Aanmaken
@@ -316,14 +394,15 @@ class Tabel {
         //let cel = target.insertCell(celNr);
         let titel = this.titels[celNr];
         let type = this.type.rij[key];
-        
-        if(inhoud === undefined) inhoud = '';
-        
+
+        if (inhoud === undefined)
+            inhoud = '';
+
         cel.setAttribute("data-label", titel);
 
         if (actie === "aanpassen" || actie === "toevoegen") {
             if (key !== undefined) {
-                
+
                 let meta = this.ajaxData.meta;
                 let tag = this.tagDetectie(key);
 
@@ -375,7 +454,7 @@ class Tabel {
         target.appendChild(cel);
         return cel;
     }
-    
+
     rijAanmaken(target, record, rijNr, actie) {
         let rij = document.createElement("TR");
         //let rij = target.insertRow(rijNr);
@@ -384,7 +463,7 @@ class Tabel {
         let cel;
         let key;
         let inhoud;
-        
+
         for (let celNr = 0; celNr < titels.length; celNr++) {
             key = keys[celNr]
             inhoud = record[key];
@@ -393,44 +472,44 @@ class Tabel {
         target.appendChild(rij);
         return rij;
     }
-    
+
     /*
-    rijAanmaken(target, record, rijNr) {
-        let key;
-        let tr = document.createElement("TR");
-        //let tr = target.insertRow(rijNr);
-                
-        let titels = this.titels,
-                typeLijst = this.type,
-                titel,
-                type,
-                cel,
-                val;
-
-        for (let celNr = 0; celNr < titels.length; celNr++) {
-            titel = titels[celNr];
-            type = typeLijst[key];
-            key = this.ajaxData.keys[celNr];
-            val = record[key];
-
-            if (titel === "Acties")
-                val = this.actieKnoppenAanmaken(this.ajaxData.data.lijst[rijNr].jsonID);
-            else if (type === "datum" || (val.length === 10 && RegExp("([0-9]{4})\-+([0-9]{2})\-+([0-9]{2})").test(val)))
-                val = document.createTextNode(datumFormat(val).view);
-            else
-                val = document.createTextNode(val);
-
-            cel = tr.insertCell(celNr);
-            cel.setAttribute("data-label", titel)
-            cel.appendChild(val);
-        }
-        target.appendChild(tr);
-        return tr;
-    }
-    */
-    rijenContentAanmaken(target) {
+     rijAanmaken(target, record, rijNr) {
+     let key;
+     let tr = document.createElement("TR");
+     //let tr = target.insertRow(rijNr);
+     
+     let titels = this.titels,
+     typeLijst = this.type,
+     titel,
+     type,
+     cel,
+     val;
+     
+     for (let celNr = 0; celNr < titels.length; celNr++) {
+     titel = titels[celNr];
+     type = typeLijst[key];
+     key = this.ajaxData.keys[celNr];
+     val = record[key];
+     
+     if (titel === "Acties")
+     val = this.actieKnoppenAanmaken(this.ajaxData.data.lijst[rijNr].jsonID);
+     else if (type === "datum" || (val.length === 10 && RegExp("([0-9]{4})\-+([0-9]{2})\-+([0-9]{2})").test(val)))
+     val = document.createTextNode(datumFormat(val).view);
+     else
+     val = document.createTextNode(val);
+     
+     cel = tr.insertCell(celNr);
+     cel.setAttribute("data-label", titel)
+     cel.appendChild(val);
+     }
+     target.appendChild(tr);
+     return tr;
+     }
+     */
+    rijenContentAanmaken(target, data) {
         target.innerHTML = '';
-        let lijst = this.ajaxData.data.lijst,
+        let lijst = data.lijst,
                 tr,
                 i = -1;
         for (let record of lijst) {
@@ -439,37 +518,37 @@ class Tabel {
         }
         return target;
     }
-    
-    rijenAanmaken(target, type) {
+
+    rijenAanmaken(target, data, type) {
         let tag = document.createElement(type);
-        
-        if(type === "THEAD") {
+
+        if (type === "THEAD") {
             this.kolommenAanmaken(tag);
             this.target.thead = tag;
-        } else if(type === "TFOOT") {
+        } else if (type === "TFOOT") {
             let tr = this.rijAanmaken(tag, '', 0, "toevoegen");
-        } else if(type === "TBODY") {
-            tag = this.rijenContentAanmaken(tag);
+        } else if (type === "TBODY") {
+            tag = this.rijenContentAanmaken(tag, data);
         }
         target.appendChild(tag);
         return tag;
     }
 
-    tabelAanmaken() {
+    tabelAanmaken(data) {
         let tabel = document.createElement("TABLE");
-        let thead = this.rijenAanmaken(tabel, "THEAD");
-        let tfoot = this.rijenAanmaken(tabel, "TFOOT");
-        let tbody = this.rijenAanmaken(tabel, "TBODY");
+        let thead = this.rijenAanmaken(tabel, data, "THEAD");
+        let tfoot = this.rijenAanmaken(tabel, data, "TFOOT");
+        let tbody = this.rijenAanmaken(tabel, data, "TBODY");
         tabel.id = 't-' + this.id;
         tabel.classList.add("rijOverzicht");
-        this.target.table = tabel; 
+        this.target.table = tabel;
         tbody.id = 'tC-' + this.id;
-        
+
         return tabel;
     }
 
-    containerAanmaken() {
-
+    containerAanmaken(data) {
+        
         let ajaxData = this.ajaxData;
 
         let container = document.createElement("DIV");
@@ -548,7 +627,7 @@ class Tabel {
 
         content.appendChild(contentWrapper);
 
-        contentWrapper.appendChild(this.tabelAanmaken());
+        contentWrapper.appendChild(this.tabelAanmaken(data));
 
         aantalGebruikersContainer.appendChild(aantalGebruikersTekst);
         aantalGebruikersContainer.appendChild(aantalGebruikers);
@@ -560,21 +639,6 @@ class Tabel {
         container.appendChild(footer);
 
         return container;
-    }
-
-    renderHTML() {
-        //tijdelijk tot request er is
-        let data = this.ajaxData.data;
-        this.ajaxData.bladz = data.bladz;
-        this.ajaxData.aantalBladz = data.aantalBladz;
-        this.ajaxData.toonGebruikers = data.toonGebruikers;
-        this.ajaxData.aantalGebruikers = data.aantalGebruikers;
-
-        //code
-        console.log("this.containerHTML)");
-        console.log(this.target);
-
-        this.target.section.appendChild(this.containerHTML);
     }
 
     /* FUNCTIES - Aanpassen
@@ -808,5 +872,60 @@ class Tabel {
      document.getElementById("gebruikers").innerHTML = data.toonGebruikers + '/' + data.aantalGebruikers;
      }
      */
+    
+    /* FUNCTIES - onclick
+     ========================================================================== */
+    
+    paginaKnoppenRechten() {
+        let ajaxData = this.ajaxData;
+        let knoppen = this.target.knoppen;
+        if (ajaxData.bladz === 1) {
+            knoppen.eerste.classList.add("inactive");
+            knoppen.vorige.classList.add("inactive");
+            knoppen.volgende.classList.remove("inactive");
+            knoppen.laatste.classList.remove("inactive");
+        } else if (ajaxData.bladz === ajaxData.aantalBladz) {
+            knoppen.eerste.classList.remove("inactive");
+            knoppen.vorige.classList.remove("inactive");
+            knoppen.volgende.classList.add("inactive");
+            knoppen.laatste.classList.add("inactive");
+        } else {
+            knoppen.eerste.classList.remove("inactive");
+            knoppen.vorige.classList.remove("inactive");
+            knoppen.volgende.classList.remove("inactive");
+            knoppen.laatste.classList.remove("inactive");
+        }
+    }
+    
+    eerstePagina() {
+        let loc = document.getElementById("tC-gebruikersOverzicht");
+        let bladz = 1;
+        this.ajaxData.bladz = bladz;
+        this.ajaxData.params = 'page=' + bladz;
+        this.requestRijenContent(loc);
+        this.paginaKnoppenRechten();
+    }
+    vorigePagina() {
+        this.ajaxData.bladz--;
+        let loc = document.getElementById("tC-gebruikersOverzicht");
+        this.ajaxData.params = 'page=' + this.ajaxData.bladz;
+        this.requestRijenContent(loc);
+        this.paginaKnoppenRechten();
+    }
+    volgendePagina() {
+        this.ajaxData.bladz++;
+        let loc = document.getElementById("tC-gebruikersOverzicht");
+        this.ajaxData.params = 'page=' + this.ajaxData.bladz;
+        this.requestRijenContent(loc);
+        this.paginaKnoppenRechten();
+    }
+    laatstePagina() {
+        let loc = document.getElementById("tC-gebruikersOverzicht");
+        let bladz = this.ajaxData.aantalBladz;
+        this.ajaxData.bladz = bladz;
+        this.ajaxData.params = 'page=' + bladz;
+        this.requestRijenContent(loc);
+        this.paginaKnoppenRechten();
+    }
 
 }
