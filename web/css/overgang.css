@@ -15,6 +15,22 @@
 /* TABLE
    -------------------------------------------------------------------------- */
 
+.tabel-container select {
+    margin-left: -4px;
+}
+.tabel-container [name="geboorteDatum"] {
+    margin-left: -1px;
+}
+
+.rijOverzicht  input {
+    background: none;
+    border: none;
+}
+.rijOverzicht select {
+    background: none;
+    border: none;
+}
+
 /* && CONTAINER */
 
 .tabel-container table {
@@ -41,7 +57,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: left;
-    padding-left: 10px;
+    padding-left: 5px;
 }
 
 .tabel-container td {
@@ -50,6 +66,7 @@
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 12px;
+    padding-left: 7px;
     word-wrap: break-word;
 }
 
@@ -143,11 +160,18 @@
     width: 100%;
     padding: 10px;
 }
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child input,
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child select {
+.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child input {
     display: flex;
     width: 100%;
     margin: 0 2% 0 0;
+    padding: 5px 0 5px 10px;
+    font-size: 18px;
+    max-width: none;
+}
+.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child select {
+    display: flex;
+    width: 100%;
+    margin: 0 2% 0 -4px;
     padding: 5px 0 5px 10px;
     font-size: 18px;
     max-width: none;

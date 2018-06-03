@@ -6,7 +6,8 @@
     max-width: 105px;
 }
 .rijOverzicht input[name="email"] {
-    max-width: 180px;
+    max-width: 300px;
+    width: 100%;
 }
 
 table td {
