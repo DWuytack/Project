@@ -11,14 +11,18 @@ var scores;
 var scoreVastGedeelte = "";
 
 
-function laadFormulier(){
-    
+function laadFormulier() {
+
+    if (aantalTaken > 0)
+        formulierLeegMaken();
     alert('Formulier geladen');
-      
+
+
 }
 
 function formulierLeegMaken() {
-
+    if (aantalTaken === 0)
+        return;
     aantalRijen = evalTable.rows.length;
     for (let i = aantalRijen - 2; i > 0; i--) {
         var row = evalTable.rows[i];
@@ -29,7 +33,6 @@ function formulierLeegMaken() {
         }
     }
     aantalTaken = 0;
-
 }
 
 
@@ -61,8 +64,6 @@ function pasSemesterAan() {
 
 //laad de dropdown met de gevraagde soort
 function laadDropdown(soort) {
-    
-    
 
     var xhttp = new XMLHttpRequest();
     //vraag informatie aan servlet
@@ -149,7 +150,6 @@ function laadDropdown(soort) {
                 case 'modules':
                     optionNieuw.text = "Maak nieuwe module...";
                     resetDropdowns('opleidingen');
-                    verwijderTaken();
                     break;
                 case 'cursisten':
                     optionNieuw.text = "Maak nieuwe cursist...";
@@ -224,7 +224,8 @@ function laadCursistenOpnieuw() {
 //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
 function resetDropdowns(naam) {
 
-    formulierLeegMaken();
+    if (aantalTaken > 0)
+        formulierLeegMaken();
     let dropdowns = document.getElementsByClassName('drop');
     var idDropDown;
     for (let i = 0; i < dropdowns.length; i++) {
@@ -294,13 +295,14 @@ function laadTaakSelectData() {
 //laad de taken
 function laadLijn() {
 
+
     aantalTaken = aantalTaken + 1;
     //maak een rij in ons evaluatie.jsp
     evalTable = document.getElementById("evaluatieTable");
 
-    var row = evalTable.insertRow((aantalTaken * 2) - 1);
+    var row = evalTable.insertRow((aantalTaken * 2));
     row.id = "row" + aantalTaken;
-
+    //lege cel
     row.insertCell(0);
     var taakVak = row.insertCell(1);
     //lege cel
@@ -314,6 +316,7 @@ function laadLijn() {
     //we voorzien een vak voor onze kernvakjes
     var kernVak = row.insertCell(5);
     kernVak.style.verticalAlign = "top";
+    kernVak.style.textAlign="center";
     taakVak.style.verticalAlign = "center";
     row.insertCell(6);
     //we voorzien een vak voor onze kernvakjes
@@ -355,6 +358,7 @@ function laadLijn() {
         var vak = legeLijn.insertCell(i);
         vak.innerHTML = "<hr/>";
     }
+     row.insertCell(10);
 
 }
 function berekenGemiddelde(rij) {
@@ -463,4 +467,5 @@ function taakWissel(rowid) {
             row.cells[9].appendChild(comment);
         }
     };
-};
+}
+;

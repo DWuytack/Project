@@ -8,6 +8,19 @@ and open the template in the editor.
     Author     : Dirk
 */
 
+/*
+. class
+# id
+
+*/
+
+.evaltable {
+   
+    padding: 15px;
+    border-spacing: 5px;
+    width: 100%;
+}
+
 
 .doelstelling1{
 
@@ -91,12 +104,4 @@ background: #ff8000 !important;
 
 .rechts{
     text-align: right;
-}
-
-#taak_toevoegen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
 }

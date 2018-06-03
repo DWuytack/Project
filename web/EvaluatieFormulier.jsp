@@ -137,41 +137,24 @@
                 </table>
 
                 <!-- Evaluatie venster -->
-                <table>
+                <table id="evaluatieTable" class="evaltable">
                     <!-- Titelbalk-->
                     <tr height="20px" />
-                    <tr bgcolor="#ceccca" height="50px" >
-                        <td width="3%" />
-                        <td width="20%"><b>Taak</td>   
-                        <td width="3%" />
-                        <td width="40%"><b>Doelstelling</b></td>  
-                        <td width="3%" />
-                        <td><b>Kern</b></td>
-                        <td width="3%" />
-                        <td width="6%"><b>Score</b></td>
-                        <td width="3%" />
-                        <td width="30%"><b>Commentaar</b></td>
-                        <td width="3%" />
+                    <tr bgcolor="#ceccca" height="50px">
+                        <th width="3%" />
+                        <th width="20%" class="links"><b>Taken</b></th>   
+                        <th width="3%" />
+                        <th width="30%" class="links"><b>Doelstellingen</b></th>  
+                        <th width="3%" />
+                        <th width="6%" class="center"><b>Kern</b></th>
+                        <th width="3%" />
+                        <th width="6%" class="center"><b>Scores</b></th>
+                        <th width="3%" />
+                        <th width="20%" class="links"><b>Commentaren</b></th>
+                        <th width="3%" />
                     </tr>
+              
                     <tr height="20px" />
-                </table>
-
-                <table id="evaluatieTable">
-
-                    <tr id="firstRow">
-                        <td width="3%" />
-                        <td width="20%"/>
-                        <td width="3%" />
-                        <td width="40%"/> 
-                        <td width="3%" />
-                        <td/>
-                        <td width="3%" />
-                        <td width="6%"/>
-                        <td width="3%" />
-                        <td width="30%"/>
-                        <td width="3%" />
-                    </tr>
-
                     <!-- Taak toevoegen -->
                     <tr class="addLine" id="addLine" hidden>
                         <td />
@@ -186,13 +169,14 @@
                     <tr >
                         <td > <input type="button"  value=" Formulier leeg maken "
                                      class="evalButton" onclick="formulierLeegMaken();"></td>
-                        <td > <input type='button'  value= ' Laad formulier '  
-                                     class='evalButton' onclick="formulierLeegMaken2();"></td>
-
+                        
                         <td > <input type="button"  value=" Print formulier  "  
                                      class="evalButton"></td>
                         <td > <input type="button"  value=" Bewaar formulier " 
                                      class="evalButton"></td>
+                        <td > <input type='button'  value= ' Laad formulier '  
+                                     class='evalButton' onclick="laadFormulier();"></td>
+
                     </tr>
                 </table>
 
