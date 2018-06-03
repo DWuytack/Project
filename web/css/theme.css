@@ -216,7 +216,6 @@ summary{display:list-item;}
 
 /* Custom
    -------------------------------------------------------------------------- */
-
 table, caption, tbody, tfoot, thead, tr, th, td {
     margin: 0;
     padding: 0;
@@ -227,10 +226,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 table {
-    table-layout: fixed;
     border-collapse: collapse;
     border-spacing: 0;
-    border: 0;
 }
 
 input:focus:not([type="checkbox"]):not([type="radio"]), select, [tabindex] {
@@ -246,28 +243,10 @@ form {
     flex-direction: column;
 }
 
-a.load {
-  cursor: wait;
-}
-
-[role="container"] {
-  position: relative;
-}
-
-[role="wrapper"] {
-  display: flex;
-}
-
-[role="wrapper"]>[role="button"] {
-  display: inherit;
-  align-items: center;
-  align-content: center;
-}
 
 
 /* Restrictions
    ========================================================================== */
-
 html {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -473,24 +452,21 @@ div.active > .dropdown { display: flex; }
   margin: auto 3%;
   width: inherit;
 }
-
-.tabel-container>[role="header"],
-.tabel-container>[role="content"],
-.tabel-container>[role="footer"] {
-  position: relative;
-  display: inherit;
-  justify-content: center;
+.table-container > div {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: auto;
 }
-/*
+.table-container > * {
+    min-width: inherit;
+}
 .table-container div::before, .table-container div::after {
     clear: both;
     content: '';
 }
-*/
-
-
 /* Table Header */
-.tabel-nav-header {
+.table-nav-header {
     position: relative;
     display: flex;
     background: none;
@@ -498,7 +474,7 @@ div.active > .dropdown { display: flex; }
     justify-content: space-around;
     width: 100%;
 }
-.tabel-nav-header a {
+.table-nav-header a {
     margin: 0; padding: 10px; opacity: .2;
 }
 .table-nav-header i { font-size: 50px;}
@@ -797,8 +773,7 @@ input[type="submit"] {
 
     background-image: url(../images/bg-chef3.png);
     background-size: 250px;
-    background-blend-mode: soft-light;
-    
+   
     text-align: center;
 }
 

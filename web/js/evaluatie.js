@@ -24,7 +24,7 @@ function formulierLeegMaken() {
     if (aantalTaken === 0)
         return;
     aantalRijen = evalTable.rows.length;
-    for (let i = aantalRijen - 2; i > 0; i--) {
+    for (let i = aantalRijen - 2; i > 2; i--) {
         var row = evalTable.rows[i];
         if (row.id !== "firstRow") {
             if (row.id !== "addLine") {
