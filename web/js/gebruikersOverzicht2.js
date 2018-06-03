@@ -23,7 +23,97 @@
         document.addEventListener("click", function(e) {
             let klikRecht = tabel.rechten.klik;
             let focus = tabel.focus;
-
+            let actie = tabel.actie;
+            
+            console.log("START - ACTIE & FOCUS");
+            console.log(tabel.actie);
+            console.log(tabel.focus);
+            console.log("START - ACTIE & FOCUS static");
+            console.log(actie);
+            console.log(focus);
+            
+            let gebruikerToevoegen = target => {
+                if(!target.classList.contains("active")) {
+                    tabel.target.container.setAttribute("actie", "tfootFocus");
+                    tabel.target.table.classList.remove("rijOverzicht");
+                    target.classList.add("active");
+                    tabel.focus = "tabel";
+                    tabel.actie = "toevoegen";
+                } else {
+                    target.classList.remove("active");
+                    tabel.target.container.removeAttribute("actie", "tfootFocus");
+                    tabel.target.table.classList.add("rijOverzicht");
+                    tabel.focus = "all";
+                    tabel.actie = "";
+                }
+            };
+            let aanpassen = target => {
+                tabel.target.container.setAttribute("actie", "rijFocus");
+                rij = vindRij(target);
+                rij.classList.add("edit");
+                let editID = target.getAttribute("jsonID");
+                tabel.ajaxData.editID = editID;
+                tabel.rijAanpassen(rij, editID);
+                tabel.focus = "tabel";
+                tabel.actie = "aanpassen";
+            };
+            let verwijderen = target => {
+                tabel.target.container.setAttribute("actie", "rijFocus");
+                rij = vindRij(target);
+                rij.classList.add("delete");
+                let editID = target.getAttribute("jsonID");
+                tabel.ajaxData.editID = editID;
+                tabel.rijMarkeren(rij);
+                tabel.focus = "tabel";
+                tabel.actie = "verwijderen";
+            };
+            let opslaan = target => {
+                tabel.target.container.removeAttribute("actie");
+                rij = vindRij(target);
+                rij.classList.remove("edit");
+                tabel.rijOpslaan(rij);
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+            let annuleren = target => {
+                tabel.target.container.removeAttribute("actie");
+                rij = vindRij(target);
+                rij.classList.remove("edit");
+                tabel.rijHerstellen(rij);
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+            let verwijderenBevestigen = target => {
+                tabel.target.container.removeAttribute("actie");
+                rij = vindRij(target);
+                rij.classList.remove("delete");
+                rij.parentNode.removeChild(rij);
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+            let verwijderenAnnuleren = target => {
+                tabel.target.container.removeAttribute("actie");
+                rij = vindRij(target);
+                rij.classList.remove("delete");
+                tabel.rijTerugzetten(rij);
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+            let gebruikerOpslaan = target => {
+                tabel.target.knoppen["gebruiker_toevoegen"].classList.remove("active");
+                tabel.target.container.removeAttribute("actie");
+                tabel.target.table.classList.add("rijOverzicht");
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+            let gebruikerAnnuleren = target => {
+                tabel.target.knoppen["gebruiker_toevoegen"].classList.remove("active");
+                tabel.target.container.removeAttribute("actie");
+                tabel.target.table.classList.add("rijOverzicht");
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+            
             if (klikRecht) {
                 let target = e.target;
                 let rij;
@@ -39,117 +129,35 @@
                     if (role === "button") {
 
                         if (focus === "all") {
-
+                            
                             if (target.name === "Eerste" && tabel.bladz !== 1) {
                                 tabel.bladz = 1;
                                 tabel.params = 'page=' + tabel.bladz;
-                            }
-
-                            if (target.name === "Vorige" && tabel.bladz !== 1) {
+                            } else if (target.name === "Vorige" && tabel.bladz !== 1) {
                                 tabel.bladz--;
                                 tabel.params = 'page=' + tabel.bladz;
-                            }
-
-                            if (target.name === "Volgende" && tabel.bladz !== tabel.aantalBladz) {
+                            } else if (target.name === "Volgende" && tabel.bladz !== tabel.aantalBladz) {
                                 tabel.bladz++;
                                 tabel.params = 'page=' + tabel.bladz;
                                 let loc = document.getElementById("tC-gebruikersOverzicht");
                                 tabel.rijenContentAanmaken(loc);
-                            }
-
-                            if (target.name === "Laatste" && tabel.bladz !== tabel.aantalBladz) {
+                            } else if (target.name === "Laatste" && tabel.bladz !== tabel.aantalBladz) {
                                 tabel.bladz = tabel.aantalBladz;
                                 tabel.params = 'page=' + tabel.aantalBladz;
-                            }
-
-                            if (target.name === "Gebruiker_toevoegen") {
-                                //target.blur();
-                                if(!target.classList.contains("active")) {
-                                    tabel.target.container.setAttribute("actie", "tfootFocus");
-                                    tabel.target.table.classList.remove("rijOverzicht");
-                                    console.log(tabel.target.table);
-                                    console.log(tabel.target.table.classList);
-                                    target.classList.add("active");
-                                    tabel.focus = "tabel";
-                                } else {
-                                    target.classList.remove("active");
-                                    tabel.target.container.removeAttribute("actie", "tfootFocus");
-                                    tabel.target.table.classList.add("rijOverzicht");
-                                    tabel.focus = "all";
-                                }
-                            }
-
-                            if (target.name === "aanpassen") {
-                                tabel.target.container.setAttribute("actie", "rijFocus");
-                                rij = vindRij(target);
-                                rij.classList.add("edit");
-                                let editID = target.getAttribute("jsonID");
-                                tabel.ajaxData.editID = editID;
-                                tabel.rijAanpassen(rij, editID);
-                                tabel.focus = "tabel";
-                            }
-
-                            if (target.name === "verwijderen") {
-                                tabel.target.container.setAttribute("actie", "rijFocus");
-                                rij = vindRij(target);
-                                rij.classList.add("delete");
-                                let editID = target.getAttribute("jsonID");
-                                tabel.ajaxData.editID = editID;
-
-                                tabel.rijMarkeren(rij);
-                                tabel.focus = "tabel";
-                            }
-                        }
-
-                        if (focus === "tabel") {
-
-                            if (target.name === "opslaan") {
-                                tabel.target.container.removeAttribute("actie");
-                                rij = vindRij(target);
-                                rij.classList.remove("edit");
-                                tabel.rijOpslaan(rij);
-                                tabel.focus = "all";
-                            }
-
-                            if (target.name === "annuleren") {
-                                tabel.target.container.removeAttribute("actie");
-                                rij = vindRij(target);
-                                rij.classList.remove("edit");
-                                tabel.rijHerstellen(rij);
-                                tabel.focus = "all";
-                            }
-
-                            if (target.name === "verwijderen_bevestigen") {
-                                tabel.target.container.removeAttribute("actie");
-                                rij = vindRij(target);
-                                rij.classList.remove("delete");
-                                rij.parentNode.removeChild(rij);
-                                tabel.focus = "all";
-
-                            }
-
-                            if (target.name === "verwijderen_annuleren") {
-                                tabel.target.container.removeAttribute("actie");
-                                rij = vindRij(target);
-                                rij.classList.remove("delete");
-                                tabel.rijTerugzetten(rij);
-                                tabel.focus = "all";
-                            }
+                            } else if (target.name === "aanpassen") aanpassen(target);
+                            else if (target.name === "verwijderen") verwijderen(target);
+                            else if (target.name === "Gebruiker_toevoegen") gebruikerToevoegen(target);
                             
-                            if (target.name === "gebruiker_opslaan") {
-                                tabel.target.knoppen["gebruiker_toevoegen"].classList.remove("active");
-                                tabel.target.container.removeAttribute("actie");
-                                tabel.target.table.classList.add("rijOverzicht");
-                                tabel.focus = "all";
-                            }
+                        } else if (focus === "tabel") {
                             
-                            if (target.name === "gebruiker_annuleren") {
-                                tabel.target.knoppen["gebruiker_toevoegen"].classList.remove("active");
-                                tabel.target.container.removeAttribute("actie");
-                                tabel.target.table.classList.add("rijOverzicht");
-                                tabel.focus = "all";
-                            }
-
+                            if (target.name === "opslaan") opslaan(target);
+                            else if (target.name === "annuleren") annuleren(target);
+                            else if (target.name === "verwijderen_bevestigen") verwijderenBevestigen(target);
+                            else if (target.name === "verwijderen_annuleren") verwijderenAnnuleren(target);
+                            else if (target.name === "gebruiker_opslaan") gebruikerOpslaan(target);
+                            else if (target.name === "gebruiker_annuleren") gebruikerAnnuleren(target);
+                            else if(tabel.actie !== "aanpassen" && tabel.actie !== "verwijderen") gebruikerToevoegen(target);
+                            
                         }
 
                     }
@@ -159,6 +167,12 @@
                     //if(target.value.length > 0) tabel.target.zoeken.classList.add("active");
                 }
             }
+            console.log("END - ACTIE & FOCUS");
+            console.log(tabel.actie);
+            console.log(tabel.focus);
+            console.log("START - ACTIE & FOCUS static");
+            console.log(actie);
+            console.log(focus);
 
         });
         document.addEventListener("keyup", function(e) {

@@ -133,6 +133,7 @@ class Tabel {
             klik: true
         };
         this.focus = "all";
+        this.actie = 'fdfdfd';
         this.target = {
             section: target,
             knoppen: {},
@@ -148,7 +149,7 @@ class Tabel {
 
     /* GETTERS & SETTERS
      ========================================================================== */
-
+    
     get aantalBladz() {
         return this.ajaxData.aantalBladz;
     }
