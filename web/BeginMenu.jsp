@@ -32,6 +32,12 @@
                         <input type="submit" value="Overzicht scores klas" name="actie"><br>
                         <input type="submit" value="Overzicht scores cursist" name="actie"><br>
                         <input type="submit" value="Type score aanpassen" name="actie"><br>
+                        <input type="submit" value="Taken beheren" name="actie"><br>
+                        <input type="submit" value="Doelstellingen beheren" name="actie"><br>
+                        <input type="submit" value="Studiegebieden beheren" name="actie"><br>
+                        <input type="submit" value="Opleidingen beheren" name="actie"><br>
+                        <input type="submit" value="Modules beheren" name="actie"><br>
+                       
                     </c:if>
 
                     <c:if test="${sessionScope.currentSessionUser.rol == 'leerkracht'}" >
@@ -40,6 +46,8 @@
                         <input type="submit" value="Overzicht studiegebieden" name="actie"><br>
                         <input type="submit" value="Overzicht scores klas" name="actie"><br>
                         <input type="submit" value="Overzicht scores cursist" name="actie"><br>
+                        <input type="submit" value="Taken beheren" name="actie"><br>
+                        <input type="submit" value="Doelstellingen beheren" name="actie"><br>
                     </c:if>
 
                     <c:if test="${sessionScope.currentSessionUser.rol == 'cursist'}" >
