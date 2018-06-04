@@ -39,7 +39,7 @@ public class ScoreServlet extends HttpServlet {
      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
+     
         String keuze = request.getParameter("reset");
         
         if (keuze != null) {response.sendRedirect("ModuleScoreOverzicht.jsp");}
@@ -73,6 +73,21 @@ public class ScoreServlet extends HttpServlet {
             response.getWriter().write(json);
         }
 
+        String moduleDoelstelling = request.getParameter("moduleDoelstelling");
+
+        if (moduleDoelstelling != null) {
+            
+            
+            
+            
+            
+        }
+
+        
+        
+        
+        
+        
         String module = request.getParameter("module");
 
         if (module != null) {

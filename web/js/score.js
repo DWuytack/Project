@@ -26,7 +26,7 @@ function laadCursistenScores() {
     if (document.getElementById("modules").selectedIndex === 0) {
         return;
     }
-    
+
     var xhttp = new XMLHttpRequest();
 
     if (window.XMLHttpRequest) {
@@ -68,15 +68,14 @@ function laadCursistenScores() {
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
                 var cell3 = row.insertCell(2);
-                var achternaam = jsonData.toString("voornaam");
-                
-                cell1.innerhtml = jsonData.values("achternaam");
-                cell2.innerhtml = jsonData.valueOf("voornaam");
-                cell3.innerhtml = jsonData.valueOf(achternaam);
-                
-                cell1.innerhtml = jsonData.indexOf("achternaam"[0]);
-                
-                document.seElementById("cell1").innerHTML = jsonData.voornaam;
+
+                var naam = jsonData[i].achternaam;
+                var voornaam = jsonData[i].voornaam;
+                var score = jsonData[i].score;
+                cell1.innerHTML = naam;
+                cell2.innerHTML = voornaam;
+                cell3.innerHTML = score;
+
             }
 
         }
@@ -123,6 +122,7 @@ function resetDropdowns(naam) {
 function laadDropdown(soort) {
 
     var xhttp2 = new XMLHttpRequest();
+    var xhttp3 = new XMLHttpRequest();
     //vraag informatie aan servlet
     switch (soort) {
         case 'opleidingen':
@@ -151,11 +151,22 @@ function laadDropdown(soort) {
             var schooljaar = document.getElementById("datum").value;
             var semester = document.getElementById("Semester").value;
             xhttp2.open("POST", "ScoreServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+            xhttp3.open("POST", "ScoreServlet?moduleDoelstelling=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
             break;
 
     }
 
     xhttp2.send();
+    xhttp3.send();
+    xhttp3.onreadystatechange = function () {
+
+        if (this.readyState === 4 && this.status === 200) {
+
+            //plaats het antwoord in een object...
+            const doelstellingen = JSON.parse(xhttp3.responseText);
+            //toon dropdown
+        }
+    };
     //als het antwoord wordt ontvangen...
     xhttp2.onreadystatechange = function () {
 
