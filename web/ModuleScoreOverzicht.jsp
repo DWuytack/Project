@@ -127,12 +127,8 @@
                         <tr height="20px" />
                     </table>
 
-                    <table id="scoretable">
-                        <tr>                          
-                            <td width="30%"/>                           
-                            <td width="30%"/>                           
-                            <td width="6%" />                            
-                        </tr>
+                    <table id="scoretable" width="100%">
+                       
                     </table>
                 </div>
             </section>
