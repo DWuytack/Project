@@ -120,15 +120,13 @@
                         <tr height="20px" />
                         <tr bgcolor="#ceccca" height="50px" >                            
                             <td width="30%"><b>Achternaam</td>                             
-                            <td width="30%"><b>Voornaam</b></td>                             
-                            <td width="6%"><b>Score</b></td>                            
+                            <td width="34%"><b>Voornaam</b></td>                             
+                            <td width="12%"><b>Score</b></td>                            
                         </tr>
                         
                         <tr height="20px" />
                     </table>
-
                     <table id="scoretable" width="100%">
-                       
                     </table>
                 </div>
             </section>
