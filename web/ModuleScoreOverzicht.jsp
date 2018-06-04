@@ -18,6 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/nav.js"></script>        
         <script src="js/score.js"></script>
+        <link rel="stylesheet" href="css/score.css">
         <link rel="stylesheet" href="css/theme.css">
 
         <title>Score overzicht per klas</title>
@@ -115,18 +116,18 @@
                         </tr>
                     </table>
                     <br><br>
-                    <table>
+                    <table width="65%">
                         <!-- Titelbalk-->
                         <tr height="20px" />
                         <tr bgcolor="#ceccca" height="50px" >                            
-                            <td width="30%"><b>Achternaam</td>                             
-                            <td width="34%"><b>Voornaam</b></td>                             
-                            <td width="12%"><b>Score</b></td>                            
+                            <th width="60%"><b>Achternaam</th>                             
+                            <th width="30%"><b>Voornaam</b></th>                             
+                            <th width="10%"><b>Score</b></th>                            
                         </tr>
                         
                         <tr height="20px" />
                     </table>
-                    <table id="scoretable" width="100%">
+                    <table id="scoretable" width="80%">
                     </table>
                 </div>
             </section>

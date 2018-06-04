@@ -17,6 +17,7 @@
         <script src="js/nav.js"></script>
         <script src="js/score.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/score.css">
 
         <title>Score overzicht per cursist</title>
         <style>
@@ -119,7 +120,7 @@
                     </tr>
                 </table>
                 <br><br>
-                <table>
+                <table width="80%" align="center">
                     <!-- Titelbalk-->
                     <tr height="20px" />
                     <tr bgcolor="#ceccca" height="50px" >                            
@@ -130,16 +131,9 @@
                     <tr height="20px" />
                 </table>
 
-                <table id="scoretable">
-
-                    <tr id="firstRow">                          
-                        <td width="30%"/>                           
-                        <td width="30%"/>                           
-                        <td width="6%" />                            
-                    </tr>
+                <table id="doelstellingtable" width="80%" align="center">
                 </table>
             </div>
-        </section>
-    </form>
-</body>
+        </section>  
+    </body>
 </html>

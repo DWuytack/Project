@@ -122,7 +122,6 @@ function resetDropdowns(naam) {
 function laadDropdown(soort) {
 
     var xhttp2 = new XMLHttpRequest();
-    var xhttp3 = new XMLHttpRequest();
     //vraag informatie aan servlet
     switch (soort) {
         case 'opleidingen':
@@ -142,31 +141,22 @@ function laadDropdown(soort) {
             dropdownKeuze = document.getElementById('opleidingen').value;
             xhttp2.open("POST", "ScoreServlet?opleiding=" + dropdownKeuze, true);
             break;
+
         case 'cursisten':
+            laadDoestellingen();
             dropdown = document.querySelector("#modules");
             dropdown.style = "background: #f9f9f9";
             dropdown = document.querySelector("#cursisten");
             dropdown.style = "background: #efc4c4";
-            dropdownKeuze = document.getElementById('modules').value;
+            var modules = document.getElementById("modules").value;
             var schooljaar = document.getElementById("datum").value;
             var semester = document.getElementById("Semester").value;
-            xhttp2.open("POST", "ScoreServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
-            xhttp3.open("POST", "ScoreServlet?moduleDoelstelling=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+            xhttp2.open("POST", "ScoreServlet?modules=" + modules + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
             break;
-
     }
 
     xhttp2.send();
-    xhttp3.send();
-    xhttp3.onreadystatechange = function () {
 
-        if (this.readyState === 4 && this.status === 200) {
-
-            //plaats het antwoord in een object...
-            const doelstellingen = JSON.parse(xhttp3.responseText);
-            //toon dropdown
-        }
-    };
     //als het antwoord wordt ontvangen...
     xhttp2.onreadystatechange = function () {
 
@@ -195,13 +185,6 @@ function laadDropdown(soort) {
             defaultOption.disabled = true;
             dropdown.add(defaultOption);
             dropdown.selectedIndex = 0;
-            switch (soort) {
-                case 'cursisten':
-                    let  optionExtra = document.createElement('option');
-                    optionExtra.text = "Blanco";
-                    dropdown.add(optionExtra);
-                    break;
-            }
 
             for (let i = 0; i < data.length; i++) {
                 let  optiondata = document.createElement('option');
@@ -220,37 +203,27 @@ function ledigDropDown(dropdown) {
     }
 }
 
-function formulierLeegMaken() {
-
-    var datatable = document.getElementsByClassName("datatable");
-    for (let i = datatable - 2; i > 0; i--) {
-        var row = datatable.rows[i];
-        if (row.id !== "firstRow") {
-            if (row.id !== "addLine") {
-                datatable.deleteRow(i);
-            }
-        }
-    }
-}
-
-function laadTabel(data) {
-
-    scoreTable = document.getElementById("scoretable");
-    for (i = 0; i < data.length; i++) {
-        aantalCursisten = aantalCursisten + 1;
-        var row = scoreTable.insertRow(aantalCursisten);
-        row.id = "row" + aantalCursisten;
-
-        var achternaam = data.keys(achternaam);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        //cell1.innerhtml = valueOf(achternaam);
-        cell1.innerhtml = data.valueOf("achternaam");
-        cell2.innerhtml = data.valueOf("voornaam");
-        cell3.innerhtml = data.valueOf(achternaam);
-    }
-}
+/*
+ * function laadTabel(data) {
+ 
+ scoreTable = document.getElementById("scoretable");
+ for (i = 0; i < data.length; i++) {
+ aantalCursisten = aantalCursisten + 1;
+ var row = scoreTable.insertRow(aantalCursisten);
+ row.id = "row" + aantalCursisten;
+ 
+ var achternaam = data.keys(achternaam);
+ var cell1 = row.insertCell(0);
+ var cell2 = row.insertCell(1);
+ var cell3 = row.insertCell(2);
+ //cell1.innerhtml = valueOf(achternaam);
+ cell1.innerhtml = data.valueOf("achternaam");
+ cell2.innerhtml = data.valueOf("voornaam");
+ cell3.innerhtml = data.valueOf(achternaam);
+ }
+ }
+ 
+ */
 
 function pasSemesterAan() {
 
@@ -289,8 +262,20 @@ function formulierLeegMaken() {
     aantalCursisten = 0;
 }
 
+
 function laadDoelstellingenScores() {
-    var xhttp3 = new XMLHttpRequest();
+    dropdown = document.querySelector("#modules");
+    dropdown.style = "background: #f9f9f9";
+    
+    var xhttp6 = new XMLHttpRequest();    
+
+    if (window.XMLHttpRequest) {
+        // code voor moderne browsers
+        xhttp6 = new XMLHttpRequest();
+    } else {
+        // code voor oude IE browsers
+        xhttp6 = new ActiveXObject("Microsoft.XMLHTTP");
+    }
 
     dropdown = document.querySelector("#cursisten");
     dropdown.style = "background: #f9f9f9";
@@ -298,6 +283,68 @@ function laadDoelstellingenScores() {
     dropdownKeuze = document.getElementById('cursisten').value;
     var schooljaar = document.getElementById("datum").value;
     var semester = document.getElementById("Semester").value;
-    xhttp3.open("POST", "ScoreServlet?cursisten=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+    xhttp6.open("POST", "ScoreServlet?cursisten=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+    
+    xhttp6.send();
+    
+    xhttp6.onreadystatechange = function () {
 
+        if (this.readyState === 4 && this.status === 200) {
+
+            var doelstellingscore = JSON.parse(xhttp6.responseText);
+
+            var doelstellingscoretable = document.getElementById("doelstellingscoretable");
+            for (let i = 0; i < doelstellingscore.length; i++) {
+                var aantalDoelstellingen = aantalDoelstellingen + 1;
+                var row = doelstellingscoretable.insertRow(i);
+                row.id = "row" + aantalDoelstellingen;
+
+                var cell1 = row.insertCell(0);
+                var score = doelstellingscore[i].score;
+
+                cell1.innerHTML = score;
+
+            }
+        }
+    };
+}
+
+
+function laadDoestellingen() {    
+
+    var xhttp5 = new XMLHttpRequest();
+
+    if (window.XMLHttpRequest) {
+        // code voor moderne browsers
+        xhttp5 = new XMLHttpRequest();
+    } else {
+        // code voor oude IE browsers
+        xhttp5 = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    var moduleDoelstelling = document.getElementById('modules').value;
+    xhttp5.open("POST", "ScoreServlet?moduleDoelstelling=" + moduleDoelstelling, true);
+
+    xhttp5.send();
+
+    xhttp5.onreadystatechange = function () {
+
+        if (this.readyState === 4 && this.status === 200) {
+
+            var doelstellingen = JSON.parse(xhttp5.responseText);
+
+            var doelstellingtable = document.getElementById("doelstellingtable");
+            for (let i = 0; i < doelstellingen.length; i++) {
+                var aantalDoelstellingen = aantalDoelstellingen + 1;
+                var row = doelstellingtable.insertRow(i);
+                row.id = "row" + aantalDoelstellingen;
+
+                var cell1 = row.insertCell(0);
+                var naam = doelstellingen[i].naam;
+
+                cell1.innerHTML = naam;
+
+            }
+        }
+    };
 }

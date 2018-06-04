@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Gebruiker;
+import model.Doelstelling;
+import model.DoelstellingDAO;
 import model.GebruikerDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
@@ -21,7 +23,8 @@ import model.SemesterDAO;
 import model.StudiegebiedDAO;
 
 /**
- *  Deze klasse bevat de bewerkingen om scores te laden.
+ * Deze klasse bevat de bewerkingen om scores te laden.
+ *
  * @author gil-_
  */
 @WebServlet(name = "ScoreServlet", urlPatterns = {"/ScoreServlet"})
@@ -36,13 +39,14 @@ public class ScoreServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-     
+
         String keuze = request.getParameter("reset");
-        
-        if (keuze != null) {response.sendRedirect("ModuleScoreOverzicht.jsp");}
+
+        if (keuze != null) {
+            response.sendRedirect("ModuleScoreOverzicht.jsp");
+        }
 
         Gson gson = new Gson();
         String studiegebied = request.getParameter("studiegebied");
@@ -77,17 +81,19 @@ public class ScoreServlet extends HttpServlet {
 
         if (moduleDoelstelling != null) {
             
+            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
             
+            int param1 = moduleDAO.laadModuleID(moduleDoelstelling);
+            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(param1);
             
-            
-            
+            String json = gson.toJson(doelstellingen);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+
         }
 
-        
-        
-        
-        
-        
         String module = request.getParameter("module");
 
         if (module != null) {
@@ -97,7 +103,7 @@ public class ScoreServlet extends HttpServlet {
 
             String semesterNr = semester.substring(0, 1);
 
-            int schooljaar= Integer.valueOf(datum.substring(0, 4));
+            int schooljaar = Integer.valueOf(datum.substring(0, 4));
             int semesterNummer = Integer.valueOf(semesterNr);
             String volSchooljaar = "";
             String volgendSchooljaar = String.valueOf(schooljaar + 1);
@@ -127,9 +133,62 @@ public class ScoreServlet extends HttpServlet {
             response.setContentType("application/json");
             response.getWriter().write(json);
         }
+        
+        String cursisten = request.getParameter("cursisten");
+
+        if (cursisten != null) {
+            
+            ScoreDAO scoreDAO = new ScoreDAO();           
+            ArrayList<Score> scores = scoreDAO.klassikaleScore(0, 0, 0);
+            
+            String json = gson.toJson(scores);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
+        
+        String modules = request.getParameter("modules");
+
+        if (modules != null) {
+
+            String datum = request.getParameter("schooljaar");
+            String semester = request.getParameter("semester");
+
+            String semesterNr = semester.substring(0, 1);
+
+            int schooljaar = Integer.valueOf(datum.substring(0, 4));
+            int semesterNummer = Integer.valueOf(semesterNr);
+            String volSchooljaar = "";
+            String volgendSchooljaar = String.valueOf(schooljaar + 1);
+            String vorigSchooljaar = String.valueOf(schooljaar - 1);
+
+            switch (semesterNummer) {
+                case 1:
+                    volSchooljaar = datum.substring(0, 4) + " - " + volgendSchooljaar;
+                    break;
+
+                case 2:
+                    volSchooljaar = vorigSchooljaar + " - " + datum.substring(0, 4);
+                    break;
+            }
+
+            GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            SchooljaarDAO schooljarenDAO = new SchooljaarDAO();
+            SemesterDAO semesterDAO = new SemesterDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
+            int param1 = schooljarenDAO.geefSchooljaarID(volSchooljaar);
+            int param2 = semesterDAO.laadSemesterID(semester);
+            int param3 = moduleDAO.laadModuleID(modules);
+            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(param1, param2, param3);
+
+            String json = gson.toJson(gebruikers);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
     }
-     
-     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -33,7 +33,7 @@ public class DoelstellingDAO {
 
             rs = ps.executeQuery();
             while (rs.next()) {
-                Doelstelling doelstelling=new Doelstelling();
+                Doelstelling doelstelling = new Doelstelling();
                 doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
                 doelstelling.setNaam(rs.getString("naam"));
                 doelstelling.setBeschrijving(rs.getString("beschrijving"));
@@ -220,9 +220,11 @@ public class DoelstellingDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "SELECT doelstellingen.* FROM doelstellingen "
-                + "INNER JOIN modules_doelstellingen ON doelstellingen.doelstellingID = modules_doelstellingen.doelstellingID "
-                + "WHERE modules_doelstellingen.moduleID = ?";
+        String sql = "SELECT DISTINCT doelstellingen.naam FROM doelstellingen " +
+        "INNER JOIN doelstellingen_taken ON doelstellingen.doelstellingID = doelstellingen_taken.doelstellingID " +
+        "INNER JOIN modules_taken ON doelstellingen_taken.taakID = modules_taken.taakID " +
+        "INNER JOIN modules ON modules_taken.moduleID = modules.moduleID " +
+        "WHERE modules.moduleID = ?";        
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -234,10 +236,7 @@ public class DoelstellingDAO {
 
             while (rs.next()) {
                 Doelstelling doelstelling = new Doelstelling();
-                doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
                 doelstelling.setNaam(rs.getString("naam"));
-                doelstelling.setBeschrijving(rs.getString("beschrijving"));
-                doelstelling.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
                 doelstellingen.add(doelstelling);
             }
         } catch (SQLException e) {
