@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/formulier.css">
         <title>Gebruikers overzicht</title>
+        <link rel="stylesheet" href="css/gebruikersOverzichtOld.css">
     </head>
 
     <body>

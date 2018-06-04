@@ -14,6 +14,32 @@
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/menu.css">
         <title>Startmenu</title>
+        <style>
+            input[type="submit"] { 
+                font-family: Raleway; /*Force Elem Bug */
+
+                position: relative;
+                padding: 10px;
+
+                background-color: #ec6e24;
+
+                font-size: 30px;
+                text-align: center;
+                color: #fff;
+                font-weight: 600;
+                text-shadow: 0 0 150px #000;
+
+                background-image: url(../images/bg-chef3.png);
+                background-blend-mode: soft-light;
+                background-size: 250px;
+
+                text-align: center;
+            }
+            
+            input[type="button"]:focus, input[type="submit"]:focus {
+                filter: brightness(75%);
+            }
+        </style>
     </head>
 
     <body>

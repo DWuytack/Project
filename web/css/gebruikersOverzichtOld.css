@@ -1,0 +1,259 @@
+.table-container > div {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: auto;
+}
+.table-container > * {
+    min-width: inherit;
+}
+.table-container div::before, .table-container div::after {
+    clear: both;
+    content: '';
+}
+/* Table Header */
+.table-nav-header {
+    position: relative;
+    display: flex;
+    background: none;
+    border: 0;
+    justify-content: space-around;
+    width: 100%;
+}
+.table-nav-header a {
+    margin: 0; padding: 10px; opacity: .2;
+}
+.table-nav-header i { font-size: 50px;}
+.table-nav-header > div {
+    display: flex;
+}
+.table-nav-header div > input {
+    background: none;
+    border: none;
+    font-size: 50px;
+    display: flex;
+    padding: 10px;
+    opacity: .2;
+}
+.table-nav-header a:hover, #side-nav input:hover {
+    opacity: .99;
+}
+.table-nav-header.search input[name="Eerste"], #side-nav.table-nav-header.search input[name="Vorige"], #side-nav.table-nav-header.search input[name="Volgende"], #side-nav.table-nav-header.search input[name="Laatste"] {
+    display: none;
+}
+#zoeken {
+    display: flex;
+    align-items: center;
+}
+.search #zoeken > input {
+    display: flex;
+}
+#zoeken [name="zoekterm"] {
+    max-width: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,.2);
+    padding: 6px;
+    font-size: 20px;
+}
+#zoeken [name="zoekterm"]:focus {
+    opacity: .99;
+}
+
+
+/* ------------START - TO SORT--------------- */
+.table-nav-icons > a {
+    margin-right: 5px;
+}
+.table-nav-icons > a:last-child {
+    margin-right: 0
+}
+.table-nav-icons i {
+    border-radius: 50%;
+    background-color: #ec6e24;
+    color: white;
+    padding: 1px;
+}
+a[name="gebruiker toevoegen"] {
+    display: flex;
+}
+a[name="gebruiker toevoegen"] i {
+    font-size: 50px;
+    /*background-color: #ec6e24;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 5px;*/
+}
+span[name="gebruiker zoeken"] {
+    position: relative;
+    margin-right: 1em;
+    display: none;
+}
+span[name="gebruiker zoeken"] i:first-child {
+    font-size: 60px;
+}
+span[name="gebruiker zoeken"] i:last-child {
+    font-size: 30px;
+    position: absolute;
+    bottom: 11px;
+    right: 0;
+    color: #ec6e24;
+    transform: scale(-1, 1);
+}
+
+i[name="gebruiker zoeken"] {
+    font-size: 44px;
+    color: #ec6e24;
+    transform: scale(-1, 1);
+    padding-left: 5px;
+}
+
+/* Table table */
+.table-container table {
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: auto;
+    width: 100%;
+}
+.table-container table tbody { overflow: scroll; }
+.table-container table tbody tr:nth-child(odd) { background-color: #f8f6ff; }
+.table-container table tbody tr.edit { background-color: rgba(255,255,0,.5); }
+.table-container table tbody tr.delete td { background-color: rgba(239,20,20,.1); }
+.table-container table tbody tr.delete span { color: rgba(239,20,20,.8); }
+.table-container table th {
+    font-size: 18px;
+    color: #fff;
+    background-color: #ec6e24;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+/* ---START------- ???????????? - to remove??? */
+.table-container th.actie {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+/* ----END ------ ??????????? - to remove??? */
+
+.table-container table th > a {
+    display: flex;
+    width: 100%; /* Beter voor herberekening */
+}
+.table-container table th[title="Acties"] > a {
+    width: 70px;
+    margin: auto;
+}
+.table-container table td {
+    font-size: 15px;
+    color: #404040;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+}
+/* ---START------- ???????????? - to remove??? */
+.table-container table td.actie {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+/* ----END ------ ??????????? - to remove??? */
+.table-container table td[data-label="Acties"] {
+    padding: 0px;
+    vertical-align: baseline;
+}
+.table-container table td > input, select {
+    display: flex;
+    width: 100%;
+}
+.table-container table td input, .table-container table td select {
+    padding: 0;
+    font-size: 15px;
+    color: #333;
+    border: 0;
+    background-color: transparent;
+    font-family: inherit;
+}
+
+/* START actie edit icons */
+.actie-images {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.actie-images span {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+/* END actie edit icons */
+
+/* ------------END - TO SORT--------------- */
+
+/* Table footer */
+.table-nav-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 5px;
+    flex-direction: column;
+}
+
+#gebruikers { font-weight: bold; }
+
+
+
+
+
+#gebruiker_toevoegen {
+    margin: auto;
+    display: none;
+    justify-content: space-around;
+    z-index: 300; 
+    flex-direction: column;
+}
+#gebruiker_toevoegen.active {
+    display: flex;
+}
+#gebruiker_toevoegen legend {
+    font-weight: bold;
+}
+#gebruiker_toevoegen > input[name="actie"] {
+
+    font-family: Raleway;
+
+    position: relative;
+
+    margin: auto;
+    padding: 5px;
+
+    background-color: #ec6e24;
+
+    line-height: 30px;
+    font-size: 30px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 150px #000;
+
+    border-radius: 10px;
+
+    background-image: url(../images/bg-chef3.png);
+    background-size: 250px;
+    background-blend-mode: soft-light;
+}
+#gebruiker_toevoegen fieldset {
+    background-color: #fff;
+    background-image: url(../images/noise.png);
+    max-width: 500px;
+    margin: auto;
+    border-radius: 10px;
+}
