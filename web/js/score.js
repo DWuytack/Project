@@ -122,6 +122,7 @@ function resetDropdowns(naam) {
 function laadDropdown(soort) {
 
     var xhttp2 = new XMLHttpRequest();
+    var xhttp3 = new XMLHttpRequest();
     //vraag informatie aan servlet
     switch (soort) {
         case 'opleidingen':
@@ -150,11 +151,22 @@ function laadDropdown(soort) {
             var schooljaar = document.getElementById("datum").value;
             var semester = document.getElementById("Semester").value;
             xhttp2.open("POST", "ScoreServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+            xhttp3.open("POST", "ScoreServlet?moduleDoelstelling=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
             break;
 
     }
 
     xhttp2.send();
+    xhttp3.send();
+    xhttp3.onreadystatechange = function () {
+
+        if (this.readyState === 4 && this.status === 200) {
+
+            //plaats het antwoord in een object...
+            const doelstellingen = JSON.parse(xhttp3.responseText);
+            //toon dropdown
+        }
+    };
     //als het antwoord wordt ontvangen...
     xhttp2.onreadystatechange = function () {
 
