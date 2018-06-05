@@ -10,10 +10,12 @@
  *  ##  Custom
  *  #   Restrictions
  *  #   Document
- *  ##  w.i.p. ...
+ *  ##  CONTENT STYLING
+ *  ##  NAV
+ *  ##  TABLE
+ *  #   Popup
  *  #   Resize Support
  *  #   Other
- *  #   w.i.p. ...
  * 
  */
 
@@ -470,8 +472,6 @@ div.active > .dropdown { display: flex; }
 /* TABLE
    -------------------------------------------------------------------------- */
 
-/* &- CONTAINER */
-
 .tabel-container {
   display: flex;
   flex-direction: column;
@@ -516,21 +516,6 @@ div.active > .dropdown { display: flex; }
     }
 }
 
-
-
 /* Other
    ========================================================================== */
 
-
-/* TO SORT  WIP*/
-
-
-/* TEST */
-
-/*
-#evaluatie input[type="button"], #evaluatie input[type="submit"] { 
-    border: #000;
-    background: #efe1c4;
-} 
-
-*/
