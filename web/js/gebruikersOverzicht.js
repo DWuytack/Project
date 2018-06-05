@@ -1,158 +1,294 @@
-utilities.params = 'page=' + utilities.pageCounter;
-const   titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email", "Acties"],
-        parameters = ["achternaam", "voornaam", "login", "rol", "geboorteDatum", "email"];
-        //parameters = ["achternaam", "voornaam", "login", "rol", "geboorteDatumValue", "email"];
-let meta;
-let rij = '';
+// gebruikersOverzicht.js
 
+let datat = {
+                "bladz": 1,
+                "aantalBladz": 4,
+                "toonGebruikers": 8,
+                "aantalGebruikers": 30,
+                "lijst": [{
+                        "jsonID": 112,
+                        "rol": "cursist",
+                        "voornaam": "Stelaooooooooooooooooooooooooo",
+                        "achternaam": "Cozari",
+                        "geboorteDatum": "1965-06-18",
+                        "email": "Stela.Cozari@test.be",
+                        "login": "Stela",
+                        "geldig": false
+                    }, {
+                        "jsonID": 72,
+                        "rol": "cursist",
+                        "voornaam": "Delina",
+                        "achternaam": "DeLoose",
+                        "geboorteDatum": "1976-03-28",
+                        "email": "Delina.DeLoose@test.be",
+                        "login": "Delina",
+                        "geldig": false
+                    }, {
+                        "jsonID": 124,
+                        "rol": "leerkracht",
+                        "voornaam": "Patrick",
+                        "achternaam": "DeMol",
+                        "geboorteDatum": "1958-01-02",
+                        "email": "Patrick.DeMol@test.be",
+                        "login": "Patrick",
+                        "geldig": false
+                    }, {
+                        "jsonID": 116,
+                        "rol": "cursist",
+                        "voornaam": "Caro",
+                        "achternaam": "DeTroetsel",
+                        "geboorteDatum": "1997-06-04",
+                        "email": "Caro.DeTroetsel@test.be",
+                        "login": "Caro",
+                        "geldig": false
+                    }, {
+                        "jsonID": 132,
+                        "rol": "leerkracht",
+                        "voornaam": "Adelheid",
+                        "achternaam": "Dhondt",
+                        "geboorteDatum": "1978-08-14",
+                        "email": "Adelheid.Dhondt@test.be",
+                        "login": "Adelheid",
+                        "geldig": false
+                    }, {
+                        "jsonID": 96,
+                        "rol": "cursist",
+                        "voornaam": "Eliza",
+                        "achternaam": "Dhont	",
+                        "geboorteDatum": "1998-09-27",
+                        "email": "Eliza.Dhont@test.be",
+                        "login": "Eliza",
+                        "geldig": false
+                    }, {
+                        "jsonID": 104,
+                        "rol": "cursist",
+                        "voornaam": "Morgane",
+                        "achternaam": "Doudet",
+                        "geboorteDatum": "1998-08-19",
+                        "email": "Morgan.Doudet@test.be",
+                        "login": "Morgane",
+                        "geldig": false
+                    }, {
+                        "jsonID": 12,
+                        "rol": "admin",
+                        "voornaam": "Aaron",
+                        "achternaam": "Draye",
+                        "geboorteDatum": "1997-01-08",
+                        "email": "aarondraye@gmail.com",
+                        "login": "Aaroenn",
+                        "geldig": false
+                    }]
+            };
 
+(function () {
 
-//Render HTML achter Ajax request
-const renderHTML = function(type, data) {
-    if (type === "tabel") {
-        meta = {
-            rol : ["admin", "leerkracht", "cursist", "secretariaat"]
-        };
-        utilities.aantalBladz = data.aantalBladz;
-        let lijst = data.lijst;
-        let tabel = utilities.tabelAanmaken(lijst, parameters, titels);
-        let inhoud = document.getElementById("gebruikersOverzicht");
-        if(!inhoud.contains(tabel)) {
-            while(inhoud.firstChild) inhoud.removeChild(inhoud.firstChild);
-            inhoud.appendChild(tabel);
-        } else {
-            inhoud = document.querySelector("#gebruikersOverzicht tbody");
-            lijst.forEach(function(e){
-                let tr = utilities.rijAanmaken(e, parameters, titels, inhoud);
-            });
-        }
-    } else if (type === "aanpassen")
-        utilities.rijAanpassen(rij, meta, parameters, lijst); 
-    else if (type === "opslaan")
-        utilities.rijOpslaan(rij, parameters, titels);  
-    else
-        console.log(data);
-    document.getElementById("gebruikers").innerHTML = data.toonGebruikers + '/' + data.aantalGebruikers;
-};
+    const   titels = ["Achternaam", "Voornaam", "Login", "Rol", "GebtDatum", "Email", "Acties"],
+            keys = ["achternaam", "voornaam", "login", "rol", "geboorteDatum", "email"],
+            meta = {
+                rol: ["admin", "leerkracht", "cursist", "secretariaat"]
+            };
+    let     loc, tabel;
 
-//Klik events
-document.addEventListener("click", function(e){
-    let target = e.target;
-    
-    if( target.name === "Volgende" && utilities.pageCounter !== utilities.aantalBladz) {
-        utilities.pageCounter++;
-        utilities.params = 'page=' + utilities.pageCounter;
-        utilities.requestData("tabel",);
-        
-        utilities.updateKnoppen();
-        /*
-        if(utilities.pageCounter === utilities.aantalBladz){
-            target.classList.add("inactive");
-            utilities.buttons.laatste.add("inactive");
-        } else {
-            target.classList.remove("inactive");
-            utilities.buttons.laatste.remove("inactive");
-        }
-        */
-    }
-    
-    if( target.name === "Vorige" && utilities.pageCounter !== 1) {
-        utilities.pageCounter--;
-        utilities.params = 'page=' + utilities.pageCounter;
-        utilities.requestData("tabel",);
-        
-        utilities.updateKnoppen();
-        /*
-        if(utilities.pageCounter === 1) {
-            target.classList.add("inactive");
-            utilities.buttons.eerste.add("inactive");
-        } else {
-            target.classList.remove("inactive");
-            utilities.buttons.eerste.remove("inactive");
-        }
-        */
-    }
-    
-    if( target.id === "somebutton" ) {
-        utilities.pageCounter++;
-        utilities.params = 'page=' + utilities.pageCounter;
-        utilities.requestData("tabel",);
-    }
+    let tid = setInterval(function () {
+        if (document.readyState !== 'complete')
+            return;
+        clearInterval(tid);
 
-    if(target.hasAttribute("role")) {
-        let role = target.getAttribute("role");
-        if(role === "aanpassen") {
-            rij = utilities.vindRij(target);
-            rij.classList.add("edit");
-            let editID = target.value;
-            utilities.backupID = editID;
-            utilities.params = 'idEdit=' + editID;
-            utilities.requestData("aanpassen", target);
-        }
-        if(role === "opslaan") {
-            rij = utilities.vindRij(target);
-            rij.classList.remove("edit");
-            console.log(rij.cells);
-            utilities.tabelID = 'gebruikersOverzicht';
-            utilities.params = 'idSave=' + utilities.saveID;
-            for(let i=0; i < utilities.editRow.length; i++) {
-                let val = utilities.editRow[i].value;
-                let parameter = parameters[i];
-                //if(parameter === "geboorteDatumValue") parameter = "geboorteDatum";
-                utilities.params += '&' + parameter + '=' + val;
+        //run
+        let id = "gebruikersOverzicht";
+        loc = document.getElementById(id);
+        let tabel = new Tabel(loc, id, titels, keys);
+        tabel.ajaxData.meta = meta;
+        console.log(tabel);
+        //tabel.requestTabel(tabel.ajaxData.data);
+        //tabel.renderContainer(tabel.ajaxData.data);
+        tabel.requestContainer();
+
+        document.addEventListener("click", function (e) {
+            let klikRecht = tabel.rechten.klik;
+            let focus = tabel.focus;
+            let actie = tabel.actie;
+            let loc;
+
+            /*
+             console.log("START - ACTIE & FOCUS");
+             console.log(tabel.actie);
+             console.log(tabel.focus);
+             console.log("START - ACTIE & FOCUS static");
+             console.log(actie);
+             console.log(focus);
+             */
+
+            let gebruikerToevoegen = target => {
+                if (!target.classList.contains("active")) {
+                    tabel.target.container.setAttribute("actie", "tfootFocus");
+                    tabel.target.table.classList.remove("rijOverzicht");
+                    tabel.target.zoeken.classList.remove("active");
+                    target.classList.add("active");
+                    tabel.focus = "tabel";
+                    tabel.actie = "toevoegen";
+                } else {
+                    target.classList.remove("active");
+                    tabel.target.container.removeAttribute("actie", "tfootFocus");
+                    tabel.target.table.classList.add("rijOverzicht");
+                    tabel.focus = "all";
+                    tabel.actie = "";
+                }
+            };
+            let aanpassen = target => {
+                tabel.target.container.setAttribute("actie", "rijFocus");
+                rij = vindRij(target);
+                rij.classList.add("edit");
+                let editID = target.getAttribute("jsonID");
+                tabel.ajaxData.editID = editID;
+                tabel.rijAanpassen(rij, editID);
+                tabel.focus = "tabel";
+                tabel.actie = "aanpassen";
+            };
+            let verwijderen = target => {
+                tabel.target.container.setAttribute("actie", "rijFocus");
+                rij = vindRij(target);
+                rij.classList.add("delete");
+                let editID = target.getAttribute("jsonID");
+                tabel.ajaxData.editID = editID;
+                tabel.rijMarkeren(rij);
+                tabel.focus = "tabel";
+                tabel.actie = "verwijderen";
+            };
+            let opslaan = target => {
+                tabel.target.container.removeAttribute("actie");
+                rij = vindRij(target);
+                rij.classList.remove("edit");
+                tabel.rijOpslaan(rij);
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+            let annuleren = target => {
+                tabel.target.container.removeAttribute("actie");
+                rij = vindRij(target);
+                rij.classList.remove("edit");
+                tabel.rijHerstellen(rij);
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+            let verwijderenBevestigen = target => {
+                tabel.target.container.removeAttribute("actie");
+                rij = vindRij(target);
+                rij.classList.remove("delete");
+                rij.parentNode.removeChild(rij);
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+            let verwijderenAnnuleren = target => {
+                tabel.target.container.removeAttribute("actie");
+                rij = vindRij(target);
+                rij.classList.remove("delete");
+                tabel.rijTerugzetten(rij);
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+            let gebruikerOpslaan = target => {
+                tabel.target.knoppen["gebruiker_toevoegen"].classList.remove("active");
+                tabel.target.container.removeAttribute("actie");
+                tabel.target.table.classList.add("rijOverzicht");
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+            let gebruikerAnnuleren = target => {
+                tabel.target.knoppen["gebruiker_toevoegen"].classList.remove("active");
+                tabel.target.container.removeAttribute("actie");
+                tabel.target.table.classList.add("rijOverzicht");
+                tabel.focus = "all";
+                tabel.actie = "";
+            };
+
+            if (klikRecht) {
+                let target = e.target;
+                let rij;
+
+                if (target.hasAttribute("role")) {
+                    let role = target.getAttribute("role");
+                    /* Opmerking:
+                     Bij het gebruiken van links wees zeker dat de css lijn:
+                     'pointer-events: none;' aanstaan bij i elementen. Deze kan afwezig
+                     zijn bij oudere browsers
+                     */
+
+                    if (role === "button") {
+
+                        if (focus === "all") {
+
+                            if (target.name === "Eerste" && tabel.bladz !== 1) tabel.eerstePagina();
+                            else if (target.name === "Vorige" && tabel.bladz !== 1) tabel.vorigePagina();
+                            else if (target.name === "Volgende" && tabel.bladz !== tabel.aantalBladz) tabel.volgendePagina();
+                            else if (target.name === "Laatste" && tabel.bladz !== tabel.aantalBladz) tabel.laatstePagina();
+                            else if (target.name === "aanpassen") aanpassen(target);
+                            else if (target.name === "verwijderen") verwijderen(target);
+                            else if (target.name === "Gebruiker_toevoegen") gebruikerToevoegen(target);
+
+                        } else if (focus === "tabel") {
+
+                            if (target.name === "opslaan")
+                                opslaan(target);
+                            else if (target.name === "annuleren")
+                                annuleren(target);
+                            else if (target.name === "verwijderen_bevestigen")
+                                verwijderenBevestigen(target);
+                            else if (target.name === "verwijderen_annuleren")
+                                verwijderenAnnuleren(target);
+                            else if (target.name === "gebruiker_opslaan")
+                                gebruikerOpslaan(target);
+                            else if (target.name === "gebruiker_annuleren")
+                                gebruikerAnnuleren(target);
+                            else if (tabel.actie !== "aanpassen" && tabel.actie !== "verwijderen")
+                                gebruikerToevoegen(target);
+
+                        }
+
+                    }
+                }
+                if (target.name === "Zoeken" && actie !== "toevoegen") {
+                    if (window.getComputedStyle(tabel.target.zoekterm, null).getPropertyValue("display") === "none") {
+                        tabel.target.zoeken.classList.add("active");
+                        tabel.target.zoekterm.focus();
+                    } else if (tabel.target.zoeken.classList.contains("active")) {
+                        tabel.target.zoeken.classList.remove("active");
+                    } else {
+                        tabel.target.zoeken.classList.add("active");
+                    }
+                }
+                if (target.name === "zoekterm") {
+                    tabel.target.zoeken.classList.add("focus");
+                    //if(target.value.length > 0) tabel.target.zoeken.classList.add("active");
+                }
             }
-            utilities.requestData("opslaan", target);
-        }
-        if(role === "annuleren") {
-            rij = utilities.vindRij(target);
-            rij.classList.remove("edit");
-            utilities.rijHerstellen(rij, parameters, titels); 
-        }
-        if(role === "verwijderen") {
-            rij = utilities.vindRij(target);
-            rij.classList.add("delete");
 
-            var popup = document.querySelector("#popup");
-            var loc = document.querySelector("#gebruiker_verwijderen");
-            if(!loc.className.includes("active")) {
-                popup.classList.add("active");
-                loc.classList.add("active");
-            } else {
-                popup.classList.remove("active");
-                loc.classList.remove("active");
+            /*
+             console.log("END - ACTIE & FOCUS");
+             console.log(tabel.actie);
+             console.log(tabel.focus);
+             console.log("START - ACTIE & FOCUS static");
+             console.log(actie);
+             console.log(focus);
+             */
+
+        });
+        document.addEventListener("keyup", function (e) {
+            let target = e.target;
+            if (target.name === "zoekterm") {
+                if (target.value.length > 0)
+                    tabel.target.zoeken.classList.add("active");
+                else
+                    tabel.target.zoeken.classList.remove("active");
             }
-        }
-    }
-    
-    if(target.id === "popup") {
-        var popup = document.querySelector("#popup");
-        var loc = document.querySelector("#gebruiker_verwijderen");
-        popup.classList.remove("active");
-        loc.classList.remove("active");
-        rij.classList.remove("delete");
-    }
-    
-    if(target.id === "bt-gebruiker_verwijderen") {
-        document.querySelector("#gebruikersOverzicht table").deleteRow(rij.rowIndex);
-        var popup = document.querySelector("#popup");
-        var loc = document.querySelector("#gebruiker_verwijderen");
-        popup.classList.remove("active");
-        loc.classList.remove("active");
-    }
-    
-});
-
-//Load
-(function() {
-    (function() {
-        utilities.buttons.eerste = document.getElementById('bt-eerste');
-        utilities.buttons.vorige = document.getElementById('bt-vorige');
-        utilities.buttons.volgende = document.getElementById('bt-volgende');
-        utilities.buttons.laatste = document.getElementById('bt-laatste');
-    })();
-    console.log(utilities.buttons.eerste);
-    
-    utilities.requestData("tabel",);
-    
-    utilities.updateKnoppen();
+        });
+        console.log(tabel);
+    }, 100);
 })();
+/*
+ console.log(tabel);
+ console.log(tabel.ajaxData.data);
+ console.log(tabel.ajaxData.keys);
+ */
+//tabel.request();
+//console.log(tabel);

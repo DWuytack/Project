@@ -13,9 +13,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=0.8">
         <script src="js/jquery.js"></script>
         <script src="js/nav.js"></script>
-        <script src="js/utilities2.js"></script>
+        <script src="js/utilities.js"></script>
         <!-- <script src="js/table.js"></script> -->
-        <script src="js/gebruikersOverzicht2.js"></script>
+        <script src="js/gebruikersOverzicht.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <!-- <link rel="stylesheet" href="css/formulier.css"> -->
         <link rel="stylesheet" href="css/gebruikersOverzicht.css">
