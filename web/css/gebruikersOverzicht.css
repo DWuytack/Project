@@ -1,3 +1,13 @@
+/* Dev tools
+   ========================================================================== */
+
+/* Placeholder Icon */
+/*
+    [role="button"]>i {
+        background-image: url(https://i.imgur.com/hCz72oZ.png);
+    }
+*/
+
 /* Preload
    ========================================================================== */
 
@@ -47,6 +57,11 @@
 /* Document
    ========================================================================== */
 
+#gebruikersOverzicht {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
 
 /* TABLE
    -------------------------------------------------------------------------- */
@@ -55,15 +70,66 @@ table td {
     line-height: 1.8;
 }
 
-.tabel-container select {
-    margin-left: -4px;
+.tabel-nav {
+    flex-wrap: wrap;
 }
-.tabel-container [name="geboorteDatum"] {
-    margin-left: -1px;
+
+.w-zoeken, .w-knoppen {
+    min-width: 350px;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.w-zoeken {
+    align-items: center;
+}
+
+.w-knoppen a,
+.w-zoeken a {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    padding: 10px;
+    opacity: .2;
+}
+
+.w-zoeken [name="zoekterm"] {
+    background-color: rgba(0, 0, 0, .2);
+    padding: 6px;
+    font-size: 20px;
+    border: 0;
+}
+
+.bt-zoeken {
+    padding: 0 15px 0 0;
+}
+
+.w-zoeken.active .bt-zoeken {
+    opacity: .9;
+}
+.w-zoeken.active .bt-zoeken i {
+    background-image: url(https://i.imgur.com/qpMWJnv.png);
+}
+
+[name="zoekterm"] {
+    width: 100%;
+    filter: contrast(50%);
+}
+
+.w-zoeken [name="zoekterm"]:focus {
+    background-color: #ec6e24;
+    opacity: .7;
+    filter: contrast(100%);
+}
+.w-zoeken.active [name="zoekterm"] {
+    background-color: #ec6e24;
+    opacity: .9;
+    filter: contrast(100%);
 }
 
 .tabel-container table {
-    border-collapse: collapse;
+    border-collapse: collapse; 
     border-radius: 10px;
     overflow: hidden;
     margin: auto;
@@ -101,6 +167,13 @@ table td {
     padding-left: 12px;
     padding-left: 7px;
     word-wrap: break-word;
+}
+
+.tabel-container select {
+    margin-left: -4px;
+}
+.tabel-container [name="geboorteDatum"] {
+    margin-left: -1px;
 }
 
 .rijOverzicht input {
@@ -268,10 +341,141 @@ input[type="date"]::before {
     height: 40px;
 }
 
-
-
-
 /* Popup
    ========================================================================== */
 
-/*RESIZE SUPPORT */
+
+
+/* Resize Support
+   ========================================================================== */
+
+@media screen and (min-width: 800px) {
+
+    body {
+        min-width: 950px;
+    }
+
+    #c-gebruikersOverzicht {
+        max-width: 1200px;
+        min-width: 950px;
+        justify-content: space-around;
+    }
+
+    .w-gebruikersOverzicht th {
+        width: 15%;
+    }
+
+    .w-gebruikersOverzicht th[title="Email"] {
+        width: 25%;
+    }
+
+    .w-gebruikersOverzicht th[title="Acties"] {
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+
+    body {
+        min-width: 500px;
+    }
+
+    .tabel-container > [role="content"] {
+        margin-top: 20px;
+        margin-left: 44px;
+    }
+    table tbody tr {
+        background-color: #f8f6ff;
+    }
+    #c-gebruikersOverzicht {
+        max-width: none;
+        min-width: unset;
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        margin: 0 5%;
+    }
+
+    table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        text-transform: uppercase;
+        display: flex;
+        min-width: 120px;
+        max-width: 50%;
+        width: 100%;
+        padding: 10px;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 12px;
+    }
+
+    .tabel-container .tabel-nav {
+        z-index: 300;
+        position: fixed;
+        top: 108px;
+        left: 0;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    .tabel-container .w-knoppen {
+        flex-direction: column;
+        padding-left: 0;
+        width: 60px;
+        min-width: unset;
+    }
+    .tabel-container .w-knoppen a {
+        background-color: #eee;
+        opacity: .9;
+    }
+    .tabel-container .w-zoeken {
+        background: #eee;
+        padding-left: 0;
+        min-width: initial;
+        width: 60px;
+        justify-content: flex-start;
+    }
+    .tabel-container .bt-zoeken {
+        opacity: .9;
+    }
+    .w-zoeken [name="zoekterm"] {
+        display: none;
+    }
+    .w-zoeken.active {
+        width: auto;     
+    }
+    .w-zoeken.active [name="zoekterm"] {
+        display: flex;
+    }
+}
