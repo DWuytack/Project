@@ -3,8 +3,10 @@ package model;
 /**
  * Score: de score die een cursist krijgt.
  * 
- * @author Gil
+ * @author Keanu en Gil
  */
+
+ //Objecten aanmaken
 public class Score {
     private String voornaam;
     private String achternaam;

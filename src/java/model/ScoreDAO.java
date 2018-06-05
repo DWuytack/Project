@@ -12,6 +12,8 @@ import java.util.ArrayList;
  *
  * @author gil-_
  */
+
+// Laden van score met query
 public class ScoreDAO {
 
     public ArrayList<Score> klassikaleScore(int schooljaarID, int semesterID, int moduleID) {

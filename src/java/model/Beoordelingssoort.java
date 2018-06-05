@@ -5,11 +5,13 @@ package model;
  * @author Keanu
 */ 
 public class Beoordelingssoort {
-    
+    //Objecten aanmaken
     private int beoordelingssoortID;
     private String naam;
     private String beschrijving;
     private double waarde;
+    
+    //Getters en Setters aanmaken
     
     public int getBeoordelingssoortID() {
         return beoordelingssoortID;
