@@ -18,6 +18,7 @@ function bewaarFormulier(){
         alert("Er zijn geen taken om te bewaren!");
         return;
     }
+    
 }
 
 function laadFormulier() {
@@ -26,10 +27,6 @@ function laadFormulier() {
         formulierLeegMaken();
     alert('Formulier geladen');
 }
-
-
-
-
 
 function formulierLeegMaken() {
     if (aantalTaken === 0)
