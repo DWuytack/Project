@@ -118,6 +118,7 @@ public class ScoreServlet extends HttpServlet {
                     volSchooljaar = vorigSchooljaar + " - " + datum.substring(0, 4);
                     break;
             }
+            
 
             ScoreDAO scoreDAO = new ScoreDAO();
             SchooljaarDAO schooljarenDAO = new SchooljaarDAO();

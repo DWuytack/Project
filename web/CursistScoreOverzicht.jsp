@@ -53,7 +53,7 @@
                         </select> </td>
 
                     <td width="10px"></td>
-
+                     // Maand februarie - july is semester 2, July tot januarie is semester 1.
                     <script>
                         let tijd = new Date();
                         switch (tijd.getMonth() + 1) {
@@ -121,12 +121,12 @@
                     <tr height="20px" />
                     <tr bgcolor="#ceccca" height="50px" >                            
                         <td width="30%"><b>Doestellingen</td>                             
-                        <td width="30%"><b>kern</b></td>                             
-                        <td width="6%"><b>Score</b></td>                            
+                            
+                        <td width="24%"><b>Score</b></td>                            
                     </tr>                       
                     <tr height="20px" />
                 </table>
-
+                // Doelstelling tabel
                 <table id="doelstellingtable" width="80%" align="center">
                 </table>
             </div>

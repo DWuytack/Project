@@ -220,7 +220,7 @@ public class DoelstellingDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "SELECT DISTINCT doelstellingen.naam FROM doelstellingen " +
+        String sql = "SELECT DISTINCT doelstellingen.naam, doelstellingen.doelstellingID FROM doelstellingen " +
         "INNER JOIN doelstellingen_taken ON doelstellingen.doelstellingID = doelstellingen_taken.doelstellingID " +
         "INNER JOIN modules_taken ON doelstellingen_taken.taakID = modules_taken.taakID " +
         "INNER JOIN modules ON modules_taken.moduleID = modules.moduleID " +
@@ -237,6 +237,7 @@ public class DoelstellingDAO {
             while (rs.next()) {
                 Doelstelling doelstelling = new Doelstelling();
                 doelstelling.setNaam(rs.getString("naam"));
+                doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
                 doelstellingen.add(doelstelling);
             }
         } catch (SQLException e) {

@@ -123,6 +123,7 @@
                         <tr height="20px" />
                     </table>
                     <table id="scoretable" width="80%">
+                        // Score tabel
                     </table>
                 </div>
             </section>
