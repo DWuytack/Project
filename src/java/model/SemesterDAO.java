@@ -12,6 +12,7 @@ import java.util.ArrayList;
  *
  * @author gil-_
  */
+//Lijst van Semesters laden.
 public class SemesterDAO {
 
     public ArrayList<Semester> semestersLaden() {
@@ -68,6 +69,7 @@ public class SemesterDAO {
         return semesters;
     }
 
+    //Laden van de semesters ID´s
     public int laadSemesterID(String semesterNaam) {
 
         int semesterID = 0; 

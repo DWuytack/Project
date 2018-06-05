@@ -2,6 +2,7 @@ var dropdownKeuze;
 var aantalCursisten = 0;
 var scoretable;
 
+// Functie die het jaar bekijkt.
 function checkJaar() {
 
     var schooljaar = document.getElementById("schooljaar").value;
@@ -17,7 +18,7 @@ function checkJaar() {
         }
     }
 }
-
+// Functies die de scores van de cursisten laden.
 function laadCursistenScores() {
 
     dropdown = document.querySelector("#modules");
@@ -36,7 +37,7 @@ function laadCursistenScores() {
         // code voor oude IE browsers
         xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-
+ //Selecteer lijst aan de hand van volgende selectie:
     dropdownKeuze = document.getElementById('modules').value;
     var schooljaar = document.getElementById("datum").value;
     var semester = document.getElementById("Semester").value;
@@ -58,7 +59,7 @@ function laadCursistenScores() {
         if (this.readyState === 4 && this.status === 200) {
 
             var jsonData = JSON.parse(xhttp.responseText);
-
+           // Scoretabel aanmaken en opvullen.
             var scoreTable = document.getElementById("scoretable");
             for (let i = 0; i < jsonData.length; i++) {
                 aantalCursisten = aantalCursisten + 1;
@@ -196,7 +197,7 @@ function laadDropdown(soort) {
 }
 
 function ledigDropDown(dropdown) {
-
+ // Hiermee kan je de dropdowns leeg maken.
     var length = dropdown.options.length;
     for (i = 1; i < length; i++) {
         dropdown.options[i] = null;
@@ -226,7 +227,7 @@ function ledigDropDown(dropdown) {
  */
 
 function pasSemesterAan() {
-
+  // functie die ervoor worgt dat het semester automatisch wordt gekozen aan de hand van datum.
     let nu = new Date(document.querySelector("#datum").value);
     switch (nu.getMonth() + 1) {
         case 2:
@@ -249,7 +250,7 @@ function pasSemesterAan() {
 }
 
 function formulierLeegMaken() {
-
+ // Met deze functie maken we formulieren leeg.
     aantalRijen = scoretable.rows.length;
     for (let i = aantalRijen - 2; i > 0; i--) {
         var row = scoretable.rows[i];
@@ -264,6 +265,7 @@ function formulierLeegMaken() {
 
 
 function laadDoelstellingenScores() {
+     // Met deze functie laden we de doelstellingen en de scores.
     dropdown = document.querySelector("#modules");
     dropdown.style = "background: #f9f9f9";
     
@@ -311,7 +313,7 @@ function laadDoelstellingenScores() {
 
 
 function laadDoestellingen() {    
-
+  // Met deze functie laden we de doelstellingen.
     var xhttp5 = new XMLHttpRequest();
 
     if (window.XMLHttpRequest) {
