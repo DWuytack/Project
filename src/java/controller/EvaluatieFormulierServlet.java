@@ -18,6 +18,7 @@ import model.Doelstelling;
 import model.DoelstellingDAO;
 import model.Gebruiker;
 import model.GebruikerDAO;
+import model.InschrijvingDAO;
 import model.Module;
 import model.ModuleDAO;
 import model.Opleiding;
@@ -45,11 +46,31 @@ public class EvaluatieFormulierServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
         String keuze = request.getParameter("reset");
-        
-        if (keuze != null) {response.sendRedirect("EvaluatieFormulier.jsp");}
+        if (keuze != null) {
+            response.sendRedirect("EvaluatieFormulier.jsp");
+        }
+
+        String gebruiker = request.getParameter("bewaarCursist");
+
+        if (gebruiker != null) {
+
+            GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
+            SemesterDAO semesterDAO = new SemesterDAO();
+            SchooljaarDAO schooljaarDAO = new SchooljaarDAO();
+            InschrijvingDAO inschrijvingDAO = new InschrijvingDAO();
+            int gebruikerID = gebruikerDAO.geefGebruikerID(gebruiker);
+            int moduleID = moduleDAO.geefModuleID(request.getParameter("module"));
+            int semesterID = semesterDAO.laadSemesterID(request.getParameter("semester"));
+            int schooljaarID = schooljaarDAO.geefSchooljaarID(request.getParameter("schooljaar"));
+
+            //zoek inschrijving
+            int inschrijvingID =inschrijvingDAO.geefInschrijvingID(gebruikerID,moduleID,semesterID,schooljaarID);
+    
+            
+        }
 
         Gson gson = new Gson();
         String studiegebied = request.getParameter("studiegebied");
@@ -89,7 +110,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             String semesterNr = semester.substring(0, 1);
 
-            int schooljaar= Integer.valueOf(datum.substring(0, 4));
+            int schooljaar = Integer.valueOf(datum.substring(0, 4));
             int semesterNummer = Integer.valueOf(semesterNr);
             String volSchooljaar = "";
             String volgendSchooljaar = String.valueOf(schooljaar + 1);
@@ -120,7 +141,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             response.getWriter().write(json);
         }
 
-         String test = request.getParameter("taak");
+        String test = request.getParameter("taak");
 
         if (test != null) {
 

@@ -434,6 +434,7 @@ public class GebruikerDAO {
             while (rs.next()) {
                 Gebruiker gebruiker = new Gebruiker();
                 gebruiker.setNaam(rs.getString("voornaam") + " " + rs.getString("achternaam"));
+                gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
                 gebruikers.add(gebruiker);
             }
         } catch (SQLException e) {
@@ -443,5 +444,15 @@ public class GebruikerDAO {
         }
         return gebruikers;
     }
+
+    public int geefGebruikerID(String gebruiker) {
+        
+        
+        
+        return 0;
+        
+    }
+    
+   
 
 }

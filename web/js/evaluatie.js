@@ -9,16 +9,71 @@ var evalTable;
 var taakSelectData;
 var scores;
 var scoreVastGedeelte = "";
+var cursisten;
 
+function bewaarFormulier() {
 
-
-function bewaarFormulier(){
-    
-    if (aantalTaken > 0) {
+    if (aantalTaken === 0) {
         alert("Er zijn geen taken om te bewaren!");
         return;
     }
-    
+
+    var datum = document.getElementById("datum").value;
+    var semester = document.getElementById("Semester").value;
+    var opleiding = document.getElementById("opleidingen").value;
+    var module = document.getElementById("modules").value;
+    var cursist = document.getElementById("cursisten").value;
+
+    for (let x = 0; x < cursisten.length; x++) {
+        if (cursisten[x].naam === cursist) {
+            alert(cursisten[x].gebruikerID);
+        }
+    }
+
+    var lesnr = document.getElementById("lesnr").value;
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "EvaluatieFormulierServlet?bewaarCursist=" + cursistID + "&lesnr=" + lesnr + "&module=" + module + "&datum=" + datum + "&semester=" + semester + "&opleiding=" + opleiding, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = function () {
+
+        if (this.readyState === 4 && this.status === 200) {
+            const doelstellingen = JSON.parse(xhttp.responseText);
+            for (let i = 0; i < doelstellingen.length; i++) {
+                //we maken een string aan
+                alert(doelstellingen[i].naam);
+
+            }
+            alert("Het formulier is opgeslagen onder de naam: " + formulierNaam);
+
+        }
+    };
+
+
+    /*
+     for (let i = 0; i < aantalTaken; i++) {
+     var dropdown = document.getElementById("formTaken" + (i + 1));
+     var taak = dropdown.value;
+     xhttp = new XMLHttpRequest();
+     xhttp.open("POST", "EvaluatieFormulierServlet?formTaak=" + taak, true);
+     xhttp.send();
+     //als het taken door de server worden afgeleverd
+     xhttp.onreadystatechange = function () {
+     
+     if (this.readyState === 4 && this.status === 200) {
+     const doelstellingen = JSON.parse(xhttp.responseText);
+     for (let i = 0; i < doelstellingen.length; i++) {
+     //we maken een string aan
+     alert(doelstellingen[i].naam);
+     
+     }
+     alert("Het formulier is opgeslagen onder de naam: " + formulierNaam);
+     
+     }
+     };
+     }
+     */
 }
 
 function laadFormulier() {
@@ -129,6 +184,7 @@ function laadDropdown(soort) {
                     break;
                 case 'cursisten':
                     defaultOption.text = 'Cursist...';
+                    cursisten = data;
                     break;
             }
             defaultOption.disabled = true;
@@ -303,11 +359,9 @@ function laadTaakSelectData() {
 //laad de taken
 function laadLijn() {
 
-
     aantalTaken = aantalTaken + 1;
     //maak een rij in ons evaluatie.jsp
     evalTable = document.getElementById("evaluatieTable");
-
     var row = evalTable.insertRow((aantalTaken * 2));
     row.id = "row" + aantalTaken;
     //lege cel
@@ -324,7 +378,7 @@ function laadLijn() {
     //we voorzien een vak voor onze kernvakjes
     var kernVak = row.insertCell(5);
     kernVak.style.verticalAlign = "top";
-    kernVak.style.textAlign="center";
+    kernVak.style.textAlign = "center";
     taakVak.style.verticalAlign = "center";
     row.insertCell(6);
     //we voorzien een vak voor onze kernvakjes
@@ -366,8 +420,7 @@ function laadLijn() {
         var vak = legeLijn.insertCell(i);
         vak.innerHTML = "<hr/>";
     }
-     row.insertCell(10);
-
+    row.insertCell(10);
 }
 function berekenGemiddelde(rij) {
 
@@ -399,12 +452,11 @@ function berekenGemiddelde(rij) {
 
 function taakWissel(rowid) {
 
-    //welke taak is gekozen?
+//welke taak is gekozen?
     taakid = rowid.replace("row", "formTaken");
     var selectTask = document.getElementById(taakid);
     var row = document.getElementById(rowid);
     var selectedTaak = selectTask.value;
-
     var xhttp7 = new XMLHttpRequest();
     //laad de doelstellingen die overeenkomen met de taak
     xhttp7.open("POST", "EvaluatieFormulierServlet?formTaak=" + selectedTaak, true);
@@ -432,7 +484,6 @@ function taakWissel(rowid) {
                     strKern = strKern + '\u2610' + "<br>";
             }
             row.cells[5].innerHTML = strKern;
-
             var xhttp9 = new XMLHttpRequest();
             //we vragen de scores op
             xhttp9.open("POST", "EvaluatieFormulierServlet?scores", true);
