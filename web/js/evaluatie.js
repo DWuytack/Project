@@ -11,14 +11,25 @@ var scores;
 var scoreVastGedeelte = "";
 
 
+
+function bewaarFormulier(){
+    
+    if (aantalTaken > 0) {
+        alert("Er zijn geen taken om te bewaren!");
+        return;
+    }
+}
+
 function laadFormulier() {
 
     if (aantalTaken > 0)
         formulierLeegMaken();
     alert('Formulier geladen');
-
-
 }
+
+
+
+
 
 function formulierLeegMaken() {
     if (aantalTaken === 0)
