@@ -264,6 +264,13 @@ a.load {
 	align-content: center;
 }
 
+[role="button"]>i {
+    display: inherit;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
 /* Restrictions
    ========================================================================== */
 html {
@@ -503,7 +510,11 @@ div.active > .dropdown { display: flex; }
 /* Resize Support
    ========================================================================== */
 
-
+@media screen and (max-width: 800px) {
+    #titel {
+        display: none;
+    }
+}
 
 
 
