@@ -169,9 +169,9 @@
                         <td > <input type="button"  value=" Formulier leeg maken "
                                      class="evalButton" onclick="formulierLeegMaken();"></td>
                         
-                        <td > <input type="button"  value=" Print formulier  "  
+                        <td > <input type="button"  value=" Print formulier  "  onclick="printFormulier();"
                                      class="evalButton"></td>
-                        <td > <input type="button"  value=" Bewaar formulier " 
+                        <td > <input type="button"  value=" Bewaar formulier " onclick="bewaarFormulier();"
                                      class="evalButton"></td>
                         <td > <input type='button'  value= ' Laad formulier '  
                                      class='evalButton' onclick="laadFormulier();"></td>
