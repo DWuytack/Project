@@ -17,14 +17,10 @@
         <script src="js/nav.js"></script>
         <script src="js/score.js"></script>
         <link rel="stylesheet" href="css/theme.css">
-        <link rel="stylesheet" href="css/score.css">
+        <link rel="stylesheet" href="css/overgang.css">
+        <link rel="stylesheet" href="css/gebruikersOverzicht.css">
 
         <title>Score overzicht per cursist</title>
-        <style>
-            #nav-topke {
-                width: auto;
-            }     
-        </style>
     </head>
 
     <body>
@@ -35,9 +31,9 @@
         </section>
         <section>            
             <br>
-            <div class="table-container">                   
+            <div class="tabel-container">                   
                 <br><br>
-                <table id="nav-topke">
+                <table id="ta">
                     <tr>
                         <!-- Datum kiezer -->
                         <td> <input type="date" id="datum"  value="today" onchange="pasSemesterAan()"

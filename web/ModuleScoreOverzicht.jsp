@@ -22,11 +22,6 @@
         <link rel="stylesheet" href="css/theme.css">
 
         <title>Score overzicht per klas</title>
-        <style>
-            #nav-topke {
-                width: auto;
-            }     
-        </style>
     </head>
 
     <body>
