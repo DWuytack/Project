@@ -8,156 +8,45 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="nl">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=0.8">
         <script src="js/jquery.js"></script>
         <script src="js/nav.js"></script>
-        <script src="js/table.js"></script>
+        <script src="js/utilities2.js"></script>
+        <!-- <script src="js/table.js"></script> -->
+        <script src="js/gebruikersOverzicht2.js"></script>
         <link rel="stylesheet" href="css/theme.css">
-        <link rel="stylesheet" href="css/formulier.css">
+        <!-- <link rel="stylesheet" href="css/formulier.css"> -->
+        <link rel="stylesheet" href="css/gebruikersOverzicht.css">
         <title>Gebruikers overzicht</title>
-        <link rel="stylesheet" href="css/gebruikersOverzichtOld.css">
+        <link rel="stylesheet" href="css/overgang.css">
+        <style>
+            input[name="idEdit"].active, input[name="idOpslaan"].active {
+                -webkit-filter: grayscale(100%);
+                filter: grayscale(100%);
+                pointer-events: none;
+            }
+            /* [name="Eerste"].inactive, [name="Vorige"].inactive, [name="Volgende"].inactive, [name="Laatste"].inactive */
+        </style>
     </head>
-
+    
     <body>
         <%@include file="Bovenbalk.jsp" %>
-        <!-- styling verplaatst naar theme.css "SUBNAV" -->
+        
         <section id="pagename">
-            <h2> GebruikersOverzicht </h2>
-            <!-- <h1 align="center" class="kleur" style="display: inherit;"> GebruikersOverzicht </h1> -->
-
+            <h2> GebruikersOverzicht </h2>        
         </section>
-
-        <section>
-            <form action="GebruikersServlet">
-                <div class="table-container">
-
-                    <div class="table-nav-header">
-                        <div id="zoeken">
-                            <a id="bt-zoeken">
-                                <i class="material-icons">search</i>
-                            </a>
-                            <input type="text" name="zoekterm" size="15">
-                        </div>
-                        <div>
-                            <a id="bt-gebruiker_toevoegen" name="gebruiker toevoegen">
-                                <i class="material-icons">person_add</i>
-                            </a>
-                            <input type="image" name="Eerste" value="skip_previous" src='images/skip_previous.png'> 
-                            <input type="image" name="Vorige" value="fast_rewind" src='images/fast_rewind.png'>  
-                            <input type="image" name="Volgende" value="fast_forward" src='images/fast_forward.png'> 
-                            <input type="image" name="Laatste" value="skip_next" src='images/skip_next.png'>
-                        </div>
-                    </div> 
-                    <div role="wrapper" style="overflow-x: auto; pointer-events: all;">     
-                        <table class="datatable">
-                            <thead>
-                                <tr>
-                                    <th width="15%" onclick="sortTable(0)"><a>Achternaam</a</th>
-                                    <th width="15%" onclick="sortTable(1)"><a>Voornaam</a</th>
-                                    <th width="15%" onclick="sortTable(2)"><a>Login</a></th>
-                                    <th width="15%" onclick="sortTable(3)" style="min-width: 100px;"><a>Rol</a></th>
-                                    <th width="15%" onclick="sortTable(4)"><a>GebtDatum</a></th>
-                                    <th width="25%" onclick="sortTable(5)"><a>E-mail</a></th>
-                                        <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                        <th class="actie">Acties</th>
-                                        </c:if>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${lijstGebruikers}" var="cursist">
-                                    <tr  <c:if test="${cursist.gebruikerID == sessionScope.editID}" >style="background-color: rgba(255,255,0,.5);"</c:if>>
-                                        <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
-                                            <td> <input type="text" name="achternaam"  value="${cursist.achternaam}"> </td>
-                                            <td> <input type="text" name="voornaam" value="${cursist.voorNaam}"> </td>
-                                            <td> <input type="text" name="login"  value="${cursist.login}"> </td>
-                                            <td> 
-                                                <select name="rol" value="${cursist.rol}">
-                                                    <option value="admin">admin</option>
-                                                    <option value="leerkracht">leerkracht</option>
-                                                    <option value="cursist">cursist</option>
-                                                    <option value="secretariaat">secretariaat</option></td>
-                                                </select>
-                                            <td> <input type="date" name="geboorteDatum" value="${cursist.geboorteDatum}"> </td>
-                                            <td> <input type="text" name="email"  value="${cursist.email}"/> </td>
-                                            </c:if>
-
-                                        <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
-                                            <td> ${cursist.achternaam} </td>
-                                            <td> ${cursist.voorNaam} </td>
-                                            <td> ${cursist.login} </td>
-                                            <td> ${cursist.rol} </td>
-                                            <td> ${cursist.geboorteDatum} </td>
-                                            <td> ${cursist.email} </td>
-
-                                        </c:if>
-
-                                        <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
-                                            <td class="actie">
-                                                <c:if test="${cursist.gebruikerID != sessionScope.editID}" >
-                                                    <div class="actie-images">
-                                                        <span> <input type="image"  name="idEdit" value="${cursist.gebruikerID}" src='images/pencil.png'> </span>
-                                                        <span> <input type="image"  name="idDelete" value="${cursist.gebruikerID}" src='images/vuilbak.png'> </span>
-                                                    </div>
-                                                </c:if>
-                                                <c:if test="${cursist.gebruikerID == sessionScope.editID}" >
-                                                    <div class="actie-images">
-                                                        <span> <input type="image"  name="idSave" value="${cursist.gebruikerID}" src='images/green.png'> </span>
-                                                        <span> <input type="image"  name="idCancel" value="${cursist.gebruikerID}" src='images/cancel.png'> </span>
-                                                    </div>
-                                                </c:if>
-                                            </td>
-                                        </c:if>
-                                    </tr> 
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                    <br><br>
-                    <div class="table-nav-footer">
-                        <p>Totaal aantal gebruikers: <span id="gebruikers">${sessionScope.getoondeGebruikers}/${sessionScope.aantalRecords}</span></p>
-                    </div>
-                </div>
-                <section id="popup">
-                    <div id="gebruiker_toevoegen">
-                        <fieldset>
-                            <legend>Gebruiker Toevoegen: </legend><br>
-                            <label>Voornaam: </label>
-                            <br>
-                            <input type="text" name="voornaam" size="16" maxlength="30">
-                            <br><br>
-                            <label>Achternaam: </label>
-                            <br>
-                            <input type="text" name="achternaam" size="16" maxlength="30">
-                            <br><br>
-                            <label>Rol: </label>
-                            <br>
-                            <input type="radio" name="rol" value="3"> <span>Cursist</span>
-                            <br>
-                            <input type="radio" name="rol" value="2"> <span>Leerkracht</span>
-                            <br><br>
-                            <label>GeboorteDatum: </label>
-                            <br>
-                            <input type="date" name="geboortedatum" size="16" maxlength="20">
-                            <br><br>
-                            <label>Email: </label>
-                            <br>
-                            <input type="text" name="email" size="16" maxlength="30">
-                            <br><br>
-                            <label>Login: </label>
-                            <br>
-                            <input type="text" name="login" size="16" maxlength="30">
-                            <br><br>
-                            <label>Wachtwoord: </label>
-                            <br>
-                            <input type="password" name="wachtwoord" size="16" maxlength="20">
-                            <br>
-                        </fieldset>
-                        <input type="submit" name="actie" value="toevoegen">
-                    </div>
-                </section> 
-            </form>
-        </section>
+        
+        <script>
+            console.log("data");
+            console.log('${sessionScope.lijstGebruikers[0].voorNaam}');
+            console.log('${sessionScope.lijstGebruikers[0].gebruikerID}');
+            console.log("json");
+            console.log('${sessionScope.json}');
+        </script>
+        
+        <section id="gebruikersOverzicht"></section>
+        <section id="popup"></section>          
     </body>
 </html>
