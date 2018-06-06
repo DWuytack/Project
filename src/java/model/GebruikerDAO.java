@@ -445,14 +445,33 @@ public class GebruikerDAO {
         return gebruikers;
     }
 
-    public int geefGebruikerID(String gebruiker) {
-        
-        
-        
-        return 0;
-        
+    public int geefGebruikerID(String user) {
+
+        int gebruikerID = 0;
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "select * from gebruikers where CONCAT(voornaam, ' ', achternaam) = ?";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+
+            ps = currentCon.prepareStatement(sql);
+            ps.setString(1, user);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                gebruikerID = rs.getInt("gebruikerID");
+            }
+        } catch (SQLException e) {
+
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+        }
+
+        return gebruikerID;
+
     }
-    
-   
 
 }

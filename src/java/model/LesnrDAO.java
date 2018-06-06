@@ -45,6 +45,34 @@ public class LesnrDAO {
         }
         return lesnrs;
     }
+
+    public int geefLesnrID(int lesnr) {
+        
+        int lesnrID=0;
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT lesnrID from lesnrs "
+                + "WHERE lesnr = ?";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+
+            ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, lesnr);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {     
+                lesnrID= rs.getInt("lesnrID");          
+            }
+        } catch (Exception e) {
+        } finally {
+            Utilities.sluitVariabelen(ps, rs, currentCon);
+        }
+        return lesnrID;
+    }
    
     
 }

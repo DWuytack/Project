@@ -15,29 +15,52 @@ import java.sql.Statement;
  *
  * @author dw018
  */
-public class InschrijvingDAO {
+public class EvaluatieFormulierDAO {
 
-    public int geefInschrijvingID(int gebruikerID, int moduleID, int semesterID, int schooljaarID) {
+    public void bewaarFormulier(EvaluatieFormulier formulier) {
 
-        int inschrijvingID = 0;
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "select inschrijvingID from inschrijvingen where gebruikerID=? and moduleID=? and schooljaarID=? and semesterID= ?";
+
+        String sql = "INSERT INTO evaluatieformulieren(inschrijvingID, lesnrID, datum) VALUES(?,?,?)";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, formulier.getInschrijvingID());
+            ps.setInt(2, formulier.getLesnrID());
+            ps.setString(3, formulier.getDatum());
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+
+        }
+
+    }
+
+    public int laadformulierID(EvaluatieFormulier formulier) {
+
+        int evaluatieFormulierID = 0;
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "select evaluatieformID from evaluatieformulieren where inschrijvingID=? and lesnrID=? and datum=?";
 
         try {
             currentCon = ConnectionManager.getConnection();
 
             ps = currentCon.prepareStatement(sql);
-            ps.setInt(1, gebruikerID);
-            ps.setInt(2, moduleID);
-            ps.setInt(3, schooljaarID);
-            ps.setInt(4, semesterID);
-
+            ps.setInt(1, formulier.getInschrijvingID());
+            ps.setInt(2, formulier.getLesnrID());
+            ps.setString(3, formulier.getDatum());
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                inschrijvingID = rs.getInt("inschrijvingID");
+                evaluatieFormulierID = rs.getInt("evaluatieformID");
             }
         } catch (SQLException e) {
 
@@ -45,10 +68,11 @@ public class InschrijvingDAO {
             sluitVariabelen(rs, null, ps, currentCon);
         }
 
-        return inschrijvingID;
+        return evaluatieFormulierID;
 
     }
-  /* Sluit enkele variabelen en zet ze op null */
+
+    /* Sluit enkele variabelen en zet ze op null */
     private void sluitVariabelen(ResultSet rs, Statement statement, PreparedStatement ps, Connection currentCon) {
         if (rs != null) {
             try {
@@ -92,7 +116,4 @@ public class InschrijvingDAO {
         }
     }
 
-    
 }
-
-

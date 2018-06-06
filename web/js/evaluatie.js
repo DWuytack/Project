@@ -17,35 +17,31 @@ function bewaarFormulier() {
         alert("Er zijn geen taken om te bewaren!");
         return;
     }
+     var cursist = document.getElementById("cursisten").value;
+     if (cursist === "Blanco"){
+         alert("Je kan een blanco formulier enkel afprinten, niet opslaan!");
+         return;
+     }
+    
 
-    var datum = document.getElementById("datum").value;
+    var lesdatum = document.getElementById("datum").value;
+     var jaar=lesdatum.substr(0,4);
+    var maand=lesdatum.substr(5,2);
+    var dag=lesdatum.substr(8,2);
+    var titelDatum=dag + '-' + maand + "-" +jaar;
     var semester = document.getElementById("Semester").value;
-    var opleiding = document.getElementById("opleidingen").value;
     var module = document.getElementById("modules").value;
     var cursist = document.getElementById("cursisten").value;
-
-    for (let x = 0; x < cursisten.length; x++) {
-        if (cursisten[x].naam === cursist) {
-            alert(cursisten[x].gebruikerID);
-        }
-    }
-
     var lesnr = document.getElementById("lesnr").value;
     var xhttp;
     xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "EvaluatieFormulierServlet?bewaarCursist=" + cursistID + "&lesnr=" + lesnr + "&module=" + module + "&datum=" + datum + "&semester=" + semester + "&opleiding=" + opleiding, true);
+    xhttp.open("POST", "EvaluatieFormulierServlet?bewaarCursist=" + cursist + "&lesnr=" + lesnr + "&module=" + module + "&datum=" + titelDatum + "&semester=" + semester, true);
     xhttp.send();
 
     xhttp.onreadystatechange = function () {
-
         if (this.readyState === 4 && this.status === 200) {
-            const doelstellingen = JSON.parse(xhttp.responseText);
-            for (let i = 0; i < doelstellingen.length; i++) {
-                //we maken een string aan
-                alert(doelstellingen[i].naam);
-
-            }
-            alert("Het formulier is opgeslagen onder de naam: " + formulierNaam);
+            const evaluatieFormID = xhttp.responseText;
+            alert("Het formulier is opgeslagen onder de naam: " + formulierNaam + ", id= "+evaluatieFormID);
 
         }
     };
@@ -240,9 +236,13 @@ function genereerFormuliernaam() {
     var label = document.getElementById('formulierNaam');
     label.hidden = false;
     var lesdatum = document.getElementById("datum").value;
+    var jaar=lesdatum.substr(0,4);
+    var maand=lesdatum.substr(5,2);
+    var dag=lesdatum.substr(8,2);
+    var titelDatum=dag + '-' + maand + "-" +jaar;
     var leskeuze = document.getElementById('modules').value;
     var lescursist = document.getElementById("cursisten").value;
-    formulierNaam = lescursist + "_" + leskeuze + "_" + lesdatum + "_" + lesnummer;
+    formulierNaam = lescursist + "_" + leskeuze + "_" + titelDatum + "_" + lesnummer;
     label.innerHTML = "formulierNaam: " + formulierNaam;
     //ready to take off?
     let dropdowns = document.getElementsByClassName('drop');

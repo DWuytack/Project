@@ -16,9 +16,12 @@ import model.Beoordelingssoort;
 import model.BeoordelingssoortDAO;
 import model.Doelstelling;
 import model.DoelstellingDAO;
+import model.EvaluatieFormulier;
+import model.EvaluatieFormulierDAO;
 import model.Gebruiker;
 import model.GebruikerDAO;
 import model.InschrijvingDAO;
+import model.LesnrDAO;
 import model.Module;
 import model.ModuleDAO;
 import model.Opleiding;
@@ -53,6 +56,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
         }
 
         String gebruiker = request.getParameter("bewaarCursist");
+        Gson gson = new Gson();
 
         if (gebruiker != null) {
 
@@ -61,18 +65,49 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             SemesterDAO semesterDAO = new SemesterDAO();
             SchooljaarDAO schooljaarDAO = new SchooljaarDAO();
             InschrijvingDAO inschrijvingDAO = new InschrijvingDAO();
+            LesnrDAO lesnrDAO=new LesnrDAO();
+            int lesnrID=lesnrDAO.geefLesnrID(Integer.parseInt(request.getParameter("lesnr")));
             int gebruikerID = gebruikerDAO.geefGebruikerID(gebruiker);
             int moduleID = moduleDAO.geefModuleID(request.getParameter("module"));
             int semesterID = semesterDAO.laadSemesterID(request.getParameter("semester"));
-            int schooljaarID = schooljaarDAO.geefSchooljaarID(request.getParameter("schooljaar"));
+            String datum = request.getParameter("datum");
+            String jaar=datum.substring(6, 10);
+            int schooljaar = Integer.parseInt(jaar);
+            String semesterNr = request.getParameter("semester").substring(0, 1);
+            int semesterNummer = Integer.valueOf(semesterNr);
+            String volSchooljaar = "";
+            String volgendSchooljaar = String.valueOf(schooljaar + 1);
+            String vorigSchooljaar = String.valueOf(schooljaar - 1);
+
+            switch (semesterNummer) {
+                case 1:
+                    volSchooljaar = jaar + " - " + volgendSchooljaar;
+                    break;
+
+                case 2:
+                    volSchooljaar = vorigSchooljaar + " - " + jaar;
+                    break;
+            }
+
+            int schooljaarID = schooljaarDAO.geefSchooljaarID(volSchooljaar);
 
             //zoek inschrijving
-            int inschrijvingID =inschrijvingDAO.geefInschrijvingID(gebruikerID,moduleID,semesterID,schooljaarID);
-    
+            int inschrijvingID = inschrijvingDAO.geefInschrijvingID(gebruikerID, moduleID, semesterID, schooljaarID);
             
+            EvaluatieFormulier formulier=new EvaluatieFormulier();
+            formulier.setDatum(datum);
+            formulier.setInschrijvingID(inschrijvingID);
+            formulier.setLesnrID(lesnrID);
+            EvaluatieFormulierDAO evaluatieFormulierDAO=new EvaluatieFormulierDAO();
+            evaluatieFormulierDAO.bewaarFormulier(formulier);
+            int evaluatieFormulierID=evaluatieFormulierDAO.laadformulierID(formulier);
+           
+            response.setContentType("text/plain");
+            response.getWriter().write(String.valueOf(evaluatieFormulierID));
+            
+   
         }
 
-        Gson gson = new Gson();
         String studiegebied = request.getParameter("studiegebied");
 
         if (studiegebied != null) {

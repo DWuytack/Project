@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/evaluatie.js"></script>
           <script src="js/nav.js"></script>
+           <script src="js/jquery.js"></script>
          <link rel="stylesheet" href="css/evaluatie.css">
         <title>EvaluatieFormulier</title>
     </head>
