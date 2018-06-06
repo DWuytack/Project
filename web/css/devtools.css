@@ -1,0 +1,63 @@
+/*
+Deze css klasse kan gebruikt worden bij het helpen van het debuggen.
+*/
+/* 
+    Created on : 6-jun-2018, 7:32:52
+    Author     : Jens
+*/
+
+
+/* JSFiddle Resources
+   ========================================================================== */
+
+/* BUTTONS
+   -------------------------------------------------------------------------- */
+
+[role="button"]>i {
+    background-image: url(https://i.imgur.com/hCz72oZ.png);
+}
+.bt-eerste>i {
+    background-image: url(https://i.imgur.com/471laS8.png);
+}
+.bt-vorige>i {
+    background-image: url(https://i.imgur.com/WRg7UhU.png);
+}
+.bt-volgende>i {
+    background-image: url(https://i.imgur.com/IJY80mA.png);
+}
+.bt-laatste>i {
+    background-image: url(https://i.imgur.com/2REnGzG.png);
+}
+[name="aanpassen"]>i {
+    background-image: url(https://i.imgur.com/ppGD2Up.png);
+}
+[name="verwijderen"]>i {
+    background-image: url(https://i.imgur.com/YVLZdKx.png);
+}
+[name="Zoeken"]>i {
+    background-image: url(https://i.imgur.com/MKQ9KmF.png)
+}
+.w-zoeken.active .bt-zoeken i {
+    background-image: url(https://i.imgur.com/qpMWJnv.png);
+}
+[name="Gebruiker_toevoegen"]>i {
+    background-image: url(https://i.imgur.com/gSqVHvA.png)
+}
+[name="opslaan"]>i {
+    background-image: url(https://i.imgur.com/yWfX1Ob.png);
+}
+[name="annuleren"]>i {
+    background-image: url(https://i.imgur.com/kjv9MCh.png);
+}
+[name="verwijderen_bevestigen"]>i {
+    background-image: url(https://i.imgur.com/gBctTF1.png);
+}
+[name="verwijderen_annuleren"]>i {
+    background-image: url(https://i.imgur.com/kjv9MCh.png);
+}
+[name="gebruiker_opslaan"] > i {
+    background-image: url(https://i.imgur.com/yHz8yeP.png);
+}
+[name="gebruiker_annuleren"] > i {
+    background-image: url(https://i.imgur.com/2rD5IZ6.png);
+}

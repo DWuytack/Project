@@ -1,57 +1,56 @@
-/* Dev tools
-   ========================================================================== */
-
-/* Placeholder Icon */
 /*
-    [role="button"]>i {
-        background-image: url(https://i.imgur.com/hCz72oZ.png);
-    }
+De css voor de pagina "gebruikersOverzicht.jsp"
 */
+/* 
+    Created on : 5-jun-2018, 12:00:00
+    Author     : Jens Ingels
+*/
+
 
 /* Preload
    ========================================================================== */
 
 .bt-eerste>i {
-    background-image: url(https://i.imgur.com/471laS8.png);
+    background-image: url(../images/eerste_zwart_48dp.png);
 }
 .bt-vorige>i {
-    background-image: url(https://i.imgur.com/WRg7UhU.png);
+    background-image: url(../images/vorige_zwart_48dp.png);
 }
 .bt-volgende>i {
-    background-image: url(https://i.imgur.com/IJY80mA.png);
+    background-image: url(../images/volgende_zwart_48dp.png);
 }
 .bt-laatste>i {
-    background-image: url(https://i.imgur.com/2REnGzG.png);
+    background-image: url(../images/laatste_zwart_48dp.png);
 }
 [name="aanpassen"]>i {
-    background-image: url(https://i.imgur.com/ppGD2Up.png);
+    background-image: url(../images/aanpassen_kleur_18dp.png);
 }
 [name="verwijderen"]>i {
-    background-image: url(https://i.imgur.com/YVLZdKx.png);
+    background-image: url(../images/record_verwijderen_padded_kleur_18dp.png);
 }
 [name="Zoeken"]>i {
-    background-image: url(https://i.imgur.com/MKQ9KmF.png)
+    background-image: url(../images/zoeken_zwart_48dp.png);
 }
 [name="Gebruiker_toevoegen"]>i {
-    background-image: url(https://i.imgur.com/gSqVHvA.png)
+    background-image: url(../images/gebruiker_toevoegen_zwart_48dp.png)
 }
 [name="opslaan"]>i {
-    background-image: url(https://i.imgur.com/yWfX1Ob.png);
+    background-image: url(../images/opslaan_kleur_18dp.png);
 }
 [name="annuleren"]>i {
-    background-image: url(https://i.imgur.com/kjv9MCh.png);
+    background-image: url(../images/annuleren_kleur_18dp.png);
 }
 [name="verwijderen_bevestigen"]>i {
-    background-image: url(https://i.imgur.com/gBctTF1.png);
+    background-image: url(../images/verwijderen_kleur_18dp.png);
 }
 [name="verwijderen_annuleren"]>i {
-    background-image: url(https://i.imgur.com/kjv9MCh.png);
+    background-image: url(../images/annuleren_kleur_18dp.png);
 }
 [name="gebruiker_opslaan"] > i {
-    background-image: url(https://i.imgur.com/yHz8yeP.png);
+    background-image: url(../images/opslaan_kleur_48dp.png);
 }
 [name="gebruiker_annuleren"] > i {
-    background-image: url(https://i.imgur.com/2rD5IZ6.png);
+    background-image: url(../images/annuleren_kleur_48dp.png);
 }
 
 /* Document
@@ -109,7 +108,7 @@ table td {
     opacity: .9;
 }
 .w-zoeken.active .bt-zoeken i {
-    background-image: url(https://i.imgur.com/qpMWJnv.png);
+    background-image: url(../images/zoeken_kleur_48dp.png);
 }
 
 [name="zoekterm"] {
