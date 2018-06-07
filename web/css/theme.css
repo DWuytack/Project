@@ -488,6 +488,7 @@ div.active > #bt-profiel:after { transform: scaleY(1.3) rotate(0deg); }
     padding: 10px;
     display: flex;
     align-items: center;
+    color: #333;
 }
 .dropdown > li > a > i { font-size: 36px; }
 
