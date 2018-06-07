@@ -17,57 +17,53 @@ function bewaarFormulier() {
         alert("Er zijn geen taken om te bewaren!");
         return;
     }
-     var cursist = document.getElementById("cursisten").value;
-     if (cursist === "Blanco"){
-         alert("Je kan een blanco formulier enkel afprinten, niet opslaan!");
-         return;
-     }
+    var cursist = document.getElementById("cursisten").value;
+    if (cursist === "Blanco") {
+        alert("Je kan een blanco formulier enkel afprinten, niet opslaan!");
+        return;
+    }
     var xhttp;
     xhttp = new XMLHttpRequest();
     var lesdatum = document.getElementById("datum").value;
-    var jaar=lesdatum.substr(0,4);
-    var maand=lesdatum.substr(5,2);
-    var dag=lesdatum.substr(8,2);
-    var titelDatum=dag + '-' + maand + "-" +jaar;
+    var jaar = lesdatum.substr(0, 4);
+    var maand = lesdatum.substr(5, 2);
+    var dag = lesdatum.substr(8, 2);
+    var titelDatum = dag + '-' + maand + "-" + jaar;
     var semester = document.getElementById("Semester").value;
     var module = document.getElementById("modules").value;
     var cursist = document.getElementById("cursisten").value;
     var lesnr = document.getElementById("lesnr").value;
-   
+
     xhttp.open("POST", "EvaluatieFormulierServlet?bewaarCursist=" + cursist + "&lesnr=" + lesnr + "&module=" + module + "&datum=" + titelDatum + "&semester=" + semester, true);
     xhttp.send();
 
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             const evaluatieFormID = xhttp.responseText;
-            alert("Het formulier is opgeslagen onder de naam: " + formulierNaam + ", id= "+evaluatieFormID);
+            for (let i = 0; i < aantalTaken; i++) {
+                var dropdown = document.getElementById("formTaken" + (i + 1));
+                var taak = dropdown.value;
+                xhttp2 = new XMLHttpRequest();
+                xhttp2.open("POST", "EvaluatieFormulierServlet?formTaak=" + taak, true);
+                xhttp2.send();
+                //als het taken door de server worden afgeleverd
+                xhttp2.onreadystatechange = function () {
+
+                    if (this.readyState === 4 && this.status === 200) {
+                        const doelstellingen = JSON.parse(xhttp2.responseText);
+                        for (let i = 0; i < doelstellingen.length; i++) {
+                            //we maken een string aan
+                            alert(doelstellingen[i].naam);
+
+                        }
+                        alert("Het formulier is opgeslagen onder de naam: " + formulierNaam);
+
+                    }
+                };
+            }
+
         }
     };
-
-
-    /*
-     for (let i = 0; i < aantalTaken; i++) {
-     var dropdown = document.getElementById("formTaken" + (i + 1));
-     var taak = dropdown.value;
-     xhttp = new XMLHttpRequest();
-     xhttp.open("POST", "EvaluatieFormulierServlet?formTaak=" + taak, true);
-     xhttp.send();
-     //als het taken door de server worden afgeleverd
-     xhttp.onreadystatechange = function () {
-     
-     if (this.readyState === 4 && this.status === 200) {
-     const doelstellingen = JSON.parse(xhttp.responseText);
-     for (let i = 0; i < doelstellingen.length; i++) {
-     //we maken een string aan
-     alert(doelstellingen[i].naam);
-     
-     }
-     alert("Het formulier is opgeslagen onder de naam: " + formulierNaam);
-     
-     }
-     };
-     }
-     */
 }
 
 function laadFormulier() {
@@ -234,10 +230,10 @@ function genereerFormuliernaam() {
     var label = document.getElementById('formulierNaam');
     label.hidden = false;
     var lesdatum = document.getElementById("datum").value;
-    var jaar=lesdatum.substr(0,4);
-    var maand=lesdatum.substr(5,2);
-    var dag=lesdatum.substr(8,2);
-    var titelDatum=dag + '-' + maand + "-" +jaar;
+    var jaar = lesdatum.substr(0, 4);
+    var maand = lesdatum.substr(5, 2);
+    var dag = lesdatum.substr(8, 2);
+    var titelDatum = dag + '-' + maand + "-" + jaar;
     var leskeuze = document.getElementById('modules').value;
     var lescursist = document.getElementById("cursisten").value;
     formulierNaam = lescursist + "_" + leskeuze + "_" + titelDatum + "_" + lesnummer;
