@@ -61,3 +61,51 @@ Deze css klasse kan gebruikt worden bij het helpen van het debuggen.
 [name="gebruiker_annuleren"] > i {
     background-image: url(https://i.imgur.com/2rD5IZ6.png);
 }
+
+
+
+/* BACKUP
+   -------------------------------------------------------------------------- */
+
+.bt-eerste>i {
+    background-image: url(../images/eerste_zwart_48dp.png);
+}
+.bt-vorige>i {
+    background-image: url(../images/vorige_zwart_48dp.png);
+}
+.bt-volgende>i {
+    background-image: url(../images/volgende_zwart_48dp.png);
+}
+.bt-laatste>i {
+    background-image: url(../images/laatste_zwart_48dp.png);
+}
+[name="aanpassen"]>i {
+    background-image: url(../images/aanpassen_kleur_18dp.png);
+}
+[name="verwijderen"]>i {
+    background-image: url(../images/record_verwijderen_padded_kleur_18dp.png);
+}
+[name="Zoeken"]>i {
+    background-image: url(../images/zoeken_zwart_48dp.png);
+}
+[name="Gebruiker_toevoegen"]>i {
+    background-image: url(../images/gebruiker_toevoegen_zwart_48dp.png)
+}
+[name="opslaan"]>i {
+    background-image: url(../images/opslaan_kleur_18dp.png);
+}
+[name="annuleren"]>i {
+    background-image: url(../images/annuleren_kleur_18dp.png);
+}
+[name="verwijderen_bevestigen"]>i {
+    background-image: url(../images/verwijderen_kleur_18dp.png);
+}
+[name="verwijderen_annuleren"]>i {
+    background-image: url(../images/annuleren_kleur_18dp.png);
+}
+[name="gebruiker_opslaan"] > i {
+    background-image: url(../images/opslaan_kleur_48dp.png);
+}
+[name="gebruiker_annuleren"] > i {
+    background-image: url(../images/annuleren_kleur_48dp.png);
+}

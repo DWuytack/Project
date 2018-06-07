@@ -11,16 +11,16 @@ De css voor de pagina "gebruikersOverzicht.jsp"
    ========================================================================== */
 
 .bt-eerste>i {
-    background-image: url(../images/eerste_zwart_48dp.png);
+    background-image: url(../images/eerste_grijswaarde_48dp.png);
 }
 .bt-vorige>i {
-    background-image: url(../images/vorige_zwart_48dp.png);
+    background-image: url(../images/vorige_grijswaarde_48dp.png);
 }
 .bt-volgende>i {
-    background-image: url(../images/volgende_zwart_48dp.png);
+    background-image: url(../images/volgende_grijswaarde_48dp.png);
 }
 .bt-laatste>i {
-    background-image: url(../images/laatste_zwart_48dp.png);
+    background-image: url(../images/laatste_grijswaarde_48dp.png);
 }
 [name="aanpassen"]>i {
     background-image: url(../images/aanpassen_kleur_18dp.png);
@@ -29,9 +29,12 @@ De css voor de pagina "gebruikersOverzicht.jsp"
     background-image: url(../images/record_verwijderen_padded_kleur_18dp.png);
 }
 [name="Zoeken"]>i {
-    background-image: url(../images/zoeken_zwart_48dp.png);
+    background-image: url(../images/zoeken_grijswaarde_48dp.png);
 }
 [name="Gebruiker_toevoegen"]>i {
+    background-image: url(../images/gebruiker_toevoegen_grijswaarde_48dp.png)
+}
+[name="Gebruiker_toevoegen"].active>i {
     background-image: url(../images/gebruiker_toevoegen_zwart_48dp.png)
 }
 [name="opslaan"]>i {
@@ -55,6 +58,10 @@ De css voor de pagina "gebruikersOverzicht.jsp"
 
 /* Document
    ========================================================================== */
+
+#pagename {
+    border-bottom: 1px solid #FF8000;
+}
 
 #gebruikersOverzicht {
     display: flex;
@@ -90,7 +97,12 @@ table td {
     min-width: 50px;
     min-height: 50px;
     padding: 10px;
-    opacity: .2;
+    /* opacity: .2; */
+}
+
+.w-knoppen a.inactive {
+    filter: brightness(115%);
+    cursor: default;
 }
 
 .w-zoeken [name="zoekterm"] {
@@ -98,6 +110,16 @@ table td {
     padding: 6px;
     font-size: 20px;
     border: 0;
+}
+
+[results="first"].w-zoeken.active [name="zoekterm"] {
+    background-color: #ec6e24;
+}
+[results="middle"].w-zoeken.active [name="zoekterm"] {
+    background-color: #b2b2ff;
+}
+[results="none"].w-zoeken.active [name="zoekterm"] {
+    background-color: #f54343;
 }
 
 .bt-zoeken {
@@ -126,9 +148,11 @@ table td {
     opacity: .9;
     filter: contrast(100%);
 }
+.aantalGebruikersContainer > span {
+    font-weight: bold;
+}
 
 .tabel-container table {
-    border-collapse: collapse; 
     border-radius: 10px;
     overflow: hidden;
     margin: auto;

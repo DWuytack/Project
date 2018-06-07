@@ -572,6 +572,7 @@ class Tabel {
         let zoekterm = document.createElement("INPUT");
         zoekterm.name = "zoekterm";
         zoekterm.type = "text";
+        zoekterm.autocomplete = "off";
         this.target.zoekterm = zoekterm;
 
         let knoppen = document.createElement("DIV");

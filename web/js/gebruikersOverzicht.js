@@ -1,5 +1,6 @@
 // gebruikersOverzicht.js
 
+/*
 let datat = {
                 "bladz": 1,
                 "aantalBladz": 4,
@@ -79,6 +80,7 @@ let datat = {
                         "geldig": false
                     }]
             };
+*/
 
 (function () {
 
@@ -259,7 +261,6 @@ let datat = {
                 }
                 if (target.name === "zoekterm") {
                     tabel.target.zoeken.classList.add("focus");
-                    //if(target.value.length > 0) tabel.target.zoeken.classList.add("active");
                 }
             }
 
@@ -276,10 +277,21 @@ let datat = {
         document.addEventListener("keyup", function (e) {
             let target = e.target;
             if (target.name === "zoekterm") {
-                if (target.value.length > 0)
+                if (target.value.length > 0) {
                     tabel.target.zoeken.classList.add("active");
-                else
+                    tabel.target.zoeken.setAttribute("results", "first");
+                    /* For demo */
+                    if (target.value.length >= 4 && target.value.length <= 6) {
+                        target.classList.add("tussen");
+                        tabel.target.zoeken.setAttribute("results", "middle");
+                    } else if (target.value.length > 6) {
+                        target.classList.add("error");
+                        tabel.target.zoeken.setAttribute("results", "none");
+                    }
+                } else  {
                     tabel.target.zoeken.classList.remove("active");
+                    tabel.target.zoeken.removeAttribute("results");
+                }
             }
         });
         console.log(tabel);
