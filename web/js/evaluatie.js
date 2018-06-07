@@ -39,9 +39,11 @@ function bewaarFormulier() {
 
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            alert("Ok");
+            const evaluatieFormID = xhttp.responseText;
+            alert("Het formulier is opgeslagen onder de naam: " + formulierNaam + ", id= "+evaluatieFormID);
         }
     };
+
 
     /*
      for (let i = 0; i < aantalTaken; i++) {

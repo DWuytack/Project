@@ -103,7 +103,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             evaluatieFormulierDAO.bewaarFormulier(formulier);
             int evaluatieFormulierID=evaluatieFormulierDAO.laadformulierID(formulier);
            
-            String json = gson.toJson(formulier);
+            String json = gson.toJson(evaluatieFormulierID);
             response.setContentType("application/json");
             response.getWriter().write(json);
             return;
