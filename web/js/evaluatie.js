@@ -10,7 +10,6 @@ var taakSelectData;
 var scores;
 var scoreVastGedeelte = "";
 var cursisten;
-
 function bewaarFormulier() {
 
     if (aantalTaken === 0) {
@@ -36,33 +35,37 @@ function bewaarFormulier() {
 
     xhttp.open("POST", "EvaluatieFormulierServlet?bewaarCursist=" + cursist + "&lesnr=" + lesnr + "&module=" + module + "&datum=" + titelDatum + "&semester=" + semester, true);
     xhttp.send();
-
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             const evaluatieFormID = xhttp.responseText;
-            for (let i = 0; i < aantalTaken; i++) {
-                var dropdown = document.getElementById("formTaken" + (i + 1));
+            for (let x = 0; x < aantalTaken; x++) {
+                var dropdown = document.getElementById("formTaken" + (x + 1));
                 var taak = dropdown.value;
                 xhttp2 = new XMLHttpRequest();
                 xhttp2.open("POST", "EvaluatieFormulierServlet?formTaak=" + taak, true);
                 xhttp2.send();
-                //als het taken door de server worden afgeleverd
+                //als het taken door de server worden afgeleverd, checken we de doelstellingen
                 xhttp2.onreadystatechange = function () {
-
                     if (this.readyState === 4 && this.status === 200) {
                         const doelstellingen = JSON.parse(xhttp2.responseText);
                         for (let i = 0; i < doelstellingen.length; i++) {
-                            //sla de score op 
+                            var doelstellingID = doelstellingen[i].doelstellingID;
+                            var scoreBoxes = document.getElementsByName("formScorerow" + (x+1));
+                            var score = scoreBoxes[i].value;
+                            xhttp3 = new XMLHttpRequest();
+                            xhttp3.open("POST", "EvaluatieFormulierServlet?saveScores=" + taak + "&doelstellingID=" + doelstellingID + "&score=" + score + "&evaluatieFormID=" + evaluatieFormID, true);
+                            xhttp3.send();
                         }
                         //sla de commentaar op
                         alert("Het formulier is opgeslagen onder de naam: " + formulierNaam);
-
                     }
-                };
+                }
+                ;
             }
 
         }
-    };
+    }
+    ;
 }
 
 function laadFormulier() {
@@ -400,6 +403,7 @@ function laadLijn() {
     for (let i = 0; i < taakSelectData.length; i++) {
         option = document.createElement('option');
         option.text = taakSelectData[i].naam;
+        option.tagName = taakSelectData[i].taakID;
         select.add(option);
     }
     option = document.createElement('option');
