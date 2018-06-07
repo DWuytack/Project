@@ -50,22 +50,21 @@ function bewaarFormulier() {
                         const doelstellingen = JSON.parse(xhttp2.responseText);
                         for (let i = 0; i < doelstellingen.length; i++) {
                             var doelstellingID = doelstellingen[i].doelstellingID;
-                            var scoreBoxes = document.getElementsByName("formScorerow" + (x+1));
+                            var scoreBoxes = document.getElementsByName("formScorerow" + (x + 1));
                             var score = scoreBoxes[i].value;
                             xhttp3 = new XMLHttpRequest();
                             xhttp3.open("POST", "EvaluatieFormulierServlet?saveScores=" + taak + "&doelstellingID=" + doelstellingID + "&score=" + score + "&evaluatieFormID=" + evaluatieFormID, true);
                             xhttp3.send();
+                                        
                         }
-                        //sla de commentaar op
-                        alert("Het formulier is opgeslagen onder de naam: " + formulierNaam);
                     }
                 }
                 ;
             }
+        }  
+    };
+         alert("Het formulier is opgeslagen onder de naam: " + formulierNaam);
 
-        }
-    }
-    ;
 }
 
 function laadFormulier() {

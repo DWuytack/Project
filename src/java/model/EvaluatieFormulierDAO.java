@@ -119,7 +119,7 @@ public class EvaluatieFormulierDAO {
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "Insert into evalform_scores (evaluatieFormID, taakID, doelstellingID,scoreID) VALUES(?,?,?,?)";
+        String sql = "insert into evalform_scores (evaluatieFormID, taakID, doelstellingID,beoordelingssoortID) VALUES(?,?,?,?)";
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -128,11 +128,13 @@ public class EvaluatieFormulierDAO {
             ps.setInt(1, evaluatieFormID);
             ps.setInt(2, taakID);
             ps.setInt(3, doelstellingID);
-            ps.setInt(3, scoreID);
-            rs = ps.executeQuery();
+            ps.setInt(4, scoreID);
+            ps.executeUpdate();
 
   
         } catch (SQLException e) {
+            
+            System.out.println(e.getErrorCode());
 
         } finally {
             sluitVariabelen(rs, null, ps, currentCon);
