@@ -37,9 +37,7 @@ public class EvaluatieFormulierDAO {
 
         } finally {
             sluitVariabelen(rs, null, ps, currentCon);
-
         }
-
     }
 
     public int laadformulierID(EvaluatieFormulier formulier) {

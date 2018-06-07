@@ -52,10 +52,9 @@ function bewaarFormulier() {
                     if (this.readyState === 4 && this.status === 200) {
                         const doelstellingen = JSON.parse(xhttp2.responseText);
                         for (let i = 0; i < doelstellingen.length; i++) {
-                            //we maken een string aan
-                            alert(doelstellingen[i].naam);
-
+                            //sla de score op 
                         }
+                        //sla de commentaar op
                         alert("Het formulier is opgeslagen onder de naam: " + formulierNaam);
 
                     }
