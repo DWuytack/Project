@@ -18,8 +18,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/nav.js"></script>        
         <script src="js/score.js"></script>
-        <link rel="stylesheet" href="css/score.css">
         <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/score.css">
 
         <title>Score overzicht per klas</title>
     </head>
@@ -123,7 +123,7 @@
                         <tr height="20px" />
                     </table>
                     <table id="scoretable" width="80%">
-                        // Score tabel
+                        <!-- Score tabel -->
                     </table>
                 </div>
             </section>

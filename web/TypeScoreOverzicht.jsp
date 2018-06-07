@@ -11,8 +11,10 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="js/nav.js"></script>
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/TypeScoreOverzicht.css">
         <title>Type score</title>
     </head>
 
@@ -39,7 +41,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            //Beoordelingssoort lijsten overlopen.
+                            <!-- Beoordelingssoort lijsten overlopen. -->
                             <c:forEach items="${beoordelingssoorten}" var="beoordelingssoort">
                                 <tr <c:if test="${beoordelingssoort.beoordelingssoortID == sessionScope.editID}" >style="background-color: rgba(255,255,0,.5);"</c:if>>
                                     <c:if test="${beoordelingssoort.beoordelingssoortID == sessionScope.editID}" >
@@ -47,13 +49,13 @@
                                         <td> <input type="text" name="beschrijving" value="${beoordelingssoort.beschrijving}"> </td>
                                         <td> <input type="text" name="waarde"  value="${beoordelingssoort.waarde}"> </td>
                                         </c:if>
-                            //Beoordelingssoort lijsten testen.
+                            <!-- Beoordelingssoort lijsten testen. -->
                                     <c:if test="${beoordelingssoort.beoordelingssoortID != sessionScope.editID}" >
                                         <td> ${beoordelingssoort.naam} </td>
                                         <td> ${beoordelingssoort.beschrijving} </td>
                                         <td> ${beoordelingssoort.waarde} </td>
                                     </c:if>
-                            //Admin meer rechten reven.
+                            <!-- Admin meer rechten reven. -->
                                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                                         <td class="actie">
                                             <c:if test="${beoordelingssoort.beoordelingssoortID != sessionScope.editID}" >
@@ -75,7 +77,7 @@
                         </tbody>
                     </table>
                     <div id="typeScore_toevoegen">
-                        // Hier voegen we een type van score toe.
+                        <!-- Hier voegen we een type van score toe. -->
                         <fieldset>
                             <legend>type score toevoegen</legend><br>
                             <label>Naam: </label>

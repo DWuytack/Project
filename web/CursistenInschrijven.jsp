@@ -13,6 +13,7 @@
         <script src="js/evaluatie.js"></script>
         <script src="js/nav.js"></script>
         <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/CursistenInschrijven.css">
         <title>CursistenInschrijven</title>
     </head>
 

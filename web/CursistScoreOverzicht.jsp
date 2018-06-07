@@ -17,8 +17,7 @@
         <script src="js/nav.js"></script>
         <script src="js/score.js"></script>
         <link rel="stylesheet" href="css/theme.css">
-        <link rel="stylesheet" href="css/overgang.css">
-        <link rel="stylesheet" href="css/gebruikersOverzicht.css">
+        <link rel="stylesheet" href="css/CursistScoreOverzicht.css">
 
         <title>Score overzicht per cursist</title>
     </head>

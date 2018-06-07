@@ -16,6 +16,7 @@
         <script src="js/table.js"></script>
         <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/formulier.css">
+        <link rel="stylesheet" href="css/CursistenOverzicht.css">
         <title>Gebruikers overzicht</title>
     </head>
     
