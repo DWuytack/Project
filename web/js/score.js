@@ -204,28 +204,6 @@ function ledigDropDown(dropdown) {
     }
 }
 
-/*
- * function laadTabel(data) {
- 
- scoreTable = document.getElementById("scoretable");
- for (i = 0; i < data.length; i++) {
- aantalCursisten = aantalCursisten + 1;
- var row = scoreTable.insertRow(aantalCursisten);
- row.id = "row" + aantalCursisten;
- 
- var achternaam = data.keys(achternaam);
- var cell1 = row.insertCell(0);
- var cell2 = row.insertCell(1);
- var cell3 = row.insertCell(2);
- //cell1.innerhtml = valueOf(achternaam);
- cell1.innerhtml = data.valueOf("achternaam");
- cell2.innerhtml = data.valueOf("voornaam");
- cell3.innerhtml = data.valueOf(achternaam);
- }
- }
- 
- */
-
 function pasSemesterAan() {
   // functie die ervoor worgt dat het semester automatisch wordt gekozen aan de hand van datum.
     let nu = new Date(document.querySelector("#datum").value);
@@ -262,7 +240,6 @@ function formulierLeegMaken() {
     }
     aantalCursisten = 0;
 }
-
 
 function laadDoelstellingenScores() {
      // Met deze functie laden we de doelstellingen en de scores.
@@ -301,7 +278,7 @@ function laadDoelstellingenScores() {
                 var row = doelstellingscoretable.insertRow(i);
                 row.id = "row" + aantalDoelstellingen;
 
-                var cell1 = row.insertCell(0);
+                var cell1 = row.insertCell(1);
                 var score = doelstellingscore[i].score;
 
                 cell1.innerHTML = score;
@@ -310,7 +287,6 @@ function laadDoelstellingenScores() {
         }
     };
 }
-
 
 function laadDoestellingen() {    
   // Met deze functie laden we de doelstellingen.

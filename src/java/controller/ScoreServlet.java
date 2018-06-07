@@ -139,15 +139,21 @@ public class ScoreServlet extends HttpServlet {
 
         if (cursisten != null) {
             
-            ScoreDAO scoreDAO = new ScoreDAO();           
-            ArrayList<Score> scores = scoreDAO.klassikaleScore(0, 0, 0);
+            module = request.getParameter("module");
             
-            String json = gson.toJson(scores);
+            ScoreDAO scoreDAO = new ScoreDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
+            GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            int param1 = moduleDAO.laadModuleID(module);
+            //int param2 = gebruikerDAO.cursistenLaden1();
+            //ArrayList<Score> scores = scoreDAO.cursistScore(param1, param2);
+            
+            //String json = gson.toJson(scores);
 
-            response.setContentType("application/json");
-            response.getWriter().write(json);
+            //response.setContentType("application/json");
+            //response.getWriter().write(json);
         }
-        
+                     
         String modules = request.getParameter("modules");
 
         if (modules != null) {
