@@ -27,6 +27,7 @@ import model.ModuleDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
 import model.SchooljaarDAO;
+import model.ScoreDAO;
 import model.SemesterDAO;
 import model.StudiegebiedDAO;
 import model.Taak;
@@ -50,14 +51,36 @@ public class EvaluatieFormulierServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Gson gson = new Gson();
+
         String keuze = request.getParameter("reset");
         if (keuze != null) {
             response.sendRedirect("EvaluatieFormulier.jsp");
             return;
         }
 
+        String saveGebruiker = request.getParameter("saveScores");
+
+        if (saveGebruiker != null) {
+
+            EvaluatieFormulierDAO evalFormDAO = new EvaluatieFormulierDAO();
+            TaakDAO taakDAO = new TaakDAO();
+            BeoordelingssoortDAO beoordelingssoortDAO = new BeoordelingssoortDAO();
+            int evaluatieFormID = Integer.parseInt(request.getParameter("evaluatieFormID"));
+            int taakID = taakDAO.geefTaakID(request.getParameter("saveScores"));
+            int doelstellingID = Integer.parseInt(request.getParameter("doelstellingID"));
+            String score = request.getParameter("score");
+            if (score.equals("Score...")) {
+                score = "Geen";
+            }
+            int scoreID = beoordelingssoortDAO.geefBeoordelingssoortID(score);
+
+            evalFormDAO.saveDoelstellingScore(evaluatieFormID, taakID, doelstellingID, scoreID);
+            return;
+
+        }
+
         String gebruiker = request.getParameter("bewaarCursist");
-        Gson gson = new Gson();
 
         if (gebruiker != null) {
 
@@ -66,13 +89,13 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             SemesterDAO semesterDAO = new SemesterDAO();
             SchooljaarDAO schooljaarDAO = new SchooljaarDAO();
             InschrijvingDAO inschrijvingDAO = new InschrijvingDAO();
-            LesnrDAO lesnrDAO=new LesnrDAO();
-            int lesnrID=lesnrDAO.geefLesnrID(Integer.parseInt(request.getParameter("lesnr")));
+            LesnrDAO lesnrDAO = new LesnrDAO();
+            int lesnrID = lesnrDAO.geefLesnrID(Integer.parseInt(request.getParameter("lesnr")));
             int gebruikerID = gebruikerDAO.geefGebruikerID(gebruiker);
             int moduleID = moduleDAO.geefModuleID(request.getParameter("module"));
             int semesterID = semesterDAO.laadSemesterID(request.getParameter("semester"));
             String datum = request.getParameter("datum");
-            String jaar=datum.substring(6, 10);
+            String jaar = datum.substring(6, 10);
             int schooljaar = Integer.parseInt(jaar);
             String semesterNr = request.getParameter("semester").substring(0, 1);
             int semesterNummer = Integer.valueOf(semesterNr);
@@ -94,20 +117,20 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             //zoek inschrijving
             int inschrijvingID = inschrijvingDAO.geefInschrijvingID(gebruikerID, moduleID, semesterID, schooljaarID);
-            
-            EvaluatieFormulier formulier=new EvaluatieFormulier();
+
+            EvaluatieFormulier formulier = new EvaluatieFormulier();
             formulier.setDatum(datum);
             formulier.setInschrijvingID(inschrijvingID);
             formulier.setLesnrID(lesnrID);
-            EvaluatieFormulierDAO evaluatieFormulierDAO=new EvaluatieFormulierDAO();
+            EvaluatieFormulierDAO evaluatieFormulierDAO = new EvaluatieFormulierDAO();
             evaluatieFormulierDAO.bewaarFormulier(formulier);
-            int evaluatieFormulierID=evaluatieFormulierDAO.laadformulierID(formulier);
-           
+            int evaluatieFormulierID = evaluatieFormulierDAO.laadformulierID(formulier);
+
             String json = gson.toJson(evaluatieFormulierID);
             response.setContentType("application/json");
             response.getWriter().write(json);
             return;
-   
+
         }
 
         String studiegebied = request.getParameter("studiegebied");

@@ -114,4 +114,29 @@ public class EvaluatieFormulierDAO {
         }
     }
 
+    public void saveDoelstellingScore(int evaluatieFormID, int taakID, int doelstellingID, int scoreID) {
+
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "Insert into evalform_scores (evaluatieFormID, taakID, doelstellingID,scoreID) VALUES(?,?,?,?)";
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+
+            ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, evaluatieFormID);
+            ps.setInt(2, taakID);
+            ps.setInt(3, doelstellingID);
+            ps.setInt(3, scoreID);
+            rs = ps.executeQuery();
+
+  
+        } catch (SQLException e) {
+
+        } finally {
+            sluitVariabelen(rs, null, ps, currentCon);
+        }
+    }
+
 }
