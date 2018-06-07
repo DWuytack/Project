@@ -53,6 +53,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
         String keuze = request.getParameter("reset");
         if (keuze != null) {
             response.sendRedirect("EvaluatieFormulier.jsp");
+            return;
         }
 
         String gebruiker = request.getParameter("bewaarCursist");
@@ -102,9 +103,10 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             evaluatieFormulierDAO.bewaarFormulier(formulier);
             int evaluatieFormulierID=evaluatieFormulierDAO.laadformulierID(formulier);
            
-            response.setContentType("text/plain");
-            response.getWriter().write(String.valueOf(evaluatieFormulierID));
-            
+            String json = gson.toJson(formulier);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+            return;
    
         }
 
@@ -120,6 +122,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             response.setContentType("application/json");
             response.getWriter().write(json);
+            return;
         }
 
         String opleiding = request.getParameter("opleiding");
@@ -134,6 +137,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             response.setContentType("application/json");
             response.getWriter().write(json);
+            return;
         }
 
         String module = request.getParameter("module");
@@ -174,6 +178,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             response.setContentType("application/json");
             response.getWriter().write(json);
+            return;
         }
 
         String test = request.getParameter("taak");
@@ -188,6 +193,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             response.setContentType("application/json");
             response.getWriter().write(json);
+            return;
         }
 
         test = request.getParameter("formTaak");
@@ -202,6 +208,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             response.setContentType("application/json");
             response.getWriter().write(json);
+            return;
         }
 
         test = request.getParameter("scores");
@@ -214,6 +221,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             response.setContentType("application/json");
             response.getWriter().write(json);
+            return;
         }
     }
 

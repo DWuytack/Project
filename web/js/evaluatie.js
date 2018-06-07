@@ -22,10 +22,10 @@ function bewaarFormulier() {
          alert("Je kan een blanco formulier enkel afprinten, niet opslaan!");
          return;
      }
-    
-
+    var xhttp;
+    xhttp = new XMLHttpRequest();
     var lesdatum = document.getElementById("datum").value;
-     var jaar=lesdatum.substr(0,4);
+    var jaar=lesdatum.substr(0,4);
     var maand=lesdatum.substr(5,2);
     var dag=lesdatum.substr(8,2);
     var titelDatum=dag + '-' + maand + "-" +jaar;
@@ -33,19 +33,15 @@ function bewaarFormulier() {
     var module = document.getElementById("modules").value;
     var cursist = document.getElementById("cursisten").value;
     var lesnr = document.getElementById("lesnr").value;
-    var xhttp;
-    xhttp = new XMLHttpRequest();
+   
     xhttp.open("POST", "EvaluatieFormulierServlet?bewaarCursist=" + cursist + "&lesnr=" + lesnr + "&module=" + module + "&datum=" + titelDatum + "&semester=" + semester, true);
     xhttp.send();
 
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            const evaluatieFormID = xhttp.responseText;
-            alert("Het formulier is opgeslagen onder de naam: " + formulierNaam + ", id= "+evaluatieFormID);
-
+            alert("Ok");
         }
     };
-
 
     /*
      for (let i = 0; i < aantalTaken; i++) {
