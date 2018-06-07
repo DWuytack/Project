@@ -23,8 +23,7 @@ import model.SemesterDAO;
 import model.StudiegebiedDAO;
 
 /**
- * Deze klasse bevat de bewerkingen om scores te laden.
- *
+ *  Deze klasse is een de servlet voor score (request/response met de server)
  * @author gil-_
  */
 @WebServlet(name = "ScoreServlet", urlPatterns = {"/ScoreServlet"})
@@ -41,12 +40,6 @@ public class ScoreServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String keuze = request.getParameter("reset");
-
-        if (keuze != null) {
-            response.sendRedirect("ModuleScoreOverzicht.jsp");
-        }
 
         Gson gson = new Gson();
         String studiegebied = request.getParameter("studiegebied");
@@ -139,21 +132,16 @@ public class ScoreServlet extends HttpServlet {
 
         if (cursisten != null) {
             
-            module = request.getParameter("module");
+            ScoreDAO scoreDAO = new ScoreDAO();           
+            ArrayList<Score> scores = scoreDAO.klassikaleScore(0, 0, 0);
             
-            ScoreDAO scoreDAO = new ScoreDAO();
-            ModuleDAO moduleDAO = new ModuleDAO();
-            GebruikerDAO gebruikerDAO = new GebruikerDAO();
-            int param1 = moduleDAO.laadModuleID(module);
-            //int param2 = gebruikerDAO.cursistenLaden1();
-            //ArrayList<Score> scores = scoreDAO.cursistScore(param1, param2);
-            
-            //String json = gson.toJson(scores);
+            String json = gson.toJson(scores);
 
-            //response.setContentType("application/json");
-            //response.getWriter().write(json);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
         }
-                     
+        
+        
         String modules = request.getParameter("modules");
 
         if (modules != null) {
@@ -192,6 +180,27 @@ public class ScoreServlet extends HttpServlet {
 
             response.setContentType("application/json");
             response.getWriter().write(json);
+        }
+        
+        String cursistenScore = request.getParameter("cursistenScore");
+
+        if (cursistenScore != null) {
+            
+            module = request.getParameter("modules");
+            
+            ScoreDAO scoreDAO = new ScoreDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
+            GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            
+            int moduleID = moduleDAO.laadModuleID(module);
+            int gebruikerID = gebruikerDAO.geefGebruikerID(cursistenScore);
+            ArrayList<Score> doelstellingScore = scoreDAO.cursistScore(moduleID, gebruikerID);
+            
+            String json = gson.toJson(doelstellingScore);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+
         }
     }
 

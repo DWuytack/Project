@@ -9,14 +9,14 @@ import java.util.ArrayList;
 
 /**
  * BeoordelingssoortDAO(Beoordelingssoort Data Access Object) is een klasse voor
- * alle handelingen in de database betreffend Beoordelingssoorten.
+ * alle handelingen in de database betreffend beoordelingssoorten.
  *
  * @author Keanu en Gil en Ewout
  */
 
-//Beoordelingssoorten oproepen door query
 public class BeoordelingssoortDAO {
-
+    
+    // Methode om beoordelingssoorten toe te voegen.
     public void beoordelingssoortToevoegen(Beoordelingssoort beoordelingssoort) {
         Connection currentCon = null;
         PreparedStatement ps = null;
@@ -37,12 +37,14 @@ public class BeoordelingssoortDAO {
             Utilities.sluitVariabelen(ps, currentCon);
         }
     }
+    
 // Methode voor beoordelingssoorten toe te voegen.
     public void beoordelingssoortenToevoegen(ArrayList<Beoordelingssoort> beoordelingssoorten) {
         beoordelingssoorten.forEach((beoordelingssoort) -> this.beoordelingssoortToevoegen(beoordelingssoort)
         );
-    }
-// Beoordelingssoorten aan passen met query.
+    }   
+    
+    // Methode om beoordelingssoorten aan te passen met dynamische query.
     public void beoordelingssoortAanpassen(Beoordelingssoort beoordelingssoort) {
         Connection currentCon = null;
         PreparedStatement ps = null;
@@ -64,11 +66,13 @@ public class BeoordelingssoortDAO {
             Utilities.sluitVariabelen(ps, currentCon);
         }
     }
-// Methode voor beoordelingssoorten aan te passen.
+    
+    // Methode voor beoordelingssoorten aan te passen.
     public void beoordelingssoortenAanpassen(ArrayList<Beoordelingssoort> beoordelingssoorten) {
         beoordelingssoorten.forEach((beoordelingssoort) -> this.beoordelingssoortAanpassen(beoordelingssoort));
     }
-// Beoordelingssoort verwijderen met een query.
+    
+    // Methode om beoordelingssoorten te verwijderen met dynamische query.
     public void beoordelingssoortVerwijderen(Beoordelingssoort beoordelingssoort) {
         Connection currentCon = null;
         PreparedStatement ps = null;
@@ -87,11 +91,13 @@ public class BeoordelingssoortDAO {
             Utilities.sluitVariabelen(ps, currentCon);
         }
     }
-// Methode om beroordelingssoorten te verwijderen.
+    
+    // Methode om beroordelingssoorten te verwijderen.
     public void beoordelingssoortVerwijderen(ArrayList<Beoordelingssoort> beoordelingssoorten) {
         beoordelingssoorten.forEach((beoordelingssoort) -> this.beoordelingssoortVerwijderen(beoordelingssoort));
     }
-// Beoordelingssoorten laden aan de hand van een query.
+    
+    // Methode om beoordelingssoorten aan te passen aan de hand van de beoordelingssoortnaam.
     public Beoordelingssoort beoordelingssoortLaden(String beoordelingssoortNaam) {
         Beoordelingssoort beoordelingssoort = new Beoordelingssoort();
         Connection currentCon = null;
@@ -119,7 +125,7 @@ public class BeoordelingssoortDAO {
         }
         return beoordelingssoort;
     }
-// Beoordelingssoort laden met query
+    // Methode om beoordelingssoorten aan te passen aan de hand van de id.
     public Beoordelingssoort beoordelingssoortLaden(int beoordelingssoortID) {
         Beoordelingssoort beoordelingssoort = new Beoordelingssoort();
         Connection currentCon = null;
@@ -147,7 +153,7 @@ public class BeoordelingssoortDAO {
         }
         return beoordelingssoort;
     }
-// Beoordelingssoorten laden met een query
+    // Methode om alle beoordelingssoorten te laden.
     public ArrayList<Beoordelingssoort> beoordelingssoortenLaden() {
         ArrayList<Beoordelingssoort> beoordelingssoorten = new ArrayList<>();
         Connection currentCon = null;
@@ -176,19 +182,20 @@ public class BeoordelingssoortDAO {
         }
         return beoordelingssoorten;
     }
-// Methode om een beoordeling een soortnaam te geven.
+    // Methode om een beoordeling een soortnaam te geven.
     public String geefBeoordelingssoortNaam(int beoordelingssoortID) {
         return beoordelingssoortLaden(beoordelingssoortID).getNaam();
     }
-// Methode om een beoordeelingssoort ID te verkrijgen.
+    // Methode om een beoordeelingssoort ID te verkrijgen.
     public int geefBeoordelingssoortID(String beoordelingssoortNaam) {
         return beoordelingssoortLaden(beoordelingssoortNaam).getBeoordelingssoortID();
     }
-// Methode om aantal opleidingen te tonen.
+    // Methode om aantal opleidingen te tonen.
     public int geefAantalOpleidingen() {
         return beoordelingssoortenLaden().size();
     }
-// Beoordelingssoorten aanpassen met een query.
+    
+    // Methode om beoordelingssoorten aan te passen met dynamische query.
     public void beoordelingssoortAanpassen(int beoordelingssoortID, Beoordelingssoort beoordelingssoort) {
         Connection currentCon = null;
         ResultSet rs = null;
@@ -216,7 +223,8 @@ public class BeoordelingssoortDAO {
         }
 
     }
-// Beoordelingssoort aanmaken met een query.
+    
+    // Methode om beoordelingssoorten aan te maken.
     public void beoordelingssoortAanmaken(Beoordelingssoort beoordelingssoort) {
         Connection currentCon = null;
         PreparedStatement ps = null;
@@ -240,7 +248,8 @@ public class BeoordelingssoortDAO {
 
         }
     }
-    // Beoordelingssoorten verwijderen met een query.
+    
+    // Methode om beoordelingssoort te verwijderen aan de hand van de id.
     public void beoordelingssoortVerwijderen(int beoordelingssoortID) {
         Connection currentCon = null;
         PreparedStatement ps = null;

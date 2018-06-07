@@ -2,7 +2,7 @@ var dropdownKeuze;
 var aantalCursisten = 0;
 var scoretable;
 
-// Functie die het jaar bekijkt.
+// Functie die het jaar controleert.
 function checkJaar() {
 
     var schooljaar = document.getElementById("schooljaar").value;
@@ -18,7 +18,8 @@ function checkJaar() {
         }
     }
 }
-// Functies die de scores van de cursisten laden.
+
+// Functies die de scores van alle cursisten in een module.
 function laadCursistenScores() {
 
     dropdown = document.querySelector("#modules");
@@ -37,7 +38,7 @@ function laadCursistenScores() {
         // code voor oude IE browsers
         xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
- //Selecteer lijst aan de hand van volgende selectie:
+    //Selecteer lijst aan de hand van volgende selectie.
     dropdownKeuze = document.getElementById('modules').value;
     var schooljaar = document.getElementById("datum").value;
     var semester = document.getElementById("Semester").value;
@@ -83,7 +84,7 @@ function laadCursistenScores() {
     };
 }
 
-//als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
+// Leegt de dropdowns indien er een andere keuze wordt gemaakt.
 function resetDropdowns(naam) {
 
     formulierLeegMaken();
@@ -196,14 +197,15 @@ function laadDropdown(soort) {
     };
 }
 
+//leegt de dropdowns indien er een andere keuze wordt gemaakt
 function ledigDropDown(dropdown) {
- // Hiermee kan je de dropdowns leeg maken.
     var length = dropdown.options.length;
     for (i = 1; i < length; i++) {
         dropdown.options[i] = null;
     }
 }
 
+// Functie die het semester aanpast aan de hand van de kalender.
 function pasSemesterAan() {
   // functie die ervoor worgt dat het semester automatisch wordt gekozen aan de hand van datum.
     let nu = new Date(document.querySelector("#datum").value);
@@ -227,6 +229,7 @@ function pasSemesterAan() {
     }
 }
 
+// Functie die alle geladen doelstellingen/scores verwijderd.
 function formulierLeegMaken() {
  // Met deze functie maken we formulieren leeg.
     aantalRijen = scoretable.rows.length;
@@ -241,56 +244,54 @@ function formulierLeegMaken() {
     aantalCursisten = 0;
 }
 
+// Deze functie laad de totaal scores per doelstelling per cursist.
 function laadDoelstellingenScores() {
-     // Met deze functie laden we de doelstellingen en de scores.
-    dropdown = document.querySelector("#modules");
-    dropdown.style = "background: #f9f9f9";
     
-    var xhttp6 = new XMLHttpRequest();    
+    var xhttp4 = new XMLHttpRequest();    
 
     if (window.XMLHttpRequest) {
         // code voor moderne browsers
-        xhttp6 = new XMLHttpRequest();
+        xhttp4 = new XMLHttpRequest();
     } else {
         // code voor oude IE browsers
-        xhttp6 = new ActiveXObject("Microsoft.XMLHTTP");
+        xhttp4 = new ActiveXObject("Microsoft.XMLHTTP");
     }
 
     dropdown = document.querySelector("#cursisten");
     dropdown.style = "background: #f9f9f9";
 
-    dropdownKeuze = document.getElementById('cursisten').value;
-    var schooljaar = document.getElementById("datum").value;
-    var semester = document.getElementById("Semester").value;
-    xhttp6.open("POST", "ScoreServlet?cursisten=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+    var dropdownCursist = document.getElementById('cursisten').value;
+    var module = document.getElementById("modules").value;
     
-    xhttp6.send();
+    xhttp4.open("POST", "ScoreServlet?cursistenScore=" + dropdownCursist + "&modules=" + module, true); 
+    xhttp4.send();
     
-    xhttp6.onreadystatechange = function () {
+    xhttp4.onreadystatechange = function () {
 
         if (this.readyState === 4 && this.status === 200) {
 
-            var doelstellingscore = JSON.parse(xhttp6.responseText);
+            var doelstellingScore = JSON.parse(xhttp4.responseText);
 
             var doelstellingscoretable = document.getElementById("doelstellingscoretable");
-            for (let i = 0; i < doelstellingscore.length; i++) {
+            for (let i = 0; i < doelstellingScore.length; i++) {
                 var aantalDoelstellingen = aantalDoelstellingen + 1;
-                var row = doelstellingscoretable.insertRow(i);
+                var row = doelstellingscoretable.insertRow.id;
                 row.id = "row" + aantalDoelstellingen;
 
-                var cell1 = row.insertCell(1);
-                var score = doelstellingscore[i].score;
+                var cell2 = row.insertCell(1);
+                var score = doelstellingScore[i].score;
 
-                cell1.innerHTML = score;
+                cell2.innerHTML = score;
 
             }
         }
     };
 }
 
+// Deze functie laad alle doelstellingen per module.
 function laadDoestellingen() {    
-  // Met deze functie laden we de doelstellingen.
-    var xhttp5 = new XMLHttpRequest();
+
+    var xhttp3 = new XMLHttpRequest();
 
     if (window.XMLHttpRequest) {
         // code voor moderne browsers
@@ -301,15 +302,15 @@ function laadDoestellingen() {
     }
 
     var moduleDoelstelling = document.getElementById('modules').value;
-    xhttp5.open("POST", "ScoreServlet?moduleDoelstelling=" + moduleDoelstelling, true);
+    xhttp3.open("POST", "ScoreServlet?moduleDoelstelling=" + moduleDoelstelling, true);
 
-    xhttp5.send();
+    xhttp3.send();
 
-    xhttp5.onreadystatechange = function () {
+    xhttp3.onreadystatechange = function () {
 
         if (this.readyState === 4 && this.status === 200) {
 
-            var doelstellingen = JSON.parse(xhttp5.responseText);
+            var doelstellingen = JSON.parse(xhttp3.responseText);
 
             var doelstellingtable = document.getElementById("doelstellingtable");
             for (let i = 0; i < doelstellingen.length; i++) {
