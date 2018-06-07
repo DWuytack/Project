@@ -23,8 +23,7 @@ import model.SemesterDAO;
 import model.StudiegebiedDAO;
 
 /**
- * Deze klasse bevat de bewerkingen om scores te laden.
- *
+ *  Deze klasse is een de servlet voor score (request/response met de server)
  * @author gil-_
  */
 @WebServlet(name = "ScoreServlet", urlPatterns = {"/ScoreServlet"})
@@ -41,12 +40,6 @@ public class ScoreServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String keuze = request.getParameter("reset");
-
-        if (keuze != null) {
-            response.sendRedirect("ModuleScoreOverzicht.jsp");
-        }
 
         Gson gson = new Gson();
         String studiegebied = request.getParameter("studiegebied");
@@ -148,6 +141,7 @@ public class ScoreServlet extends HttpServlet {
             response.getWriter().write(json);
         }
         
+        
         String modules = request.getParameter("modules");
 
         if (modules != null) {
@@ -186,6 +180,27 @@ public class ScoreServlet extends HttpServlet {
 
             response.setContentType("application/json");
             response.getWriter().write(json);
+        }
+        
+        String cursistenScore = request.getParameter("cursistenScore");
+
+        if (cursistenScore != null) {
+            
+            module = request.getParameter("modules");
+            
+            ScoreDAO scoreDAO = new ScoreDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
+            GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            
+            int moduleID = moduleDAO.laadModuleID(module);
+            int gebruikerID = gebruikerDAO.geefGebruikerID(cursistenScore);
+            ArrayList<Score> doelstellingScore = scoreDAO.cursistScore(moduleID, gebruikerID);
+            
+            String json = gson.toJson(doelstellingScore);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+
         }
     }
 
