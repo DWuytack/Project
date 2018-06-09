@@ -14,6 +14,7 @@
         <script src="js/evaluatie.js"></script>
           <script src="js/nav.js"></script>
            <script src="js/jquery.js"></script>
+           <link rel="stylesheet" href="css/theme.css">
          <link rel="stylesheet" href="css/evaluatie.css">
         <title>EvaluatieFormulier</title>
     </head>

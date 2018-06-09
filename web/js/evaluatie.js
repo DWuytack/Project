@@ -10,6 +10,8 @@ var taakSelectData;
 var scores;
 var scoreVastGedeelte = "";
 var cursisten;
+
+
 function bewaarFormulier() {
 
     if (aantalTaken === 0) {
@@ -32,8 +34,10 @@ function bewaarFormulier() {
     var module = document.getElementById("modules").value;
     var cursist = document.getElementById("cursisten").value;
     var lesnr = document.getElementById("lesnr").value;
-    var vraag = {};
-    var vraag2 = {};
+    var arrXHTML = [];
+    var arrXHTML2 = [];
+    var taak=[];
+
 
     xhttp.open("POST", "EvaluatieFormulierServlet?bewaarCursist=" + cursist + "&lesnr=" + lesnr + "&module=" + module + "&datum=" + titelDatum + "&semester=" + semester, true);
     xhttp.send();
@@ -42,21 +46,22 @@ function bewaarFormulier() {
             const evaluatieFormID = xhttp.responseText;
             for (let x = 0; x < aantalTaken; x++) {
                 var dropdown = document.getElementById("formTaken" + (x + 1));
-                var taak = dropdown.value;
-                vraag[x] = new XMLHttpRequest();
-                vraag[x].open("POST", "EvaluatieFormulierServlet?formTaak=" + taak, true);
-                vraag[x].send();
+                taak[x] = dropdown.value;
+                arrXHTML[x] = new XMLHttpRequest();
+                arrXHTML[x].open("POST", "EvaluatieFormulierServlet?formTaak=" + taak[x], true);
+                arrXHTML[x].send();
                 //als het taken door de server worden afgeleverd, checken we de doelstellingen
-                vraag[x].onreadystatechange = function () {
+                arrXHTML[x].onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
-                        const doelstellingen = JSON.parse(vraag[x].responseText);
+                        const doelstellingen = JSON.parse(arrXHTML[x].responseText);
                         for (let i = 0; i < doelstellingen.length; i++) {
                             var doelstellingID = doelstellingen[i].doelstellingID;
                             var scoreBoxes = document.getElementsByName("formScorerow" + (x + 1));
-                            var score = scoreBoxes[i].value;
-                            vraag2[i] = new XMLHttpRequest();
-                            vraag2[i].open("POST", "EvaluatieFormulierServlet?saveScores=" + taak + "&doelstellingID=" + doelstellingID + "&score=" + score + "&evaluatieFormID=" + evaluatieFormID, true);
-                            vraag2[i].send();
+                            var score= scoreBoxes[i].value;
+                            arrXHTML2[i] = new XMLHttpRequest();
+                            //alert("Taak: " + taak[x] + ' DoelstellingID: ' + doelstellingID + " Score: " + score + " evalID: " + evaluatieFormID);
+                            arrXHTML2[i].open("POST", "EvaluatieFormulierServlet?saveScores=" + taak[x] + "&doelstellingID=" + doelstellingID + "&score=" + score + "&evaluatieFormID=" + evaluatieFormID, true);
+                            arrXHTML2[i].send();
 
                         }
                     }

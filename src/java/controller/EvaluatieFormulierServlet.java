@@ -27,7 +27,6 @@ import model.ModuleDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
 import model.SchooljaarDAO;
-import model.ScoreDAO;
 import model.SemesterDAO;
 import model.StudiegebiedDAO;
 import model.Taak;
@@ -74,7 +73,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
                 score = "Geen";
             }
             int scoreID = beoordelingssoortDAO.geefBeoordelingssoortID(score);
-
+     
             evalFormDAO.saveDoelstellingScore(evaluatieFormID, taakID, doelstellingID, scoreID);
             return;
 
