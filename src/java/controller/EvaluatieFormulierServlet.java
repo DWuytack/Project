@@ -58,28 +58,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             return;
         }
 
-        String saveGebruiker = request.getParameter("saveScores");
-
-        if (saveGebruiker != null) {
-
-            EvaluatieFormulierDAO evalFormDAO = new EvaluatieFormulierDAO();
-            TaakDAO taakDAO = new TaakDAO();
-            BeoordelingssoortDAO beoordelingssoortDAO = new BeoordelingssoortDAO();
-            int evaluatieFormID = Integer.parseInt(request.getParameter("evaluatieFormID"));
-            int taakID = taakDAO.geefTaakID(request.getParameter("saveScores"));
-            int doelstellingID = Integer.parseInt(request.getParameter("doelstellingID"));
-            String score = request.getParameter("score");
-            if (score.equals("Score...")) {
-                score = "Geen";
-            }
-            int scoreID = beoordelingssoortDAO.geefBeoordelingssoortID(score);
-     
-            evalFormDAO.saveDoelstellingScore(evaluatieFormID, taakID, doelstellingID, scoreID);
-            return;
-
-        }
-
-        String gebruiker = request.getParameter("bewaarCursist");
+        String gebruiker = request.getParameter("checkFormulier");
 
         if (gebruiker != null) {
 
@@ -90,7 +69,10 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             InschrijvingDAO inschrijvingDAO = new InschrijvingDAO();
             LesnrDAO lesnrDAO = new LesnrDAO();
             int lesnrID = lesnrDAO.geefLesnrID(Integer.parseInt(request.getParameter("lesnr")));
-            int gebruikerID = gebruikerDAO.geefGebruikerID(gebruiker);
+            int gebruikerID = 0;
+            if (!gebruiker.equalsIgnoreCase("Blanco")) {
+                gebruikerID = gebruikerDAO.geefGebruikerID(gebruiker);
+            }
             int moduleID = moduleDAO.geefModuleID(request.getParameter("module"));
             int semesterID = semesterDAO.laadSemesterID(request.getParameter("semester"));
             String datum = request.getParameter("datum");
@@ -98,6 +80,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             int schooljaar = Integer.parseInt(jaar);
             String semesterNr = request.getParameter("semester").substring(0, 1);
             int semesterNummer = Integer.valueOf(semesterNr);
+            String formulierNaam = request.getParameter("formname");
             String volSchooljaar = "";
             String volgendSchooljaar = String.valueOf(schooljaar + 1);
             String vorigSchooljaar = String.valueOf(schooljaar - 1);
@@ -114,17 +97,114 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             int schooljaarID = schooljaarDAO.geefSchooljaarID(volSchooljaar);
 
+            int inschrijvingID = 10000000;
             //zoek inschrijving
-            int inschrijvingID = inschrijvingDAO.geefInschrijvingID(gebruikerID, moduleID, semesterID, schooljaarID);
+            if (!gebruiker.equalsIgnoreCase("Blanco")) {
+                inschrijvingID = inschrijvingDAO.geefInschrijvingID(gebruikerID, moduleID, semesterID, schooljaarID);
+            }
+
+            int evaluatieFormulierID=0;
+            EvaluatieFormulier formulier = new EvaluatieFormulier();
+            formulier.setDatum(datum);
+            formulier.setNaam(formulierNaam);
+            formulier.setInschrijvingID(inschrijvingID);
+            formulier.setLesnrID(lesnrID);
+            formulier.setModuleID(moduleID);
+            formulier.setSchooljaarID(schooljaarID);
+            formulier.setSemesterID(semesterID);
+            EvaluatieFormulierDAO evaluatieFormulierDAO = new EvaluatieFormulierDAO();
+            evaluatieFormulierID = evaluatieFormulierDAO.laadformulierID(formulier);
+            String json = gson.toJson(evaluatieFormulierID);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+            return;
+
+        }
+
+        String saveGebruiker = request.getParameter("saveScores");
+
+        if (saveGebruiker != null) {
+
+            EvaluatieFormulierDAO evalFormDAO = new EvaluatieFormulierDAO();
+            TaakDAO taakDAO = new TaakDAO();
+            BeoordelingssoortDAO beoordelingssoortDAO = new BeoordelingssoortDAO();
+            int evaluatieFormID = Integer.parseInt(request.getParameter("evaluatieFormID"));
+            int taakID = taakDAO.geefTaakID(request.getParameter("saveScores"));
+            int doelstellingID = Integer.parseInt(request.getParameter("doelstellingID"));
+            String score = request.getParameter("score");
+            if (score.equals("Score...")) {
+                score = "Geen";
+            }
+            String res = score.replace("$", "+");
+            int scoreID = beoordelingssoortDAO.geefBeoordelingssoortID(res);
+            evalFormDAO.saveDoelstellingScore(evaluatieFormID, taakID, doelstellingID, scoreID);
+            return;
+
+        }
+
+        gebruiker = request.getParameter("bewaarCursist");
+
+        if (gebruiker != null) {
+
+            GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
+            SemesterDAO semesterDAO = new SemesterDAO();
+            SchooljaarDAO schooljaarDAO = new SchooljaarDAO();
+            InschrijvingDAO inschrijvingDAO = new InschrijvingDAO();
+            LesnrDAO lesnrDAO = new LesnrDAO();
+            int lesnrID = lesnrDAO.geefLesnrID(Integer.parseInt(request.getParameter("lesnr")));
+            int gebruikerID = 0;
+            if (!gebruiker.equalsIgnoreCase("Blanco")) {
+                gebruikerID = gebruikerDAO.geefGebruikerID(gebruiker);
+            }
+            int moduleID = moduleDAO.geefModuleID(request.getParameter("module"));
+            int semesterID = semesterDAO.laadSemesterID(request.getParameter("semester"));
+            String datum = request.getParameter("datum");
+            String jaar = datum.substring(6, 10);
+            int schooljaar = Integer.parseInt(jaar);
+            String semesterNr = request.getParameter("semester").substring(0, 1);
+            int semesterNummer = Integer.valueOf(semesterNr);
+            String formulierNaam = request.getParameter("formname");
+            String volSchooljaar = "";
+            String volgendSchooljaar = String.valueOf(schooljaar + 1);
+            String vorigSchooljaar = String.valueOf(schooljaar - 1);
+
+            switch (semesterNummer) {
+                case 1:
+                    volSchooljaar = jaar + " - " + volgendSchooljaar;
+                    break;
+
+                case 2:
+                    volSchooljaar = vorigSchooljaar + " - " + jaar;
+                    break;
+            }
+
+            int schooljaarID = schooljaarDAO.geefSchooljaarID(volSchooljaar);
+
+            int inschrijvingID = 10000000;
+            //zoek inschrijving
+            if (!gebruiker.equalsIgnoreCase("Blanco")) {
+                inschrijvingID = inschrijvingDAO.geefInschrijvingID(gebruikerID, moduleID, semesterID, schooljaarID);
+            }
 
             EvaluatieFormulier formulier = new EvaluatieFormulier();
             formulier.setDatum(datum);
+            formulier.setNaam(formulierNaam);
             formulier.setInschrijvingID(inschrijvingID);
             formulier.setLesnrID(lesnrID);
+            formulier.setModuleID(moduleID);
+            formulier.setSchooljaarID(schooljaarID);
+            formulier.setSemesterID(semesterID);
             EvaluatieFormulierDAO evaluatieFormulierDAO = new EvaluatieFormulierDAO();
-            evaluatieFormulierDAO.bewaarFormulier(formulier);
+           
             int evaluatieFormulierID = evaluatieFormulierDAO.laadformulierID(formulier);
-
+            if (evaluatieFormulierID != 0) {
+                evaluatieFormulierDAO.wisFormulier(evaluatieFormulierID);
+            }
+            evaluatieFormulierDAO.bewaarFormulier(formulier);
+           
+            
+            evaluatieFormulierID = evaluatieFormulierDAO.laadformulierID(formulier);
             String json = gson.toJson(evaluatieFormulierID);
             response.setContentType("application/json");
             response.getWriter().write(json);
@@ -224,10 +304,29 @@ public class EvaluatieFormulierServlet extends HttpServlet {
 
             //laad taken voor module
             DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+            EvaluatieFormulierDAO evalForm = new EvaluatieFormulierDAO();
             TaakDAO taakDAO = new TaakDAO();
-            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.laadDoelstellingen(taakDAO.geefTaakID(test));
+            int taakID = taakDAO.geefTaakID(test);
+            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.laadDoelstellingen(taakID);
             String json = gson.toJson(doelstellingen);
+            String commentaar = request.getParameter("comment");
+            int evalFormID = Integer.parseInt(request.getParameter("formID"));
+            evalForm.saveComment(evalFormID, taakID, commentaar);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+            return;
+        }
 
+        test = request.getParameter("formTaak2");
+
+        if (test != null) {
+
+            //laad taken voor module
+            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+            TaakDAO taakDAO = new TaakDAO();
+            int taakID = taakDAO.geefTaakID(test);
+            ArrayList<Doelstelling> doelstellingen = doelstellingDAO.laadDoelstellingen(taakID);
+            String json = gson.toJson(doelstellingen);
             response.setContentType("application/json");
             response.getWriter().write(json);
             return;

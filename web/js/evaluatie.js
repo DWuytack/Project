@@ -19,10 +19,6 @@ function bewaarFormulier() {
         return;
     }
     var cursist = document.getElementById("cursisten").value;
-    if (cursist === "Blanco") {
-        alert("Je kan een blanco formulier enkel afprinten, niet opslaan!");
-        return;
-    }
     var xhttp;
     xhttp = new XMLHttpRequest();
     var lesdatum = document.getElementById("datum").value;
@@ -36,19 +32,21 @@ function bewaarFormulier() {
     var lesnr = document.getElementById("lesnr").value;
     var arrXHTML = [];
     var arrXHTML2 = [];
-    var taak=[];
+    var taak = [];
+    var comment = [];
 
-
-    xhttp.open("POST", "EvaluatieFormulierServlet?bewaarCursist=" + cursist + "&lesnr=" + lesnr + "&module=" + module + "&datum=" + titelDatum + "&semester=" + semester, true);
+    xhttp.open("POST", "EvaluatieFormulierServlet?bewaarCursist=" + cursist + "&lesnr=" + lesnr + "&module=" + module + "&datum=" + titelDatum + "&semester=" + semester + "&formname=" + formulierNaam, true);
     xhttp.send();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             const evaluatieFormID = xhttp.responseText;
             for (let x = 0; x < aantalTaken; x++) {
                 var dropdown = document.getElementById("formTaken" + (x + 1));
+                var textare = document.getElementById("formCommentrow" + (x + 1));
+                comment[x] = textare.value;
                 taak[x] = dropdown.value;
                 arrXHTML[x] = new XMLHttpRequest();
-                arrXHTML[x].open("POST", "EvaluatieFormulierServlet?formTaak=" + taak[x], true);
+                arrXHTML[x].open("POST", "EvaluatieFormulierServlet?formTaak=" + taak[x] + "&comment=" + comment[x] + "&formID=" + evaluatieFormID, true);
                 arrXHTML[x].send();
                 //als het taken door de server worden afgeleverd, checken we de doelstellingen
                 arrXHTML[x].onreadystatechange = function () {
@@ -57,21 +55,20 @@ function bewaarFormulier() {
                         for (let i = 0; i < doelstellingen.length; i++) {
                             var doelstellingID = doelstellingen[i].doelstellingID;
                             var scoreBoxes = document.getElementsByName("formScorerow" + (x + 1));
-                            var score= scoreBoxes[i].value;
+                            var score = scoreBoxes[i].value;
+                            var res = score.replace("+", "$");
                             arrXHTML2[i] = new XMLHttpRequest();
                             //alert("Taak: " + taak[x] + ' DoelstellingID: ' + doelstellingID + " Score: " + score + " evalID: " + evaluatieFormID);
-                            arrXHTML2[i].open("POST", "EvaluatieFormulierServlet?saveScores=" + taak[x] + "&doelstellingID=" + doelstellingID + "&score=" + score + "&evaluatieFormID=" + evaluatieFormID, true);
+                            arrXHTML2[i].open("POST", "EvaluatieFormulierServlet?saveScores=" + taak[x] + "&doelstellingID=" + doelstellingID + "&score=" + res + "&evaluatieFormID=" + evaluatieFormID, true);
                             arrXHTML2[i].send();
 
                         }
                     }
-                }
-                ;
+                };
             }
+            alert("Het formulier is opgeslagen onder de naam: " + formulierNaam);
         }
     };
-    alert("Het formulier is opgeslagen onder de naam: " + formulierNaam);
-
 }
 
 function laadFormulier() {
@@ -243,8 +240,12 @@ function genereerFormuliernaam() {
     var dag = lesdatum.substr(8, 2);
     var titelDatum = dag + '-' + maand + "-" + jaar;
     var leskeuze = document.getElementById('modules').value;
-    var lescursist = document.getElementById("cursisten").value;
-    formulierNaam = lescursist + "_" + leskeuze + "_" + titelDatum + "_" + lesnummer;
+    var module = document.getElementById("modules").value;
+    var semester = document.getElementById("Semester").value;
+    var module = document.getElementById("modules").value;
+    var cursist = document.getElementById("cursisten").value;
+    var lesnr = document.getElementById("lesnr").value;
+    formulierNaam = cursist + "_" + leskeuze + "_" + titelDatum + "_" + lesnummer;
     label.innerHTML = "formulierNaam: " + formulierNaam;
     //ready to take off?
     let dropdowns = document.getElementsByClassName('drop');
@@ -256,16 +257,28 @@ function genereerFormuliernaam() {
         if (dropdowns[i].hidden === true) {
             ready = false;
         }
-
     }
     if (ready === true) {
         toonTaakToevoegen();
         label.hidden = false;
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "EvaluatieFormulierServlet?checkFormulier=" + cursist + "&module=" + module + "&lesnr=" + lesnr + "&semester=" + semester + "&datum=" + titelDatum, true);
+        xhttp.send();
+        //als het taken door de server worden afgeleverd
+        xhttp.onreadystatechange = function () {
+
+            if (this.readyState === 4 && this.status === 200) {
+                const formulierID = JSON.parse(xhttp.responseText);
+                if (formulierID !== 0) {
+                    alert("Let op! Je hebt al een evaluatieformulier aangemaakt voor deze cursist voor deze les. Als je verder gaat, zal het oude formulier overschreven worden. Je kan met 'Formulier laden' het bestaande formulier inladen. ");
+                }
+            }
+        };
     } else {
         verbergTaakToevoegen();
         label.hidden = true;
     }
-
 }
 
 function verbergTaakToevoegen() {
@@ -462,7 +475,7 @@ function taakWissel(rowid) {
     var selectedTaak = selectTask.value;
     var xhttp7 = new XMLHttpRequest();
     //laad de doelstellingen die overeenkomen met de taak
-    xhttp7.open("POST", "EvaluatieFormulierServlet?formTaak=" + selectedTaak, true);
+    xhttp7.open("POST", "EvaluatieFormulierServlet?formTaak2=" + selectedTaak, true);
     xhttp7.send();
     //als de doelstellingen arriveren...
     xhttp7.onreadystatechange = function () {
@@ -523,6 +536,7 @@ function taakWissel(rowid) {
             };
             row.cells[9].innerHTML = "";
             var comment = document.createElement('textarea');
+            comment.id = "formComment" + rowid;
             comment.rows = aantalDoelstellingen + 1;
             comment.cols = 35;
             comment.style = "background: #f9f9f9";
