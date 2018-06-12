@@ -59,7 +59,7 @@ public class DoelstellingenServlet extends HttpServlet {
                     getoondeDoelstellingen = aantalDoelstellingen;
                 }
                 session.setAttribute("getoondeDoelstellingen", getoondeDoelstellingen);
-                doelstellingen = doelstellingDAO.doelstellingenLaden(bladz);
+              //  doelstellingen = doelstellingDAO.doelstellingenLaden(bladz);
                 session.setAttribute("lijstDoelstellingen", doelstellingen);
                 response.sendRedirect("DoelstellingenOverzicht.jsp");
             }
@@ -75,7 +75,7 @@ public class DoelstellingenServlet extends HttpServlet {
                 }
                 session.setAttribute("getoondeDoelstellingen", getoondeDoelstellingen);
                 session.setAttribute("bladzijde", bladz);
-                doelstellingen = doelstellingDAO.doelstellingenLaden(bladz);
+              //  doelstellingen = doelstellingDAO.doelstellingenLaden(bladz);
                 session.setAttribute("lijstDoelstellingen", doelstellingen);
                 response.sendRedirect("DoelstellingenOverzicht.jsp");
             }
@@ -91,7 +91,7 @@ public class DoelstellingenServlet extends HttpServlet {
                 }
                 session.setAttribute("getoondeDoelstellingen", getoondeDoelstellingen);
                 session.setAttribute("bladzijde", bladz);
-                doelstellingen = doelstellingDAO.doelstellingenLaden(bladz);
+              //doelstellingen = doelstellingDAO.doelstellingenLaden(bladz);
                 session.setAttribute("lijstDoelstellingen", doelstellingen);
                 response.sendRedirect("DoelstellingenOverzicht.jsp");
             }
@@ -107,7 +107,7 @@ public class DoelstellingenServlet extends HttpServlet {
                 }
                 session.setAttribute("getoondeDoelstellingen", getoondeDoelstellingen);
                 session.setAttribute("bladzijde", bladz);
-                doelstellingen = doelstellingDAO.doelstellingenLaden(bladz);
+               // doelstellingen = doelstellingDAO.doelstellingenLaden(bladz);
                 session.setAttribute("lijstDoelstellingen", doelstellingen);
                 response.sendRedirect("DoelstellingenOverzicht.jsp");
             }
@@ -145,7 +145,7 @@ public class DoelstellingenServlet extends HttpServlet {
                     session.removeAttribute("saveID");
 
                     doelstellingDAO.doelstellingAanpassen(doelstelling);
-                    doelstellingen = doelstellingDAO.doelstellingenLaden(1);
+                   // doelstellingen = doelstellingDAO.doelstellingenLaden(1);
                     session.setAttribute("lijstDoelstellingen", doelstellingen);
                     response.sendRedirect("DoelstellingenOverzicht.jsp");
                     break;
@@ -155,7 +155,7 @@ public class DoelstellingenServlet extends HttpServlet {
                     session.removeAttribute("editID");
                     session.removeAttribute("saveID");
                     doelstellingDAO.doelstellingVerwijderen(doelstellingDAO.doelstellingLaden(Integer.parseInt(deleteID)));
-                    doelstellingen = doelstellingDAO.doelstellingenLaden(1);
+                   // doelstellingen = doelstellingDAO.doelstellingenLaden(1);
                     aantalDoelstellingen = doelstellingDAO.geefAantalDoelstellingen();
                     session.setAttribute("aantalRecords", aantalDoelstellingen);
                     session.setAttribute("lijstDoelstellingen", doelstellingen);

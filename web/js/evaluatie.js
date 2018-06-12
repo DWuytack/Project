@@ -1,15 +1,10 @@
 
 var formulierNaam = '';
 var aantalTaken = 0;
-var aantalDoelstellingen = 0;
-var dropdownKeuze;
-var formTaken;
-var taakDropdown;
 var evalTable;
 var taakSelectData;
-var scores;
 var scoreVastGedeelte = "";
-var cursisten;
+var scores;
 
 
 function bewaarFormulier() {
@@ -61,7 +56,6 @@ function bewaarFormulier() {
                             //alert("Taak: " + taak[x] + ' DoelstellingID: ' + doelstellingID + " Score: " + score + " evalID: " + evaluatieFormID);
                             arrXHTML2[i].open("POST", "EvaluatieFormulierServlet?saveScores=" + taak[x] + "&doelstellingID=" + doelstellingID + "&score=" + res + "&evaluatieFormID=" + evaluatieFormID, true);
                             arrXHTML2[i].send();
-
                         }
                     }
                 };
@@ -81,7 +75,7 @@ function laadFormulier() {
 function formulierLeegMaken() {
     if (aantalTaken === 0)
         return;
-    aantalRijen = evalTable.rows.length;
+    var aantalRijen = evalTable.rows.length;
     for (let i = aantalRijen - 2; i > 2; i--) {
         var row = evalTable.rows[i];
         if (row.id !== "firstRow") {
@@ -118,6 +112,7 @@ function pasSemesterAan() {
     }
     if (formulierNaam !== '')
         genereerFormuliernaam();
+    laadCursistenOpnieuw();
 }
 
 //laad de dropdown met de gevraagde soort
@@ -128,11 +123,17 @@ function laadDropdown(soort) {
     switch (soort) {
         case 'opleidingen':
             //highlight opleiding in het rood
-            dropdown = document.querySelector("#studiegebied");
+            var dropdown = document.querySelector("#studiegebied");
             dropdown.style = "background: #f9f9f9";
             dropdown = document.querySelector("#opleidingen");
             dropdown.style = "background: #efc4c4";
-            dropdownKeuze = document.getElementById('studiegebied').value;
+            dropdown = document.querySelector("#modules");
+            dropdown.style = "background: #efc4c4";
+            resetDropdowns("modules");
+             dropdown = document.querySelector("#cursisten");
+            dropdown.style = "background: #efc4c4"; 
+            resetDropdowns("cursisten");
+            var dropdownKeuze = document.getElementById('studiegebied').value;
             xhttp.open("POST", "EvaluatieFormulierServlet?studiegebied=" + dropdownKeuze, true);
             break;
         case 'modules':
@@ -140,6 +141,9 @@ function laadDropdown(soort) {
             dropdown.style = "background: #f9f9f9";
             dropdown = document.querySelector("#modules");
             dropdown.style = "background: #efc4c4";
+            dropdown = document.querySelector("#cursisten");
+            dropdown.style = "background: #efc4c4";
+            resetDropdowns("cursisten");
             dropdownKeuze = document.getElementById('opleidingen').value;
             xhttp.open("POST", "EvaluatieFormulierServlet?opleiding=" + dropdownKeuze, true);
             break;
@@ -154,13 +158,11 @@ function laadDropdown(soort) {
             xhttp.open("POST", "EvaluatieFormulierServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
             break;
     }
-
     xhttp.send();
     //als het antwoord wordt ontvangen...
     xhttp.onreadystatechange = function () {
 
         if (this.readyState === 4 && this.status === 200) {
-
             //plaats het antwoord in een object...
             const data = JSON.parse(xhttp.responseText);
             //toon dropdown
@@ -179,7 +181,6 @@ function laadDropdown(soort) {
                     break;
                 case 'cursisten':
                     defaultOption.text = 'Cursist...';
-                    cursisten = data;
                     break;
             }
             defaultOption.disabled = true;
@@ -192,23 +193,19 @@ function laadDropdown(soort) {
                     dropdown.add(optionExtra);
                     break;
             }
-
             for (let i = 0; i < data.length; i++) {
                 let  optiondata = document.createElement('option');
                 optiondata.text = data[i].naam;
                 dropdown.add(optiondata);
             }
-
             let  optionNieuw = document.createElement('option');
             switch (soort) {
 
                 case 'opleidingen':
                     optionNieuw.text = "Maak nieuwe opleiding...";
-                    resetDropdowns('studiegebieden');
                     break;
                 case 'modules':
                     optionNieuw.text = "Maak nieuwe module...";
-                    resetDropdowns('opleidingen');
                     break;
                 case 'cursisten':
                     optionNieuw.text = "Maak nieuwe cursist...";
@@ -222,7 +219,7 @@ function laadDropdown(soort) {
 }
 
 function laadFormuliernaam() {
-    dropdown = document.querySelector("#lesnr");
+   var dropdown = document.querySelector("#lesnr");
     dropdown.style = "background: #f9f9f9";
     genereerFormuliernaam();
 }
@@ -302,51 +299,32 @@ function laadCursistenOpnieuw() {
 
 //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
 function resetDropdowns(naam) {
-
     if (aantalTaken > 0)
         formulierLeegMaken();
     let dropdowns = document.getElementsByClassName('drop');
     var idDropDown;
     for (let i = 0; i < dropdowns.length; i++) {
-        idDropDown = dropdowns[i].id;
-        //reset dropdowns na studiegebied
-        switch (naam) {
-            case 'studiegebieden':
-
-                if (idDropDown === 'modules') {
-                    dropdowns[i].selectedIndex = 0;
-                    dropdowns[i].style = "background: #efc4c4";
-                    ledigDropDown(dropdowns[i]);
-                }
-                if (idDropDown === 'cursisten') {
-                    dropdowns[i].selectedIndex = 0;
-                    dropdowns[i].style = "background: #efc4c4";
-                    ledigDropDown(dropdowns[i]);
-                }
-                break;
-            case 'opleidingen':
-                if (idDropDown === 'cursisten') {
-                    dropdowns[i].selectedIndex = 0;
-                    dropdowns[i].style = "background: #efc4c4";
-                    ledigDropDown(dropdowns[i]);
-                }
-                break;
+        if (dropdowns[i].hidden === false) {
+            idDropDown = dropdowns[i].id;      
+            if (idDropDown === naam) {
+                dropdowns[i].selectedIndex = 0;
+                dropdowns[i].style = "background: #efc4c4";
+                ledigDropDown(dropdowns[i]);
+            }
         }
     }
 }
 
 //maak een gevulde dropdown terug leeg
 function ledigDropDown(dropdown) {
-
-    var length = dropdown.options.length;
-    for (i = 1; i < length; i++) {
-        dropdown.options[i] = null;
+    if (dropdown.hidden === false) {
+        dropdown.options.length=1;
     }
 }
 
 function laadLesnr() {
 
-    dropdown = document.querySelector("#cursisten");
+    var dropdown = document.querySelector("#cursisten");
     dropdown.style = "background: #f9f9f9";
     dropdown = document.querySelector("#lesnr");
     if (dropdown.selectedIndex === 0)
@@ -446,7 +424,7 @@ function berekenGemiddelde(rij) {
     var score;
     var totaalScore = 0;
     for (let i = 0; i < scoreBoxes.length; i++) {
-        score = scoreBoxes[i].value;
+        var score = scoreBoxes[i].value;
         for (let x = 0; x < scores.length; x++) {
             if (score === scores[x].naam) {
                 totaalScore = totaalScore + scores[x].waarde;
@@ -469,7 +447,7 @@ function berekenGemiddelde(rij) {
 function taakWissel(rowid) {
 
 //welke taak is gekozen?
-    taakid = rowid.replace("row", "formTaken");
+    var taakid = rowid.replace("row", "formTaken");
     var selectTask = document.getElementById(taakid);
     var row = document.getElementById(rowid);
     var selectedTaak = selectTask.value;
@@ -482,7 +460,7 @@ function taakWissel(rowid) {
 
         if (this.readyState === 4 && this.status === 200) {
             const doelstellingen = JSON.parse(xhttp7.responseText);
-            aantalDoelstellingen = doelstellingen.length;
+            var  aantalDoelstellingen = doelstellingen.length;
             var strDoelstellingen = "";
             for (let i = 0; i < doelstellingen.length; i++) {
                 //we maken een string aan

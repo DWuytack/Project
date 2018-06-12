@@ -104,17 +104,17 @@ public class MenuServlet extends HttpServlet {
 
                 case "Overzicht scores cursist":
 
-// laden van schooljaren uit database en in het geheugen plaatsen
+//laden schooljaren
                     schooljaarDAO = new SchooljaarDAO();
                     schooljaren = schooljaarDAO.schooljarenLaden();
                     session.setAttribute("schooljaren", schooljaren);
 
-// laden semester uit database en in het geheugen plaatsen
+//laden semesters
                     semesterDAO = new SemesterDAO();
                     semesters = semesterDAO.semestersLaden();
                     session.setAttribute("semesters", semesters);
 
-// laden studiegebieden
+//laden studiegebieden
                     studiegebiedDAO = new StudiegebiedDAO();
                     studiegebieden = studiegebiedDAO.studiegebiedenLaden();
                     session.setAttribute("studiegebieden", studiegebieden);

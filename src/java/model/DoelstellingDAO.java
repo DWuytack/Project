@@ -214,17 +214,19 @@ public class DoelstellingDAO {
         return doelstellingen;
     }
 
-    public ArrayList<Doelstelling> doelstellingenLaden(int moduleID) {
-        ArrayList<Doelstelling> doelstellingen = new ArrayList<>();
+    public ArrayList<ScoreOverzicht> doelstellingenLadenModule(int moduleID) {
+        ArrayList<ScoreOverzicht> overzicht = new ArrayList<>();
         Connection currentCon = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "SELECT DISTINCT doelstellingen.naam, doelstellingen.doelstellingID FROM doelstellingen " +
-        "INNER JOIN doelstellingen_taken ON doelstellingen.doelstellingID = doelstellingen_taken.doelstellingID " +
-        "INNER JOIN modules_taken ON doelstellingen_taken.taakID = modules_taken.taakID " +
-        "INNER JOIN modules ON modules_taken.moduleID = modules.moduleID " +
-        "WHERE modules.moduleID = ?";        
+        String sql = "select doelstellingen_taken.doelstellingID, doelstellingen.naam as doelstellingnaam , doelstellingen.kerndoelstelling, doelstellingen_taken.taakID, taken.naam as taaknaam\n"
+                + " from doelstellingen_taken \n"
+                + " inner join doelstellingen on doelstellingen_taken.doelstellingID = doelstellingen.doelstellingID\n"
+                + " inner join taken on doelstellingen_taken.taakID = taken.taakID\n"
+                + " where doelstellingen_taken.taakID in\n"
+                + " (select taakid from modules_taken where moduleID=?)\n"
+                + " order by doelstellingID;";
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -235,17 +237,21 @@ public class DoelstellingDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Doelstelling doelstelling = new Doelstelling();
-                doelstelling.setNaam(rs.getString("naam"));
-                doelstelling.setDoelstellingID(rs.getInt("doelstellingID"));
-                doelstellingen.add(doelstelling);
+                ScoreOverzicht scoreOverzicht = new ScoreOverzicht();
+                scoreOverzicht.setDoelstellingnaam(rs.getString("doelstellingnaam"));
+                scoreOverzicht.setDoelstellingID(rs.getInt("doelstellingID"));
+                scoreOverzicht.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
+                scoreOverzicht.setTaaknaam(rs.getString("taaknaam"));
+                scoreOverzicht.setTaakID(rs.getInt("taakID"));
+                overzicht.add(scoreOverzicht);
             }
         } catch (SQLException e) {
+            System.out.println(e.getErrorCode());
         } finally {
             Utilities.sluitVariabelen(ps, rs, currentCon);
         }
 
-        return doelstellingen;
+        return overzicht;
     }
 
     public String geefDoelstellingNaam(int doelstellingID) {
@@ -261,6 +267,6 @@ public class DoelstellingDAO {
     }
 
     public int geefAantalDoelstellingen(int moduleID) {
-        return doelstellingenLaden(moduleID).size();
+        return doelstellingenLadenModule(moduleID).size();
     }
 }

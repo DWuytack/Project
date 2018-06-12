@@ -13,6 +13,7 @@ import model.Module;
 import model.ModuleDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
+import model.ScoreOverzicht;
 import model.Taak;
 import model.TaakDAO;
 
@@ -79,9 +80,9 @@ public class StudiegebiedenServlet extends HttpServlet {
 
                 //laad opleidingen per module
                 DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
-                ArrayList<Doelstelling> doelstellingen = doelstellingDAO.doelstellingenLaden(module);
+                ArrayList<ScoreOverzicht> scoreOverzicht = doelstellingDAO.doelstellingenLadenModule(module);
 
-                String json = gson.toJson(doelstellingen);
+                String json = gson.toJson(scoreOverzicht);
 
                 response.setContentType("application/json");
                 response.getWriter().write(json);
