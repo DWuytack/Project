@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Gebruiker;
-import model.Doelstelling;
 import model.DoelstellingDAO;
 import model.GebruikerDAO;
 import model.Opleiding;
@@ -183,26 +182,7 @@ public class ScoreServlet extends HttpServlet {
             response.getWriter().write(json);
         }
         
-        String cursistenScore = request.getParameter("cursistenScore");
-
-        if (cursistenScore != null) {
-            
-            module = request.getParameter("modules");
-            
-            ScoreDAO scoreDAO = new ScoreDAO();
-            ModuleDAO moduleDAO = new ModuleDAO();
-            GebruikerDAO gebruikerDAO = new GebruikerDAO();
-            
-            int moduleID = moduleDAO.laadModuleID(module);
-            int gebruikerID = gebruikerDAO.geefGebruikerID(cursistenScore);
-            ArrayList<Score> doelstellingScore = scoreDAO.cursistScore(moduleID, gebruikerID);
-            
-            String json = gson.toJson(doelstellingScore);
-
-            response.setContentType("application/json");
-            response.getWriter().write(json);
-
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

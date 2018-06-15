@@ -135,11 +135,8 @@ function ledigDropDown(dropdown) {
 
 function laadCursistInfo() {
 
-    var dropdown = document.querySelector("#cursisten");
-    var cursistNaam = dropdown.value;
-    var dropdown2 = document.querySelector("#modules");
-    var module = dropdown2.value;
-
+    var cursistNaam = document.querySelector("#cursisten").value;
+    var module = document.querySelector("#modules").value;
     var label = document.getElementById('cursistTitel');
     label.innerHTML = "<h3 >" + cursistNaam + "</h3>";
     var xhttp = new XMLHttpRequest();
@@ -147,8 +144,11 @@ function laadCursistInfo() {
     dropdown3.hidden = false;
     var dropdown4 = document.querySelector("#evaluatieTable");
     dropdown4.hidden = false;
+    var schooljaar=document.querySelector("#schooljaar").value;
+    var semester=document.querySelector("#Semester").value;
+   
 
-    xhttp.open("POST", "CursistOverzichtServlet?module2=" + module + "&cursist=" + cursistNaam, true);
+    xhttp.open("POST", "CursistOverzichtServlet?module2=" + module + "&cursist=" + cursistNaam + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
     xhttp.send();
     //als het taken door de server worden afgeleverd
     xhttp.onreadystatechange = function () {
@@ -164,30 +164,34 @@ function toonDoelstellingen(scoreOverzicht) {
 
     //verzamel info voor één lijn en roep laadlijn op
     for (let i = 0; i < scoreOverzicht.length; i++) {
-        laadLijn(scoreOverzicht[i].doelstellingnaam, scoreOverzicht[i].kerndoelstelling,scoreOverzicht[i].taaknaam);
+        laadLijn(scoreOverzicht[i].doelstellingnaam, scoreOverzicht[i].kerndoelstelling,scoreOverzicht[i].taaknaam,scoreOverzicht[i].score,scoreOverzicht[i].gemiddeldeScore);
     }
+    var lijnen=document.getElementsByName("horizontal");
+    lijnen[0].hidden=false;
+    lijnen[1].hidden=false;
 }
 
-function laadLijn(doelstelling, kerndoelstelling, taaknaam) {
-
-  
-   
+function laadLijn(doelstelling, kerndoelstelling, taaknaam,score,gemiddeldeScore) {  
     aantalLijnen = aantalLijnen + 1;
     //maak een rij in ons cursistoverzicht.jsp
     evalTable = document.getElementById("evaluatieTable");
     var row = evalTable.insertRow((aantalLijnen));
     row.id = "row" + aantalLijnen;
+    row.style.height="30px";
+    
     //lege cel
     row.insertCell(0);
-    var doelstellingVak = row.insertCell(1);
-    doelstellingVak.style.whiteSpace = "nowrap";
-    doelstellingVak.style.verticalAlign = "top";
+    row.insertCell(1);
     if (exdoelstelling !== doelstelling) row.cells[1].innerHTML = doelstelling;
     //lege cel
+    if (aantalLijnen%2 !==0) row.cells[1].style.backgroundColor="#ceccca";
+     
+    
     row.insertCell(2);
+      if (aantalLijnen%2 !==0) row.cells[2].style.backgroundColor="#ceccca";
     //we voorzien een vak voor onze kern
     var kernVak = row.insertCell(3);
-    kernVak.style.verticalAlign = "top";
+      if (aantalLijnen%2 !==0) row.cells[3].style.backgroundColor="#ceccca";
     kernVak.style.textAlign = "center";
     var strKern = "";
     //we maken een string aan
@@ -199,21 +203,33 @@ function laadLijn(doelstelling, kerndoelstelling, taaknaam) {
 
     //lege cel
     row.insertCell(4);
+      if (aantalLijnen%2 !==0) row.cells[4].style.backgroundColor="#ceccca";
     //we voorzien een vak voor onze kernvakjes
     var taakVak = row.insertCell(5);
     taakVak.style.verticalAlign = "center";
     row.insertCell(5).innerHTML=taaknaam;
+      if (aantalLijnen%2 !==0) row.cells[5].style.backgroundColor="#ceccca";
     row.insertCell(6);
+      if (aantalLijnen%2 !==0) row.cells[6].style.backgroundColor="#ceccca";
     //we voorzien een vak voor onze kernvakjes
     var scoreVak = row.insertCell(7);
-    scoreVak.style.verticalAlign = "top";
+      row.insertCell(7).innerHTML= "&nbsp&nbsp&nbsp"+ score;
+      if (aantalLijnen%2 !==0) row.cells[7].style.backgroundColor="#ceccca";
+    scoreVak.style.textAlign = "right";
+  
     //lege cel
     row.insertCell(8);
+      if (aantalLijnen%2 !==0) row.cells[8].style.backgroundColor="#ceccca";
     //we voorzien een vak voor commentaar;
     var gemiddeldeScoreVak = row.insertCell(9);
+      if (aantalLijnen%2 !==0) row.cells[9].style.backgroundColor="#ceccca";
     gemiddeldeScoreVak.style.verticalAlign = "top";
+    gemiddeldeScoreVak.innerHTML=gemiddeldeScore;
     row.insertCell(10);
+      if (aantalLijnen%2 !==0) row.cells[10].style.backgroundColor="#ceccca";
+     
     exdoelstelling=doelstelling;
+    
 
 }
 

@@ -40,7 +40,7 @@ public class InschrijvingDAO {
                 inschrijvingID = rs.getInt("inschrijvingID");
             }
         } catch (SQLException e) {
-
+           System.out.println(e.getErrorCode());
         } finally {
             sluitVariabelen(rs, null, ps, currentCon);
         }

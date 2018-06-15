@@ -1,0 +1,96 @@
+
+.evaltable {
+   
+    padding: 15px;
+    border-spacing: 5px;
+    width: 100%;
+}
+
+.doelstelling1{
+
+    width: 90%;
+    margin-left:auto; 
+    margin-right:auto;
+}
+.doelstelling2{
+    border: 1px solid black;
+    width: 90%;
+    margin-left:auto; 
+    margin-right:auto;
+
+}
+
+.evalButton  { 
+
+ -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #132ec4;
+  font-size: 20px;
+  background: #ebc599 !important;
+  padding: 10px 20px 10px 20px;
+  border: solid #73a7c7 1px;
+  text-decoration: none;
+}
+
+.evalButton:hover{
+background: #ff8000 !important;
+  text-decoration: none;
+}
+
+.lijnButton  { 
+
+    font-size: 20px;
+    font-weight: bold;
+    color: blue;
+    background-color :#d6b691 !important;
+    height: 25px;
+    width:25px;
+}
+
+
+.formrow {
+    height: 30px;
+}
+
+.kleur {
+    background-color: orange;
+}
+
+.links{
+    text-align: left;
+}
+
+.center{
+    text-align: center;
+}
+
+.rechts{
+    text-align: right;
+}
+
+#pagename {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    background-color: #FF8000;
+    margin: 0;
+    padding: 0;
+    z-index: 200;
+    background-image: url(../images/noise.png);
+    border-bottom: 1px solid silver;
+}
+#pagename h2 {
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 0;
+    padding: 10px;
+}

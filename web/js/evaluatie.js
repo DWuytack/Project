@@ -3,7 +3,7 @@ var formulierNaam = '';
 var aantalTaken = 0;
 var evalTable;
 var taakSelectData;
-var scoreVastGedeelte = "";
+var scoreVastGedeelte=[];
 var scores;
 
 
@@ -416,38 +416,13 @@ function laadLijn() {
     }
     row.insertCell(10);
 }
-function berekenGemiddelde(rij) {
 
-
-    var scoreBoxes = document.getElementsByName("formScore" + rij);
-    //we overlopen alle score dropdowns
-    var score;
-    var totaalScore = 0;
-    for (let i = 0; i < scoreBoxes.length; i++) {
-        var score = scoreBoxes[i].value;
-        for (let x = 0; x < scores.length; x++) {
-            if (score === scores[x].naam) {
-                totaalScore = totaalScore + scores[x].waarde;
-            }
-        }
-    }
-    var aantalScores = scoreBoxes.length;
-    var selectedRij = document.getElementById(rij);
-    var totaal = Math.round((totaalScore / aantalScores) * 10) / 10;
-    if (totaal > 4.9) {
-        selectedRij.cells[3].innerHTML = scoreVastGedeelte + "<b> <font COLOR='#1e5abc' >" + totaal + "</font></b>";
-    } else {
-        selectedRij.cells[3].innerHTML = scoreVastGedeelte + "<b> <font COLOR='#f21515' >" + totaal + "</font></b>";
-    }
-
-
-
-}
 
 function taakWissel(rowid) {
 
 //welke taak is gekozen?
-    var taakid = rowid.replace("row", "formTaken");
+    var rijID=rowid;
+    var taakid = rijID.replace("row", "formTaken");
     var selectTask = document.getElementById(taakid);
     var row = document.getElementById(rowid);
     var selectedTaak = selectTask.value;
@@ -485,7 +460,6 @@ function taakWissel(rowid) {
             //als de scores toekomen...
             xhttp9.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
-
                     scores = JSON.parse(xhttp9.responseText);
                     row.cells[7].innerHTML = "";
                     for (let i = 0; i < aantalDoelstellingen; i++) {
@@ -498,7 +472,7 @@ function taakWissel(rowid) {
                         defaultOption.disabled = true;
                         scoreSelect.add(defaultOption);
                         scoreSelect.selectedIndex = 0;
-                        scoreVastGedeelte = row.cells[3].innerHTML;
+                        scoreVastGedeelte[rowid] = row.cells[3].innerHTML;
                         scoreSelect.onchange = function () {
                             berekenGemiddelde(row.id);
                         };
@@ -523,3 +497,33 @@ function taakWissel(rowid) {
     };
 }
 ;
+
+function berekenGemiddelde(rij) {
+
+
+    var scoreBoxes = document.getElementsByName("formScore" + rij);
+    //we overlopen alle score dropdowns
+    var score;
+    var totaalScore = 0;
+    var aantalScores=0;
+    for (let i = 0; i < scoreBoxes.length; i++) {
+        var score = scoreBoxes[i].value;
+        for (let x = 0; x < scores.length; x++) {
+            if (score === scores[x].naam) {
+                totaalScore = totaalScore + scores[x].waarde;
+                if (score !== "Geen" && score !== "Score...") aantalScores=aantalScores + 1;
+            }
+        }
+    }
+   
+    var selectedRij = document.getElementById(rij);
+    var totaal = Math.round((totaalScore / aantalScores) * 10) / 10;
+    if (totaal > 4.9) {
+        selectedRij.cells[3].innerHTML = scoreVastGedeelte[rij] + "<b> <font COLOR='#1e5abc' >" + totaal + "</font></b>";
+    } else {
+        selectedRij.cells[3].innerHTML = scoreVastGedeelte[rij] + "<b> <font COLOR='#f21515' >" + totaal + "</font></b>";
+    }
+
+
+
+}

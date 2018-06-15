@@ -13,19 +13,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Doelstelling;
 import model.DoelstellingDAO;
 import model.Gebruiker;
 import model.GebruikerDAO;
+import model.InschrijvingDAO;
 import model.Module;
 import model.ModuleDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
 import model.SchooljaarDAO;
+import model.ScoreDAO;
 import model.ScoreOverzicht;
 import model.SemesterDAO;
 import model.StudiegebiedDAO;
-import model.TaakDAO;
 
 /**
  *
@@ -113,7 +113,39 @@ public class CursistOverzichtServlet extends HttpServlet {
             ModuleDAO moduleDAO = new ModuleDAO();
             int moduleID = moduleDAO.laadModuleID(module);
             DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+            SchooljaarDAO schooljaarDAO = new SchooljaarDAO();
+            int schooljaarID = schooljaarDAO.geefSchooljaarID(request.getParameter("schooljaar"));
+            SemesterDAO semesterDAO = new SemesterDAO();
+            int semesterID = semesterDAO.laadSemesterID(request.getParameter("semester"));
+            String gebruiker = request.getParameter("cursist");
+            GebruikerDAO gebruikerDAO = new GebruikerDAO();
+            int gebruikerID = gebruikerDAO.geefGebruikerID(gebruiker);
+            InschrijvingDAO inschrijvingDAO = new InschrijvingDAO();
+            int inschrijvingID = inschrijvingDAO.geefInschrijvingID(gebruikerID, moduleID, semesterID, schooljaarID);
+            ScoreDAO scoreDAO = new ScoreDAO();
+            //Alle doelstellingen waar punten zijn op gegeven voor een bepaalde cursist
+            ArrayList<ScoreOverzicht> scores = scoreDAO.geefScoresVoorInschrijvingID(inschrijvingID);
+            //alle doelstellingen van een module
             ArrayList<ScoreOverzicht> scoreOverzicht = doelstellingDAO.doelstellingenLadenModule(moduleID);
+
+            for (ScoreOverzicht doelstelling : scoreOverzicht) {
+                for (ScoreOverzicht score : scores) {
+                    if (doelstelling.getDoelstellingID() == score.getDoelstellingID()) {
+                        doelstelling.setTotaalScore(doelstelling.getTotaalScore() + score.getWaarde());
+                        if (score.getWaarde() != 0) doelstelling.setAantalTaken(doelstelling.getAantalTaken() + 1);
+                        if (doelstelling.getTaakID() == score.getTaakID()) {
+                            doelstelling.setScore(score.getScore());
+                        }
+                    }
+                }
+            }
+
+            for (ScoreOverzicht doelstelling : scoreOverzicht) {
+                if (doelstelling.getAantalTaken() != 0) {
+                    doelstelling.setGemiddeldeScore(doelstelling.getTotaalScore() / doelstelling.getAantalTaken());
+                }
+            }
+
             String json = gson.toJson(scoreOverzicht);
             response.setContentType("application/json");
             response.getWriter().write(json);

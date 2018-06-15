@@ -16,6 +16,52 @@ public class ScoreOverzicht {
     private boolean kerndoelstelling=false;
     private int taakID=0;
     private String taaknaam="";
+    private String score="";
+    private double waarde=0;
+    private double totaalScore=0;
+    private int aantalTaken=0;
+    private double gemiddeldeScore=0;
+
+    public int getAantalTaken() {
+        return aantalTaken;
+    }
+
+    public double getTotaalScore() {
+        return totaalScore;
+    }
+
+    public void setTotaalScore(double totaalScore) {
+        this.totaalScore = totaalScore;
+    }
+
+    public void setAantalTaken(int aantalTaken) {
+        this.aantalTaken = aantalTaken;
+    }
+
+    public double getGemiddeldeScore() {
+        return gemiddeldeScore;
+    }
+
+    public void setGemiddeldeScore(double gemiddeldeScore) {
+        this.gemiddeldeScore = gemiddeldeScore;
+    }
+
+    public double getWaarde() {
+        return waarde;
+    }
+
+    public void setWaarde(double waarde) {
+        this.waarde = waarde;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+   
 
     public int getDoelstellingID() {
         return doelstellingID;

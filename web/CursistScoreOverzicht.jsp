@@ -99,7 +99,9 @@
                     <tr bgcolor="#b9d1f7" height="50px">
                         <td class="center" id="cursistTitel" ></td>
                     <tr>
-                </table<
+                </table>
+                
+                <hr name="horizontal" hidden/>
                 <!-- Evaluatie venster -->
                 <table id="evaluatieTable" class="evaltable" hidden>
                     <!-- Titelbalk-->
@@ -112,14 +114,14 @@
                         <th width="3%" />
                         <th width="30%" class="links"><b>Taken</b></th>  
                         <th width="3%" />
-                        <th width="6%" class="center"><b>Score</b></th>
+                        <th width="6%" class="links"><b>Score</b></th>
                         <th width="3%" />
                         <th width="6%" class="center"><b>Gemiddelde Score</b></th>
                         <th width="3%" />
                     </tr>
 
-
                 </table>
+                <hr name="horizontal" hidden />
 
 
 
