@@ -220,13 +220,11 @@ public class DoelstellingDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "select doelstellingen_taken.doelstellingID, doelstellingen.naam as doelstellingnaam , doelstellingen.kerndoelstelling, doelstellingen_taken.taakID, taken.naam as taaknaam\n"
-                + " from doelstellingen_taken \n"
-                + " inner join doelstellingen on doelstellingen_taken.doelstellingID = doelstellingen.doelstellingID\n"
-                + " inner join taken on doelstellingen_taken.taakID = taken.taakID\n"
-                + " where doelstellingen_taken.taakID in\n"
-                + " (select taakid from modules_taken where moduleID=?)\n"
-                + " order by doelstellingID;";
+        String sql = "select * from doelstellingen \n" +
+            " where doelstellingID in\n" +
+            " (select doelstellingID from doelstellingen_modules\n" +
+            " where moduleID=?"
+                + " order by doelstellingID);";
 
         try {
             currentCon = ConnectionManager.getConnection();
@@ -238,11 +236,9 @@ public class DoelstellingDAO {
 
             while (rs.next()) {
                 ScoreOverzicht scoreOverzicht = new ScoreOverzicht();
-                scoreOverzicht.setDoelstellingnaam(rs.getString("doelstellingnaam"));
+                scoreOverzicht.setDoelstellingnaam(rs.getString("naam"));
                 scoreOverzicht.setDoelstellingID(rs.getInt("doelstellingID"));
                 scoreOverzicht.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
-                scoreOverzicht.setTaaknaam(rs.getString("taaknaam"));
-                scoreOverzicht.setTaakID(rs.getInt("taakID"));
                 overzicht.add(scoreOverzicht);
             }
         } catch (SQLException e) {

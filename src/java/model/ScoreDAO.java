@@ -63,13 +63,15 @@ public class ScoreDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "select taakID,doelstellingID, beoordelingssoorten.naam as score,beoordelingssoorten.waarde \n"
-                + " from evalform_scores \n"
-                + " inner join beoordelingssoorten on evalform_scores.beoordelingssoortID = beoordelingssoorten.beoordelingssoortID\n"
-                + " where\n"
-                + " evalform_scores.evaluatieformID IN\n"
-                + " (select evaluatieformID from evaluatieformulieren\n"
-                + " where inschrijvingID=?)";
+        String sql = "select evalform_scores.taakID,evalform_scores.doelstellingID, beoordelingssoorten.naam as score,beoordelingssoorten.waarde, taken.naam as taaknaam, doelstellingen.naam as doelstellingnaam,doelstellingen.kerndoelstelling\n" +
+                    " from evalform_scores\n" +
+                    " inner join beoordelingssoorten on evalform_scores.beoordelingssoortID = beoordelingssoorten.beoordelingssoortID\n" +
+                    " inner join taken on taken.taakID =evalform_scores.taakID\n" +
+                    " inner join doelstellingen on doelstellingen.doelstellingID=evalform_scores.doelstellingID\n" +
+                    " where evalform_scores.evaluatieformID IN\n" +
+                    " (select evaluatieformID from evaluatieformulieren\n" +
+                    " where inschrijvingID=?)\n" +
+                    " order by doelstellingID";
 
         try {
             //connectie met de database
@@ -83,8 +85,13 @@ public class ScoreDAO {
             while (rs.next()) {
                 ScoreOverzicht scoreOverzicht = new ScoreOverzicht();
                 scoreOverzicht.setTaakID(rs.getInt("taakID"));
+                scoreOverzicht.setTaaknaam(rs.getString("taaknaam"));
                 scoreOverzicht.setDoelstellingID(rs.getInt("doelstellingID"));
+                scoreOverzicht.setDoelstellingnaam(rs.getString("doelstellingen.naam"));
                 scoreOverzicht.setWaarde(rs.getDouble("waarde"));
+                scoreOverzicht.setScore(rs.getString("score"));
+                scoreOverzicht.setWaarde(rs.getDouble("waarde"));
+                scoreOverzicht.setKerndoelstelling(rs.getBoolean("kerndoelstelling"));
                 scores.add(scoreOverzicht);
 
             }

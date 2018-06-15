@@ -140,13 +140,15 @@ public class CursistOverzichtServlet extends HttpServlet {
                 }
             }
 
-            for (ScoreOverzicht doelstelling : scoreOverzicht) {
+            for (ScoreOverzicht doelstelling : scores) {
                 if (doelstelling.getAantalTaken() != 0) {
                     doelstelling.setGemiddeldeScore(doelstelling.getTotaalScore() / doelstelling.getAantalTaken());
+                } else {
+                    doelstelling.setGemiddeldeScore(0);
                 }
             }
 
-            String json = gson.toJson(scoreOverzicht);
+            String json = gson.toJson(scores);
             response.setContentType("application/json");
             response.getWriter().write(json);
             return;
