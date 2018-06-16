@@ -123,29 +123,48 @@ public class CursistOverzichtServlet extends HttpServlet {
             InschrijvingDAO inschrijvingDAO = new InschrijvingDAO();
             int inschrijvingID = inschrijvingDAO.geefInschrijvingID(gebruikerID, moduleID, semesterID, schooljaarID);
             ScoreDAO scoreDAO = new ScoreDAO();
-            //Alle doelstellingen waar punten zijn op gegeven voor een bepaalde cursist
-            ArrayList<ScoreOverzicht> scores = scoreDAO.geefScoresVoorInschrijvingID(inschrijvingID);
-            //alle doelstellingen van een module
-            ArrayList<ScoreOverzicht> scoreOverzicht = doelstellingDAO.doelstellingenLadenModule(moduleID);
+            ArrayList<ScoreOverzicht> scores = scoreDAO.geefScoresVoorInschrijvingID(inschrijvingID, moduleID);
 
-            for (ScoreOverzicht doelstelling : scoreOverzicht) {
-                for (ScoreOverzicht score : scores) {
-                    if (doelstelling.getDoelstellingID() == score.getDoelstellingID()) {
-                        doelstelling.setTotaalScore(doelstelling.getTotaalScore() + score.getWaarde());
-                        if (score.getWaarde() != 0) doelstelling.setAantalTaken(doelstelling.getAantalTaken() + 1);
-                        if (doelstelling.getTaakID() == score.getTaakID()) {
-                            doelstelling.setScore(score.getScore());
-                        }
-                    }
+            for (ScoreOverzicht score : scores) {
+                if (score.getScore() == null || score.getScore().equalsIgnoreCase("Geen")) {
+                    score.setScore("");
+                    score.setWaarde(0);
+                }
+                if (score.getTaaknaam() == null) {
+                    score.setTaaknaam("");
                 }
             }
 
-            for (ScoreOverzicht doelstelling : scores) {
-                if (doelstelling.getAantalTaken() != 0) {
-                    doelstelling.setGemiddeldeScore(doelstelling.getTotaalScore() / doelstelling.getAantalTaken());
+            int exDoelstellingID = 0;
+            double totaalScore = 0;
+            int aantalTaken = 0;
+            for (ScoreOverzicht score : scores) {
+                if (score.getDoelstellingID() == exDoelstellingID || exDoelstellingID == 0) {
+                    if (score.getWaarde() != 0) {
+                        aantalTaken = aantalTaken + 1;
+                    }
+                    totaalScore = totaalScore + score.getWaarde();
+                    exDoelstellingID = score.getDoelstellingID();
+
                 } else {
-                    doelstelling.setGemiddeldeScore(0);
+
+                    for (ScoreOverzicht score2 : scores) {
+                        if (score2.getDoelstellingID() == exDoelstellingID) {
+                            score2.setTotaalScore(totaalScore);
+                            if (aantalTaken != 0) score2.setGemiddeldeScore(totaalScore / aantalTaken);
+                            score2.setAantalTaken(aantalTaken);
+                        }
+                    }
+                    totaalScore = 0;
+                    aantalTaken = 0;
+                    exDoelstellingID = 0;
+                       if (score.getWaarde() != 0) {
+                        aantalTaken = aantalTaken + 1;
+                    }
+                    totaalScore = totaalScore + score.getWaarde();
+                    exDoelstellingID = score.getDoelstellingID();                 
                 }
+
             }
 
             String json = gson.toJson(scores);
@@ -156,7 +175,7 @@ public class CursistOverzichtServlet extends HttpServlet {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

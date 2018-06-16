@@ -185,6 +185,7 @@ function laadLijn(doelstelling, kerndoelstelling, taaknaam,score,gemiddeldeScore
     if (exdoelstelling !== doelstelling) row.cells[1].innerHTML = doelstelling;
     //lege cel
     if (aantalLijnen%2 !==0) row.cells[1].style.backgroundColor="#ceccca";
+    if (gemiddeldeScore < 5) row.cells[1].style.color="red";
      
     
     row.insertCell(2);
@@ -223,8 +224,9 @@ function laadLijn(doelstelling, kerndoelstelling, taaknaam,score,gemiddeldeScore
     //we voorzien een vak voor commentaar;
     var gemiddeldeScoreVak = row.insertCell(9);
       if (aantalLijnen%2 !==0) row.cells[9].style.backgroundColor="#ceccca";
-    gemiddeldeScoreVak.style.verticalAlign = "top";
-    gemiddeldeScoreVak.innerHTML=gemiddeldeScore;
+    gemiddeldeScoreVak.style.verticalAlign = "center";
+    gemiddeldeScoreVak.style.textAlign = "center";
+    if (exdoelstelling !== doelstelling && gemiddeldeScore!==0)  gemiddeldeScoreVak.innerHTML=gemiddeldeScore;
     row.insertCell(10);
       if (aantalLijnen%2 !==0) row.cells[10].style.backgroundColor="#ceccca";
      
