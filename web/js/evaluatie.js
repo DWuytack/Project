@@ -3,8 +3,10 @@ var formulierNaam = '';
 var aantalTaken = 0;
 var evalTable;
 var taakSelectData;
-var scoreVastGedeelte=[];
+var scoreVastGedeelte = [];
 var scores;
+var formulierID = 0;
+var scoreLabel = [];
 
 
 function bewaarFormulier() {
@@ -13,6 +15,11 @@ function bewaarFormulier() {
         alert("Er zijn geen taken om te bewaren!");
         return;
     }
+    var label = document.getElementById('formulierNaam');
+    label.style.color = "blue";
+    label.innerHTML = "formulierNaam: " + formulierNaam;
+    var label2 = document.getElementById('laadButton');
+    label2.hidden = true;
     var cursist = document.getElementById("cursisten").value;
     var xhttp;
     xhttp = new XMLHttpRequest();
@@ -69,12 +76,49 @@ function laadFormulier() {
 
     if (aantalTaken > 0)
         formulierLeegMaken();
-    alert('Formulier geladen');
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "EvaluatieFormulierServlet?laadFormulier=" + formulierID, true);
+    xhttp.send();
+    //als het taken door de server worden afgeleverd
+    xhttp.onreadystatechange = function () {
+
+        if (this.readyState === 4 && this.status === 200) {
+            var taken = JSON.parse(xhttp.responseText);
+            var exTaakID = 0;
+            var rijnr = 0;
+            for (i = 0; i < taken.length; i++) {
+                if (exTaakID === 0 || taken[i].taakID !== exTaakID) {
+                    laadLijn();
+                    rijnr = rijnr + 1;
+                    var rowID = "row" + rijnr;
+                    var rijID = rowID;
+                    var taakid = rijID.replace("row", "formTaken");
+                    var selectTask = document.getElementById(taakid);
+                    selectTask.value = taken[i].taaknaam;
+                    taakWissel(rowID);
+
+                }
+                exTaakID = taken[i].taakID;
+
+            }
+
+        }
+    };
 }
 
 function formulierLeegMaken() {
     if (aantalTaken === 0)
         return;
+    var label3 = document.getElementById('bewaarButton');
+    label3.style.color = "blue";
+    label3.hidden = true;
+    var label4 = document.getElementById('printButton');
+    label4.style.color = "blue";
+    label4.hidden = true;
+    var label5 = document.getElementById('leegButton');
+    label5.style.color = "blue";
+    label5.hidden = true;
     var aantalRijen = evalTable.rows.length;
     for (let i = aantalRijen - 2; i > 2; i--) {
         var row = evalTable.rows[i];
@@ -130,8 +174,8 @@ function laadDropdown(soort) {
             dropdown = document.querySelector("#modules");
             dropdown.style = "background: #efc4c4";
             resetDropdowns("modules");
-             dropdown = document.querySelector("#cursisten");
-            dropdown.style = "background: #efc4c4"; 
+            dropdown = document.querySelector("#cursisten");
+            dropdown.style = "background: #efc4c4";
             resetDropdowns("cursisten");
             var dropdownKeuze = document.getElementById('studiegebied').value;
             xhttp.open("POST", "EvaluatieFormulierServlet?studiegebied=" + dropdownKeuze, true);
@@ -219,7 +263,7 @@ function laadDropdown(soort) {
 }
 
 function laadFormuliernaam() {
-   var dropdown = document.querySelector("#lesnr");
+    var dropdown = document.querySelector("#lesnr");
     dropdown.style = "background: #f9f9f9";
     genereerFormuliernaam();
 }
@@ -230,6 +274,7 @@ function genereerFormuliernaam() {
 
     var lesnummer = document.getElementById('lesnr').value;
     var label = document.getElementById('formulierNaam');
+    label.style.color = "blue";
     label.hidden = false;
     var lesdatum = document.getElementById("datum").value;
     var jaar = lesdatum.substr(0, 4);
@@ -266,9 +311,21 @@ function genereerFormuliernaam() {
         xhttp.onreadystatechange = function () {
 
             if (this.readyState === 4 && this.status === 200) {
-                const formulierID = JSON.parse(xhttp.responseText);
+                formulierID = JSON.parse(xhttp.responseText);
                 if (formulierID !== 0) {
-                    alert("Let op! Je hebt al een evaluatieformulier aangemaakt voor deze cursist voor deze les. Als je verder gaat, zal het oude formulier overschreven worden. Je kan met 'Formulier laden' het bestaande formulier inladen. ");
+                    alert("Let op! Je hebt al een evaluatieformulier aangemaakt voor deze cursist voor deze les. Als je verder gaat, zal het oude formulier overschreven worden. Je kan met 'Laad formulier' het bestaande formulier inladen. ");
+                    var label = document.getElementById('formulierNaam');
+                    label.style.color = "red";
+                    label.innerHTML = "formulierNaam: " + formulierNaam;
+                    var label2 = document.getElementById('laadButton');
+                    label2.style.color = "red";
+                    label2.hidden = false;
+                } else {
+                    var label = document.getElementById('formulierNaam');
+                    label.style.color = "blue";
+                    label.innerHTML = "formulierNaam: " + formulierNaam;
+                    var label2 = document.getElementById('laadButton');
+                    label2.hidden = true;
                 }
             }
         };
@@ -285,7 +342,8 @@ function verbergTaakToevoegen() {
 }
 
 function toonTaakToevoegen() {
-
+    var lijn = document.getElementById("header");
+    lijn.hidden = false;
     var extraLijn = document.getElementById("addLine");
     extraLijn.hidden = false;
 }
@@ -305,7 +363,7 @@ function resetDropdowns(naam) {
     var idDropDown;
     for (let i = 0; i < dropdowns.length; i++) {
         if (dropdowns[i].hidden === false) {
-            idDropDown = dropdowns[i].id;      
+            idDropDown = dropdowns[i].id;
             if (idDropDown === naam) {
                 dropdowns[i].selectedIndex = 0;
                 dropdowns[i].style = "background: #efc4c4";
@@ -318,7 +376,7 @@ function resetDropdowns(naam) {
 //maak een gevulde dropdown terug leeg
 function ledigDropDown(dropdown) {
     if (dropdown.hidden === false) {
-        dropdown.options.length=1;
+        dropdown.options.length = 1;
     }
 }
 
@@ -330,6 +388,7 @@ function laadLesnr() {
     if (dropdown.selectedIndex === 0)
         dropdown.style = "background: #efc4c4";
     dropdown.hidden = false;
+
     if (formulierNaam !== '')
         genereerFormuliernaam();
 }
@@ -354,8 +413,9 @@ function laadLijn() {
 
     aantalTaken = aantalTaken + 1;
     //maak een rij in ons evaluatie.jsp
+
     evalTable = document.getElementById("evaluatieTable");
-    var row = evalTable.insertRow((aantalTaken * 2));
+    var row = evalTable.insertRow((aantalTaken * 2) + 1);
     row.id = "row" + aantalTaken;
     //lege cel
     row.insertCell(0);
@@ -408,7 +468,7 @@ function laadLijn() {
     select.add(option);
     //plaats de dropdown in de rij op de evaluatie.jsp
     taakVak.appendChild(select);
-    var legeLijn = evalTable.insertRow((aantalTaken * 2));
+    var legeLijn = evalTable.insertRow((aantalTaken * 2) + 2);
     legeLijn.id = "leeg";
     for (let i = 0; i < 10; i++) {
         var vak = legeLijn.insertCell(i);
@@ -421,7 +481,7 @@ function laadLijn() {
 function taakWissel(rowid) {
 
 //welke taak is gekozen?
-    var rijID=rowid;
+    var rijID = rowid;
     var taakid = rijID.replace("row", "formTaken");
     var selectTask = document.getElementById(taakid);
     var row = document.getElementById(rowid);
@@ -435,24 +495,27 @@ function taakWissel(rowid) {
 
         if (this.readyState === 4 && this.status === 200) {
             const doelstellingen = JSON.parse(xhttp7.responseText);
-            var  aantalDoelstellingen = doelstellingen.length;
-            var strDoelstellingen = "";
+            var aantalDoelstellingen = doelstellingen.length;
+            var labelDoelstelling = [];
             for (let i = 0; i < doelstellingen.length; i++) {
                 //we maken een string aan
-                strDoelstellingen = strDoelstellingen + doelstellingen[i].naam + "<br/>";
+                labelDoelstelling[i] = document.createElement('LABEL');
+                labelDoelstelling[i].innerHTML = doelstellingen[i].naam + "<BR/>";
+                row.cells[3].appendChild(labelDoelstelling[i]);
             }
-            strDoelstellingen = strDoelstellingen + "<br/> <b> TaakScore: <b/>";
-            var doelstellingvak = row.cells[3];
-            doelstellingvak.innerHTML = strDoelstellingen;
-            var strKern = "";
+            scoreLabel[aantalTaken-1] = document.createElement('LABEL');
+            scoreLabel[aantalTaken-1].innerHTML="<br/> <b>TotaalScore: </b>";
+            row.cells[3].appendChild(scoreLabel[aantalTaken-1]);          
+            var strKern =[];
             for (let i = 0; i < doelstellingen.length; i++) {
                 //we maken een string aan
+                 strKern[i] = document.createElement('LABEL');
                 if (doelstellingen[i].kerndoelstelling === true)
-                    strKern = strKern + '\u2611' + "<br>";
+                    strKern[i].innerHTML = '\u2611' + "<br>";
                 if (doelstellingen[i].kerndoelstelling === false)
-                    strKern = strKern + '\u2610' + "<br>";
+                    strKern[i].innerHTML = '\u2610' + "<br>";
+                row.cells[5].appendChild(strKern[i]);
             }
-            row.cells[5].innerHTML = strKern;
             var xhttp9 = new XMLHttpRequest();
             //we vragen de scores op
             xhttp9.open("POST", "EvaluatieFormulierServlet?scores", true);
@@ -472,7 +535,6 @@ function taakWissel(rowid) {
                         defaultOption.disabled = true;
                         scoreSelect.add(defaultOption);
                         scoreSelect.selectedIndex = 0;
-                        scoreVastGedeelte[rowid] = row.cells[3].innerHTML;
                         scoreSelect.onchange = function () {
                             berekenGemiddelde(row.id);
                         };
@@ -495,6 +557,15 @@ function taakWissel(rowid) {
             row.cells[9].appendChild(comment);
         }
     };
+    var label3 = document.getElementById('bewaarButton');
+    label3.style.color = "blue";
+    label3.hidden = false;
+    var label4 = document.getElementById('printButton');
+    label4.style.color = "blue";
+    label4.hidden = false;
+    var label5 = document.getElementById('leegButton');
+    label5.style.color = "blue";
+    label5.hidden = false;
 }
 ;
 
@@ -505,23 +576,28 @@ function berekenGemiddelde(rij) {
     //we overlopen alle score dropdowns
     var score;
     var totaalScore = 0;
-    var aantalScores=0;
+    var aantalScores = 0;
     for (let i = 0; i < scoreBoxes.length; i++) {
         var score = scoreBoxes[i].value;
         for (let x = 0; x < scores.length; x++) {
             if (score === scores[x].naam) {
                 totaalScore = totaalScore + scores[x].waarde;
-                if (score !== "Geen" && score !== "Score...") aantalScores=aantalScores + 1;
+                if (score !== "Geen" && score !== "Score...")
+                    aantalScores = aantalScores + 1;
             }
         }
     }
-   
+
     var selectedRij = document.getElementById(rij);
     var totaal = Math.round((totaalScore / aantalScores) * 10) / 10;
+    var rijnr=rij.replace("row","");
     if (totaal > 4.9) {
-        selectedRij.cells[3].innerHTML = scoreVastGedeelte[rij] + "<b> <font COLOR='#1e5abc' >" + totaal + "</font></b>";
+        
+        scoreLabel[rijnr-1].innerHTML = "<br/> <b> TaakScore:  <font COLOR='#1e5abc' >" + totaal + "</font></b>";
+        selectedRij.cells[3].appendChild(scoreLabel);
     } else {
-        selectedRij.cells[3].innerHTML = scoreVastGedeelte[rij] + "<b> <font COLOR='#f21515' >" + totaal + "</font></b>";
+        scoreLabel[rijnr-1].innerHTML = "<br/> <b> TaakScore:  <font COLOR='#f21515' >" + totaal + "</font></b>";
+        selectedRij.cells[3].appendChild(scoreLabel);
     }
 
 

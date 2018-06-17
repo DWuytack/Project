@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -254,5 +255,55 @@ public class EvaluatieFormulierDAO {
         }
 
     }
+
+    public ArrayList<ScoreOverzicht> laadFormulier(int formulierID) {
+       
+        
+        ArrayList<ScoreOverzicht> scores = new ArrayList<>();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String sql = "select evalform_scores.taakID,doelstellingID,beoordelingssoorten.naam, waarde, taken.naam as taaknaam from evalform_scores \n" +
+                    " inner join beoordelingssoorten on beoordelingssoorten.beoordelingssoortID=evalform_scores.beoordelingssoortID\n" +
+                    " inner join taken on taken.taakID = evalform_scores.taakID\n" +
+                    " where evalform_scores.evaluatieformID=?;";
+        
+    
+        try {
+            //connectie met de database
+            currentCon = ConnectionManager.getConnection();
+            
+            ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, formulierID);
+            ps.executeQuery();
+            
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                ScoreOverzicht score = new ScoreOverzicht();
+                score.setDoelstellingID(rs.getInt("doelstellingID"));
+                score.setTaakID(rs.getInt("taakID"));
+                score.setScore(rs.getString("naam"));
+                score.setWaarde(rs.getDouble("waarde")); 
+                score.setTaaknaam(rs.getString("taaknaam"));
+                scores.add(score);
+            }            
+            
+        } catch (SQLException e) {
+            System.out.println(e.getErrorCode());
+        } finally {
+            Utilities.sluitVariabelen(ps, rs, currentCon);
+        }
+        return scores;
+    }
+        
+        
+        
+        
+        
+        
+        
+    
 
 }

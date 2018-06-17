@@ -106,13 +106,13 @@
                 <table id="evaluatieTable" class="evaltable" hidden>
                     <!-- Titelbalk-->
                     <tr height="20px" />
-                    <tr bgcolor="#ceccca" height="50px">
+                    <tr bgcolor="#ceccca" height="50px" width="100%" >
                         <th width="3%" />
-                        <th width="30%" class="links"><b>Doelstellingen</b></th>  
+                        <th width="32%" class="links"><b>Doelstellingen</b></th>  
                         <th width="3%" />
                         <th width="6%" class="center"><b>Kern</b></th>
                         <th width="3%" />
-                        <th width="30%" class="links"><b>Taken</b></th>  
+                        <th width="32%" class="links"><b>Taken</b></th>  
                         <th width="3%" />
                         <th width="6%" class="links"><b>Score</b></th>
                         <th width="3%" />

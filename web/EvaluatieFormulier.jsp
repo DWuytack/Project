@@ -12,10 +12,10 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/evaluatie.js"></script>
-          <script src="js/nav.js"></script>
-           <script src="js/jquery.js"></script>
-           <link rel="stylesheet" href="css/theme.css">
-         <link rel="stylesheet" href="css/evaluatie.css">
+        <script src="js/nav.js"></script>
+        <script src="js/jquery.js"></script>
+        <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/evaluatie.css">
         <title>EvaluatieFormulier</title>
     </head>
 
@@ -141,7 +141,7 @@
                 <table id="evaluatieTable" class="evaltable">
                     <!-- Titelbalk-->
                     <tr height="20px" />
-                    <tr bgcolor="#ceccca" height="50px">
+                    <tr bgcolor="#ceccca" height="50px" id="header" hidden>
                         <th width="3%" />
                         <th width="20%" class="links"><b>Taken</b></th>   
                         <th width="3%" />
@@ -154,8 +154,23 @@
                         <th width="20%" class="links"><b>Commentaren</b></th>
                         <th width="3%" />
                     </tr>
-              
-                    <tr height="20px" />
+
+                    <tr height="20px" >
+                        <td> <hr/>  </td>
+                        <td> <hr/> </td>
+                        <td> <hr/> </td>
+                        <td> <hr/> </td>
+                        <td> <hr/>  </td>
+                        <td> <hr/> </td>
+                        <td> <hr/> </td>
+                        <td> <hr/> </td>
+                        <td> <hr/>  </td>
+                        <td> <hr/>  </td>
+                        <td> <hr/> </td>
+                    </tr>
+
+
+
                     <!-- Taak toevoegen -->
                     <tr class="addLine" id="addLine" hidden>
                         <td />
@@ -169,13 +184,13 @@
                     <tr height="20px" />
                     <tr >
                         <td > <input type="button"  value=" Formulier leeg maken "
-                                     class="evalButton" onclick="formulierLeegMaken();"></td>
-                        
-                        <td > <input type="button"  value=" Print formulier  "  onclick="printFormulier();"
+                                     class="evalButton" onclick="formulierLeegMaken();" hidden  style="color:grey" id="leegButton" ></td>
+
+                        <td > <input type="button"  value=" Print formulier  "  onclick="printFormulier();"  hidden  style="color:grey" id="printButton"
                                      class="evalButton"></td>
-                        <td > <input type="button"  value=" Bewaar formulier " onclick="bewaarFormulier();"
+                        <td > <input type="button"  value=" Bewaar formulier " onclick="bewaarFormulier();"  id="bewaarButton" hidden  style="color:grey"
                                      class="evalButton"></td>
-                        <td > <input type='button'  value= ' Laad formulier '  
+                        <td > <input type='button'  value= ' Laad formulier '  id="laadButton" hidden  style="color:grey"
                                      class='evalButton' onclick="laadFormulier();"></td>
 
                     </tr>

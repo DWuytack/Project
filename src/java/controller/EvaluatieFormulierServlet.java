@@ -27,6 +27,7 @@ import model.ModuleDAO;
 import model.Opleiding;
 import model.OpleidingDAO;
 import model.SchooljaarDAO;
+import model.ScoreOverzicht;
 import model.SemesterDAO;
 import model.StudiegebiedDAO;
 import model.Taak;
@@ -344,6 +345,25 @@ public class EvaluatieFormulierServlet extends HttpServlet {
             response.getWriter().write(json);
             return;
         }
+        
+         String formulier = request.getParameter("laadFormulier");
+         
+         if (formulier != null) {
+             
+             EvaluatieFormulierDAO evalformulierDAO=new EvaluatieFormulierDAO();
+             ArrayList<ScoreOverzicht> taken=evalformulierDAO.laadFormulier(Integer.parseInt(formulier));
+             
+            String json = gson.toJson(taken);
+
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+            return;
+             
+             
+         }
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
