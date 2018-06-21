@@ -31,7 +31,7 @@
 
                 <!-- SelectieRij -->
                 <table>
-                    <tr height="15px" />
+                    <tr height="15px">
                     <tr>
                         <td width="20px"></td>
 
@@ -88,7 +88,7 @@
                                        var="studiegebied">                  
                                 <option id="${studiegebied.studiegebiedID}"> ${studiegebied.naam} </option>                     
                             </c:forEach>
-                            <option id="0"> Maak nieuw studiegebied... </option>
+                            <option id="0"> Maak nieuw studiegebied aan... </option>
                         </select> 
                     </td>
                     <td width="10px"></td>
@@ -132,37 +132,48 @@
                     <td width="10px"></td>
                     </tr>
 
-                     <tr height="15px" />
                 </table>
 
-                 <br/><br/>
-                <table class="evaltable" id="titelTable" hidden>
-                    <tr bgcolor="#b9d1f7" height="50px">
-                        <td class="center" id="cursistTitel" ></td>
-                    <tr>
-                </table>
-                
-                <hr name="horizontal" hidden/>
                 <!-- Evaluatie venster -->
-                <table id="evaluatieTable" class="evaltable" hidden>
+                <table id="evaluatieTable" class="evaltable">
                     <!-- Titelbalk-->
                     <tr height="20px" />
-                    <tr bgcolor="#ceccca" height="50px" width="100%" >
+                    <tr bgcolor="#ceccca" height="50px" id="header" hidden>
                         <th width="3%" />
-                        <th width="32%" class="links"><b>Doelstellingen</b></th>  
+                        <th width="20%" class="links"><b>Taken</b></th>   
+                        <th width="3%" />
+                        <th width="30%" class="links"><b>Doelstellingen</b></th>  
                         <th width="3%" />
                         <th width="6%" class="center"><b>Kern</b></th>
                         <th width="3%" />
-                        <th width="32%" class="links"><b>Taken</b></th>  
+                        <th width="6%" class="center"><b>Scores</b></th>
                         <th width="3%" />
-                        <th width="6%" class="links"><b>Score</b></th>
-                        <th width="3%" />
-                        <th width="6%" class="center"><b>Gemiddelde Score</b></th>
+                        <th width="20%" class="links"><b>Commentaren</b></th>
                         <th width="3%" />
                     </tr>
 
+                    <tr height="20px" >
+                        <td> <hr/>  </td>
+                        <td> <hr/> </td>
+                        <td> <hr/> </td>
+                        <td> <hr/> </td>
+                        <td> <hr/>  </td>
+                        <td> <hr/> </td>
+                        <td> <hr/> </td>
+                        <td> <hr/> </td>
+                        <td> <hr/>  </td>
+                        <td> <hr/>  </td>
+                        <td> <hr/> </td>
+                    </tr>
+
+                    <!-- Taak toevoegen -->
+                    <tr class="addLine" id="addLine" hidden>
+                        <td />
+                        <td><input type="button" value="+" 
+                                   onclick="laadLijn();"  class="lijnButton" /></td>
+                    </tr> 
+
                 </table>
-                <hr name="horizontal" hidden />
 
                 <table class="doelstelling1" >
                     <tr height="20px" />

@@ -59,7 +59,7 @@ public class EvaluatieFormulierServlet extends HttpServlet {
         String laadModules = request.getParameter("laadModules");
         String laadCursisten = request.getParameter("laadCursisten");
         String laadTaken = request.getParameter("laadTaken");
-        String laadFormulier = request.getParameter("laadFormulier");
+        String laadTakenVanFormulier = request.getParameter("laadTakenVanFormulier");
         String laadDoelstellingen = request.getParameter("laadDoelstellingen");
         String laadScores = request.getParameter("laadScores");
         String bewaarFormulier = request.getParameter("bewaarFormulier");
@@ -106,13 +106,13 @@ public class EvaluatieFormulierServlet extends HttpServlet {
         if (bestaatFormulierAl != null) {
             response.getWriter().write(bestaatFormulierAl(Integer.parseInt(bestaatFormulierAl), request));
         }
-        if (laadFormulier != null) {
-            response.getWriter().write(laadFormulier(Integer.parseInt(laadFormulier), request));
+        if (laadTakenVanFormulier != null) {
+            response.getWriter().write(laadTakenVanFormulier(Integer.parseInt(laadTakenVanFormulier), request));
         }
     }
     
     //laad de gegevens van een formulier
-    protected String laadFormulier(int formulierID, HttpServletRequest request) {
+    protected String laadTakenVanFormulier(int formulierID, HttpServletRequest request) {
         ArrayList<ScoreOverzicht> scoreOverzicht =evaluatieFormulierDAO.laadFormulier(formulierID);
         return gson.toJson(scoreOverzicht); 
     }

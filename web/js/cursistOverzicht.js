@@ -297,7 +297,6 @@ function laadLijn(doelstelling, kerndoelstelling, taaknaam, score, gemiddeldeSco
         strKern = strKern + '\u2610' + "<br>";
     if (exdoelstelling !== doelstelling)
         row.cells[3].innerHTML = strKern;
-
     //lege cel
     row.insertCell(4);
     if (aantalLijnen % 2 !== 0)

@@ -9,7 +9,7 @@ var taakSelectData;
 //bevat de mogelijke scores waaruit kan worden gekozen
 var scores = '';
 //bevat de doelstellingen van een taak (json)
-var doelstellingen = '';
+var doelstellingen = [];
 var aantalScores = 0;
 
 
@@ -58,7 +58,7 @@ function bewaarFormulier() {
                 //als het taken door de server worden afgeleverd, checken we de doelstellingen
                 arrXHTML[x].onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
-                        const doelstellingen = JSON.parse(arrXHTML[x].responseText);
+                        var doelstellingen = JSON.parse(arrXHTML[x].responseText);
                         var scoreBoxes = document.getElementsByName("score" + (x + 1));
                         for (let i = 0; i < doelstellingen.length; i++) {
                             var doelstellingID = doelstellingen[i].doelstellingID;
@@ -90,24 +90,51 @@ function toonFormulierTitel(kleur) {
 
 function laadFormulier() {
 
+
     if (aantalTaken > 0)
         formulierLeegMaken();
+
+    var label = document.getElementById('formulierNaam');
+    label.style.color = "red";
+    label.innerHTML = "formulierNaam: " + formulierNaam;
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "EvaluatieFormulierServlet?laadFormulier=" + formulierID, true);
+    xhttp.open("POST", "EvaluatieFormulierServlet?laadTakenVanFormulier=" + formulierID, true);
     xhttp.send();
     //als het taken door de server worden afgeleverd
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            var formulier = JSON.parse(xhttp.responseText);
-            toonOverzicht(formulier);
+            var taakOverzicht = JSON.parse(xhttp.responseText);
+            toonOverzicht(taakOverzicht);
         }
     };
+    toonOnderstersteButtons(true, true, true, false);
 }
 
+function toonOverzicht(taakOverzicht) {
+
+    for (x = 0; x < taakOverzicht.length; x++) {
+        laadLijn();
+        var taakID = "taakID" + taakOverzicht[x].taakID;
+        var select = document.getElementById("select" + (x + 1));
+        var rowID = "row" + (x + 1);
+        for (var i = 0; i < select.options.length; i++) {
+            if (select.options[i].id === taakID) {
+                select.options[i].selected = true;
+                taakWissel(taakID, rowID);
+            }
+        }
+    }
+}
+
+
 function formulierLeegMaken() {
+    
+    var label = document.getElementById('formulierNaam');
     if (aantalTaken === 0)
         return;
+
     toonOnderstersteButtons(true, true, true, true);
+
     var aantalRijen = evalTable.rows.length;
     for (let i = aantalRijen - 2; i > 2; i--) {
         var row = evalTable.rows[i];
@@ -118,6 +145,11 @@ function formulierLeegMaken() {
         }
     }
     aantalTaken = 0;
+    if (label.style.color === "red") {
+        var label6 = document.getElementById('laadButton');
+        label6.style.color = "red";
+        label6.hidden = false;
+    }
 }
 
 //kiest juiste semester aan de hand van datum
@@ -312,7 +344,7 @@ function genereerFormuliernaam() {
         var cursistID = cursist.options[cursist.selectedIndex].id;
         formulierNaam = cursistNaam + "_" + moduleNaam + "_" + titelDatum + "_" + lesnummer;
         label.innerHTML = "formulierNaam: " + formulierNaam;
-      
+
         if (ready === true) {
             toonTaakToevoegen();
             label.hidden = false;
@@ -359,7 +391,7 @@ function toonTaakToevoegen() {
 
 function laadCursistenOpnieuw() {
 
- var cursist = document.getElementById("cursisten");
+    var cursist = document.getElementById("cursisten");
     if (cursist.hidden === false)
         laadDropdown("cursisten");
 }
@@ -509,14 +541,14 @@ function taakWissel(taakID, rowID) {
     xhttp7.onreadystatechange = function () {
 
         if (this.readyState === 4 && this.status === 200) {
-            doelstellingen = JSON.parse(xhttp7.responseText);
-            var aantalDoelstellingen = doelstellingen.length;
+            doelstellingen[rijnr] = JSON.parse(xhttp7.responseText);
+            var aantalDoelstellingen = doelstellingen[rijnr].length;
             var labelDoelstelling = [];
-            row.cells[3].innerHTML="";
+            row.cells[3].innerHTML = "";
             for (let i = 0; i < aantalDoelstellingen; i++) {
                 labelDoelstelling[i] = document.createElement('LABEL');
-                labelDoelstelling[i].innerHTML = doelstellingen[i].naam + "<BR/>";
-                labelDoelstelling[i].id = "doelstellingID" + doelstellingen[i].doelstellingID;
+                labelDoelstelling[i].innerHTML = doelstellingen[rijnr][i].naam + "<BR/>";
+                labelDoelstelling[i].id = "doelstellingID" + doelstellingen[rijnr][i].doelstellingID;
                 labelDoelstelling[i].name = "doelstelling" + (i + 1);
                 row.cells[3].appendChild(labelDoelstelling[i]);
             }
@@ -526,15 +558,15 @@ function taakWissel(taakID, rowID) {
             scoreLabel.name = "totaalScore" + rijnr;
             row.cells[3].appendChild(scoreLabel);
             var strKern = [];
-            row.cells[5].innerHTML="";
-            for (let i = 0; i < doelstellingen.length; i++) {
+            row.cells[5].innerHTML = "";
+            for (let i = 0; i < doelstellingen[rijnr].length; i++) {
                 //we maken een string aan
                 strKern[i] = document.createElement('LABEL');
-                strKern[i].id = "kern" + doelstellingen[i].doelstellingID;
+                strKern[i].id = "kern" + doelstellingen[rijnr][i].doelstellingID;
                 strKern[i].name = "kern" + (i + 1);
-                if (doelstellingen[i].kerndoelstelling === true)
+                if (doelstellingen[rijnr][i].kerndoelstelling === true)
                     strKern[i].innerHTML = '\u2611 <br/>';
-                if (doelstellingen[i].kerndoelstelling === false)
+                if (doelstellingen[rijnr][i].kerndoelstelling === false)
                     strKern[i].innerHTML = '\u2610 <br/>';
                 row.cells[5].appendChild(strKern[i]);
             }
@@ -560,7 +592,7 @@ function taakWissel(taakID, rowID) {
             comment.rows = aantalDoelstellingen + 1;
             comment.cols = 35;
             comment.style = "background: #f9f9f9";
-            row.cells[9].innerHTML="";
+            row.cells[9].innerHTML = "";
             row.cells[9].appendChild(comment);
         }
         ;
@@ -598,11 +630,11 @@ function toonOnderstersteButtons(bewaar, print, leeg, laad) {
 function toonScores(row, rijID) {
 
     row.cells[7].innerHTML = "";
-    for (let i = 0; i < doelstellingen.length; i++) {
+    for (let i = 0; i < doelstellingen[rijID].length; i++) {
         var scoreSelect = document.createElement('select');
         scoreSelect.style = "background: #f9f9f9";
         scoreSelect.name = "score" + rijID;
-        scoreSelect.id = "doelstellingID" + doelstellingen[i].doelstellingID;
+        scoreSelect.id = "doelstellingID" + doelstellingen[rijID][i].doelstellingID;
         scoreSelect.style.fontSize = "10pt";
         let defaultOption = document.createElement('option');
         defaultOption.text = 'Score...';
@@ -618,7 +650,7 @@ function toonScores(row, rijID) {
             option = document.createElement('option');
             option.text = scores[x].naam;
             option.id = "beoordelingssoortID" + scores[x].beoordelingssoortID;
-            option.name = doelstellingen[i].doelstellingID;
+            option.name = doelstellingen[rijID][i].doelstellingID;
             scoreSelect.add(option);
         }
         row.cells[7].appendChild(scoreSelect);

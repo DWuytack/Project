@@ -264,10 +264,7 @@ public class EvaluatieFormulierDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        String sql = "select evalform_scores.taakID,doelstellingID,beoordelingssoorten.naam, waarde, taken.naam as taaknaam from evalform_scores \n" +
-                    " inner join beoordelingssoorten on beoordelingssoorten.beoordelingssoortID=evalform_scores.beoordelingssoortID\n" +
-                    " inner join taken on taken.taakID = evalform_scores.taakID\n" +
-                    " where evalform_scores.evaluatieformID=?;";
+        String sql = "select distinct(evalform_scores.taakID) from evalform_scores where evalform_scores.evaluatieformID=?";
           
         try {
             //connectie met de database
@@ -281,11 +278,7 @@ public class EvaluatieFormulierDAO {
             
             while (rs.next()) {
                 ScoreOverzicht score = new ScoreOverzicht();
-                score.setDoelstellingID(rs.getInt("doelstellingID"));
                 score.setTaakID(rs.getInt("taakID"));
-                score.setScore(rs.getString("naam"));
-                score.setWaarde(rs.getDouble("waarde")); 
-                score.setTaaknaam(rs.getString("taaknaam"));
                 scores.add(score);
             }            
             
