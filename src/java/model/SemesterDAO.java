@@ -30,7 +30,7 @@ public class SemesterDAO {
 
             while (rs.next()) {
                 Semester semester = new Semester();
-                semester.setSemsterID(rs.getInt("semesterID"));
+                semester.setSemesterID(rs.getInt("semesterID"));
                 semester.setSemester(rs.getString("semester"));
                 semesters.add(semester);
             }

@@ -7,9 +7,7 @@ package model;
 public class Gebruiker {
    
     //beveiligingsupdate, schakel over naar jsonID
-    private transient int gebruikerID;
-    //private int gebruikerID;
-    private int jsonID;
+    private int gebruikerID;
     private String rol;
     private String voornaam;
     private String achternaam;
@@ -28,20 +26,15 @@ public class Gebruiker {
         this.naam = naam;
     }
 
-
-    public int getJsonID() {
-        this.jsonID = gebruikerID * 4;
-        return jsonID;
-    }
-    
     public int getGebruikerID() {
         return gebruikerID;
     }
-
-    public void setGebruikerID(int gebruikerID) {
-        this.jsonID = gebruikerID * 4;
-        this.gebruikerID = gebruikerID;
+    
+     public void setGebruikerID(int gebruikerID) {
+        this.gebruikerID=gebruikerID;
     }
+    
+    
 
     public String getRol() {
         return rol;

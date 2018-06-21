@@ -268,8 +268,7 @@ public class EvaluatieFormulierDAO {
                     " inner join beoordelingssoorten on beoordelingssoorten.beoordelingssoortID=evalform_scores.beoordelingssoortID\n" +
                     " inner join taken on taken.taakID = evalform_scores.taakID\n" +
                     " where evalform_scores.evaluatieformID=?;";
-        
-    
+          
         try {
             //connectie met de database
             currentCon = ConnectionManager.getConnection();

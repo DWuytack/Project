@@ -4,39 +4,45 @@
  * and open the template in the editor.
  */
 
-var aantalLijnen = 1;
+var aantalLijnen = 0;
 var exdoelstelling = "";
 var totaalScore = 0;
 var aantalScores = 0;
 var evalTable = "";
+var doelstellingen = "";
+
+function formulierLeegMaken() {
+    if (aantalLijnen === 0)
+        return;
+    toonOnderstersteButtons(true, true);
+    var aantalRijen = evalTable.rows.length;
+    for (let i = aantalRijen; i > 0; i--) {
+        evalTable.deleteRow(i);
+    }
+    aantalLijnen = 0;
+}
+
+function laadSemester() {
+
+    var dropdown = document.querySelector("#schooljaar");
+    if (dropdown.selectedIndex !== 0) {
+        dropdown.style = "background: #f9f9f9";
+    }
+    dropdown = document.querySelector("#Semester");
+    dropdown.hidden = false;
+    dropdown = document.querySelector("#studiegebied");
+    dropdown.hidden = false;
+}
 
 //laad de dropdown met de gevraagde soort
 function laadDropdown(soort) {
 
-    var dropdownKeuze;
-    var dropdown;
     var xhttp = new XMLHttpRequest();
     //vraag informatie aan servlet
     switch (soort) {
-        case 'studiegebieden':
-            //highlight opleiding in het rood
-            dropdown = document.querySelector("#Semester");
-            dropdown.style = "background: #f9f9f9";
-            dropdown = document.querySelector("#studiegebied");
-            dropdown.style = "background: #efc4c4";
-            dropdown.hidden = false;
-            break;
-        case 'semesters':
-            dropdown = document.querySelector("#Semester");
-            dropdown.style = "background: #efc4c4";
-            dropdown.hidden = false;
-            resetDropdowns("opleidingen");
-            resetDropdowns("modules");
-            resetDropdowns("cursisten");
-            break;
         case 'opleidingen':
             //highlight opleiding in het rood
-            dropdown = document.querySelector("#studiegebied");
+            var dropdown = document.querySelector("#studiegebied");
             dropdown.style = "background: #f9f9f9";
             dropdown = document.querySelector("#opleidingen");
             dropdown.style = "background: #efc4c4";
@@ -46,9 +52,9 @@ function laadDropdown(soort) {
             dropdown = document.querySelector("#cursisten");
             dropdown.style = "background: #efc4c4";
             resetDropdowns("cursisten");
-            dropdownKeuze = document.getElementById('studiegebied').value;
-            xhttp.open("POST", "CursistOverzichtServlet?studiegebied=" + dropdownKeuze, true);
-            xhttp.send();
+            var select = document.getElementById('studiegebied');
+            var studiegebiedID = select.options[select.selectedIndex].id;
+            xhttp.open("POST", "CursistOverzichtServlet?laadOpleidingen=" + studiegebiedID, true);
             break;
         case 'modules':
             dropdown = document.querySelector("#opleidingen");
@@ -58,29 +64,28 @@ function laadDropdown(soort) {
             dropdown = document.querySelector("#cursisten");
             dropdown.style = "background: #efc4c4";
             resetDropdowns("cursisten");
-            dropdownKeuze = document.getElementById('opleidingen').value;
-            xhttp.open("POST", "CursistOverzichtServlet?opleiding=" + dropdownKeuze, true);
-            xhttp.send();
+            var select2 = document.getElementById('opleidingen');
+            var opleidingID = select2.options[select2.selectedIndex].id;
+            xhttp.open("POST", "CursistOverzichtServlet?laadModules=" + opleidingID, true);
             break;
         case 'cursisten':
             dropdown = document.querySelector("#modules");
             dropdown.style = "background: #f9f9f9";
             dropdown = document.querySelector("#cursisten");
             dropdown.style = "background: #efc4c4";
-            dropdownKeuze = document.getElementById('modules').value;
-            var schooljaar = document.getElementById("schooljaar").value;
+            var module = document.getElementById('modules');
+            var moduleID = module.options[module.selectedIndex].id;
+            var schooljaarDD = document.getElementById("schooljaar");
+            var schooljaar = schooljaarDD.options[schooljaarDD.selectedIndex].id;
             var semester = document.getElementById("Semester").value;
-            xhttp.open("POST", "CursistOverzichtServlet?module=" + dropdownKeuze + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
-            xhttp.send();
+            xhttp.open("POST", "CursistOverzichtServlet?laadCursisten=" + moduleID + "&datum=" + schooljaar + "&semester=" + semester, true);
             break;
     }
-
-
+    xhttp.send();
     //als het antwoord wordt ontvangen...
     xhttp.onreadystatechange = function () {
 
         if (this.readyState === 4 && this.status === 200) {
-
             //plaats het antwoord in een object...
             const data = JSON.parse(xhttp.responseText);
             //toon dropdown
@@ -93,12 +98,15 @@ function laadDropdown(soort) {
             switch (soort) {
                 case 'opleidingen':
                     defaultOption.text = 'Opleiding...';
+                    defaultOption.id = 0;
                     break;
                 case 'modules':
                     defaultOption.text = 'Module...';
+                    defaultOption.id = 0;
                     break;
                 case 'cursisten':
                     defaultOption.text = 'Cursist...';
+                    defaultOption.id = 0;
                     break;
             }
             defaultOption.disabled = true;
@@ -108,23 +116,30 @@ function laadDropdown(soort) {
             for (let i = 0; i < data.length; i++) {
                 let  optiondata = document.createElement('option');
                 optiondata.text = data[i].naam;
+                if (soort === 'opleidingen')
+                    optiondata.id = data[i].opleidingID;
+                if (soort === 'modules')
+                    optiondata.id = data[i].moduleID;
+                if (soort === 'cursisten')
+                    optiondata.id = data[i].gebruikerID;
                 dropdown.add(optiondata);
             }
         }
     };
-
-    var cursistNaam = document.querySelector("#cursisten");
-    if (cursistNaam.hidden === false) {
-        if (soort === "studiegebieden") {
-            laadDropdown('cursisten');
-            dropdown = document.querySelector("#studiegebied");
-            dropdown.style = "background: #f9f9f9";
-        }
-    }
 }
+function laadCursistenOpnieuw() {
+
+    var cursist = document.getElementById("cursisten");
+    if (cursist.hidden === false)
+        laadDropdown("cursisten");
+}
+
 
 //als een keuze wordt gewijzigd, ledig dan de daaropvolgende dropdowns
 function resetDropdowns(naam) {
+
+    if (aantalLijnen > 0)
+        formulierLeegMaken();
     let dropdowns = document.getElementsByClassName('drop');
     var idDropDown;
     for (let i = 0; i < dropdowns.length; i++) {
@@ -138,6 +153,7 @@ function resetDropdowns(naam) {
         }
     }
 }
+
 //maak een gevulde dropdown terug leeg
 function ledigDropDown(dropdown) {
     if (dropdown.hidden === false) {
@@ -145,10 +161,55 @@ function ledigDropDown(dropdown) {
     }
 }
 
+function toonOnderstersteButtons(print, leeg) {
+
+    var label4 = document.getElementById('printButton');
+    label4.style.color = "blue";
+    label4.hidden = print;
+    var label5 = document.getElementById('leegButton');
+    label5.style.color = "blue";
+    label5.hidden = leeg;
+
+}
+
+function toonScores(row, rijID) {
+
+    row.cells[7].innerHTML = "";
+    for (let i = 0; i < doelstellingen.length; i++) {
+        var scoreSelect = document.createElement('select');
+        scoreSelect.style = "background: #f9f9f9";
+        scoreSelect.name = "score" + rijID;
+        scoreSelect.id = "doelstellingID" + doelstellingen[i].doelstellingID;
+        scoreSelect.style.fontSize = "10pt";
+        let defaultOption = document.createElement('option');
+        defaultOption.text = 'Score...';
+        defaultOption.id = "beoordelingssoortID" + 0;
+        defaultOption.disabled = true;
+        scoreSelect.add(defaultOption);
+        scoreSelect.selectedIndex = 0;
+        scoreSelect.onchange = function () {
+            berekenGemiddelde(rijID);
+        };
+        let option;
+        for (let x = 0; x < scores.length; x++) {
+            option = document.createElement('option');
+            option.text = scores[x].naam;
+            option.id = "beoordelingssoortID" + scores[x].beoordelingssoortID;
+            option.name = doelstellingen[i].doelstellingID;
+            scoreSelect.add(option);
+        }
+        row.cells[7].appendChild(scoreSelect);
+    }
+}
+
+
 function laadCursistInfo() {
 
-    var cursistNaam = document.querySelector("#cursisten").value;
-    var module = document.querySelector("#modules").value;
+    var cursistDD = document.querySelector("#cursisten");
+    var cursistNaam = cursistDD.name;
+    var cursistID = cursistDD.options[cursistDD.selectedIndex].id;
+    var moduleNaam = document.querySelector("#modules");
+    var moduleID = moduleNaam.options[moduleNaam.selectedIndex].id;
     var label = document.getElementById('cursistTitel');
     label.innerHTML = "<h3 >" + cursistNaam + ": " + "</h3>";
     var xhttp = new XMLHttpRequest();
@@ -156,11 +217,13 @@ function laadCursistInfo() {
     dropdown3.hidden = false;
     var dropdown4 = document.querySelector("#evaluatieTable");
     dropdown4.hidden = false;
-    var schooljaar = document.querySelector("#schooljaar").value;
-    var semester = document.querySelector("#Semester").value;
+    var schooljaarDD = document.querySelector("#schooljaar");
+    var schooljaarID = schooljaarDD.options[schooljaarDD.selectedIndex].id;
+    var semesterDD = document.querySelector("#Semester");
+    var semesterID = semesterDD.options[semesterDD.selectedIndex].id;
     formulierLeegMaken();
 
-    xhttp.open("POST", "CursistOverzichtServlet?module2=" + module + "&cursist=" + cursistNaam + "&schooljaar=" + schooljaar + "&semester=" + semester, true);
+    xhttp.open("POST", "CursistOverzichtServlet?laadOverzicht=" + moduleID + "&cursist=" + cursistID + "&schooljaar=" + schooljaarID + "&semester=" + semesterID, true);
     xhttp.send();
     //als het taken door de server worden afgeleverd
     xhttp.onreadystatechange = function () {
@@ -171,20 +234,6 @@ function laadCursistInfo() {
         }
     };
 }
-function formulierLeegMaken() {
-    if (aantalLijnen === 1)
-        return;
-    var aantalRijen = evalTable.rows.length;
-    for (let i = aantalRijen - 1; i > 1; i--) {
-        evalTable.deleteRow(i);
-    }
-    aantalLijnen = 1;
-    exdoelstelling = "";
-    totaalScore = 0;
-    aantalScores = 0;
-    evalTable = "";
-}
-
 
 function toonDoelstellingen(scoreOverzicht) {
 
@@ -277,8 +326,8 @@ function laadLijn(doelstelling, kerndoelstelling, taaknaam, score, gemiddeldeSco
     gemiddeldeScoreVak.style.verticalAlign = "center";
     gemiddeldeScoreVak.style.textAlign = "center";
     if (exdoelstelling !== doelstelling && gemiddeldeScore !== 0) {
-       
-        gemiddeldeScoreVak.innerHTML =  Math.round((gemiddeldeScore) * 100) / 100;
+
+        gemiddeldeScoreVak.innerHTML = Math.round((gemiddeldeScore) * 100) / 100;
         totaalScore = totaalScore + gemiddeldeScore;
         aantalScores = aantalScores + 1;
     }

@@ -4,16 +4,18 @@ package model;
  * @author CURSIST
  */
 public class Semester {
+    
     private int semesterID;
     private String semester;
 
-    public int getSemsterID() {
+    public int getSemesterID() {
         return semesterID;
     }
 
-    public void setSemsterID(int semsterID) {
-        this.semesterID = semsterID;
+    public void setSemesterID(int semesterID) {
+        this.semesterID = semesterID;
     }
+
 
     public String getSemester() {
         return semester;

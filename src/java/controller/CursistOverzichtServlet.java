@@ -13,10 +13,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Beoordelingssoort;
+import model.BeoordelingssoortDAO;
+import model.Doelstelling;
 import model.DoelstellingDAO;
+import model.EvaluatieFormulier;
+import model.EvaluatieFormulierDAO;
 import model.Gebruiker;
 import model.GebruikerDAO;
 import model.InschrijvingDAO;
+import model.LesnrDAO;
 import model.Module;
 import model.ModuleDAO;
 import model.Opleiding;
@@ -25,7 +31,8 @@ import model.SchooljaarDAO;
 import model.ScoreDAO;
 import model.ScoreOverzicht;
 import model.SemesterDAO;
-import model.StudiegebiedDAO;
+import model.Taak;
+import model.TaakDAO;
 
 /**
  *
@@ -43,136 +50,185 @@ public class CursistOverzichtServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    //Alle DAO die in deze servlet worden gebruikt
+    GebruikerDAO gebruikerDAO = new GebruikerDAO();
+    ModuleDAO moduleDAO = new ModuleDAO();
+    SemesterDAO semesterDAO = new SemesterDAO();
+    SchooljaarDAO schooljaarDAO = new SchooljaarDAO();
+    InschrijvingDAO inschrijvingDAO = new InschrijvingDAO();
+    LesnrDAO lesnrDAO = new LesnrDAO();
+    EvaluatieFormulierDAO evaluatieFormulierDAO = new EvaluatieFormulierDAO();
+    TaakDAO taakDAO = new TaakDAO();
+    BeoordelingssoortDAO beoordelingssoortDAO = new BeoordelingssoortDAO();
+    OpleidingDAO opleidingDAO = new OpleidingDAO();
+    DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
+
+    Gson gson = new Gson();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Gson gson = new Gson();
+        String laadOpleidingen = request.getParameter("laadOpleidingen");
+        String laadModules = request.getParameter("laadModules");
+        String laadCursisten = request.getParameter("laadCursisten");
+        String laadTaken = request.getParameter("laadTaken");
+        String laadFormulier = request.getParameter("laadFormulier");
+        String laadDoelstellingen = request.getParameter("laadDoelstellingen");
+        String laadScores = request.getParameter("laadScores");
+        String laadOverzicht = request.getParameter("laadOverzicht");
+        response.setContentType("application/json");
 
-        String keuze = request.getParameter("reset");
-        if (keuze != null) {
-            response.sendRedirect("EvaluatieFormulier.jsp");
-            return;
+        if (laadOverzicht != null) {
+            laadOverzicht(Integer.parseInt(laadOverzicht), request);
         }
 
-        String studiegebied = request.getParameter("studiegebied");
-
-        if (studiegebied != null) {
-
-            OpleidingDAO opleidingDAO = new OpleidingDAO();
-            StudiegebiedDAO studieGebiedDAO = new StudiegebiedDAO();
-            ArrayList<Opleiding> opleidingen = opleidingDAO.opleidingenLaden(studieGebiedDAO.geefStudiegebiedID(studiegebied));
-
-            String json = gson.toJson(opleidingen);
-
-            response.setContentType("application/json");
-            response.getWriter().write(json);
-            return;
+        if (laadOpleidingen != null) {
+            response.getWriter().write(laadOpleidingen(Integer.parseInt(laadOpleidingen)));
         }
 
-        String opleiding = request.getParameter("opleiding");
-
-        if (opleiding != null) {
-
-            ModuleDAO moduleDAO = new ModuleDAO();
-            OpleidingDAO opleidingDAO = new OpleidingDAO();
-            ArrayList<Module> modules = moduleDAO.modulesLaden(opleidingDAO.geefOpleidingID(opleiding));
-
-            String json = gson.toJson(modules);
-
-            response.setContentType("application/json");
-            response.getWriter().write(json);
-            return;
+        if (laadModules != null) {
+            response.getWriter().write(laadModules(Integer.parseInt(laadModules)));
         }
 
-        String module = request.getParameter("module");
-
-        if (module != null) {
-
-            String schooljaar = request.getParameter("schooljaar");
-            String semester = request.getParameter("semester");
-            GebruikerDAO gebruikerDAO = new GebruikerDAO();
-            SchooljaarDAO schooljarenDAO = new SchooljaarDAO();
-            SemesterDAO semesterDAO = new SemesterDAO();
-            ModuleDAO moduleDAO = new ModuleDAO();
-            int param1 = schooljarenDAO.geefSchooljaarID(schooljaar);
-            int param2 = semesterDAO.laadSemesterID(semester);
-            int param3 = moduleDAO.laadModuleID(module);
-            ArrayList<Gebruiker> gebruikers = gebruikerDAO.gebruikersLaden(param1, param2, param3);
-
-            String json = gson.toJson(gebruikers);
-
-            response.setContentType("application/json");
-            response.getWriter().write(json);
-            return;
-
+        if (laadCursisten != null) {
+            response.getWriter().write(laadCursisten(Integer.parseInt(laadCursisten), request));
         }
 
-        module = request.getParameter("module2");
+        if (laadTaken != null) {
+            response.getWriter().write(laadTaken(Integer.parseInt(laadTaken)));
+        }
 
-        if (module != null) {
-            ModuleDAO moduleDAO = new ModuleDAO();
-            int moduleID = moduleDAO.laadModuleID(module);
-            DoelstellingDAO doelstellingDAO = new DoelstellingDAO();
-            SchooljaarDAO schooljaarDAO = new SchooljaarDAO();
-            int schooljaarID = schooljaarDAO.geefSchooljaarID(request.getParameter("schooljaar"));
-            SemesterDAO semesterDAO = new SemesterDAO();
-            int semesterID = semesterDAO.laadSemesterID(request.getParameter("semester"));
-            String gebruiker = request.getParameter("cursist");
-            GebruikerDAO gebruikerDAO = new GebruikerDAO();
-            int gebruikerID = gebruikerDAO.geefGebruikerID(gebruiker);
-            InschrijvingDAO inschrijvingDAO = new InschrijvingDAO();
-            int inschrijvingID = inschrijvingDAO.geefInschrijvingID(gebruikerID, moduleID, semesterID, schooljaarID);
-            ScoreDAO scoreDAO = new ScoreDAO();
-            ArrayList<ScoreOverzicht> scores = scoreDAO.geefScoresVoorInschrijvingID(inschrijvingID, moduleID);
+        if (laadDoelstellingen != null) {
+            response.getWriter().write(laadDoelstellingen(Integer.parseInt(laadDoelstellingen)));
+        }
+        if (laadScores != null) {
+            response.getWriter().write(laadScores());
+        }
 
-            for (ScoreOverzicht score : scores) {
-                if (score.getScore() == null || score.getScore().equalsIgnoreCase("Geen")) {
-                    score.setScore("");
-                    score.setWaarde(0);
-                }
-                if (score.getTaaknaam() == null) {
-                    score.setTaaknaam("");
-                }
+        if (laadFormulier != null) {
+            response.getWriter().write(laadFormulier(Integer.parseInt(laadFormulier), request));
+        }
+    }
+
+    protected String laadOverzicht(int moduleID, HttpServletRequest request) {
+
+        int schooljaarID = Integer.parseInt(request.getParameter("schooljaar"));
+        SemesterDAO semesterDAO = new SemesterDAO();
+        int semesterID = semesterDAO.laadSemesterID(request.getParameter("semester"));
+        int gebruikerID = Integer.parseInt(request.getParameter("cursist"));
+        InschrijvingDAO inschrijvingDAO = new InschrijvingDAO();
+        int inschrijvingID = inschrijvingDAO.geefInschrijvingID(gebruikerID, moduleID, semesterID, schooljaarID);
+        ScoreDAO scoreDAO = new ScoreDAO();
+        ArrayList<ScoreOverzicht> scores = scoreDAO.geefScoresVoorInschrijvingID(inschrijvingID, moduleID);
+
+        for (ScoreOverzicht score : scores) {
+            if (score.getScore() == null || score.getScore().equalsIgnoreCase("Geen")) {
+                score.setScore("");
+                score.setWaarde(0);
             }
+            if (score.getTaaknaam() == null) {
+                score.setTaaknaam("");
+            }
+        }
 
-            int exDoelstellingID = 0;
-            double totaalScore = 0;
-            int aantalTaken = 0;
-            for (ScoreOverzicht score : scores) {
-                if (score.getDoelstellingID() == exDoelstellingID || exDoelstellingID == 0) {
-                    if (score.getWaarde() != 0) {
-                        aantalTaken = aantalTaken + 1;
-                    }
-                    totaalScore = totaalScore + score.getWaarde();
-                    exDoelstellingID = score.getDoelstellingID();
+        int exDoelstellingID = 0;
+        double totaalScore = 0;
+        int aantalTaken = 0;
+        for (ScoreOverzicht score : scores) {
+            if (score.getDoelstellingID() == exDoelstellingID || exDoelstellingID == 0) {
+                if (score.getWaarde() != 0) {
+                    aantalTaken = aantalTaken + 1;
+                }
+                totaalScore = totaalScore + score.getWaarde();
+                exDoelstellingID = score.getDoelstellingID();
 
-                } else {
-
-                    for (ScoreOverzicht score2 : scores) {
-                        if (score2.getDoelstellingID() == exDoelstellingID) {
-                            score2.setTotaalScore(totaalScore);
-                            if (aantalTaken != 0) score2.setGemiddeldeScore(totaalScore / aantalTaken);
-                            score2.setAantalTaken(aantalTaken);
+            } else {
+                for (ScoreOverzicht score2 : scores) {
+                    if (score2.getDoelstellingID() == exDoelstellingID) {
+                        score2.setTotaalScore(totaalScore);
+                        if (aantalTaken != 0) {
+                            score2.setGemiddeldeScore(totaalScore / aantalTaken);
                         }
+                        score2.setAantalTaken(aantalTaken);
                     }
-                    totaalScore = 0;
-                    aantalTaken = 0;
-                    exDoelstellingID = 0;
-                       if (score.getWaarde() != 0) {
-                        aantalTaken = aantalTaken + 1;
-                    }
-                    totaalScore = totaalScore + score.getWaarde();
-                    exDoelstellingID = score.getDoelstellingID();                 
                 }
-
+                totaalScore = 0;
+                aantalTaken = 0;
+                exDoelstellingID = 0;
+                if (score.getWaarde() != 0) {
+                    aantalTaken = aantalTaken + 1;
+                }
+                totaalScore = totaalScore + score.getWaarde();
+                exDoelstellingID = score.getDoelstellingID();
             }
-
-            String json = gson.toJson(scores);
-            response.setContentType("application/json");
-            response.getWriter().write(json);
-            return;
         }
+        return gson.toJson(scores);
+    }
 
+    //laad de gegevens van een formulier
+    protected String laadFormulier(int formulierID, HttpServletRequest request) {
+        ArrayList<ScoreOverzicht> scoreOverzicht = evaluatieFormulierDAO.laadFormulier(formulierID);
+        return gson.toJson(scoreOverzicht);
+    }
+
+    //vult de gegevens van een formulier op
+    protected EvaluatieFormulier laadFormulierGegevens(int cursistID, HttpServletRequest request) {
+
+        int lesnrID = Integer.parseInt(request.getParameter("lesnr"));
+        int moduleID = Integer.parseInt(request.getParameter("module"));
+        int semesterID = semesterDAO.laadSemesterID(request.getParameter("semester"));
+        String formulierNaam = request.getParameter("formname");
+        int schooljaarID = schooljaarDAO.geefSchooljaarID(request.getParameter("datum"));
+        int inschrijvingID = 10000000;
+        if (cursistID != inschrijvingID && cursistID != 0) {
+            inschrijvingID = inschrijvingDAO.geefInschrijvingID(cursistID, moduleID, semesterID, schooljaarID);
+        }
+        EvaluatieFormulier formulier = new EvaluatieFormulier();
+        formulier.setNaam(formulierNaam);
+        formulier.setInschrijvingID(inschrijvingID);
+        formulier.setLesnrID(lesnrID);
+        formulier.setModuleID(moduleID);
+        formulier.setSchooljaarID(schooljaarID);
+        formulier.setSemesterID(semesterID);
+        return formulier;
+    }
+
+    //laad de opleiding voor een studiegebied
+    protected String laadOpleidingen(int studieGebiedID) {
+        ArrayList<Opleiding> opleidingen = opleidingDAO.opleidingenLaden(studieGebiedID);
+        return gson.toJson(opleidingen);
+    }
+
+    //laad de modules voor een opleiding
+    protected String laadModules(int opleidingID) {
+        ArrayList<Module> modules = moduleDAO.modulesLaden(opleidingID);
+        return gson.toJson(modules);
+    }
+
+    //laad de cursisten die zijn ingeschreven voor een bepaalde module
+    protected String laadCursisten(int moduleID, HttpServletRequest request) {
+        int schooljaarID = Integer.parseInt(request.getParameter("datum"));
+        int semesterID = semesterDAO.laadSemesterID(request.getParameter("semester"));
+        ArrayList<Gebruiker> cursisten = gebruikerDAO.gebruikersLaden(schooljaarID, semesterID, moduleID);
+        return gson.toJson(cursisten);
+    }
+
+    //laad de taken die bij een module horen
+    protected String laadTaken(int moduleID) {
+        ArrayList<Taak> taken = taakDAO.takenLaden(moduleID);
+        return gson.toJson(taken);
+    }
+
+    //laad de doelstellingen voor een bepaalde taak
+    protected String laadDoelstellingen(int taakID) {
+        ArrayList<Doelstelling> doelstellingen = doelstellingDAO.laadDoelstellingen(taakID);
+        return gson.toJson(doelstellingen);
+    }
+
+    //laad de mogelijke scores die kunnen worden gekozen
+    protected String laadScores() {
+        ArrayList<Beoordelingssoort> scores = beoordelingssoortDAO.beoordelingssoortenLaden();
+        return gson.toJson(scores);
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

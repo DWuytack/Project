@@ -43,7 +43,7 @@ public class MenuServlet extends HttpServlet {
 
                 case "Overzicht cursisten":
 
-//laden van cursisten uit database
+                    //laden van cursisten uit database
                     GebruikerDAO gebruikerDAO = new GebruikerDAO();
                     ArrayList cursisten = gebruikerDAO.cursistenLaden(1);
 
@@ -61,7 +61,7 @@ public class MenuServlet extends HttpServlet {
 
                 case "Overzicht gebruikers":
 
-//laden van gebruikers uit database
+                    //laden van gebruikers uit database
                     gebruikerDAO = new GebruikerDAO();
                     ArrayList gebruikers = gebruikerDAO.gebruikersLaden(1);
 
@@ -85,17 +85,17 @@ public class MenuServlet extends HttpServlet {
 
                 case "Overzicht scores klas":
 
-// laden van schooljaren uit database en in het geheugen plaatsen
+                    // laden van schooljaren uit database en in het geheugen plaatsen
                     SchooljaarDAO schooljaarDAO = new SchooljaarDAO();
                     ArrayList schooljaren = schooljaarDAO.schooljarenLaden();
                     session.setAttribute("schooljaren", schooljaren);
 
-// laden semester uit database en in het geheugen plaatsen
+                    // laden semester uit database en in het geheugen plaatsen
                     SemesterDAO semesterDAO = new SemesterDAO();
                     ArrayList semesters = semesterDAO.semestersLaden();
                     session.setAttribute("semesters", semesters);
 
-// laden studiegebieden
+                    // laden studiegebieden
                     StudiegebiedDAO studiegebiedDAO = new StudiegebiedDAO();
                     ArrayList studiegebieden = studiegebiedDAO.studiegebiedenLaden();
                     session.setAttribute("studiegebieden", studiegebieden);
@@ -130,22 +130,17 @@ public class MenuServlet extends HttpServlet {
 
                 case "Evaluatieformulieren":
 
-//laden schooljaren
-                    schooljaarDAO = new SchooljaarDAO();
-                    schooljaren = schooljaarDAO.schooljarenLaden();
-                    session.setAttribute("schooljaren", schooljaren);
-
-//laden semesters
+                    //laden semesters
                     semesterDAO = new SemesterDAO();
                     semesters = semesterDAO.semestersLaden();
                     session.setAttribute("semesters", semesters);
 
-//laden studiegebieden
+                    //laden studiegebieden
                     studiegebiedDAO = new StudiegebiedDAO();
                     studiegebieden = studiegebiedDAO.studiegebiedenLaden();
                     session.setAttribute("studiegebieden", studiegebieden);
 
-// laden lesnr
+                    // laden lesnr
                     LesnrDAO lesnrDAO = new LesnrDAO();
                     ArrayList<Lesnr> lesnrs = lesnrDAO.lesnrsLaden();
                     session.setAttribute("lesnrs", lesnrs);
@@ -158,7 +153,7 @@ public class MenuServlet extends HttpServlet {
                     break;
 
                 case "Type score aanpassen":
-//laden van de types score
+                    //laden van de types score
                     BeoordelingssoortDAO beoordelingssoortDAO = new BeoordelingssoortDAO();
                     ArrayList beoordelingssoort = beoordelingssoortDAO.beoordelingssoortenLaden();
                     session.setAttribute("beoordelingssoorten", beoordelingssoort);
