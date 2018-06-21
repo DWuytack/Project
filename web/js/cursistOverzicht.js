@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var aantalLijnen = 0;
+var aantalLijnen = 1;
 var exdoelstelling = "";
 var totaalScore = 0;
 var aantalScores = 0;
@@ -12,11 +12,11 @@ var evalTable = "";
 var doelstellingen = "";
 
 function formulierLeegMaken() {
-    if (aantalLijnen === 0)
+    if (aantalLijnen === 1)
         return;
     toonOnderstersteButtons(true, true);
     var aantalRijen = evalTable.rows.length;
-    for (let i = aantalRijen; i > 0; i--) {
+    for (let i = aantalRijen; i > 1; i--) {
         evalTable.deleteRow(i);
     }
     aantalLijnen = 0;
@@ -247,9 +247,16 @@ function toonDoelstellingen(scoreOverzicht) {
     var label = document.getElementById('cursistTitel');
     var cursistNaam = document.querySelector("#cursisten").value;
     label.innerHTML = "<h3 >" + cursistNaam + ": " + (Math.round((totaalScore * 10) * 100) / 100) + "%</h3>";
+    if ((Math.round((totaalScore * 10) * 100) / 100) < 50) {
+        label.style.color="red";
+    }else {
+        label.style.color="black";
+    }
     var lijnen = document.getElementsByName("horizontal");
     lijnen[0].hidden = false;
     lijnen[1].hidden = false;
+    lijnen[2].hidden = false;
+    
 }
 
 function laadLijn(doelstelling, kerndoelstelling, taaknaam, score, gemiddeldeScore) {
@@ -325,9 +332,11 @@ function laadLijn(doelstelling, kerndoelstelling, taaknaam, score, gemiddeldeSco
         row.cells[9].style.backgroundColor = "#ceccca";
     gemiddeldeScoreVak.style.verticalAlign = "center";
     gemiddeldeScoreVak.style.textAlign = "center";
+    gemiddeldeScoreVak.style.color="black";
     if (exdoelstelling !== doelstelling && gemiddeldeScore !== 0) {
 
         gemiddeldeScoreVak.innerHTML = Math.round((gemiddeldeScore) * 100) / 100;
+        if ((Math.round((gemiddeldeScore) * 100) / 100) < 5) gemiddeldeScoreVak.style.color="red";
         totaalScore = totaalScore + gemiddeldeScore;
         aantalScores = aantalScores + 1;
     }

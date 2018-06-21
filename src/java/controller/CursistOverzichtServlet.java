@@ -79,7 +79,7 @@ public class CursistOverzichtServlet extends HttpServlet {
         response.setContentType("application/json");
 
         if (laadOverzicht != null) {
-            laadOverzicht(Integer.parseInt(laadOverzicht), request);
+            response.getWriter().write(laadOverzicht(Integer.parseInt(laadOverzicht), request));
         }
 
         if (laadOpleidingen != null) {
@@ -113,14 +113,13 @@ public class CursistOverzichtServlet extends HttpServlet {
     protected String laadOverzicht(int moduleID, HttpServletRequest request) {
 
         int schooljaarID = Integer.parseInt(request.getParameter("schooljaar"));
-        SemesterDAO semesterDAO = new SemesterDAO();
-        int semesterID = semesterDAO.laadSemesterID(request.getParameter("semester"));
-        int gebruikerID = Integer.parseInt(request.getParameter("cursist"));
-        InschrijvingDAO inschrijvingDAO = new InschrijvingDAO();
+        int semesterID =Integer.parseInt(request.getParameter("semester"));
+        int gebruikerID = Integer.parseInt(request.getParameter("cursist"));    
         int inschrijvingID = inschrijvingDAO.geefInschrijvingID(gebruikerID, moduleID, semesterID, schooljaarID);
         ScoreDAO scoreDAO = new ScoreDAO();
         ArrayList<ScoreOverzicht> scores = scoreDAO.geefScoresVoorInschrijvingID(inschrijvingID, moduleID);
 
+       //behandel lege scores
         for (ScoreOverzicht score : scores) {
             if (score.getScore() == null || score.getScore().equalsIgnoreCase("Geen")) {
                 score.setScore("");
@@ -130,7 +129,7 @@ public class CursistOverzichtServlet extends HttpServlet {
                 score.setTaaknaam("");
             }
         }
-
+        //bereken gemiddelde score per doelstelling
         int exDoelstellingID = 0;
         double totaalScore = 0;
         int aantalTaken = 0;

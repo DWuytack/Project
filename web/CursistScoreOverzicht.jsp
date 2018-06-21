@@ -132,7 +132,7 @@
                 <!-- Evaluatie venster -->
                 <table id="evaluatieTable" class="evaltable" hidden>
                     <!-- Titelbalk-->
-                    <tr height="20px" />
+                    <tr height="10px" />
                     <tr bgcolor="#ceccca" height="50px" width="100%" >
                         <th width="3%" />
                         <th width="32%" class="links"><b>Doelstellingen</b></th>  
