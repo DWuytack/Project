@@ -21,6 +21,24 @@ public class ScoreOverzicht {
     private double totaalScore=0;
     private int aantalTaken=0;
     private double gemiddeldeScore=0;
+    private String commentaar="";
+    private int beoordelingssoortID=0;
+
+    public int getBeoordelingssoortID() {
+        return beoordelingssoortID;
+    }
+
+    public void setBeoordelingssoortID(int beoordelingssoortID) {
+        this.beoordelingssoortID = beoordelingssoortID;
+    }
+
+    public String getCommentaar() {
+        return commentaar;
+    }
+
+    public void setCommentaar(String commentaar) {
+        this.commentaar = commentaar;
+    }
 
     public int getAantalTaken() {
         return aantalTaken;

@@ -18,6 +18,7 @@ import model.Doelstelling;
 import model.DoelstellingDAO;
 import model.EvaluatieFormulier;
 import model.EvaluatieFormulierDAO;
+import model.FormulierScores;
 import model.Gebruiker;
 import model.GebruikerDAO;
 import model.InschrijvingDAO;
@@ -66,9 +67,15 @@ public class EvaluatieFormulierServlet extends HttpServlet {
         String bewaarCommentaarVoorTaak = request.getParameter("bewaarCommentaarVoorTaak");
         String bewaarDoelstellingScore = request.getParameter("bewaarDoelstellingScore");
         String bestaatFormulierAl = request.getParameter("bestaatFormulierAl");
+        String laadScoresVanDoelstellingen = request.getParameter("laadScoresVanDoelstellingen");
      
         response.setContentType("application/json");
 
+        
+        if (laadScoresVanDoelstellingen != null) {
+            response.getWriter().write(laadScoresVanDoelstellingen(Integer.parseInt(laadScoresVanDoelstellingen), request));
+        }
+      
         if (bewaarDoelstellingScore != null) {
             bewaarDoelstellingScore(Integer.parseInt(bewaarDoelstellingScore), request);
         }
@@ -111,9 +118,16 @@ public class EvaluatieFormulierServlet extends HttpServlet {
         }
     }
     
-    //laad de gegevens van een formulier
+    
+      //laad de gegevens van een formulier
     protected String laadTakenVanFormulier(int formulierID, HttpServletRequest request) {
         ArrayList<ScoreOverzicht> scoreOverzicht =evaluatieFormulierDAO.laadFormulier(formulierID);
+        return gson.toJson(scoreOverzicht); 
+    }
+    
+    //laad de gegevens van een formulier
+    protected String laadScoresVanDoelstellingen(int formulierID, HttpServletRequest request) {
+        ArrayList<FormulierScores> scoreOverzicht =evaluatieFormulierDAO.laadScoresVanDoelstellingen(formulierID);
         return gson.toJson(scoreOverzicht); 
     }
 

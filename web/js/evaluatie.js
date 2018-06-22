@@ -90,28 +90,39 @@ function toonFormulierTitel(kleur) {
 
 function laadFormulier() {
 
-
     if (aantalTaken > 0)
         formulierLeegMaken();
 
     var label = document.getElementById('formulierNaam');
     label.style.color = "red";
     label.innerHTML = "formulierNaam: " + formulierNaam;
+    var taakOverzicht = "";
+    var scoreOverzicht = "";
+
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "EvaluatieFormulierServlet?laadTakenVanFormulier=" + formulierID, true);
     xhttp.send();
     //als het taken door de server worden afgeleverd
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            var taakOverzicht = JSON.parse(xhttp.responseText);
-            toonOverzicht(taakOverzicht);
+            taakOverzicht = JSON.parse(xhttp.responseText);
+            var xhttp2 = new XMLHttpRequest();
+            xhttp2.open("POST", "EvaluatieFormulierServlet?laadScoresVanDoelstellingen=" + formulierID, true);
+            xhttp2.send();
+            //als het taken door de server worden afgeleverd
+            xhttp2.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    scoreOverzicht = JSON.parse(xhttp2.responseText);
+                    toonOverzicht(taakOverzicht, scoreOverzicht);
+                }
+            };
         }
     };
-    toonOnderstersteButtons(true, true, true, false);
 }
 
-function toonOverzicht(taakOverzicht) {
+function toonOverzicht(taakOverzicht, scoreOverzicht) {
 
+    //toon alle doelstellingen met alle bijhorende vakken
     for (x = 0; x < taakOverzicht.length; x++) {
         laadLijn();
         var taakID = "taakID" + taakOverzicht[x].taakID;
@@ -120,15 +131,15 @@ function toonOverzicht(taakOverzicht) {
         for (var i = 0; i < select.options.length; i++) {
             if (select.options[i].id === taakID) {
                 select.options[i].selected = true;
-                taakWissel(taakID, rowID);
+                taakWissel(taakID, rowID, taakOverzicht[x].commentaar, scoreOverzicht);
             }
         }
     }
+
 }
 
-
 function formulierLeegMaken() {
-    
+
     var label = document.getElementById('formulierNaam');
     if (aantalTaken === 0)
         return;
@@ -491,7 +502,7 @@ function laadLijn() {
     select.add(option);
     //plaats de dropdown in de rij op de evaluatie.jsp
     select.onchange = function () {
-        taakWissel(select.options[select.selectedIndex].id, row.id);
+        taakWissel(select.options[select.selectedIndex].id, row.id, "", "");
     };
     taakVak.appendChild(select);
     //lege cel
@@ -528,8 +539,7 @@ function laadLijn() {
 }
 
 
-function taakWissel(taakID, rowID) {
-
+function taakWissel(taakID, rowID, commentaar, scoreOverzicht) {
     var row = document.getElementById(rowID);
     var rijnr = rowID.replace("row", "");
     var xhttp7 = new XMLHttpRequest();
@@ -579,19 +589,24 @@ function taakWissel(taakID, rowID) {
                 xhttp9.onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
                         scores = JSON.parse(xhttp9.responseText);
-                        toonScores(row, rijnr);
+                        toonScores(row, rijnr, scoreOverzicht);
                     }
                 };
             } else {
-                toonScores(row, rijnr);
+                toonScores(row, rijnr, scoreOverzicht);
             }
             ;
 
             var comment = document.createElement('textarea');
+
             comment.id = "comment" + rijnr;
             comment.rows = aantalDoelstellingen + 1;
             comment.cols = 35;
             comment.style = "background: #f9f9f9";
+            comment.wrap = "hard";
+            if (commentaar !== "") {
+                comment.value = commentaar;
+            }
             row.cells[9].innerHTML = "";
             row.cells[9].appendChild(comment);
         }
@@ -627,7 +642,7 @@ function toonOnderstersteButtons(bewaar, print, leeg, laad) {
 
 
 
-function toonScores(row, rijID) {
+function toonScores(row, rijID, scoreOverzicht) {
 
     row.cells[7].innerHTML = "";
     for (let i = 0; i < doelstellingen[rijID].length; i++) {
@@ -651,11 +666,30 @@ function toonScores(row, rijID) {
             option.text = scores[x].naam;
             option.id = "beoordelingssoortID" + scores[x].beoordelingssoortID;
             option.name = doelstellingen[rijID][i].doelstellingID;
+
+            if (scoreOverzicht !== "") {
+                var huidigSelect = document.getElementById("select" + rijID);
+                var taakID = huidigSelect.options[huidigSelect.selectedIndex].id;
+                var taskID=taakID.replace("taakID", "");
+
+                for (s = 0; s < scoreOverzicht.length; s++) {
+                    if (taskID == scoreOverzicht[s].taakID) {
+                        if (scoreOverzicht[s].doelstellingID == doelstellingen[rijID][i].doelstellingID) {
+                            if (scores[x].beoordelingssoortID == scoreOverzicht[s].beoordelingssoortID){
+                                option.selected=true;
+                            }
+                        }
+                    }
+                }
+                berekenGemiddelde(rijID);
+            }
             scoreSelect.add(option);
         }
         row.cells[7].appendChild(scoreSelect);
     }
 }
+
+
 
 function berekenGemiddelde(rij) {
     var scoreBoxes = document.getElementsByName("score" + rij);

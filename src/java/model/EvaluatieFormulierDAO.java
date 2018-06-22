@@ -264,7 +264,9 @@ public class EvaluatieFormulierDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        String sql = "select distinct(evalform_scores.taakID) from evalform_scores where evalform_scores.evaluatieformID=?";
+        String sql = "select taakID, commentaar\n" +
+                    "from evalform_comments\n" +
+                    "where evaluatieformID=?";
           
         try {
             //connectie met de database
@@ -279,6 +281,7 @@ public class EvaluatieFormulierDAO {
             while (rs.next()) {
                 ScoreOverzicht score = new ScoreOverzicht();
                 score.setTaakID(rs.getInt("taakID"));
+                score.setCommentaar(rs.getString("commentaar"));
                 scores.add(score);
             }            
             
@@ -289,13 +292,42 @@ public class EvaluatieFormulierDAO {
         }
         return scores;
     }
+
+    public ArrayList<FormulierScores> laadScoresVanDoelstellingen(int formulierID) {
+       
+        ArrayList<FormulierScores> scores = new ArrayList<>();
+        Connection currentCon = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         
-        
-        
-        
-        
-        
-        
-    
+        String sql = "select evalform_scores.taakID,evalform_scores.doelstellingID,evalform_scores.beoordelingssoortID\n" +
+                    " from evalform_scores\n" +
+                    " left join beoordelingssoorten on beoordelingssoorten.beoordelingssoortID=evalform_scores.beoordelingssoortID\n" +
+                    " where evalform_scores.evaluatieformID=?";
+          
+        try {
+            //connectie met de database
+            currentCon = ConnectionManager.getConnection();   
+            ps = currentCon.prepareStatement(sql);
+            ps.setInt(1, formulierID);
+            ps.executeQuery();
+            
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                FormulierScores score = new FormulierScores();
+                score.setTaakID(rs.getInt("taakID"));
+                score.setDoelstellingID(rs.getInt("doelstellingID"));
+                score.setBeoordelingssoortID(rs.getInt("beoordelingssoortID"));
+                scores.add(score);
+            }            
+            
+        } catch (SQLException e) {
+            System.out.println(e.getErrorCode());
+        } finally {
+            Utilities.sluitVariabelen(ps, rs, currentCon);
+        }
+        return scores;
+    }
 
 }
