@@ -5,6 +5,7 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,24 +21,30 @@ import model.GebruikerDAO;
 public class LoginServlet extends HttpServlet {
 
      
+    Gson gson = new Gson();
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, java.io.IOException {
 
         try {
-            
+               
             Gebruiker gebruiker = new Gebruiker();
-            gebruiker.setLogin(request.getParameter("un"));
-            gebruiker.setPaswoord(request.getParameter("pw"));
+            gebruiker.setLogin(request.getParameter("checkLogin"));
+            gebruiker.setPaswoord(request.getParameter("paswoord"));
             
             GebruikerDAO gebruikerDAO=new GebruikerDAO();
             gebruiker = gebruikerDAO.login(gebruiker);
+            
+             response.setContentType("application/json");
 
             if (gebruiker.isGeldig()) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("currentSessionUser", gebruiker);
-                response.sendRedirect("BeginMenu.jsp"); //logged-in page      		
+               
+                response.getWriter().write(gson.toJson(true));
+                		
             } else {
-                response.sendRedirect("InvalidLogin.jsp"); //error page 
+               response.getWriter().write(gson.toJson(false));
             }
         } catch (Throwable theException) {
             System.out.println(theException);

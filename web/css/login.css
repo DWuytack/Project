@@ -1,10 +1,7 @@
+
 body { 
     background: url(../images/lepel.jpg) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
-    
     height: 100vh;
     width: 100vw;
 }
@@ -15,8 +12,8 @@ main {
     justify-content: center;
     align-items: center;
     align-content: center;
-    height: 90%;
-    width: inherit;
+    height: 50%;
+    width: 110%;
 }
 
 main h1 {
@@ -24,7 +21,7 @@ main h1 {
     color: #ec6e24; 
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 70px;
+    font-size: 90px;
     font-weight: bold;
     letter-spacing: -3px;
     text-shadow: #EDEDED 3px 2px 0;
@@ -34,17 +31,17 @@ main h1 {
 main input {
     text-align: center;
     border: 3px solid #ec6e24;
-    border-radius: 15px;
-    
+    border-radius: 15px;   
     font-size: 18px;
-    margin: 10px;
-    
+    margin: 10px;   
     height: 50px;
 }
-#bt-login {
-    margin-top: 40px;
-    background: #ec6e24; 
+
+main input:hover{
+    background: #efe1c4  !important;
+    text-decoration: none;
 }
+
 
 /* RESIZE SUPPORT */
 @media screen and (max-width: 800px) {
@@ -59,10 +56,11 @@ main input {
 }
 
 #bt-login { 
-    font-family: Raleway; /*Force Elem Bug */
 
+    font-family: Raleway; /*Force Elem Bug */
+    margin-top: 40px;
     position: relative;
-    padding: 10px;
+    padding: 0px;
 
     background-color: #ec6e24;
 
@@ -71,14 +69,18 @@ main input {
     color: #fff;
     font-weight: 600;
     text-shadow: 0 0 150px #000;
-
-    background-image: url(../images/bg-chef3.png);
-    background-blend-mode: soft-light;
     background-size: 250px;
-
     text-align: center;
 }
 
-input[type="button"]:focus, input[type="submit"]:focus {
-    filter: brightness(75%);
+#bt-login:hover{
+    background: #73a7c7  !important;
+    text-decoration: none;
+}
+
+.foutBoodschap {
+
+    color: blue;
+    font-size: 18px;
+    font-weight:bold
 }

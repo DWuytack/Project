@@ -255,7 +255,7 @@ i[name="gebruiker zoeken"] {
 
     border-radius: 10px;
 
-    background-image: url(../images/bg-chef3.png);
+   
     background-size: 250px;
     background-blend-mode: soft-light;
 }
@@ -1019,7 +1019,7 @@ input[type="submit"] {
     font-weight: 600;
     text-shadow: 0 0 150px #000;
 
-    background-image: url(../images/bg-chef3.png);
+ 
     background-size: 250px;
    
     text-align: center;

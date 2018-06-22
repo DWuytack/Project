@@ -50,7 +50,9 @@
         <section id="nav-menu">  
             <form action="MenuServlet">
                 <div id="main-menu">
-
+                    
+                    
+                    
                     <c:if test="${sessionScope.currentSessionUser.rol == 'admin'}" >
                         <input type="submit" value="Overzicht gebruikers" name="actie"><br>
                         <input type="submit" value="Cursisten inschrijven" name="actie"><br>
