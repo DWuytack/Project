@@ -39,6 +39,7 @@ public class Beoordelingssoort {
 
     public double getWaarde() {
         return waarde;
+        
     }
 
     public void setWaarde(double waarde) {

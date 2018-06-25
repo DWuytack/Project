@@ -7,498 +7,66 @@ De css voor de pagina "gebruikersOverzicht.jsp"
 */
 
 
-/* Preload
-   ========================================================================== */
-
-.bt-eerste>i {
-    background-image: url(../images/eerste_grijswaarde_48dp.png);
-}
-.bt-vorige>i {
-    background-image: url(../images/vorige_grijswaarde_48dp.png);
-}
-.bt-volgende>i {
-    background-image: url(../images/volgende_grijswaarde_48dp.png);
-}
-.bt-laatste>i {
-    background-image: url(../images/laatste_grijswaarde_48dp.png);
-}
-[name="aanpassen"]>i {
-    background-image: url(../images/aanpassen_kleur_18dp.png);
-}
-[name="verwijderen"]>i {
-    background-image: url(../images/record_verwijderen_padded_kleur_18dp.png);
-}
-[name="Zoeken"]>i {
-    background-image: url(../images/zoeken_grijswaarde_48dp.png);
-}
-[name="Gebruiker_toevoegen"]>i {
-    background-image: url(../images/gebruiker_toevoegen_grijswaarde_48dp.png)
-}
-[name="Gebruiker_toevoegen"].active>i {
-    background-image: url(../images/gebruiker_toevoegen_zwart_48dp.png)
-}
-[name="opslaan"]>i {
-    background-image: url(../images/opslaan_kleur_18dp.png);
-}
-[name="annuleren"]>i {
-    background-image: url(../images/annuleren_kleur_18dp.png);
-}
-[name="verwijderen_bevestigen"]>i {
-    background-image: url(../images/verwijderen_kleur_18dp.png);
-}
-[name="verwijderen_annuleren"]>i {
-    background-image: url(../images/annuleren_kleur_18dp.png);
-}
-[name="gebruiker_opslaan"] > i {
-    background-image: url(../images/opslaan_kleur_48dp.png);
-}
-[name="gebruiker_annuleren"] > i {
-    background-image: url(../images/annuleren_kleur_48dp.png);
-}
-
-/* Document
-   ========================================================================== */
-
-#pagename {
-    border-bottom: 1px solid #FF8000;
-}
-
-#gebruikersOverzicht {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-}
-
-/* TABLE
-   -------------------------------------------------------------------------- */
-
-table td {
-    line-height: 1.8;
-}
-
-.tabel-nav {
-    flex-wrap: wrap;
-}
-
-.w-zoeken, .w-knoppen {
-    min-width: 350px;
-    justify-content: center;
-    padding: 0 10px;
-}
-
-.w-zoeken {
-    align-items: center;
-}
-
-.w-knoppen a,
-.w-zoeken a {
-    width: 50px;
-    height: 50px;
-    min-width: 50px;
-    min-height: 50px;
-    padding: 10px;
-    /* opacity: .2; */
-}
-
-.w-knoppen a.inactive {
-    filter: brightness(115%);
-    cursor: default;
-}
-
-.w-zoeken [name="zoekterm"] {
-    background-color: rgba(0, 0, 0, .2);
-    padding: 6px;
-    font-size: 20px;
-    border: 0;
-}
-
-[results="first"].w-zoeken.active [name="zoekterm"] {
-    background-color: #ec6e24;
-}
-[results="middle"].w-zoeken.active [name="zoekterm"] {
-    background-color: #b2b2ff;
-}
-[results="none"].w-zoeken.active [name="zoekterm"] {
-    background-color: #f54343;
-}
-
-.bt-zoeken {
-    padding: 0 15px 0 0;
-}
-
-.w-zoeken.active .bt-zoeken {
-    opacity: .9;
-}
-.w-zoeken.active .bt-zoeken i {
-    background-image: url(../images/zoeken_kleur_48dp.png);
-}
-
-[name="zoekterm"] {
-    width: 100%;
-    filter: contrast(50%);
-}
-
-.w-zoeken [name="zoekterm"]:focus {
-    background-color: #ec6e24;
-    opacity: .7;
-    filter: contrast(100%);
-}
-.w-zoeken.active [name="zoekterm"] {
-    background-color: #ec6e24;
-    opacity: .9;
-    filter: contrast(100%);
-}
-.aantalGebruikersContainer > span {
-    font-weight: bold;
-}
-
-.tabel-container table {
-    border-radius: 10px;
-    overflow: hidden;
-    margin: auto;
+.overzichtTable {
+   
+    padding: 15px;
+    border-spacing: 5px;
     width: 100%;
 }
 
-.tabel-container tfoot {
-    display: none;
+.formrow {
+    height: 30px;
 }
 
-.tabel-container tr:nth-child(odd) {
-    background-color: #f8f6ff;
+.kleur {
+    background-color: orange;
 }
 
-.tabel-container th {
-    font-size: 18px;
-    color: #fff;
-    background-color: #ec6e24;
-    font-weight: bold;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.links{
     text-align: left;
-    padding-left: 5px;
 }
 
-.tabel-container th[title="Acties"] {
+.center{
     text-align: center;
 }
 
-.tabel-container td {
-    font-size: 15px;
-    color: #404040;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 12px;
-    padding-left: 7px;
-    word-wrap: break-word;
-}
-
-.tabel-container select {
-    margin-left: -4px;
-}
-.tabel-container [name="geboorteDatum"] {
-    margin-left: -1px;
-}
-
-.rijOverzicht input {
-    background: none;
-    border: none;
-}
-.rijOverzicht select {
-    background: none;
-    border: none;
-}
-
-.rijOverzicht input[type=text]:not([name="email"]), .rijOverzicht input[type="date"], .rijOverzicht select[name="rol"] {
-    max-width: 105px;
-}
-.rijOverzicht input[name="email"] {
-    max-width: 300px;
-    width: 100%;
-}
-
-.actie-images {
-    display: flex;
-    justify-content: space-evenly;
-    align-content: center;
-    align-items: center;
-}
-
-.actie-images a {
-    width: 25px;
-    height: 25px;
-    display: flex;
-    align-content: center;
-    align-items: center;
-}
-
-/* && Actie */
-
-.tabel-container[actie="rijFocus"] .tabel-nav [role="button"],
-.tabel-container[actie="rijFocus"] .tabel-nav input,
-.tabel-container[actie="tfootFocus"] .tabel-nav [role="button"]:not(.bt-gebruiker_toevoegen),
-.tabel-container[actie="tfootFocus"] .tabel-nav input
-{
-    cursor: not-allowed;
-}
-
-.tabel-container[actie="rijFocus"] tbody tr:not(.edit):not(.delete) {
-    opacity: 0.5;
-}
-
-.tabel-container[actie="rijFocus"] tbody tr:not(.edit):not(.delete) [role="button"] {
-    cursor: not-allowed;
-}
-
-.tabel-container[actie="rijFocus"] tr.edit td {
-    background-color: rgba(255, 255, 0, .5);
-}
-
-.tabel-container[actie="rijFocus"] tr.delete td {
-    background-color: rgba(239, 20, 20, .1);
-    color: rgba(239, 20, 20, .8);
-}
-
-.tabel-container[actie="tfootFocus"] .tabel-nav [role="button"]:not(.bt-gebruiker_toevoegen),
-.tabel-container[actie="tfootFocus"] .tabel-nav input {
-    opacity: .05;
-}
-.tabel-container[actie="tfootFocus"] .bt-gebruiker_toevoegen {
-    background-color: #ec6e24;
-    opacity: 1;
-}
-.tabel-container[actie="tfootFocus"] > [role="footer"] .aantalGebruikersContainer {
-    display: none;
-}
-.tabel-container[modus="kort"][actie="tfootFocus"] .w-gebruikersOverzicht {
-    display: flex;
-    max-width: 500px;
-}
-.tabel-container[modus="kort"][actie="tfootFocus"] thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
-.tabel-container[actie="tfootFocus"] tfoot {
-    display: table-footer-group;
-}
-
-.tabel-container[actie="tfootFocus"] tbody {
-    display: none;
-}
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child {
-    background-color: #f8f6ff;
-    border-bottom: 3px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    border: 5px solid #ec6e24;
-    margin-bottom: .625em;
-}
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child td {
-    border-bottom: 1px solid #ddd;
-    font-size: .8em;
+.rechts{
     text-align: right;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 12px;
-    font-size: 14px;
 }
 
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child td:first-child {
-    padding: 20px 12px 12px 12px;
+.doelstelling1{
+
+
+    margin-left:auto; 
+    margin-right:auto;
 }
 
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child td::before {
-    content: attr(data-label);
+
+.evalButton  { 
+
+ -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #132ec4;
+  font-size: 20px;
+  background: #ebc599 !important;
+  padding: 10px 20px 10px 20px;
+  border: solid #73a7c7 1px;
+  text-decoration: none;
+}
+
+.evalButton:hover{
+background: #ff8000 !important;
+  text-decoration: none;
+}
+
+.lijnButton  { 
+
+    font-size: 20px;
     font-weight: bold;
-    text-transform: uppercase;
-    display: flex;
-    min-width: 120px;
-    max-width: 100%;
-    width: 100%;
-    padding: 10px;
-}
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child input {
-    display: flex;
-    width: 100%;
-    margin: 0 2% 0 0;
-    padding: 5px 0 5px 10px;
-    font-size: 18px;
-    max-width: none;
-    border: 0;
-    line-height: 1.5;
-}
-input[type="date"]::before {
-    margin-right: 5px;
-}
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child input[type="date"]::-webkit-datetime-edit { 
-    width: 100px;
-}
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child input[type="date"]::-webkit-calendar-picker-indicator {
-    min-width: 30px;
-}
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child select {
-    display: flex;
-    width: 100%;
-    margin: 0 2% 0 -4px;
-    padding: 5px 0 5px 10px;
-    font-size: 18px;
-    max-width: none;
-    border: 0;
-}
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child td {
-    background-color: #ddd;
-    background-image: url(../images/noise.png);
-}
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child .actie-images {
-    padding: 0 30px;
-    width: 100%;
-}
-.tabel-container[modus="kort"][actie="tfootFocus"] tfoot tr:first-child .actie-images a {
-    width: 40px;
-    height: 40px;
-}
-
-/* Popup
-   ========================================================================== */
-
-
-
-/* Resize Support
-   ========================================================================== */
-
-@media screen and (min-width: 800px) {
-
-    body {
-        min-width: 950px;
-    }
-
-    #c-gebruikersOverzicht {
-        max-width: 1200px;
-        min-width: 950px;
-        justify-content: space-around;
-    }
-
-    .w-gebruikersOverzicht th {
-        width: 15%;
-    }
-
-    .w-gebruikersOverzicht th[title="Email"] {
-        width: 25%;
-    }
-
-    .w-gebruikersOverzicht th[title="Acties"] {
-        width: 80px;
-    }
-}
-
-@media screen and (max-width: 850px) {
-
-    body {
-        min-width: 500px;
-    }
-
-    .tabel-container > [role="content"] {
-        margin-top: 20px;
-        margin-left: 44px;
-    }
-    table tbody tr {
-        background-color: #f8f6ff;
-    }
-    #c-gebruikersOverzicht {
-        max-width: none;
-        min-width: unset;
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        margin: 0 5%;
-    }
-
-    table thead {
-        border: none;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
-
-    table tr {
-        border-bottom: 3px solid #ddd;
-        display: block;
-        margin-bottom: .625em;
-    }
-
-    table td {
-        border-bottom: 1px solid #ddd;
-        display: block;
-        font-size: .8em;
-        text-align: right;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-
-    table td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        text-transform: uppercase;
-        display: flex;
-        min-width: 120px;
-        max-width: 50%;
-        width: 100%;
-        padding: 10px;
-    }
-
-    table td:last-child {
-        border-bottom: 0;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 12px;
-    }
-
-    .tabel-container .tabel-nav {
-        z-index: 300;
-        position: fixed;
-        top: 108px;
-        left: 0;
-        justify-content: flex-start;
-        flex-direction: column;
-    }
-    .tabel-container .w-knoppen {
-        flex-direction: column;
-        padding-left: 0;
-        width: 60px;
-        min-width: unset;
-    }
-    .tabel-container .w-knoppen a {
-        background-color: #eee;
-        opacity: .9;
-    }
-    .tabel-container .w-zoeken {
-        background: #eee;
-        padding-left: 0;
-        min-width: initial;
-        width: 60px;
-        justify-content: flex-start;
-    }
-    .tabel-container .bt-zoeken {
-        opacity: .9;
-    }
-    .w-zoeken [name="zoekterm"] {
-        display: none;
-    }
-    .w-zoeken.active {
-        width: auto;     
-    }
-    .w-zoeken.active [name="zoekterm"] {
-        display: flex;
-    }
+    color: blue;
+    background-color :#d6b691 !important;
+    height: 25px;
+    width:25px;
 }

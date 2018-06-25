@@ -5,6 +5,7 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -61,25 +62,6 @@ public class MenuServlet extends HttpServlet {
 
                 case "Overzicht gebruikers":
 
-                    //laden van gebruikers uit database
-                    gebruikerDAO = new GebruikerDAO();
-                    ArrayList gebruikers = gebruikerDAO.gebruikersLaden(1);
-
-                    int aantalGebruikers = gebruikerDAO.geefAantalGebruikers();
-                    int bladz = 1;
-                    int getoondeGebruikers = Instellingen.AANTAL_RECORDS_PER_PAGE;
-                    int aantalBladz = (int) (Math.ceil((double) (aantalGebruikers) / (double) (getoondeGebruikers)));
-                    session.setAttribute("aantalRecords", aantalGebruikers);
-                    session.setAttribute("bladzijde", bladz);
-                    session.setAttribute("aantalBladz", aantalBladz);
-
-                    int toongebruikers = getoondeGebruikers * bladz;
-                    if (toongebruikers > aantalGebruikers) {
-                        toongebruikers = aantalGebruikers;
-                    }
-                    session.setAttribute("getoondeGebruikers", getoondeGebruikers);
-                    session.setAttribute("toonGebruikers", toongebruikers);
-                    session.setAttribute("lijstGebruikers", gebruikers);
                     response.sendRedirect("GebruikersOverzicht.jsp");
                     break;
 

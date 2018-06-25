@@ -16,7 +16,6 @@ public class Semester {
         this.semesterID = semesterID;
     }
 
-
     public String getSemester() {
         return semester;
     }

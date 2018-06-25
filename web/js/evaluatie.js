@@ -470,6 +470,7 @@ function laadLijn() {
     var row = evalTable.insertRow((aantalTaken * 2) + 1);
     row.id = "row" + aantalTaken;
     row.name = "rij" + aantalTaken;
+    row.style.height=30;
     //lege cel
     row.insertCell(0);
     //vak voor taakdropdown

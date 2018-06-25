@@ -185,6 +185,49 @@ public class GebruikerDAO {
         return gebruikers;
     }
 
+    
+     public ArrayList<Gebruiker> gebruikersLaden() {
+
+        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
+        Connection currentCon = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            currentCon = ConnectionManager.getConnection();
+            String sql = "select gebruikerID, voornaam, achternaam, login, email, geboortedatum, rol from gebruikers \n" +
+                        " inner join rollen  on gebruikers.rolID= rollen.rolID \n" +
+                        " where rollen.rolID != 3\n" +
+                        " order by achternaam";
+            
+            statement = currentCon.createStatement();
+            rs = statement.executeQuery(sql);
+          
+            while (rs.next()) {
+         
+                    Gebruiker gebruiker = new Gebruiker();
+                    gebruiker.setGebruikerID(rs.getInt("gebruikerID"));
+                    gebruiker.setVoorNaam(rs.getString("voornaam"));
+                    gebruiker.setAchternaam(rs.getString("achternaam"));
+                    gebruiker.setLogin(rs.getString("login"));
+                    gebruiker.setRol(rs.getString("rol"));
+                    gebruiker.setGeboorteDatum(rs.getString("geboortedatum"));
+                    gebruiker.setEmail(rs.getString("email"));
+                    gebruikers.add(gebruiker);
+                }
+            
+
+        } catch (SQLException e) {
+
+        } finally {
+            sluitVariabelen(rs, statement, null, currentCon);
+
+        }
+        return gebruikers;
+    }
+    
+    
+    
     public int geefAantalGebruikers() {
 
         Connection currentCon = null;
@@ -238,6 +281,8 @@ public class GebruikerDAO {
 
         }
     }
+    
+    
 
     public void gebruikerAanpassen(int gebruikerID, Gebruiker gebruiker) {
         Connection currentCon = null;
